@@ -93,7 +93,6 @@
     const grid = $('subject-grid');
     grid.innerHTML = '';
     const extra = [
-      { key: 'poem', name: '古诗·背诵', icon: '📜', desc: '敬请期待' },
       { key: 'more', name: '更多学科', icon: '➕', desc: '敬请期待' }
     ];
     Object.keys(Store.SUBJECTS).concat(extra.map(e => e.key)).forEach(key => {

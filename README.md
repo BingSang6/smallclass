@@ -13,6 +13,7 @@
 - **语文·字词**：会认字/易错字 → 形近字 → 多音字 → 词语搭配 → 近反义词 → 成语运用，6 段闯关（426 题）
 - **📚 单元巩固**：跟课本单元走的概念题 + 易错辨析题（目前内置北师大版四上 8 个单元 85 题，其他年级待录库）
 - **🌅 今日复习（间隔重复）**：错题按 SM-2 简化调度（1/3/7/14/30 天记忆盒子），答对升盒、答错回盒底、升出第 5 盒 = 精通出池；跨学科混合，每次最多 8 题
+- **📜 古诗·背诵**：53 首公版必背诗词、476 题（接下句/接上句/认作者/名句出处），按学段分年级分 6 段位
 - **错题重现**：答错立即提示错因，当场再练一道同类题（口算换数字 / 概念题重问），并自动排入明日复习
 - **零打字**：大按钮点选答题，选项乱序，即时反馈
 - **语音读题**：自动朗读题目（可开关），还不会认字也能玩；分数按中文读法（"三分之二"）
@@ -56,6 +57,7 @@ python tools/test_app.py
 python tools/gen_bank.py        # data/banks/math-oral.json（1015 题）
 python tools/gen_words.py       # data/banks/chinese-words.json（426 题）
 python tools/gen_unit_bank.py   # data/banks/math-g4-units.json（四上 8 单元 85 题）
+python tools/gen_poems.py       # data/banks/poems.json（古诗 476 题）
 ```
 
 题库结构：`{q, a, options[2-3], wrongReasons[2], grade, level, tag, id, speak?}`，
@@ -71,14 +73,13 @@ python tools/gen_unit_bank.py   # data/banks/math-g4-units.json（四上 8 单�
 index.html / manifest.webmanifest / sw.js
 css/style.css
 js/{app,quiz,tts,storage,sw-register}.js
-data/banks/{math-oral, chinese-words, math-g4-units}.json
-tools/{gen_bank, gen_words, gen_unit_bank, test_app}.py
+data/banks/{math-oral, chinese-words, math-g4-units, poems}.json
+tools/{gen_bank, gen_words, gen_unit_bank, gen_poems, test_app}.py
 ROADMAP.md   # 项目进度文档
 icons/
 ```
 
 ## 路线图（详见 ROADMAP.md）
 
-- v2.7 交错练习：口算 + 字词 + 单元题混合挑战
-- v2.8 古诗文背诵：公版诗词填空（对接 primary-tutor-skill 知识库）
+- v2.7 交错练习：口算 + 字词 + 古诗 + 单元题混合挑战
 - v3 闭环：导出错题 + 掌握度 → AI 助教讲解 / 错题打印卷

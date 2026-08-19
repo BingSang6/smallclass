@@ -1,10 +1,10 @@
 /* sw.js — 离线缓存（cache-first，版本号升级时更新） */
-const CACHE = 'smallclass-v7';
+const CACHE = 'smallclass-v8';
 const ASSETS = [
   './', './index.html', './manifest.webmanifest',
   './css/style.css',
   './js/storage.js', './js/tts.js', './js/quiz.js', './js/app.js',
-  './data/banks/math-oral.json', './data/banks/chinese-words.json', './data/banks/math-g4-units.json',
+  './data/banks/math-oral.json', './data/banks/chinese-words.json', './data/banks/math-g4-units.json', './data/banks/poems.json',
   './icons/icon-192.png', './icons/icon-512.png'
 ];
 

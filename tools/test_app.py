@@ -236,6 +236,26 @@ def test_v11():
         print('review after unit wrong:', sched2)
         assert 'u4-' in sched2, 'unit wrong not scheduled'
         print('all errors:', errs if errs else 'none')
+        # ---- v2.8: 古诗·背诵 ----
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        cards = page.locator('.subject-card').count()
+        print('subject cards now (expect 4):', cards)
+        assert cards == 4
+        names = page.locator('.sc-name').all_inner_texts()
+        print('subjects:', names)
+        assert '古诗·背诵' in names
+        page.locator('.subject-card').nth(2).click()   # 古诗
+        page.wait_for_timeout(400)
+        assert '古诗' in page.locator('#hello-name').inner_text()
+        page.screenshot(path='shots/16-poem-home.png')
+        page.click('#btn-go')
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        pq = page.locator('#question-text').inner_text()
+        print('poem question:', pq)
+        assert ('接下句' in pq or '接上句' in pq or '作者是谁' in pq or '出自哪首诗' in pq)
+        assert page.locator('.opt-btn').count() == 3
+        page.screenshot(path='shots/17-poem-quiz.png')
+        print('v2.8 errors:', errs if errs else 'none')
         browser.close()
 
 test_v11()
