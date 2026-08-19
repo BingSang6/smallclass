@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="口算闯关">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<title>口算闯关 · 小课堂</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ============ 屏：欢迎/选学生 ============ -->
+    <section id="screen-setup" class="screen">
+      <h1 class="logo">🦁 口算闯关</h1>
+      <p class="sub">你是谁呀？点你的名字开始吧！</p>
+      <div id="student-list" class="big-btn-list"></div>
+      <button class="btn small" id="btn-add-student">➕ 新同学</button>
+      <div id="add-form" class="hidden">
+        <input id="inp-name" type="text" maxlength="8" placeholder="你的名字（家长帮忙输）">
+        <div id="grade-picker" class="grade-picker"></div>
+        <button class="btn primary" id="btn-create">开始学习 🚀</button>
+      </div>
+      <p class="foot-tip">家长入口：左下角 ⚙️ 设置</p>
+      <button class="btn tiny corner" id="btn-settings">⚙️</button>
+    </section>
+
+    <!-- ============ 屏：首页 ============ -->
+    <section id="screen-home" class="screen hidden">
+      <div class="hello">
+        <div id="hello-avatar" class="avatar">🦁</div>
+        <div>
+          <div id="hello-name">小朋友</div>
+          <div id="hello-info" class="sub">青铜 🔤</div>
+        </div>
+      </div>
+      <div id="level-map" class="level-map"></div>
+      <button class="btn primary huge" id="btn-go">▶️ 开始闯关</button>
+      <div class="home-row">
+        <button class="btn small" id="btn-album">🏅 我的贴纸</button>
+        <button class="btn small" id="btn-switch">🔄 换人</button>
+      </div>
+      <button class="btn tiny corner2" id="btn-read-toggle">🔊</button>
+    </section>
+
+    <!-- ============ 屏：闯关答题 ============ -->
+    <section id="screen-quiz" class="screen hidden">
+      <div class="quiz-top">
+        <span id="quiz-progress">⭐⭐☆☆☆</span>
+        <span id="quiz-level" class="sub"></span>
+      </div>
+      <div class="question-box">
+        <button class="btn tiny" id="btn-speak">🔊 听题</button>
+        <div id="question-text">3 × 8 = ?</div>
+      </div>
+      <div id="options" class="options"></div>
+      <div id="feedback" class="feedback hidden"></div>
+    </section>
+
+    <!-- ============ 屏：结算 ============ -->
+    <section id="screen-result" class="screen hidden">
+      <div id="result-sticker" class="big-sticker">🏅</div>
+      <h2 id="result-title">过关啦！</h2>
+      <p id="result-detail" class="sub"></p>
+      <button class="btn primary huge" id="btn-next">继续 ➡️</button>
+      <button class="btn small" id="btn-home">回主页 🏠</button>
+    </section>
+
+    <!-- ============ 屏：贴纸册 ============ -->
+    <section id="screen-album" class="screen hidden">
+      <h2>🏅 我的贴纸收藏</h2>
+      <div id="album-grid" class="album-grid"></div>
+      <button class="btn small" id="btn-album-back">返回 🔙</button>
+    </section>
+
+    <!-- ============ 屏：家长设置 ============ -->
+    <section id="screen-settings" class="screen hidden">
+      <h2>⚙️ 家长设置</h2>
+      <div id="settings-body"></div>
+      <button class="btn small" id="btn-settings-back">返回 🔙</button>
+    </section>
+
+    <!-- 休息提醒遮罩 -->
+    <div id="rest-overlay" class="overlay hidden">
+      <div class="overlay-box">
+        <div class="big-sticker">😴</div>
+        <h2>休息一下眼睛吧！</h2>
+        <p class="sub">你已经学满 20 分钟啦，去看看远处，喝口水～</p>
+        <button class="btn primary" id="btn-rest-ok">好，我休息 💤</button>
+      </div>
+    </div>
+
+    <!-- 错因弹层 -->
+    <div id="wrong-overlay" class="overlay hidden">
+      <div class="overlay-box">
+        <div class="big-sticker">🤔</div>
+        <div id="wrong-title" class="wrong-title">差一点点！</div>
+        <div id="wrong-reason" class="sub"></div>
+        <button class="btn primary" id="btn-wrong-ok">我知道了 👌</button>
+      </div>
+    </div>
+
+  </div>
+<script src="js/storage.js"></script>
+<script src="js/tts.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/app.js"></script>
+<script src="js/sw-register.js"></script>
+</body>
+</html>

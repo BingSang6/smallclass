@@ -1,0 +1,142 @@
+/* 口算闯关 · 儿童友好大字 UI */
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+:root {
+  --c-bg: #fdf6ec;
+  --c-primary: #ff9f43;
+  --c-green: #2ecc71;
+  --c-red: #ff6b6b;
+  --c-blue: #54a0ff;
+  --c-text: #5d4037;
+  --c-card: #ffffff;
+}
+
+body {
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--c-bg);
+  color: var(--c-text);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#app { max-width: 640px; margin: 0 auto; min-height: 100vh; position: relative; }
+
+.screen { padding: 24px 20px 40px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.hidden { display: none !important; }
+
+/* 首屏 */
+.logo { font-size: 40px; margin-top: 10vh; }
+.sub { color: #9b8a7d; font-size: 17px; }
+.foot-tip { color: #c4b5a5; font-size: 13px; margin-top: 20px; }
+
+.big-btn-list { display: flex; flex-direction: column; gap: 14px; width: 100%; margin-top: 8px; }
+
+/* 按钮 */
+.btn {
+  border: none; border-radius: 18px; padding: 16px 28px;
+  font-size: 22px; font-weight: 700; color: #fff;
+  background: var(--c-blue); cursor: pointer;
+  transition: transform .08s ease; min-width: 120px;
+}
+.btn:active { transform: scale(.94); }
+.btn.primary { background: var(--c-primary); }
+.btn.small { font-size: 17px; padding: 12px 22px; border-radius: 14px; }
+.btn.tiny { font-size: 16px; padding: 8px 14px; border-radius: 12px; min-width: 0; }
+.btn.huge { font-size: 28px; padding: 22px 40px; width: 100%; }
+.btn.green { background: var(--c-green); }
+.btn.student-btn { background: var(--c-blue); display: flex; align-items: center; gap: 14px; justify-content: flex-start; font-size: 26px; padding: 20px 26px; }
+.corner { position: absolute; left: 16px; bottom: 16px; }
+.corner2 { position: absolute; right: 16px; top: 16px; }
+
+/* 新增学生表单 */
+#add-form { width: 100%; display: flex; flex-direction: column; gap: 12px; align-items: center; margin-top: 10px; }
+#inp-name {
+  font-size: 22px; padding: 14px; width: 90%; text-align: center;
+  border: 3px solid var(--c-primary); border-radius: 14px; background: #fff;
+}
+.grade-picker { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 90%; }
+.grade-opt {
+  padding: 14px 0; text-align: center; font-size: 19px; font-weight: 700;
+  border-radius: 12px; background: #fff; border: 3px solid #eee;
+}
+.grade-btn.sel, .grade-opt.sel { border-color: var(--c-primary); background: #fff3e0; }
+
+/* 首页 */
+.hello { display: flex; align-items: center; gap: 16px; margin-top: 4vh; }
+.avatar { font-size: 56px; }
+#hello-name { font-size: 30px; font-weight: 800; }
+
+.level-map { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.level-card {
+  background: var(--c-card); border-radius: 16px; padding: 18px 10px; text-align: center;
+  border: 3px solid transparent; box-shadow: 0 3px 10px rgba(0,0,0,.06);
+}
+.level-card.sel { border-color: var(--c-primary); background: #fff3e0; }
+.level-card.locked { opacity: .45; }
+.level-card .medal { font-size: 40px; }
+.level-card .lv-name { font-size: 20px; font-weight: 800; margin-top: 4px; }
+.level-card .lv-desc { font-size: 13px; color: #9b8a7d; margin-top: 2px; }
+.level-card .lv-progress { font-size: 14px; color: var(--c-primary); font-weight: 700; margin-top: 4px; }
+
+.home-row { display: flex; gap: 14px; }
+
+/* 答题屏 */
+.quiz-top { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-top: 2vh; }
+#quiz-progress { font-size: 26px; letter-spacing: 4px; }
+.question-box {
+  width: 100%; background: var(--c-card); border-radius: 24px; padding: 30px 20px;
+  text-align: center; box-shadow: 0 4px 14px rgba(0,0,0,.08); position: relative;
+}
+#question-text { font-size: 56px; font-weight: 800; margin-top: 10px; letter-spacing: 2px; }
+#btn-speak { position: absolute; top: 12px; right: 12px; }
+
+.options { width: 100%; display: flex; gap: 14px; justify-content: center; margin-top: 6px; }
+.opt-btn {
+  flex: 1; min-height: 96px; font-size: 36px; font-weight: 800; color: var(--c-text);
+  background: #fff; border: 4px solid #eee; border-radius: 20px;
+}
+.opt-btn:active { transform: scale(.95); }
+.opt-btn.correct { background: var(--c-green); color: #fff; border-color: var(--c-green); }
+.opt-btn.wrong { background: var(--c-red); color: #fff; border-color: var(--c-red); }
+.opt-btn:disabled { opacity: .6; }
+
+.feedback { font-size: 20px; font-weight: 700; min-height: 30px; }
+
+/* 结算 */
+.big-sticker { font-size: 100px; margin-top: 8vh; animation: pop .5s ease; }
+@keyframes pop { 0% { transform: scale(0);} 70% { transform: scale(1.2);} 100% { transform: scale(1);} }
+
+/* 贴纸册 */
+.album-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%; }
+.sticker-cell {
+  aspect-ratio: 1; background: #fff; border-radius: 16px; display: flex;
+  align-items: center; justify-content: center; font-size: 44px;
+  border: 3px dashed #eee;
+}
+.sticker-cell.got { border-style: solid; border-color: var(--c-primary); }
+
+/* 设置 */
+#settings-body { width: 100%; display: flex; flex-direction: column; gap: 14px; }
+.setting-card { background: #fff; border-radius: 16px; padding: 16px; font-size: 17px; }
+.setting-card h3 { margin-bottom: 8px; }
+
+/* 遮罩 */
+.overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 99;
+  display: flex; align-items: center; justify-content: center;
+}
+.overlay-box {
+  background: #fff; border-radius: 24px; padding: 30px 24px; width: 82%;
+  text-align: center; display: flex; flex-direction: column; gap: 14px; align-items: center;
+}
+.overlay .big-sticker { margin-top: 0; font-size: 72px; }
+.wrong-title { font-size: 26px; font-weight: 800; }
+
+/* 家长设置 */
+.settings-row { display: flex; align-items: center; gap: 10px; margin: 10px 0; font-size: 16px; flex-wrap: wrap; }
+.settings-row select { font-size: 16px; padding: 6px; }
+#settings-body h3 { margin: 18px 0 8px; }
+#export-ta { width: 100%; height: 200px; font-size: 13px; font-family: monospace;
+  border: 2px solid #eee; border-radius: 12px; padding: 10px; background: #fff; }
+.feedback.ok { color: var(--c-green); }
