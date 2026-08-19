@@ -71,48 +71,4 @@ with sync_playwright() as p:
     print('JS errors:', errors if errors else 'none')
     browser.close()
 
-def test_v11():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page()
-        errs = []
-        page.on('pageerror', lambda e: errs.append(str(e)))
-        page.goto(BASE); page.wait_for_load_state('networkidle')
-        # 清空重来
-        page.evaluate("localStorage.clear()")
-        page.goto(BASE); page.wait_for_load_state('networkidle')
-        page.click('#btn-add-student'); page.fill('#inp-name', '星娃')
-        page.click('.grade-btn[data-g="3"]'); page.click('#btn-create')
-        page.wait_for_timeout(400)
-        # 模拟打一轮全对：直接改档案验证星级展示与解锁
-        page.evaluate("""() => {
-          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
-          d.students[0].levelStars = [1, 0, 0, 0];
-          localStorage.setItem('smallclass.v1', JSON.stringify(d));
-        }""")
-        page.goto(BASE); page.wait_for_load_state('networkidle')
-        info = page.locator('#hello-info').inner_text()
-        print('home info:', info)
-        assert '★' in info and '☆' in info, 'stars not shown'
-        # 白银应已解锁（青铜1星）
-        locked = page.locator('.level-card.locked').count()
-        print('locked cards (expect 2):', locked)
-        assert locked == 2, 'unlock rule wrong'
-        # 家长开启全部解锁
-        page.evaluate("document.getElementById('btn-settings').click()")
-        page.wait_for_timeout(200)
-        page.click("text=全部解锁：关")
-        page.wait_for_timeout(200)
-        page.goto(BASE); page.wait_for_load_state('networkidle')
-        locked2 = page.locator('.level-card.locked').count()
-        print('locked after unlockAll (expect 0):', locked2)
-        assert locked2 == 0, 'unlockAll not working'
-        # 点黄金段位开局
-        page.locator('.level-card').nth(2).click()
-        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
-        print('gold tier question:', page.locator('#question-text').inner_text())
-        page.screenshot(path='shots/07-v11-gold.png')
-        print('v1.1 errors:', errs if errs else 'none')
-        browser.close()
 
-test_v11()

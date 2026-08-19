@@ -65,22 +65,33 @@
   };
 
   /* ---------- 屏：首页 ---------- */
+  function starStr(lvStars) {
+    return '★'.repeat(lvStars) + '☆'.repeat(3 - lvStars);
+  }
+  // 段位解锁规则：已到达的 / 本段位拿到 1 星解锁下一段位 / 家长开「全部解锁」
+  function unlocked(stu, lv) {
+    if (Store.unlockAll()) return true;
+    if (lv <= stu.level) return true;
+    if (lv === stu.level + 1 && (stu.levelStars || [])[stu.level] >= 1) return true;
+    return false;
+  }
+
   function renderHome(stu) {
     $('hello-name').textContent = stu.name;
-    $('hello-info').textContent = Store.MEDALS[stu.level] + ' ' + Store.LEVELS[stu.level] +
+    $('hello-info').textContent = Store.MEDALS[stu.level] + ' ' + Store.LEVELS[stu.level] + starStr((stu.levelStars || [])[stu.level] || 0) +
       ' · ' + (stu.stars || 0) + '⭐';
     renderReadToggle();
     const map = $('level-map');
     map.innerHTML = '';
     Store.LEVELS.forEach((lname, lv) => {
       const desc = Store.LEVEL_DESC[stu.grade][lv];
-      const locked = lv > stu.level;
+      const open = unlocked(stu, lv);
       const b = document.createElement('button');
-      b.className = 'level-card' + (locked ? ' locked' : '') + (lv === stu.level ? ' sel' : '');
+      b.className = 'level-card' + (open ? '' : ' locked') + (lv === stu.level ? ' sel' : '');
       b.innerHTML = '<div class="lv-badge">' + Store.MEDALS[lv] + '</div>' +
-        '<div class="lv-name">' + lname + '</div>' +
-        '<div class="lv-desc">' + (locked ? '🔒 ' : '') + desc + '</div>';
-      if (!locked) b.onclick = () => startRound();
+        '<div class="lv-name">' + lname + starStr((stu.levelStars || [])[lv] || 0) + '</div>' +
+        '<div class="lv-desc">' + (open ? '' : '🔒 ') + desc + '</div>';
+      if (open) b.onclick = () => startRound(lv);
       map.appendChild(b);
     });
   }
@@ -147,10 +158,11 @@
     }
   }
 
-  function startRound() {
+  function startRound(lv) {
+    if (typeof lv === 'number') Store.updateCurrent(s => { s.level = lv; });
     const stu = Store.current();
     go('quiz');
-    $('quiz-level').textContent = Store.MEDALS[stu.level] + ' ' + Store.LEVELS[stu.level];
+    $('quiz-level').textContent = Store.MEDALS[stu.level] + ' ' + Store.LEVELS[stu.level] + starStr((stu.levelStars || [])[stu.level] || 0);
     $('wrong-overlay').classList.add('hidden');
     startRestTimer();
     let idx = 0;
@@ -158,19 +170,25 @@
       (q, opts, result) => { if (opts) idx++; roundUI(idx, q, opts, result); },
       r => {
         clearInterval(restTimer);
-        if (r.passed) {
+        // 得星：对 5 题得 2 星，对 4 题得 1 星
+        const win = r.correct >= 4 ? (r.correct >= 5 ? 2 : 1) : 0;
+        if (win > 0) {
           Store.updateCurrent(s => {
+            s.levelStars = s.levelStars || [0, 0, 0, 0];
+            s.levelStars[s.level] = Math.min(3, s.levelStars[s.level] + win);
             s.stars = (s.stars || 0) + r.correct;
-            if (r.correct >= r.total && s.level < 3) s.level++;
+            // 3 星升段
+            if (s.levelStars[s.level] >= 3 && s.level < 3) s.level++;
             if (s.stickers.length < 60) s.stickers.push(String(s.level));
           });
           const s2 = Store.current();
-          $('result-title').textContent = '🎉 通关成功！';
-          $('result-detail').textContent = '答对 ' + r.correct + ' / ' + r.total + ' 题，获得 ' + r.correct + ' 颗星！现在是' + Store.LEVELS[s2.level] + '段位';
+          $('result-title').textContent = '🎉 过关！获得 ' + '⭐'.repeat(win);
+          $('result-detail').textContent = '答对 ' + r.correct + ' / ' + r.total + ' 题' +
+            (s2.level > stu.level ? '，升到' + Store.LEVELS[s2.level] + '段位啦！' : '，再得星就能升级哦');
           $('result-sticker').textContent = Store.MEDALS[s2.level];
         } else {
           $('result-title').textContent = '💪 快要过关啦！';
-          $('result-detail').textContent = '答对 ' + r.correct + ' / ' + r.total + ' 题，再试一次一定行！';
+          $('result-detail').textContent = '答对 ' + r.correct + ' / ' + r.total + ' 题，再对一题就能得星，再试一次一定行！';
           $('result-sticker').textContent = '🌟';
         }
         go('result');
@@ -179,7 +197,7 @@
   }
 
   /* ---------- 结算 / 贴纸册 ---------- */
-  $('btn-next').onclick = () => init();
+  $('btn-next').onclick = () => startRound(Store.current().level);   // 同段位再来一轮
   $('btn-home').onclick = () => init();
   $('btn-wrong-ok').onclick = () => {
     $('wrong-overlay').classList.add('hidden');
@@ -268,6 +286,16 @@
       row.appendChild(del);
       body.appendChild(row);
     });
+
+    // 段位全部解锁（家长开关）
+    const h0 = document.createElement('h3');
+    h0.textContent = '段位设置';
+    body.appendChild(h0);
+    const sw = document.createElement('button');
+    sw.className = 'btn small' + (Store.unlockAll() ? ' green' : '');
+    sw.textContent = Store.unlockAll() ? '🔓 全部解锁：开（点击关闭）' : '🔒 全部解锁：关（点击开启）';
+    sw.onclick = () => { Store.setUnlockAll(!Store.unlockAll()); renderSettings(); };
+    body.appendChild(sw);
 
     // 导出错题本
     const h = document.createElement('h3');

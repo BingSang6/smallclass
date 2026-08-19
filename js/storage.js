@@ -15,19 +15,30 @@
     6: ['分数加减', '分数乘除', '三数互化', '混合口算']
   };
 
+  function migrate(d) {
+    if (d.unlockAll === undefined) d.unlockAll = false;
+    // 兼容 v1 旧档案
+    d.students.forEach(s => {
+      if (!s.levelStars) s.levelStars = [Math.min(3, s.level * 3), 0, 0, 0];
+      if (!s.tagStreaks) s.tagStreaks = {};
+    });
+    return d;
+  }
   function load() {
-    try { return JSON.parse(localStorage.getItem(KEY)) || { students: [], current: -1, autoRead: true }; }
-    catch (e) { return { students: [], current: -1, autoRead: true }; }
+    try { return migrate(JSON.parse(localStorage.getItem(KEY)) || { students: [], current: -1, autoRead: true }); }
+    catch (e) { return { students: [], current: -1, autoRead: true, unlockAll: false }; }
   }
   function save(db) { localStorage.setItem(KEY, JSON.stringify(db)); }
 
   function newStudent(name, grade) {
     return {
       name: name, grade: grade, level: 0,        // 0~3 段位
+      levelStars: [0, 0, 0, 0],                  // 每段位星级 0~3（3 星升段）
       stars: 0,                                   // 累计星数（贴纸）
       stickers: [],                               // 贴纸 id 列表
       clearedTags: {},                            // 已攻克知识点 tag -> 连对次数
       wrongPool: [],                              // 待巩固题 id（最多 30 条）
+      tagStreaks: {},                             // 错题 tag 连对计数（连对 2 次出池）
       recentQs: [],                               // 最近出过的题 id（避免重复）
       todayMins: 0, lastDay: ''                   // 当日学习分钟（20 分钟休息提醒）
     };
@@ -55,7 +66,10 @@
       if (d.current >= d.students.length) d.current = d.students.length - 1;
       save(d);
     },
-    setGrade(i, grade) { const d = load(); d.students[i].grade = grade; d.students[i].level = 0; save(d); },
+    setGrade(i, grade) { const d = load(); d.students[i].grade = grade; d.students[i].level = 0; d.students[i].levelStars = [0,0,0,0]; save(d); },
+
+    unlockAll() { return load().unlockAll; },
+    setUnlockAll(v) { const d = load(); d.unlockAll = v; save(d); },
 
     /** 更新当前学生（传入修改函数） */
     updateCurrent(fn) { const d = load(); if (d.current >= 0) { fn(d.students[d.current]); save(d); } },
