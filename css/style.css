@@ -156,3 +156,7 @@ body {
 .sc-name { font-size: 22px; font-weight: 800; color: var(--c-text, #5d4037); }
 .sc-desc { font-size: 15px; color: #999; }
 .corner3 { position: absolute; top: 14px; left: 14px; z-index: 5; }
+
+/* 今日复习卡片（v2.5） */
+.review-card { width: 92%; margin-top: 3vh; background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+  border: 3px solid #ffcc80; color: #e65100; font-size: 20px; font-weight: 800; }

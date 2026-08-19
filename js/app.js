@@ -80,6 +80,16 @@
   function renderHub(stu) {
     $('hub-name').textContent = stu.name;
     $('hub-info').textContent = (stu.stars || 0) + '⭐ · ' + (stu.stickers || []).length + ' 枚贴纸';
+    // 🌅 今日复习卡片（到期错题 > 0 才显示）
+    const rb = $('btn-review');
+    Quiz.dueCount(stu, n => {
+      if (n > 0) {
+        rb.textContent = '🌅 今日复习 · ' + n + ' 题';
+        rb.classList.remove('hidden');
+      } else {
+        rb.classList.add('hidden');
+      }
+    });
     const grid = $('subject-grid');
     grid.innerHTML = '';
     const extra = [
@@ -191,7 +201,8 @@
 
   function roundUI(idx, q, opts, result) {
     if (opts) {
-      $('quiz-progress').textContent = '⭐'.repeat(Math.max(0, idx - 1)) + '☆'.repeat(Math.max(0, Quiz.PER_ROUND - idx + 1));
+      const tot = Quiz.TOTAL;
+      $('quiz-progress').textContent = '⭐'.repeat(Math.max(0, idx - 1)) + '☆'.repeat(Math.max(0, tot - idx + 1));
       $('question-text').textContent = q.q;
       qT0 = Date.now();
       startQTimer();
@@ -225,13 +236,14 @@
         $('wrong-reason').innerHTML = q.q + ' = <b>' + q.a + '</b><br>' +
           (result.val === null ? '时间到啦，没关系，下次算快一点。' : '') +
           (q.wrongReasons && q.wrongReasons[0] ? q.wrongReasons[0] : '再想一想哦。') +
-          '<br>稍后会再练一道类似的题哦';
+          '<br>' + (Quiz.mode === 'review' ? '这题一会儿还会再问一次哦' : '稍后会再练一道类似的题哦');
         $('wrong-overlay').classList.remove('hidden');
       }
     }
   }
 
   function startRound(lv, isChallenge) {
+    lastWasReview = false;
     challenge = !!isChallenge;
     if (typeof lv === 'number') Store.updateCurrent(s => { Store.subj(s, curSubject).level = lv; });
     const stu = Store.current();
@@ -273,9 +285,40 @@
     );
   }
 
+  /* ---------- 今日复习 ---------- */
+  let lastWasReview = false;
+
+  function startReview() {
+    lastWasReview = true;
+    challenge = false;
+    const stu = Store.current();
+    go('quiz');
+    $('quiz-level').textContent = '🌅 今日复习';
+    $('wrong-overlay').classList.add('hidden');
+    startRestTimer();
+    let idx = 0;
+    Quiz.startReview(stu,
+      (q, opts, result) => { if (opts) idx++; roundUI(idx, q, opts, result); },
+      r => {
+        clearInterval(restTimer);
+        stopQTimer();
+        if (r.total === 0) { init(); return; }   // 没有到期题
+        Store.updateCurrent(s => { s.stars = (s.stars || 0) + r.correct; });
+        $('result-title').textContent = '🎉 复习完成！';
+        $('result-detail').textContent = '复习了 ' + r.total + ' 题，记住 ' + r.correct + ' 题。记不牢的题明天还会再来哦。';
+        $('result-sticker').textContent = '🌅';
+        go('result');
+      }
+    );
+  }
+  $('btn-review').onclick = startReview;
+
   /* ---------- 结算 / 贴纸册 ---------- */
-  $('btn-next').onclick = () => startRound(Store.subj(Store.current(), curSubject).level);   // 同段位再来一轮
-  $('btn-home').onclick = () => enterSubject(curSubject);
+  $('btn-next').onclick = () => {
+    if (lastWasReview) { init(); return; }   // 复习完回大厅
+    startRound(Store.subj(Store.current(), curSubject).level);   // 同段位再来一轮
+  };
+  $('btn-home').onclick = () => { lastWasReview ? init() : enterSubject(curSubject); };
   $('btn-wrong-ok').onclick = () => {
     $('wrong-overlay').classList.add('hidden');
     Quiz.next(Store.current());

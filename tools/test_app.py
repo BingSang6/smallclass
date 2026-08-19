@@ -155,7 +155,48 @@ def test_v11():
         print('challenge timer visible:', timer.is_visible(), '|', timer.inner_text())
         assert timer.is_visible(), 'timer not shown'
         page.screenshot(path='shots/08-challenge.png')
-        print('v1.2 errors:', errs if errs else 'none')
+        # ---- v2.5: 今日复习 ----
+        # 造一条昨天答错的题（due 已过期）
+        page.evaluate("""async () => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          const p = d.students[0].sub.math;
+          let id = p.wrongPool && p.wrongPool[0];
+          if (!id) {
+            const bank = await fetch('data/banks/math-oral.json').then(r => r.json());
+            const q = bank.find(x => x.grade === d.students[0].grade && x.level === p.level + 1);
+            id = q.id;
+            p.wrongPool = [id];
+          }
+          p.review[id] = { box: 0, due: 0 };
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.wait_for_timeout(600)   # 等题库加载后刷新复习卡片
+        rb = page.locator('#btn-review')
+        print('review card visible:', rb.is_visible(), '|', rb.inner_text())
+        assert rb.is_visible(), 'review card not shown'
+        rb.click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        assert '复习' in page.locator('#quiz-level').inner_text()
+        print('review question:', page.locator('#question-text').inner_text())
+        page.screenshot(path='shots/12-review.png')
+        # 答对第一题（点正确答案）→ 升盒，明天到期
+        page.evaluate("""() => {
+          const q = window.Quiz && Quiz.current;
+          const btns = [...document.querySelectorAll('.opt-btn')];
+          const b = btns.find(x => x.textContent === String(q.a));
+          b.click();
+        }""")
+        page.wait_for_timeout(400)
+        sched = page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          const p = d.students[0].sub.math;
+          return JSON.stringify(p.review);
+        }""")
+        print('review schedule after correct:', sched)
+        assert '"box":1' in sched, 'box not advanced'
+        page.screenshot(path='shots/13-review-result.png')
+        print('v2.5 errors:', errs if errs else 'none')
         browser.close()
 
 test_v11()

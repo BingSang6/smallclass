@@ -15,6 +15,8 @@
     6: ['分数加减', '分数乘法', '分数除法', '倒数与互化', '三数互化', '混合口算']
   };
   const TIER_COUNT = 6;
+  // SM-2 简化：记忆盒子间隔（天）——答对升一盒，答错回盒底；升出第 5 盒 = 精通出池
+  const REVIEW_BOXES = [1, 3, 7, 14, 30];
 
   // 学科定义：名称、图标、题库文件、段位描述
   const SUBJECTS = {
@@ -37,7 +39,19 @@
   };
 
   function newSubj() {
-    return { level: 0, levelStars: [0, 0, 0, 0, 0, 0], wrongPool: [], tagStreaks: {}, recentQs: [] };
+    // review: 错题id -> {box: 0~5, due: 天数(自1970起)}
+    return { level: 0, levelStars: [0, 0, 0, 0, 0, 0], wrongPool: [], tagStreaks: {}, recentQs: [], review: {} };
+  }
+
+  /** v2.5 迁移：没有 review 字段的旧档案 → wrongPool 全部视为今天到期（box 0） */
+  function migrateReview(s) {
+    Object.keys(s.sub).forEach(k => {
+      const p = s.sub[k];
+      if (!p.review) p.review = {};
+      (p.wrongPool || []).forEach(id => {
+        if (!p.review[id]) p.review[id] = { box: 0, due: 0 };
+      });
+    });
   }
 
   function migrate(d) {
@@ -61,6 +75,7 @@
         };
         delete s.level; delete s.levelStars; delete s.wrongPool; delete s.tagStreaks; delete s.recentQs;
       }
+      migrateReview(s);
     });
     return d;
   }
@@ -91,8 +106,12 @@
     subj(stu, subject) {
       if (!stu.sub) migrate({ students: [stu], unlockAll: false });
       if (!stu.sub[subject]) stu.sub[subject] = newSubj();
+      if (!stu.sub[subject].review) migrateReview(stu);
       return stu.sub[subject];
     },
+    get REVIEW_BOXES() { return REVIEW_BOXES; },
+    /** 今天的天数序号（本地时区） */
+    day() { return Math.floor(Date.now() / 86400000); },
 
     students() { return load().students; },
     current() { const d = load(); return d.current >= 0 ? d.students[d.current] : null; },
