@@ -1,12 +1,10 @@
-/* app.js — 界面路由与交互（与 index.html 的实际 ID 一一对应） */
+/* app.js — 界面路由与交互（学科大厅 → 学科主页 → 闯关） */
 (function () {
   'use strict';
 
   const $ = id => document.getElementById(id);
 
-  /* ---------- 题库（导出错题本需要） ---------- */
-  let bank = [];
-  fetch('data/banks/math-oral.json').then(r => r.json()).then(j => { bank = j; }).catch(() => {});
+  let curSubject = 'math';   // 当前学科
 
   /* ---------- 屏幕路由 ---------- */
   function go(name) {
@@ -23,9 +21,11 @@
       list.innerHTML = '<p class="sub">还没有同学，点下面的 ➕ 新同学 添加吧</p>';
     }
     stus.forEach((s, i) => {
+      const m = Store.subj(s, 'math'), c = Store.subj(s, 'chinese');
       const b = document.createElement('button');
       b.className = 'btn student-btn' + (Store.db.current === i ? ' green' : '');
-      b.textContent = '🦁 ' + s.name + '（' + s.grade + '年级·' + Store.LEVELS[s.level] + '）';
+      b.textContent = '🦁 ' + s.name + '（' + s.grade + '年级·数学' + Store.LEVELS[m.level] +
+        '·语文' + Store.LEVELS[c.level] + '）';
       b.onclick = () => { Store.setCurrent(i); init(); };
       list.appendChild(b);
     });
@@ -64,35 +64,75 @@
     init();
   };
 
-  /* ---------- 屏：首页 ---------- */
+  /* ---------- 通用小组件 ---------- */
   function starStr(lvStars) {
-    return '★'.repeat(lvStars) + '☆'.repeat(3 - lvStars);
+    return '★'.repeat(lvStars) + '☆'.repeat(3 - Math.min(3, lvStars));
   }
-  // 段位解锁规则：已到达的 / 本段位拿到 1 星解锁下一段位 / 家长开「全部解锁」
-  function unlocked(stu, lv) {
+  function unlocked(stu, sub, lv) {
     if (Store.unlockAll()) return true;
-    if (lv <= stu.level) return true;
-    if (lv === stu.level + 1 && (stu.levelStars || [])[stu.level] >= 1) return true;
+    const p = Store.subj(stu, sub);
+    if (lv <= p.level) return true;
+    if (lv === p.level + 1 && p.levelStars[p.level] >= 1) return true;
     return false;
   }
 
+  /* ---------- 屏：学科大厅 ---------- */
+  function renderHub(stu) {
+    $('hub-name').textContent = stu.name;
+    $('hub-info').textContent = (stu.stars || 0) + '⭐ · ' + (stu.stickers || []).length + ' 枚贴纸';
+    const grid = $('subject-grid');
+    grid.innerHTML = '';
+    const extra = [
+      { key: 'poem', name: '古诗·背诵', icon: '📜', desc: '敬请期待' },
+      { key: 'more', name: '更多学科', icon: '➕', desc: '敬请期待' }
+    ];
+    Object.keys(Store.SUBJECTS).concat(extra.map(e => e.key)).forEach(key => {
+      const meta = Store.SUBJECTS[key] || extra.find(e => e.key === key);
+      const b = document.createElement('button');
+      if (Store.SUBJECTS[key]) {
+        const p = Store.subj(stu, key);
+        b.className = 'subject-card';
+        b.innerHTML = '<div class="sc-icon">' + meta.icon + '</div>' +
+          '<div class="sc-name">' + meta.name + '</div>' +
+          '<div class="sc-desc">' + Store.LEVELS[p.level] + starStr(p.levelStars[p.level]) + '</div>';
+        b.onclick = () => enterSubject(key);
+      } else {
+        b.className = 'subject-card locked';
+        b.innerHTML = '<div class="sc-icon">' + meta.icon + '</div>' +
+          '<div class="sc-name">' + meta.name + '</div>' +
+          '<div class="sc-desc">🔒 ' + meta.desc + '</div>';
+      }
+      grid.appendChild(b);
+    });
+  }
+
+  function enterSubject(sub) {
+    curSubject = sub;
+    renderHome(Store.current());
+    go('home');
+  }
+
+  /* ---------- 屏：学科主页（段位地图） ---------- */
   function renderHome(stu) {
-    $('hello-name').textContent = stu.name;
-    $('hello-info').textContent = Store.MEDALS[stu.level] + ' ' + Store.LEVELS[stu.level] + starStr((stu.levelStars || [])[stu.level] || 0) +
+    const meta = Store.SUBJECTS[curSubject];
+    const p = Store.subj(stu, curSubject);
+    $('hello-avatar').textContent = meta.icon;
+    $('hello-name').textContent = meta.name;
+    $('hello-info').textContent = Store.MEDALS[p.level] + ' ' + Store.LEVELS[p.level] + starStr(p.levelStars[p.level]) +
       ' · ' + (stu.stars || 0) + '⭐';
     renderReadToggle();
     // 挑战模式：白银段位（level≥1）解锁
-    $('btn-challenge').style.display = stu.level >= 1 ? '' : 'none';
+    $('btn-challenge').style.display = p.level >= 1 ? '' : 'none';
     const map = $('level-map');
     map.innerHTML = '';
+    const desc = meta.levelDesc[stu.grade];
     Store.LEVELS.forEach((lname, lv) => {
-      const desc = Store.LEVEL_DESC[stu.grade][lv];
-      const open = unlocked(stu, lv);
+      const open = unlocked(stu, curSubject, lv);
       const b = document.createElement('button');
-      b.className = 'level-card' + (open ? '' : ' locked') + (lv === stu.level ? ' sel' : '');
+      b.className = 'level-card' + (open ? '' : ' locked') + (lv === p.level ? ' sel' : '');
       b.innerHTML = '<div class="lv-badge">' + Store.MEDALS[lv] + '</div>' +
-        '<div class="lv-name">' + lname + starStr((stu.levelStars || [])[lv] || 0) + '</div>' +
-        '<div class="lv-desc">' + (open ? '' : '🔒 ') + desc + '</div>';
+        '<div class="lv-name">' + lname + starStr(p.levelStars[lv]) + '</div>' +
+        '<div class="lv-desc">' + (open ? '' : '🔒 ') + desc[lv] + '</div>';
       if (open) b.onclick = () => startRound(lv);
       map.appendChild(b);
     });
@@ -138,7 +178,6 @@
       const today = new Date().toISOString().slice(0, 10);
       if (s.lastDay !== today) { s.lastDay = today; s.todayMins = 0; }
     });
-    const t0 = Date.now();
     restTimer = setInterval(() => {
       Store.updateCurrent(s => { s.todayMins = (s.todayMins || 0) + 0.25; });
       const cur = Store.current();
@@ -183,10 +222,9 @@
         fb.className = 'feedback ok';
         setTimeout(() => Quiz.next(Store.current()), 900);
       } else {
-        // 错因弹层 + 错题当场重现已由 quiz.js 排队
         $('wrong-reason').innerHTML = q.q + ' = <b>' + q.a + '</b><br>' +
           (result.val === null ? '时间到啦，没关系，下次算快一点。' : '') +
-          (q.wrongReasons && q.wrongReasons[0] ? q.wrongReasons[0] : '再算一遍试试。') +
+          (q.wrongReasons && q.wrongReasons[0] ? q.wrongReasons[0] : '再想一想哦。') +
           '<br>稍后会再练一道类似的题哦';
         $('wrong-overlay').classList.remove('hidden');
       }
@@ -195,14 +233,16 @@
 
   function startRound(lv, isChallenge) {
     challenge = !!isChallenge;
-    if (typeof lv === 'number') Store.updateCurrent(s => { s.level = lv; });
+    if (typeof lv === 'number') Store.updateCurrent(s => { Store.subj(s, curSubject).level = lv; });
     const stu = Store.current();
+    const p0 = Store.subj(stu, curSubject);
+    const meta = Store.SUBJECTS[curSubject];
     go('quiz');
-    $('quiz-level').textContent = (challenge ? '⏱挑战 ' : '') + Store.MEDALS[stu.level] + ' ' + Store.LEVELS[stu.level] + starStr((stu.levelStars || [])[stu.level] || 0);
+    $('quiz-level').textContent = (challenge ? '⏱挑战 ' : '') + meta.icon + Store.MEDALS[p0.level] + ' ' + Store.LEVELS[p0.level] + starStr(p0.levelStars[p0.level]);
     $('wrong-overlay').classList.add('hidden');
     startRestTimer();
     let idx = 0;
-    Quiz.start(stu,
+    Quiz.start(stu, curSubject,
       (q, opts, result) => { if (opts) idx++; roundUI(idx, q, opts, result); },
       r => {
         clearInterval(restTimer);
@@ -211,18 +251,18 @@
         const win = r.correct >= 4 ? (r.correct >= 5 ? 2 : 1) : 0;
         if (win > 0) {
           Store.updateCurrent(s => {
-            s.levelStars = s.levelStars || [0, 0, 0, 0];
-            s.levelStars[s.level] = Math.min(3, s.levelStars[s.level] + win);
+            const p = Store.subj(s, curSubject);
+            p.levelStars[p.level] = Math.min(3, p.levelStars[p.level] + win);
             s.stars = (s.stars || 0) + r.correct;
-            // 3 星升段
-            if (s.levelStars[s.level] >= 3 && s.level < 5) s.level++;
-            if (s.stickers.length < 60) s.stickers.push(String(s.level));
+            if (p.levelStars[p.level] >= 3 && p.level < 5) p.level++;
+            if (s.stickers.length < 60) s.stickers.push(String(p.level));
           });
           const s2 = Store.current();
+          const p2 = Store.subj(s2, curSubject);
           $('result-title').textContent = '🎉 过关！获得 ' + '⭐'.repeat(win);
           $('result-detail').textContent = '答对 ' + r.correct + ' / ' + r.total + ' 题' +
-            (s2.level > stu.level ? '，升到' + Store.LEVELS[s2.level] + '段位啦！' : '，再得星就能升级哦');
-          $('result-sticker').textContent = Store.MEDALS[s2.level];
+            (p2.level > p0.level ? '，升到' + Store.LEVELS[p2.level] + '段位啦！' : '，再得星就能升级哦');
+          $('result-sticker').textContent = Store.MEDALS[p2.level];
         } else {
           $('result-title').textContent = '💪 快要过关啦！';
           $('result-detail').textContent = '答对 ' + r.correct + ' / ' + r.total + ' 题，再对一题就能得星，再试一次一定行！';
@@ -234,14 +274,14 @@
   }
 
   /* ---------- 结算 / 贴纸册 ---------- */
-  $('btn-next').onclick = () => startRound(Store.current().level);   // 同段位再来一轮
-  $('btn-home').onclick = () => init();
+  $('btn-next').onclick = () => startRound(Store.subj(Store.current(), curSubject).level);   // 同段位再来一轮
+  $('btn-home').onclick = () => enterSubject(curSubject);
   $('btn-wrong-ok').onclick = () => {
     $('wrong-overlay').classList.add('hidden');
     Quiz.next(Store.current());
   };
 
-  $('btn-album').onclick = () => {
+  function openAlbum() {
     const stu = Store.current();
     const grid = $('album-grid');
     grid.innerHTML = '';
@@ -257,40 +297,52 @@
       grid.innerHTML = '<p class="sub">还没有贴纸，闯关赢贴纸吧！</p>';
     }
     go('album');
-  };
+  }
+  $('btn-album').onclick = openAlbum;
+  $('btn-album2').onclick = openAlbum;
   $('btn-album-back').onclick = () => init();
 
   /* ---------- 其他按钮 ---------- */
   $('btn-go').onclick = () => startRound();
-  $('btn-challenge').onclick = () => startRound(Store.current().level, true);
+  $('btn-challenge').onclick = () => startRound(Store.subj(Store.current(), curSubject).level, true);
   $('btn-switch').onclick = () => { renderSetup(); go('setup'); };
+  $('btn-switch2').onclick = () => { renderSetup(); go('setup'); };
+  $('btn-back-hub').onclick = () => init();
   $('btn-read-toggle').onclick = () => { Store.setAutoRead(!Store.autoRead()); renderReadToggle(); };
-  $('btn-speak').onclick = () => { const q = Quiz.current; if (q) TTS.speak(q.q); };
+  $('btn-speak').onclick = () => { const q = Quiz.current; if (q) TTS.speak(q.speak || q.q); };
   $('btn-rest-ok').onclick = () => { $('rest-overlay').classList.add('hidden'); init(); };
 
   /* ---------- 家长设置（含 导出错题本） ---------- */
   function wrongReport() {
     const stu = Store.current();
     const lines = [];
-    const byTag = {};
-    (stu.wrongPool || []).forEach(id => {
-      const q = bank.find(x => x.id === id);
-      if (!q) return;
-      (byTag[q.tag] = byTag[q.tag] || []).push(q);
-    });
     lines.push('# 学生档案：' + stu.name);
-    lines.push('- 年级: ' + stu.grade + '年级（口算 App 自动导出）');
-    lines.push('- 当前段位: ' + Store.LEVELS[stu.level] + '（' + Store.LEVEL_DESC[stu.grade][stu.level] + '）');
+    lines.push('- 年级: ' + stu.grade + '年级（小课堂 App 自动导出）');
     lines.push('- 累计星星: ' + (stu.stars || 0));
-    lines.push('');
-    lines.push('## 错题本（待巩固）');
-    if (!Object.keys(byTag).length) lines.push('（暂无错题，状态很好！）');
-    Object.keys(byTag).forEach(tag => {
+    Object.keys(Store.SUBJECTS).forEach(sub => {
+      const meta = Store.SUBJECTS[sub];
+      const p = Store.subj(stu, sub);
       lines.push('');
-      lines.push('### ' + tag + '（' + byTag[tag].length + ' 题）');
-      byTag[tag].slice(-10).forEach(q => {
-        lines.push('- ' + q.q + ' = ' + q.a + '　易错点：' + (q.wrongReasons && q.wrongReasons[0] || ''));
+      lines.push('## ' + meta.name + '（' + Store.LEVELS[p.level] + '·' + meta.levelDesc[stu.grade][p.level] + '）');
+      const byTag = {};
+      (p.wrongPool || []).forEach(id => {
+        const meta2 = Store.SUBJECTS[sub];
+        // 从缓存题库找不到就跳过（题库可能未加载）
+        const q = (window.QuizBank && window.QuizBank[sub] || []).find(x => x.id === id);
+        if (q) (byTag[q.tag] = byTag[q.tag] || []).push(q);
       });
+      if (!Object.keys(byTag).length) {
+        lines.push('- 错题本：暂无错题，状态很好！');
+      } else {
+        lines.push('### 错题本（待巩固）');
+        Object.keys(byTag).forEach(tag => {
+          lines.push('');
+          lines.push('#### ' + tag + '（' + byTag[tag].length + ' 题）');
+          byTag[tag].slice(-10).forEach(q => {
+            lines.push('- ' + q.q + ' → ' + q.a + '　提示：' + (q.wrongReasons && q.wrongReasons[0] || ''));
+          });
+        });
+      }
     });
     lines.push('');
     lines.push('<!-- 复制以上内容发给 AI 助教（primary-tutor-skill 环境）即可针对性讲解、生成打印卷 -->');
@@ -304,7 +356,9 @@
       const row = document.createElement('div');
       row.className = 'settings-row';
       const info = document.createElement('span');
-      info.textContent = s.name + ' · ' + s.grade + '年级 · ' + Store.LEVELS[s.level] + ' · ' + (s.wrongPool || []).length + '题待巩固';
+      const m = Store.subj(s, 'math'), c = Store.subj(s, 'chinese');
+      info.textContent = s.name + ' · ' + s.grade + '年级 · 数学' + Store.LEVELS[m.level] +
+        '·语文' + Store.LEVELS[c.level] + ' · 共' + ((m.wrongPool || []).length + (c.wrongPool || []).length) + '题待巩固';
       row.appendChild(info);
       // 改年级
       const g = document.createElement('select');
@@ -314,7 +368,7 @@
         if (s.grade === x) o.selected = true;
         g.appendChild(o);
       }
-      g.onchange = () => { if (confirm('改年级会重置段位，确定？')) Store.setGrade(i, +g.value); init(); };
+      g.onchange = () => { if (confirm('改年级会重置全部学科段位，确定？')) { Store.setGrade(i, +g.value); init(); } };
       row.appendChild(g);
       // 删除
       const del = document.createElement('button');
@@ -354,14 +408,24 @@
     };
     body.appendChild(cp);
   }
-  $('btn-settings').onclick = () => { renderSettings(); go('settings'); };
+  $('btn-settings').onclick = () => {
+    // 先把两科题库都加载好，导出错题本才能带上题目内容
+    Object.keys(Store.SUBJECTS).forEach(sub => {
+      fetch(Store.SUBJECTS[sub].bank).then(r => r.json()).then(j => {
+        window.QuizBank = window.QuizBank || {};
+        window.QuizBank[sub] = j;
+      }).catch(() => {});
+    });
+    renderSettings();
+    go('settings');
+  };
   $('btn-settings-back').onclick = () => init();
 
   /* ---------- 入口 ---------- */
   function init() {
     const stu = Store.current();
     if (!stu) { renderSetup(); go('setup'); }
-    else { renderHome(stu); go('home'); }
+    else { renderHub(stu); go('hub'); }
   }
   init();
 })();

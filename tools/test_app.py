@@ -21,7 +21,11 @@ with sync_playwright() as p:
     page.click('.grade-btn[data-g="4"]')
     page.click('#btn-create')
     page.wait_for_timeout(500)
-    page.screenshot(path='shots/02-home.png')
+    page.screenshot(path='shots/02-hub.png')
+    print('hub:', page.locator('#hub-name').inner_text(), '|', page.locator('#hub-info').inner_text())
+    # 进入数学学科
+    page.locator('.subject-card').first.click()
+    page.wait_for_timeout(300)
     print('home:', page.locator('#hello-name').inner_text(), '|', page.locator('#hello-info').inner_text())
 
     # 开始闯关
@@ -54,7 +58,7 @@ with sync_playwright() as p:
     page.evaluate("TTS.stop()")
     page.goto(BASE)
     page.wait_for_load_state('networkidle')
-    page.click('#btn-album')
+    page.click("#btn-album2")
     page.wait_for_timeout(300)
     page.screenshot(path='shots/05-album.png')
 
@@ -87,10 +91,12 @@ def test_v11():
         # 模拟打一轮全对：直接改档案验证星级展示与解锁
         page.evaluate("""() => {
           const d = JSON.parse(localStorage.getItem('smallclass.v1'));
-          d.students[0].levelStars = [1, 0, 0, 0];
+          d.students[0].sub.math.levelStars = [1, 0, 0, 0, 0, 0];
           localStorage.setItem('smallclass.v1', JSON.stringify(d));
         }""")
         page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card').first.click()
+        page.wait_for_timeout(300)
         info = page.locator('#hello-info').inner_text()
         print('home info:', info)
         assert '★' in info and '☆' in info, 'stars not shown'
@@ -104,6 +110,8 @@ def test_v11():
         page.click("text=全部解锁：关")
         page.wait_for_timeout(200)
         page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.click('.subject-card')   # 进入数学
+        page.wait_for_timeout(200)
         locked2 = page.locator('.level-card.locked').count()
         print('locked after unlockAll (expect 0):', locked2)
         assert locked2 == 0, 'unlockAll not working'
@@ -112,13 +120,34 @@ def test_v11():
         page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
         print('gold tier question:', page.locator('#question-text').inner_text())
         page.screenshot(path='shots/07-v11-gold.png')
+        # ---- v2: 学科大厅 + 语文字词 ----
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        cards = page.locator('.subject-card').count()
+        print('subject cards (expect 4):', cards)
+        assert cards == 4, 'hub cards wrong'
+        page.screenshot(path='shots/09-hub.png')
+        page.locator('.subject-card').nth(1).click()   # 语文·字词
+        page.wait_for_timeout(300)
+        print('chinese home title:', page.locator('#hello-name').inner_text())
+        assert '语文' in page.locator('#hello-name').inner_text()
+        page.screenshot(path='shots/10-chinese-home.png')
+        page.click('#btn-go')
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        cq = page.locator('#question-text').inner_text()
+        print('chinese question:', cq)
+        opts = page.locator('.opt-btn').count()
+        print('chinese options (expect 3):', opts)
+        assert opts == 3
+        page.screenshot(path='shots/11-chinese-quiz.png')
         # 挑战模式：设为白银，回首页点挑战
         page.evaluate("""() => {
           const d = JSON.parse(localStorage.getItem('smallclass.v1'));
-          d.students[0].level = 1;
+          d.students[0].sub.math.level = 1;
           localStorage.setItem('smallclass.v1', JSON.stringify(d));
         }""")
         page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card').first.click()
+        page.wait_for_timeout(300)
         assert page.locator('#btn-challenge').is_visible(), 'challenge btn hidden'
         page.click('#btn-challenge')
         page.wait_for_selector('#question-text'); page.wait_for_timeout(500)

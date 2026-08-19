@@ -16,19 +16,51 @@
   };
   const TIER_COUNT = 6;
 
+  // 学科定义：名称、图标、题库文件、段位描述
+  const SUBJECTS = {
+    math: {
+      name: '数学·口算', icon: '🦁', bank: 'data/banks/math-oral.json',
+      levels: LEVELS, medals: MEDALS, levelDesc: LEVEL_DESC
+    },
+    chinese: {
+      name: '语文·字词', icon: '📖', bank: 'data/banks/chinese-words.json',
+      levels: LEVELS, medals: MEDALS,
+      levelDesc: {
+        1: ['会认字', '形近字', '多音字', '词语搭配', '近反义词', '四字词语'],
+        2: ['会认字', '形近字', '多音字', '词语搭配', '近反义词', '四字词语'],
+        3: ['会认字', '形近字', '多音字', '词语搭配', '近反义词', '成语运用'],
+        4: ['易错字', '形近字', '多音字', '词语搭配', '近反义词', '成语运用'],
+        5: ['易错字', '形近字', '多音字', '词语搭配', '近反义词', '成语运用'],
+        6: ['易错字', '形近字', '多音字', '词语搭配', '近反义词', '成语运用']
+      }
+    }
+  };
+
+  function newSubj() {
+    return { level: 0, levelStars: [0, 0, 0, 0, 0, 0], wrongPool: [], tagStreaks: {}, recentQs: [] };
+  }
+
   function migrate(d) {
     if (d.unlockAll === undefined) d.unlockAll = false;
-    // 兼容 v1（4段）/v1.1 旧档案 → v1.2（6段）
+    // 兼容 v1.x 旧档案（单学科字段 → sub.math）
     d.students.forEach(s => {
-      if (!Array.isArray(s.levelStars) || s.levelStars.length !== TIER_COUNT) {
-        const old = (Array.isArray(s.levelStars) && s.levelStars.length === 4) ? s.levelStars : null;
-        // 4段→6段映射：青铜→青铜 白银→白银 黄金→黄金 王者→钻石
-        s.levelStars = old
-          ? [old[0], old[1], old[2], 0, old[3], 0]
-          : [Math.min(3, s.level * 3), 0, 0, 0, 0, 0];
+      if (!s.sub) {
+        let ls = [0, 0, 0, 0, 0, 0];
+        if (Array.isArray(s.levelStars) && s.levelStars.length === 4) {
+          ls = [s.levelStars[0], s.levelStars[1], s.levelStars[2], 0, s.levelStars[3], 0];
+        } else if (Array.isArray(s.levelStars)) {
+          ls = s.levelStars;
+        } else if (s.level) {
+          ls = [Math.min(3, s.level * 3), 0, 0, 0, 0, 0];
+        }
+        let lv = s.level || 0;
+        if (lv >= 3 && ls[5] === 0 && ls[4] === 0) lv = Math.min(4, lv + 1); // 王者→钻石
+        s.sub = {
+          math: { level: lv, levelStars: ls, wrongPool: s.wrongPool || [], tagStreaks: s.tagStreaks || {}, recentQs: s.recentQs || [] },
+          chinese: newSubj()
+        };
+        delete s.level; delete s.levelStars; delete s.wrongPool; delete s.tagStreaks; delete s.recentQs;
       }
-      if (s.level >= 3 && !s._migrated62) { s.level = Math.min(TIER_COUNT - 1, s.level + 1); s._migrated62 = true; }
-      if (!s.tagStreaks) s.tagStreaks = {};
     });
     return d;
   }
@@ -40,14 +72,11 @@
 
   function newStudent(name, grade) {
     return {
-      name: name, grade: grade, level: 0,        // 0~3 段位
-      levelStars: [0, 0, 0, 0, 0, 0],              // 每段位星级 0~3（3 星升段）
+      name: name, grade: grade,
+      sub: { math: newSubj(), chinese: newSubj() },   // 各学科进度
       stars: 0,                                   // 累计星数（贴纸）
       stickers: [],                               // 贴纸 id 列表
       clearedTags: {},                            // 已攻克知识点 tag -> 连对次数
-      wrongPool: [],                              // 待巩固题 id（最多 30 条）
-      tagStreaks: {},                             // 错题 tag 连对计数（连对 2 次出池）
-      recentQs: [],                               // 最近出过的题 id（避免重复）
       todayMins: 0, lastDay: ''                   // 当日学习分钟（20 分钟休息提醒）
     };
   }
@@ -57,6 +86,13 @@
     get LEVELS() { return LEVELS; },
     get MEDALS() { return MEDALS; },
     get LEVEL_DESC() { return LEVEL_DESC; },
+    get SUBJECTS() { return SUBJECTS; },
+    /** 取某学生的某学科进度（迁移保证存在） */
+    subj(stu, subject) {
+      if (!stu.sub) migrate({ students: [stu], unlockAll: false });
+      if (!stu.sub[subject]) stu.sub[subject] = newSubj();
+      return stu.sub[subject];
+    },
 
     students() { return load().students; },
     current() { const d = load(); return d.current >= 0 ? d.students[d.current] : null; },
@@ -74,7 +110,7 @@
       if (d.current >= d.students.length) d.current = d.students.length - 1;
       save(d);
     },
-    setGrade(i, grade) { const d = load(); d.students[i].grade = grade; d.students[i].level = 0; d.students[i].levelStars = [0,0,0,0,0,0]; save(d); },
+    setGrade(i, grade) { const d = load(); const s = d.students[i]; s.grade = grade; s.sub = { math: newSubj(), chinese: newSubj() }; save(d); },
 
     unlockAll() { return load().unlockAll; },
     setUnlockAll(v) { const d = load(); d.unlockAll = v; save(d); },
