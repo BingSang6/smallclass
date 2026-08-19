@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 gen_bank.py — 生成口算题库 data/banks/math-oral.json
-年级 1~6 × 段位 1~4，每格约 35 题，含陷阱选项与错因提示。
-运行: python tools/gen_bank.py
+年级 1~6 × 段位 1~6（青铜→白银→黄金→铂金→钻石→王者），每格约 30 题，
+含陷阱选项与错因提示。运行: python tools/gen_bank.py
 """
 import json, random, os
 from math import gcd
@@ -28,10 +28,12 @@ WRONGS = {
     "sub": ["是不是忘记退位了？个位不够减，要向十位借1当10。", "再算一遍，先看个位够不够减。"],
     "mul": ["乘法口诀再背一背，想一想这句口诀的得数。", "是不是口诀串记了？慢慢想这句口诀。"],
     "div": ["用乘法口诀反过来想：几乘除数等于被除数？", "除法就是乘法的反过来，想想口诀。"],
+    "rem": ["余数一定要比除数小，想一想商几、余几。", "先想口诀找最接近又不超过的，再算余数。"],
+    "mix": ["两步计算要先算乘除，再算加减，别抢着算。", "分两步想：先算乘除部分，再加或减。"],
     "dec": ["小数点对齐了吗？先对齐再加减。", "数一数小数位数，别把小数点弄丢啦。"],
     "frac": ["分母相同才能直接加减，分子相加减、分母不变。", "约分了吗？结果要化成最简分数。"],
-    "est": ["估算要先四舍五入到整十、整百，再算。", "先把数看成接近的整十整百数。"],
     "conv": ["想一想分数、小数、百分数之间是怎么互化的。", "先化成分母是100的分数再看一看。"],
+    "est": ["估算要先四舍五入到整十、整百，再算。", "先把数看成接近的整十整百数。"],
 }
 
 def fmt(x):
@@ -39,34 +41,42 @@ def fmt(x):
         return int(x)
     return round(x, 4)
 
-def uniq_opts(ans, traps, n=3, allow_neg=False):
-    """答案 + 陷阱选项，去重、乱序，共 n 个选项（答案不在其中）"""
+def uniq_opts(ans, traps, n=3):
     opts, seen = [], {str(fmt(ans))}
     for t in traps:
         t = fmt(t)
-        if not allow_neg and isinstance(t, (int, float)) and t < 0:
+        if isinstance(t, (int, float)) and t < 0:
             continue
         if str(t) not in seen:
             opts.append(str(t)); seen.add(str(t))
         if len(opts) >= n: break
-    # 不足则补 ans±1/±10
     k = 1
     while len(opts) < n:
-        for c in [ans + k, ans - k, ans + 10 * k, ans - 10 * k]:
+        for c in [ans + k, ans - k, ans + 10 * k]:
             c = fmt(c)
-            if not allow_neg and c < 0:
-                continue
-            if str(c) not in seen:
+            if c >= 0 and str(c) not in seen:
                 opts.append(str(c)); seen.add(str(c)); break
         k += 1
     return opts
 
 def mk(q, a, kind, grade, level, tag):
+    if kind == "rem":
+        c, r = a  # (商, 余数)
+        astr = f"{c} 余 {r}"
+        cand = [f"{c} 余 {r+1}", f"{c+1} 余 {r}", f"{c-1} 余 {r}" if c > 1 else f"{c} 余 {r+2}", f"{c+1} 余 {r+1}"]
+        opts, seen = [], {astr}
+        for t in cand:
+            if t not in seen:
+                opts.append(t); seen.add(t)
+            if len(opts) >= 3: break
+        return {"q": q, "a": astr, "options": opts[:3], "wrongReasons": WRONGS[kind],
+                "grade": grade, "level": level, "tag": tag}
     if kind == "frac":
-        # 分数题：答案与选项都是最简分数字符串
         astr = a if isinstance(a, str) else fr_str(a)
+        av = a if not isinstance(a, str) else (
+            float(astr.split("/")[0]) / float(astr.split("/")[1]) if "/" in astr else float(astr))
         traps = []
-        for t in [a * 2, a / 2, 1 - a, a * 3, a + 0.5, a + 0.25, a - 0.25]:
+        for t in [av * 2, av / 2, 1 - av, av * 3, av + 0.5, av + 0.25, av - 0.25]:
             if isinstance(t, (int, float)) and t >= 0 and ok_frac(t):
                 s = fr_str(t)
                 if s not in traps and s != astr:
@@ -74,11 +84,9 @@ def mk(q, a, kind, grade, level, tag):
         return {"q": q, "a": astr, "options": traps[:3], "wrongReasons": WRONGS[kind],
                 "grade": grade, "level": level, "tag": tag}
     if kind == "conv":
-        # 互化题：答案为数值，陷阱用 ×10 / ÷10 / +1 的典型错误
         astr = fmt(a)
-        traps = [a * 10, a / 10, a + 1]
         opts, seen = [], {str(astr)}
-        for t in traps:
+        for t in [a * 10, a / 10, a + 1]:
             t = fmt(t)
             if str(t) not in seen:
                 opts.append(str(t)); seen.add(str(t))
@@ -87,11 +95,22 @@ def mk(q, a, kind, grade, level, tag):
     traps = [a + 1, a - 1, a + 10, a - 10]
     if kind == "mul":
         traps = [a + a // 10 + 1, a - a // 10 - 1, a + 2]
-    if kind in ("dec", "frac"):
+    if kind == "dec":
         traps = [round(a * 10, 4) if a != 0 else a + 0.1, round(a / 10, 4), a + 0.1, a - 0.1]
-    return {"q": q, "a": fmt(a) if not isinstance(a, str) else a,
-            "options": uniq_opts(a if not isinstance(a, str) else float(a), traps),
+    return {"q": q, "a": fmt(a), "options": uniq_opts(a, traps),
             "wrongReasons": WRONGS[kind], "grade": grade, "level": level, "tag": tag}
+
+# ---------- 各年级 6 段位生成器 ----------
+
+def add_sub(qs, grade, level, tags, alo, ahi, blo, bhi, add_n=15, sub_n=15):
+    """加减混合生成：加法不超上限、减法结果 ≥ 0"""
+    for _ in range(add_n):
+        a = random.randint(alo, ahi); b = random.randint(blo, bhi)
+        qs.append(mk(f"{a} + {b}", a + b, "add", grade, level, tags[0]))
+    for _ in range(sub_n):
+        a = random.randint(alo, ahi); b = random.randint(blo, bhi)
+        if a > b:
+            qs.append(mk(f"{a} - {b}", a - b, "sub", grade, level, tags[1]))
 
 def gen_cell(grade, level):
     qs = []
@@ -99,167 +118,190 @@ def gen_cell(grade, level):
         qs.append(mk(q, a, kind, grade, level, tag))
 
     if grade == 1:
-        if level == 1:   # 10以内加减
-            for _ in range(18):
-                a, b = random.randint(1, 9), random.randint(1, 9)
-                if a + b <= 10: add(f"{a} + {b}", a + b, "add", "10加")
-                else: add(f"{max(a,b)} - {min(a,b)}", max(a, b) - min(a, b), "sub", "10减")
-            for _ in range(12):
-                a = random.randint(2, 10); b = random.randint(1, a - 1)
-                add(f"{a} - {b}", a - b, "sub", "10减")
-        elif level == 2: # 20以内进退位
-            for _ in range(16):
-                a = random.randint(4, 9); b = random.randint(2, 9)
-                if a + b > 10: add(f"{a} + {b}", a + b, "add", "20进位加")
-            for _ in range(16):
-                a = random.randint(11, 18); b = random.randint(2, 9)
-                if str(a)[1] < str(b): add(f"{a} - {b}", a - b, "sub", "20退位减")
-        elif level == 3: # 50以内
-            for _ in range(16):
-                a, b = random.randint(10, 40), random.randint(5, 9)
-                add(f"{a} + {b}", a + b, "add", "50加")
-            for _ in range(16):
-                a = random.randint(20, 50); b = random.randint(6, 19)
-                add(f"{a} - {b}", a - b, "sub", "50减")
-        else:            # 100以内
-            for _ in range(16):
-                a, b = random.randint(23, 68), random.randint(15, 31)
-                add(f"{a} + {b}", a + b, "add", "100加")
-            for _ in range(16):
-                a = random.randint(42, 99); b = random.randint(17, 38)
-                add(f"{a} - {b}", a - b, "sub", "100减")
+        # 1:20以内(含10) 2:50以内 3:100以内 4:100进退位混合 5:200以内 6:200进退位混合
+        rng = {1: (2, 18, 2, 18), 2: (11, 45, 6, 39), 3: (23, 88, 15, 66),
+               4: (23, 88, 15, 66), 5: (55, 195, 35, 145), 6: (55, 195, 35, 145)}[level]
+        def carry(a, b): return a % 10 + b % 10 > 10
+        def borrow(a, b): return a % 10 < b % 10
+        # 加法
+        n = 0
+        while n < 16:
+            a = random.randint(rng[0], rng[1]); b = random.randint(rng[2], rng[3])
+            if a + b > {1: 20, 2: 50, 3: 100, 4: 100, 5: 200, 6: 200}[level]: continue
+            if level in (4, 6) and not carry(a, b): continue
+            if level in (1, 2, 3, 5) and carry(a, b) and random.random() < 0.5: continue
+            add(f"{a} + {b}", a + b, "add", "加法"); n += 1
+        # 减法
+        n = 0
+        while n < 15:
+            a = random.randint(rng[0], rng[1]); b = random.randint(rng[2], rng[3])
+            if a <= b: continue
+            if level in (4, 6) and not borrow(a, b): continue
+            if level in (1, 2, 3, 5) and borrow(a, b) and random.random() < 0.5: continue
+            add(f"{a} - {b}", a - b, "sub", "减法"); n += 1
 
     elif grade == 2:
-        if level == 1:   # 100以内加减
-            for _ in range(16):
-                a, b = random.randint(28, 70), random.randint(15, 29)
-                add(f"{a} + {b}", a + b, "add", "100加减")
-            for _ in range(16):
-                a = random.randint(51, 99); b = random.randint(24, 50)
-                add(f"{a} - {b}", a - b, "sub", "100加减")
-        elif level == 2: # 表内乘法
-            for _ in range(18):
+        if level == 1:
+            add_sub(qs, grade, level, ["100加减", "100加减"], 28, 80, 15, 40)
+        elif level == 2:  # 表内乘法
+            for _ in range(30):
                 a, b = random.randint(2, 9), random.randint(2, 9)
                 add(f"{a} × {b}", a * b, "mul", "表内乘")
-            for _ in range(14):
-                a, b = random.randint(4, 9), random.randint(3, 9)
-                add(f"{a} × {b}", a * b, "mul", "表内乘")
-        elif level == 3: # 表内除法
-            for _ in range(32):
+        elif level == 3:  # 表内除法
+            for _ in range(30):
                 b, c = random.randint(2, 9), random.randint(2, 9)
                 add(f"{b * c} ÷ {b}", c, "div", "表内除")
-        else:            # 乘除混合
-            for _ in range(16):
-                b, c = random.randint(2, 9), random.randint(2, 9)
-                add(f"{b * c} ÷ {b}", c, "div", "乘除混合")
-            for _ in range(16):
+        elif level == 4:  # 乘除混合
+            for _ in range(30):
                 a, b = random.randint(2, 9), random.randint(2, 9)
-                if (a * b) % max(2, min(a, b)) == 0:
-                    add(f"{a} × {b} ÷ {max(2, min(a,b))}", a * b // max(2, min(a, b)), "div", "乘除混合")
+                d = random.choice([x for x in range(2, 9) if (a * b) % x == 0])
+                add(f"{a} × {b} ÷ {d}", a * b // d, "div", "乘除混合")
+        elif level == 5:  # 有余数除法
+            for _ in range(30):
+                b = random.randint(3, 9); c = random.randint(2, 9)
+                r = random.randint(1, b - 1)
+                add(f"{b * c + r} ÷ {b} = ？（商几余几，选「商 余 数」）", (c, r), "rem", "有余数除")
+        else:             # 乘加/乘减两步
+            for _ in range(15):
+                a, b = random.randint(2, 9), random.randint(2, 9)
+                c = random.randint(3, 30)
+                add(f"{a} × {b} + {c}", a * b + c, "mix", "两步计算")
+            for _ in range(15):
+                a, b = random.randint(2, 9), random.randint(2, 9)
+                c = random.randint(2, a * b - 1)
+                add(f"{a} × {b} - {c}", a * b - c, "mix", "两步计算")
 
     elif grade == 3:
-        if level == 1:   # 两位数加减
-            for _ in range(16):
-                a, b = random.randint(23, 76), random.randint(17, 49)
-                add(f"{a} + {b}", a + b, "add", "两位加减")
-            for _ in range(16):
-                a = random.randint(52, 98); b = random.randint(27, 51)
-                add(f"{a} - {b}", a - b, "sub", "两位加减")
-        elif level == 2: # 口算乘
-            for _ in range(16):
+        if level == 1:
+            add_sub(qs, grade, level, ["两位加减", "两位加减"], 23, 88, 17, 55)
+        elif level == 2:  # 几百几十加减
+            for _ in range(15):
+                a = random.randint(12, 68) * 10; b = random.randint(11, 29) * 10
+                add(f"{a} + {b}", a + b, "add", "几百几十")
+            for _ in range(15):
+                a = random.randint(40, 98) * 10; b = random.randint(15, 39) * 10
+                add(f"{a} - {b}", a - b, "sub", "几百几十")
+        elif level == 3:  # 多位×一位
+            for _ in range(15):
                 a, b = random.randint(12, 34), random.randint(2, 4)
-                add(f"{a} × {b}", a * b, "mul", "口算乘")
-            for _ in range(16):
+                add(f"{a} × {b}", a * b, "mul", "多位乘一位")
+            for _ in range(15):
                 a, b = random.randint(2, 9) * 100, random.randint(2, 5)
                 add(f"{a} × {b}", a * b, "mul", "整百乘")
-        elif level == 3: # 口算除
-            for _ in range(16):
+        elif level == 4:  # 多位÷一位
+            for _ in range(15):
                 b, c = random.randint(11, 44), random.randint(2, 4)
-                add(f"{b * c} ÷ {b}", c, "div", "口算除")
-            for _ in range(16):
+                add(f"{b * c} ÷ {b}", c, "div", "多位除一位")
+            for _ in range(15):
                 b, c = random.randint(2, 9) * 100, random.randint(2, 8)
-                add(f"{b * c // b * b} ÷ {b}", b * c // b, "div", "整百除")
-        else:            # 混合与估算
-            for _ in range(10):
+                add(f"{b * c} ÷ {b}", c, "div", "整百除")
+        elif level == 5:  # 乘除混合
+            for _ in range(15):
+                a, b = random.randint(2, 9), random.randint(2, 9)
+                d = random.choice([x for x in range(2, 9) if (a * b) % x == 0])
+                add(f"{a} × {b} ÷ {d}", a * b // d, "div", "乘除混合")
+            for _ in range(15):
+                a, b = random.randint(12, 30), random.randint(3, 5)
+                add(f"{a} × {b}", a * b, "mul", "多位乘一位")
+        else:             # 估算
+            for _ in range(15):
                 a = random.randint(21, 89); a -= a % 10
                 b = random.randint(21, 79); b += 10 - b % 10
-                add(f"{a} + {b} ≈ ?", (round(a / 100) + round(b / 100)) * 100 if a + b > 100 else round((a + b) / 10) * 10, "est", "估算")
-            for _ in range(10):
-                a, b = random.randint(12, 30), random.randint(3, 5)
-                add(f"{a} × {b}", a * b, "mul", "口算乘")
-            for _ in range(10):
-                b, c = random.randint(12, 40), random.randint(2, 4)
-                add(f"{b * c} ÷ {b}", c, "div", "口算除")
+                add(f"{a} + {b} ≈ ?", (round(a / 10) + round(b / 10)) * 10, "est", "加减估算")
+            for _ in range(15):
+                a = random.randint(12, 39); b = random.randint(21, 49)
+                add(f"{a} × {b} ≈ ?", round(a) * round(b / 10) * 10 // 100 * 100, "est", "乘法估算")
 
     elif grade == 4:
-        if level == 1:   # 大数口算（万以内整十整百）
-            for _ in range(16):
+        if level == 1:  # 大数口算
+            for _ in range(15):
                 a = random.randint(12, 80) * 100; b = random.randint(11, 60) * 100
                 add(f"{a} + {b}", a + b, "add", "大数加减")
-            for _ in range(16):
+            for _ in range(15):
                 a = random.randint(40, 99) * 100; b = random.randint(15, 39) * 100
                 add(f"{a} - {b}", a - b, "sub", "大数加减")
-        elif level == 2: # 整十乘除
-            for _ in range(16):
+        elif level == 2:  # 整十乘除
+            for _ in range(15):
                 a, b = random.randint(2, 9) * 10, random.randint(2, 9) * 10
                 add(f"{a} × {b}", a * b, "mul", "整十乘除")
-            for _ in range(16):
+            for _ in range(15):
                 b, c = random.randint(2, 9) * 10, random.randint(2, 9)
                 add(f"{b * c} ÷ {b}", c, "div", "整十乘除")
-        elif level == 3: # 三位数×两位估算
-            for _ in range(32):
+        elif level == 3:  # 乘法估算
+            for _ in range(30):
                 a = random.randint(105, 995); a -= a % 10
                 b = random.randint(12, 98); b -= b % 10
                 ans = round(a / 100) * 100 * round(b / 10) * 10 // 1000 * 1000
                 add(f"{a} × {b} ≈ ?", ans, "est", "乘法估算")
-        else:            # 简算凑整
-            for _ in range(11):
+        elif level == 4:  # 简算凑整
+            for _ in range(10):
                 a = random.choice([98, 99, 97, 199, 298]); b = random.randint(35, 96)
-                add(f"{a} + {b}", a + b, "add", "凑整加")
+                add(f"{a} + {b}", a + b, "add", "凑整")
             for _ in range(10):
                 a = random.choice([98, 99, 197, 299]); b = random.randint(35, 78)
-                add(f"{a} - {b}", a - b, "sub", "凑整减")
-            for _ in range(11):
+                add(f"{a} - {b}", a - b, "sub", "凑整")
+            for _ in range(10):
                 a, b = random.choice([(25, 4), (125, 8), (5, 2), (50, 2)]), random.randint(3, 9)
-                add(f"{a[0]} × {b * a[1]}", a[0] * b * a[1], "mul", "凑整乘")
+                add(f"{a[0]} × {b * a[1]}", a[0] * b * a[1], "mul", "凑整")
+        elif level == 5:  # 多位÷两位
+            for _ in range(30):
+                b = random.randint(11, 99); c = random.randint(2, 9)
+                add(f"{b * c} ÷ {b}", c, "div", "除两位")
+        else:             # 混合两步
+            for _ in range(15):
+                a, b = random.randint(12, 40), random.randint(2, 9)
+                c = random.randint(15, 90)
+                add(f"{a} × {b} + {c}", a * b + c, "mix", "两步计算")
+            for _ in range(15):
+                a, b = random.randint(12, 40), random.randint(2, 9)
+                c = random.randint(10, a * b - 1)
+                add(f"{a} × {b} - {c}", a * b - c, "mix", "两步计算")
 
     elif grade == 5:
-        if level == 1:   # 小数加减
-            for _ in range(16):
-                a = round(random.uniform(0.1, 0.9), 1); b = round(random.uniform(0.1, 0.9), 1)
-                add(f"{a} + {b}", round(a + b, 2), "dec", "小数加")
-            for _ in range(16):
-                a = round(random.uniform(1.1, 9.9), 1); b = round(random.uniform(0.2, 0.9), 1)
-                add(f"{a} - {b}", round(a - b, 2), "dec", "小数减")
-        elif level == 2: # 小数乘除
-            for _ in range(16):
+        if level == 1:  # 小数加减
+            for _ in range(15):
+                a = round(random.uniform(0.1, 9.9), 1); b = round(random.uniform(0.1, 9.9), 1)
+                if a + b <= 10: add(f"{a} + {b}", round(a + b, 2), "dec", "小数加减")
+            for _ in range(15):
+                a = round(random.uniform(2.0, 9.9), 1); b = round(random.uniform(0.2, 1.9), 1)
+                add(f"{a} - {b}", round(a - b, 2), "dec", "小数加减")
+        elif level == 2:  # 小数乘整数
+            for _ in range(30):
                 a = round(random.uniform(0.2, 9.5), 1); b = random.randint(2, 5)
-                add(f"{a} × {b}", round(a * b, 2), "dec", "小数乘")
-            for _ in range(16):
+                add(f"{a} × {b}", round(a * b, 2), "dec", "小数乘整数")
+        elif level == 3:  # 小数除整数
+            for _ in range(30):
                 b = random.randint(2, 9); c = round(random.uniform(0.5, 9.5), 1)
-                add(f"{round(b * c, 1)} ÷ {b}", round(c, 2), "dec", "小数除")
-        elif level == 3: # 简便运算
+                add(f"{round(b * c, 1)} ÷ {b}", round(c, 2), "dec", "小数除整数")
+        elif level == 4:  # 小数点移动
+            for _ in range(15):
+                a = round(random.uniform(0.05, 9.9), 2)
+                k = random.choice([10, 100])
+                add(f"{a} × {k}", round(a * k, 4), "dec", "小数点移动")
+            for _ in range(15):
+                a = round(random.uniform(5, 99), 0)
+                k = random.choice([10, 100])
+                add(f"{a} ÷ {k}", round(a / k, 4), "dec", "小数点移动")
+        elif level == 5:  # 简便运算
             pairs = [(0.25, 4), (1.25, 8), (2.5, 4), (0.5, 2)]
-            for _ in range(32):
+            for _ in range(30):
                 p = random.choice(pairs); k = random.randint(2, 9)
                 if random.random() < 0.5:
                     add(f"{p[0]} × {round(p[1] * k, 1)}", round(p[0] * p[1] * k, 2), "dec", "小数简算")
                 else:
                     add(f"{round(p[0] * k, 2)} × {p[1]}", round(p[0] * p[1] * k, 2), "dec", "小数简算")
-        else:            # 混合口算
-            for _ in range(10):
-                a = round(random.uniform(1.5, 9.9), 1); b = round(random.uniform(0.5, 4.5), 1)
-                add(f"{a} - {b}", round(a - b, 2), "dec", "小数减")
-            for _ in range(10):
-                a = round(random.uniform(0.5, 9.9), 1); b = random.randint(2, 9)
-                add(f"{a} × {b}", round(a * b, 2), "dec", "小数乘")
-            for _ in range(10):
-                b, c = random.randint(2, 9), round(random.uniform(0.5, 9.5), 1)
-                add(f"{round(b * c, 1)} ÷ {b}", round(c, 2), "dec", "小数除")
+        else:             # 混合两步
+            for _ in range(15):
+                a = round(random.uniform(0.5, 5.5), 1); b = random.randint(2, 4)
+                c = round(random.uniform(0.5, 3.5), 1)
+                add(f"{a} × {b} + {c}", round(a * b + c, 2), "mix", "两步计算")
+            for _ in range(15):
+                b = random.randint(2, 9); c = round(random.uniform(0.5, 9.5), 1)
+                d = round(random.uniform(0.5, 4.5), 1)
+                add(f"{round(b * c, 1)} ÷ {b} + {d}", round(c + d, 2), "mix", "两步计算")
 
     else:               # grade 6
         def frac_pair():
-            """随机一对最简真分数，通分后分母 ≤ 36"""
             for _ in range(50):
                 n1 = random.randint(1, 6); d1 = random.randint(2, 9)
                 if n1 >= d1 or gcd(n1, d1) != 1: continue
@@ -270,30 +312,48 @@ def gen_cell(grade, level):
                 return n1, d1, n2, d2
             return 1, 2, 1, 4
 
-        if level == 1:   # 分数加减（结果最简）
+        if level == 1:  # 分数加减
             for _ in range(40):
                 n1, d1, n2, d2 = frac_pair()
                 r = n1 / d1 + n2 / d2
-                if ok_frac(r) and r < 2: add(f"{n1}/{d1} + {n2}/{d2}", r, "frac", "分数加")
+                if ok_frac(r) and r < 2: add(f"{n1}/{d1} + {n2}/{d2}", r, "frac", "分数加减")
             for _ in range(40):
                 n1, d1, n2, d2 = frac_pair()
-                v1, v2 = n1 / d1, n2 / d2
-                if v1 <= v2: n1, d1, n2, d2 = n2, d2, n1, d1
+                if n1 / d1 <= n2 / d2: n1, d1, n2, d2 = n2, d2, n1, d1
                 r = n1 / d1 - n2 / d2
-                if r > 0 and ok_frac(r): add(f"{n1}/{d1} - {n2}/{d2}", r, "frac", "分数减")
-        elif level == 2: # 分数乘除（都用最简分数）
+                if r > 0 and ok_frac(r): add(f"{n1}/{d1} - {n2}/{d2}", r, "frac", "分数加减")
+        elif level == 2:  # 分数乘法
             for _ in range(40):
                 n1, d1, n2, d2 = frac_pair()
                 r = (n1 * n2) / (d1 * d2)
                 if ok_frac(r): add(f"{n1}/{d1} × {n2}/{d2}", r, "frac", "分数乘")
-            for _ in range(40):
+            for _ in range(10):
+                n, d = random.randint(1, 9), random.randint(2, 9)
+                if gcd(n, d) != 1: continue
+                k = random.randint(2, 9)
+                r = n * k / d
+                if ok_frac(r) and r < 9: add(f"{n}/{d} × {k}", r, "frac", "分数乘")
+        elif level == 3:  # 分数除法
+            for _ in range(50):
                 n1, d1, n2, d2 = frac_pair()
                 r = (n1 * d2) / (d1 * n2)
                 if ok_frac(r) and r < 5: add(f"{n1}/{d1} ÷ {n2}/{d2}", r, "frac", "分数除")
-        elif level == 3: # 三数互化：分数↔小数↔百分数
+        elif level == 4:  # 倒数与互化
             fr = [(1, 2, 0.5, 50), (1, 4, 0.25, 25), (3, 4, 0.75, 75), (1, 5, 0.2, 20),
                   (2, 5, 0.4, 40), (3, 5, 0.6, 60), (4, 5, 0.8, 80), (1, 10, 0.1, 10),
                   (7, 10, 0.7, 70), (9, 10, 0.9, 90), (1, 8, 0.125, 12.5)]
+            for _ in range(15):
+                n, d = random.randint(1, 9), random.randint(2, 9)
+                if gcd(n, d) != 1: continue
+                add(f"{n}/{d} 的倒数 = ？（填分数或整数）", fr_str(d / n), "frac", "倒数")
+            for _ in range(15):
+                n, d, dec, pct = random.choice(fr)
+                add(f"{n}/{d} = ?（填小数）", dec, "conv", "互化")
+                add(f"{dec} = ?（填百分数）", pct, "conv", "互化")
+        elif level == 5:  # 分数小数百分数互化
+            fr = [(1, 2, 0.5, 50), (1, 4, 0.25, 25), (3, 4, 0.75, 75), (1, 5, 0.2, 20),
+                  (2, 5, 0.4, 40), (3, 5, 0.6, 60), (4, 5, 0.8, 80), (1, 10, 0.1, 10),
+                  (7, 10, 0.7, 70), (9, 10, 0.9, 90), (1, 8, 0.125, 12.5), (3, 8, 0.375, 37.5)]
             for _ in range(32):
                 n, d, dec, pct = random.choice(fr)
                 t = random.randint(0, 3)
@@ -301,10 +361,10 @@ def gen_cell(grade, level):
                 elif t == 1: add(f"{dec} = ?（填百分数）", pct, "conv", "互化")
                 elif t == 2: add(f"{pct}% = ?（填小数）", dec, "conv", "互化")
                 else:        add(f"{dec} = ?/100（填分子）", round(dec * 100, 4), "conv", "互化")
-        else:            # 混合口算
+        else:             # 混合口算
             for _ in range(12):
                 d = random.randint(3, 9); n = random.randint(2, d - 1)
-                if gcd(n, d) == 1: add(f"1 - {n}/{d}", 1 - n / d, "frac", "分数减")
+                if gcd(n, d) == 1: add(f"1 - {n}/{d}", 1 - n / d, "frac", "分数加减")
             for _ in range(12):
                 n, d = random.randint(1, 9), random.randint(2, 9)
                 if gcd(n, d) != 1: continue
@@ -318,19 +378,19 @@ def gen_cell(grade, level):
                 r = n / (d * k)
                 if ok_frac(r): add(f"{n}/{d} ÷ {k}", r, "frac", "分数除")
 
-    # 去重（按题目文本）+ 截断 35
+    # 去重 + 截断 32
     seen, out = set(), []
     for q in qs:
         if q["q"] not in seen:
             q["id"] = f"g{grade}-l{level}-{len(out)}"
             out.append(q); seen.add(q["q"])
-        if len(out) >= 35: break
+        if len(out) >= 32: break
     return out
 
 def main():
     bank = []
     for g in range(1, 7):
-        for lv in range(1, 5):
+        for lv in range(1, 7):
             bank.extend(gen_cell(g, lv))
     path = os.path.join(os.path.dirname(__file__), "..", "data", "banks", "math-oral.json")
     os.makedirs(os.path.dirname(path), exist_ok=True)

@@ -81,6 +81,8 @@
     $('hello-info').textContent = Store.MEDALS[stu.level] + ' ' + Store.LEVELS[stu.level] + starStr((stu.levelStars || [])[stu.level] || 0) +
       ' · ' + (stu.stars || 0) + '⭐';
     renderReadToggle();
+    // 挑战模式：白银段位（level≥1）解锁
+    $('btn-challenge').style.display = stu.level >= 1 ? '' : 'none';
     const map = $('level-map');
     map.innerHTML = '';
     Store.LEVELS.forEach((lname, lv) => {
@@ -101,6 +103,34 @@
 
   /* ---------- 闯关 ---------- */
   let restTimer = null;
+  let challenge = false;      // 挑战模式：每题 10 秒倒计时
+  let qTimer = null;          // 单题倒计时 interval
+  let qT0 = 0;                // 本题开始时间（算⚡快）
+
+  function stopQTimer() {
+    clearInterval(qTimer);
+    $('quiz-timer').classList.add('hidden');
+    $('quiz-timer').classList.remove('urgent');
+  }
+
+  function startQTimer() {
+    stopQTimer();
+    if (!challenge) return;
+    let left = 10;
+    const el = $('quiz-timer');
+    el.textContent = '⏱ ' + left;
+    el.classList.remove('hidden');
+    qTimer = setInterval(() => {
+      left--;
+      el.textContent = '⏱ ' + left;
+      el.classList.toggle('urgent', left <= 3);
+      if (left <= 0) {
+        clearInterval(qTimer);
+        document.querySelectorAll('.opt-btn').forEach(x => x.disabled = true);
+        Quiz.answer(Store.current(), null);   // 超时算错
+      }
+    }, 1000);
+  }
 
   function startRestTimer() {
     clearInterval(restTimer);
@@ -124,6 +154,8 @@
     if (opts) {
       $('quiz-progress').textContent = '⭐'.repeat(Math.max(0, idx - 1)) + '☆'.repeat(Math.max(0, Quiz.PER_ROUND - idx + 1));
       $('question-text').textContent = q.q;
+      qT0 = Date.now();
+      startQTimer();
       const box = $('options');
       box.innerHTML = '';
       $('feedback').classList.add('hidden');
@@ -138,19 +170,22 @@
         box.appendChild(b);
       });
     } else if (result) {
+      stopQTimer();
       const box = $('options');
       box.querySelectorAll('.opt-btn').forEach(b => {
         if (b.textContent === String(q.a)) b.classList.add('correct');
-        else if (b.textContent === result.val) b.classList.add('wrong');
+        else if (result.val && b.textContent === result.val) b.classList.add('wrong');
       });
       if (result.ok) {
+        const fast = challenge && (Date.now() - qT0) < 4000;
         const fb = $('feedback');
-        fb.textContent = '✅ 太棒了！';
+        fb.textContent = fast ? '⚡ 神速！答对啦！' : '✅ 太棒了！';
         fb.className = 'feedback ok';
         setTimeout(() => Quiz.next(Store.current()), 900);
       } else {
         // 错因弹层 + 错题当场重现已由 quiz.js 排队
         $('wrong-reason').innerHTML = q.q + ' = <b>' + q.a + '</b><br>' +
+          (result.val === null ? '时间到啦，没关系，下次算快一点。' : '') +
           (q.wrongReasons && q.wrongReasons[0] ? q.wrongReasons[0] : '再算一遍试试。') +
           '<br>稍后会再练一道类似的题哦';
         $('wrong-overlay').classList.remove('hidden');
@@ -158,11 +193,12 @@
     }
   }
 
-  function startRound(lv) {
+  function startRound(lv, isChallenge) {
+    challenge = !!isChallenge;
     if (typeof lv === 'number') Store.updateCurrent(s => { s.level = lv; });
     const stu = Store.current();
     go('quiz');
-    $('quiz-level').textContent = Store.MEDALS[stu.level] + ' ' + Store.LEVELS[stu.level] + starStr((stu.levelStars || [])[stu.level] || 0);
+    $('quiz-level').textContent = (challenge ? '⏱挑战 ' : '') + Store.MEDALS[stu.level] + ' ' + Store.LEVELS[stu.level] + starStr((stu.levelStars || [])[stu.level] || 0);
     $('wrong-overlay').classList.add('hidden');
     startRestTimer();
     let idx = 0;
@@ -170,6 +206,7 @@
       (q, opts, result) => { if (opts) idx++; roundUI(idx, q, opts, result); },
       r => {
         clearInterval(restTimer);
+        stopQTimer();
         // 得星：对 5 题得 2 星，对 4 题得 1 星
         const win = r.correct >= 4 ? (r.correct >= 5 ? 2 : 1) : 0;
         if (win > 0) {
@@ -178,7 +215,7 @@
             s.levelStars[s.level] = Math.min(3, s.levelStars[s.level] + win);
             s.stars = (s.stars || 0) + r.correct;
             // 3 星升段
-            if (s.levelStars[s.level] >= 3 && s.level < 3) s.level++;
+            if (s.levelStars[s.level] >= 3 && s.level < 5) s.level++;
             if (s.stickers.length < 60) s.stickers.push(String(s.level));
           });
           const s2 = Store.current();
@@ -225,6 +262,7 @@
 
   /* ---------- 其他按钮 ---------- */
   $('btn-go').onclick = () => startRound();
+  $('btn-challenge').onclick = () => startRound(Store.current().level, true);
   $('btn-switch').onclick = () => { renderSetup(); go('setup'); };
   $('btn-read-toggle').onclick = () => { Store.setAutoRead(!Store.autoRead()); renderReadToggle(); };
   $('btn-speak').onclick = () => { const q = Quiz.current; if (q) TTS.speak(q.q); };

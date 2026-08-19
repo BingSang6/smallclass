@@ -96,8 +96,8 @@ def test_v11():
         assert '★' in info and '☆' in info, 'stars not shown'
         # 白银应已解锁（青铜1星）
         locked = page.locator('.level-card.locked').count()
-        print('locked cards (expect 2):', locked)
-        assert locked == 2, 'unlock rule wrong'
+        print('locked cards (expect 4):', locked)
+        assert locked == 4, 'unlock rule wrong'
         # 家长开启全部解锁
         page.evaluate("document.getElementById('btn-settings').click()")
         page.wait_for_timeout(200)
@@ -112,7 +112,21 @@ def test_v11():
         page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
         print('gold tier question:', page.locator('#question-text').inner_text())
         page.screenshot(path='shots/07-v11-gold.png')
-        print('v1.1 errors:', errs if errs else 'none')
+        # 挑战模式：设为白银，回首页点挑战
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].level = 1;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        assert page.locator('#btn-challenge').is_visible(), 'challenge btn hidden'
+        page.click('#btn-challenge')
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(500)
+        timer = page.locator('#quiz-timer')
+        print('challenge timer visible:', timer.is_visible(), '|', timer.inner_text())
+        assert timer.is_visible(), 'timer not shown'
+        page.screenshot(path='shots/08-challenge.png')
+        print('v1.2 errors:', errs if errs else 'none')
         browser.close()
 
 test_v11()
