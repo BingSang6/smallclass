@@ -133,6 +133,8 @@
     renderReadToggle();
     // 挑战模式：白银段位（level≥1）解锁
     $('btn-challenge').style.display = p.level >= 1 ? '' : 'none';
+    // 单元巩固：该年级有单元题库才显示
+    $('btn-units').style.display = meta.units && meta.units[stu.grade] ? '' : 'none';
     const map = $('level-map');
     map.innerHTML = '';
     const desc = meta.levelDesc[stu.grade];
@@ -244,6 +246,7 @@
 
   function startRound(lv, isChallenge) {
     lastWasReview = false;
+    lastWasUnit = false;
     challenge = !!isChallenge;
     if (typeof lv === 'number') Store.updateCurrent(s => { Store.subj(s, curSubject).level = lv; });
     const stu = Store.current();
@@ -285,8 +288,59 @@
     );
   }
 
+  /* ---------- 单元巩固（v2.6） ---------- */
+  function renderUnits() {
+    const stu = Store.current();
+    const meta = Store.SUBJECTS[curSubject];
+    const list = $('unit-list');
+    list.innerHTML = '';
+    meta.units[stu.grade].forEach(name => {
+      const b = document.createElement('button');
+      b.className = 'btn big-btn-list-item';
+      b.textContent = name;
+      b.onclick = () => startUnit(name);
+      list.appendChild(b);
+    });
+    go('units');
+  }
+  $('btn-units').onclick = renderUnits;
+  $('btn-units-back').onclick = () => enterSubject(curSubject);
+
+  function startUnit(name) {
+    lastWasReview = false;
+    lastWasUnit = true;
+    challenge = false;
+    const stu = Store.current();
+    go('quiz');
+    $('quiz-level').textContent = '📚 ' + name;
+    $('wrong-overlay').classList.add('hidden');
+    startRestTimer();
+    let idx = 0;
+    Quiz.start(stu, curSubject,
+      (q, opts, result) => { if (opts) idx++; roundUI(idx, q, opts, result); },
+      r => {
+        clearInterval(restTimer);
+        stopQTimer();
+        Store.updateCurrent(s => { s.stars = (s.stars || 0) + r.correct; });
+        if (r.correct >= r.total - 1) {
+          if (Store.current().stickers.length < 60) Store.updateCurrent(s => { s.stickers.push('U' + name.slice(1, 3)); });
+          $('result-title').textContent = '🎉 这个单元掌握得很好！';
+          $('result-sticker').textContent = '📚';
+        } else {
+          $('result-title').textContent = '💪 单元查漏完成！';
+          $('result-sticker').textContent = '🔍';
+        }
+        $('result-detail').textContent = name + '：答对 ' + r.correct + ' / ' + r.total +
+          ' 题。错的题明天会出现在「今日复习」里哦。';
+        go('result');
+      },
+      { unit: name }
+    );
+  }
+
   /* ---------- 今日复习 ---------- */
   let lastWasReview = false;
+  let lastWasUnit = false;
 
   function startReview() {
     lastWasReview = true;
@@ -316,6 +370,7 @@
   /* ---------- 结算 / 贴纸册 ---------- */
   $('btn-next').onclick = () => {
     if (lastWasReview) { init(); return; }   // 复习完回大厅
+    if (lastWasUnit) { renderUnits(); return; }   // 单元巩固完回单元列表
     startRound(Store.subj(Store.current(), curSubject).level);   // 同段位再来一轮
   };
   $('btn-home').onclick = () => { lastWasReview ? init() : enterSubject(curSubject); };

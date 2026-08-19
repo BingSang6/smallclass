@@ -22,7 +22,13 @@
   const SUBJECTS = {
     math: {
       name: '数学·口算', icon: '🦁', bank: 'data/banks/math-oral.json',
-      levels: LEVELS, medals: MEDALS, levelDesc: LEVEL_DESC
+      levels: LEVELS, medals: MEDALS, levelDesc: LEVEL_DESC,
+      // v2.6 单元巩固：按年级的单元题库 + 单元名（题源 primary-tutor-skill 知识库）
+      unitsBank: 'data/banks/math-g4-units.json',
+      units: {
+        4: ['第一单元 认识更大的数', '第二单元 线与角', '第三单元 乘法', '第四单元 运算律',
+            '第五单元 方向与位置', '第六单元 除法', '第七单元 生活中的负数', '第八单元 可能性']
+      }
     },
     chinese: {
       name: '语文·字词', icon: '📖', bank: 'data/banks/chinese-words.json',

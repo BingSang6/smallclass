@@ -7,6 +7,7 @@
   const banks = {};      // 各学科题库缓存 {subject: [...]}
   let subject = 'math';  // 当前学科
   let mode = 'round';    // round=闯关 / review=今日复习
+  let unitName = null;   // 单元巩固模式：当前单元名（null=段位闯关）
   let queue = [];        // 本关题目队列（错题会追加）
   let queueTotal = 0;    // 复习模式总题数（用于进度条）
   let cur = null;        // 当前题
@@ -17,10 +18,25 @@
   function bank(sub) { return banks[sub || subject] || []; }
 
   function loadBankOf(sub, done) {
-    if (banks[sub] && banks[sub].length) return done();
-    fetch(Store.SUBJECTS[sub].bank)
+    const meta = Store.SUBJECTS[sub];
+    const merge = j => {
+      banks[sub] = (banks[sub] || []).concat(j);
+      // 挂到 window 供导出错题本用
+      window.QuizBank = window.QuizBank || {};
+      window.QuizBank[sub] = banks[sub];
+      done();
+    };
+    const loadUnits = () => {
+      if (meta.unitsBank && !banks[sub + '#units']) {
+        fetch(meta.unitsBank).then(r => r.json())
+          .then(j => { banks[sub + '#units'] = 1; merge(j); })
+          .catch(() => done());
+      } else done();
+    };
+    if (banks[sub] && banks[sub].length) return loadUnits();
+    fetch(meta.bank)
       .then(r => r.json())
-      .then(j => { banks[sub] = j; done(); })
+      .then(j => { banks[sub] = j; loadUnits(); })
       .catch(() => { alert('题库加载失败，请刷新页面'); });
   }
   function loadBank(done) { loadBankOf(subject, done); }
@@ -48,6 +64,16 @@
   }
 
   function pickQuestions(stu, n) {
+    // 单元巩固模式：只按单元过滤，不分段位
+    if (unitName) {
+      const pool = bank().filter(q => q.unit === unitName);
+      const qs = pool.slice();
+      for (let i = qs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [qs[i], qs[j]] = [qs[j], qs[i]];
+      }
+      return qs.slice(0, n);
+    }
     const p = Store.subj(stu, subject);
     const lv = p.level + 1;   // 学生段位 0~5 ↔ 题库 level 1~6
     const pool = bank().filter(q => q.grade === stu.grade && q.level === lv);
@@ -130,9 +156,13 @@
     } else {
       streak = 0;
       TTS.speak('再想一想。' + (cur.wrongReasons && cur.wrongReasons[0] ? cur.wrongReasons[0] : ''));
-      // 错题当场换数字重现：同 tag 下一题插到队尾
-      const pool = bank().filter(q => q.grade === stu.grade && q.level === p.level + 1 && q.tag === tag && q.id !== cur.id);
-      if (pool.length) queue.push(pool[Math.floor(Math.random() * pool.length)]);
+      // 错题当场重现：单元题重问本题，口算换同 tag 数字再练
+      if (unitName) {
+        queue.push(cur);
+      } else {
+        const pool = bank().filter(q => q.grade === stu.grade && q.level === p.level + 1 && q.tag === tag && q.id !== cur.id);
+        if (pool.length) queue.push(pool[Math.floor(Math.random() * pool.length)]);
+      }
       // 记入待巩固池 + 排入复习计划（明天到期）
       Store.updateCurrent(s => resetReview(s, subject, cur.id, true));
     }
@@ -183,8 +213,9 @@
   function reset() { queue = []; cur = null; streak = 0; correct = 0; total = 0; queueTotal = 0; }
 
   const Quiz = {
-    start(stu, subjName, ui, end) {
+    start(stu, subjName, ui, end, opts) {
       mode = 'round';
+      unitName = (opts && opts.unit) || null;
       subject = subjName;
       loadBank(() => {
         reset();
@@ -201,6 +232,7 @@
     /** 今日复习：跨学科混合，最多 REVIEW_MAX 题 */
     startReview(stu, ui, end) {
       mode = 'review';
+      unitName = null;
       loadAll(() => {
         reset();
         onUI = ui; onEnd = end;

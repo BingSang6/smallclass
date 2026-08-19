@@ -196,7 +196,46 @@ def test_v11():
         print('review schedule after correct:', sched)
         assert '"box":1' in sched, 'box not advanced'
         page.screenshot(path='shots/13-review-result.png')
-        print('v2.5 errors:', errs if errs else 'none')
+        # ---- v2.6: 单元巩固（四年级才有单元题库） ----
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].grade = 4;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card').first.click()   # 数学
+        page.wait_for_timeout(300)
+        assert page.locator('#btn-units').is_visible(), 'units btn hidden (grade4)'
+        page.click('#btn-units')
+        page.wait_for_timeout(200)
+        n_units = page.locator('#unit-list button').count()
+        print('unit list (expect 8):', n_units)
+        assert n_units == 8
+        page.screenshot(path='shots/14-units.png')
+        page.locator('#unit-list button').nth(3).click()   # 第四单元 运算律
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        uq = page.locator('#question-text').inner_text()
+        print('unit question:', uq)
+        assert '运算律' in page.locator('#quiz-level').inner_text() or '第四' in page.locator('#quiz-level').inner_text()
+        uopts = page.locator('.opt-btn').count()
+        print('unit options (expect 3):', uopts)
+        assert uopts == 3
+        page.screenshot(path='shots/15-unit-quiz.png')
+        # 答错一题 → 应进入明日复习队列（review due = 明天）
+        page.evaluate("""() => {
+          const q = Quiz.current;
+          const btns = [...document.querySelectorAll('.opt-btn')];
+          const b = btns.find(x => x.textContent !== String(q.a));
+          b.click();
+        }""")
+        page.wait_for_timeout(300)
+        sched2 = page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          return JSON.stringify(d.students[0].sub.math.review);
+        }""")
+        print('review after unit wrong:', sched2)
+        assert 'u4-' in sched2, 'unit wrong not scheduled'
+        print('all errors:', errs if errs else 'none')
         browser.close()
 
 test_v11()
