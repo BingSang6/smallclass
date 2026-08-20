@@ -187,3 +187,17 @@ body {
 .pet-stage.got { filter: none; opacity: 1; }
 .pk-card { border-color: #ffcdd2; background: linear-gradient(135deg, #fff, #ffebee); }
 .subject-grid { margin-top: 12px; }
+
+/* v2.9.1 答题页宠物陪伴 */
+.quiz-pet { font-size: 30px; margin-left: auto; }
+.quiz-pet.jump { animation: petJump 0.5s ease 2; }
+.quiz-pet.glow { animation: petGlow 0.6s ease 3; filter: drop-shadow(0 0 8px #ffd54f); }
+@keyframes petJump {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  40% { transform: translateY(-14px) rotate(-12deg); }
+  70% { transform: translateY(-4px) rotate(8deg); }
+}
+@keyframes petGlow {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px #ffd54f); }
+  50% { transform: scale(1.35); filter: drop-shadow(0 0 16px #ffab00); }
+}

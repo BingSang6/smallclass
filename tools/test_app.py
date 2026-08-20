@@ -306,6 +306,40 @@ def test_v11():
         print('task3 progress:', t3)
         assert '/10）' in t3 and '0/10' not in t3, 'correct counter not tracked'
         page.screenshot(path='shots/20-hub-v29.png')
+        # ---- v2.9.1: 喂食反馈 + 答题页宠物 ----
+        # 喂食成功要显示提示文案（回归：修复提示被清空的 bug）
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].coins = 30;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.click('#btn-pet'); page.wait_for_timeout(200)
+        page.click('#btn-feed'); page.wait_for_timeout(300)
+        feedmsg = page.locator('#pet-msg').inner_text()
+        print('feed msg:', feedmsg)
+        assert '好吃' in feedmsg, 'feed feedback missing'
+        # 答题页宠物：闯关答对后应有 jump/glow 动画类
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.wait_for_timeout(300)
+        page.locator('.subject-card').first.click()
+        page.wait_for_timeout(200)
+        page.click('#btn-go')
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        pet = page.locator('#quiz-pet')
+        assert pet.is_visible(), 'quiz pet not shown'
+        print('quiz pet:', pet.inner_text())
+        page.evaluate("""() => {
+          const q = Quiz.current;
+          const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
+          b.click();
+        }""")
+        page.wait_for_timeout(300)
+        cls = page.evaluate("() => document.getElementById('quiz-pet').className")
+        print('pet classes after correct:', cls)
+        assert 'jump' in cls or 'glow' in cls, 'pet animation missing'
+        page.screenshot(path='shots/21-quiz-pet.png')
+        print('v2.9.1 errors:', errs if errs else 'none')
         print('v2.9 errors:', errs if errs else 'none')
         browser.close()
 

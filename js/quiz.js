@@ -270,6 +270,7 @@
     answer(stu, val) { answer(stu, val); },
     next(stu) { next(stu); },
     get current() { return cur; },
+    get streak() { return streak; },
     get PER_ROUND() { return PER_ROUND; },
     get TOTAL() { return mode === 'review' ? queueTotal : PER_ROUND; },
     get mode() { return mode; }

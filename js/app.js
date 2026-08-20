@@ -171,14 +171,17 @@
   $('btn-pet').onclick = openPet;
   $('btn-pet-back').onclick = () => init();
   $('btn-feed').onclick = () => {
+    let msg = '';
     Store.updateCurrent(s => {
       const r = Store.feedPet(s);
-      const msg = $('pet-msg');
-      if (!r.ok) { msg.textContent = r.msg; return; }
+      if (!r.ok) { msg = r.msg; return; }
       const before = Store.petStage(r.growth - 1), after = Store.petStage(r.growth);
-      msg.textContent = '好吃！成长 +1' + (after.index > before.index ? ' 🎉 进化成【' + after.name + '】啦！' : '');
+      msg = '😋 好吃！成长 +1（今天还可喂 ' + (3 - s.pet.fedToday) + ' 次）' +
+            (after.index > before.index ? ' 🎉 进化成【' + after.name + '】啦！' : '');
     });
-    openPet(); renderHub(Store.current());
+    openPet();
+    renderHub(Store.current());
+    $('pet-msg').textContent = msg;   // openPet 会清空消息，最后再写回
   };
 
   function enterSubject(sub) {
@@ -266,8 +269,28 @@
     }, 15000);
   }
 
+  /* ---------- 答题页宠物陪伴（v2.9.1） ---------- */
+  function setQuizPet() {
+    const stu = Store.current();
+    if (!stu) return;
+    const el = $('quiz-pet');
+    el.textContent = Store.petStage(stu.pet.growth).name.split(' ')[0];
+    el.classList.remove('hidden');
+    el.classList.remove('jump', 'glow');
+  }
+  function petReact(ok) {
+    const el = $('quiz-pet');
+    if (!el || el.classList.contains('hidden')) return;
+    el.classList.remove('jump', 'glow');
+    if (ok) {
+      // 连对 3 题发光欢呼，否则跳一下
+      if (Quiz.streak >= 3) el.classList.add('glow'); else el.classList.add('jump');
+    }
+  }
+
   function roundUI(idx, q, opts, result) {
     if (opts) {
+      setQuizPet();
       const tot = Quiz.TOTAL;
       $('quiz-progress').textContent = '⭐'.repeat(Math.max(0, idx - 1)) + '☆'.repeat(Math.max(0, tot - idx + 1));
       $('question-text').textContent = q.q;
@@ -288,6 +311,7 @@
       });
     } else if (result) {
       stopQTimer();
+      petReact(result.ok);
       const box = $('options');
       box.querySelectorAll('.opt-btn').forEach(b => {
         if (b.textContent === String(q.a)) b.classList.add('correct');
@@ -452,6 +476,7 @@
     Quiz.start(stu, 'math',
       (q, opts, result) => {
         if (opts) {
+          setQuizPet();
           $('quiz-progress').textContent = '🧒 ' + pkMy + ' : ' + pkRobot + ' 🤖';
           $('question-text').textContent = q.q;
           const box = $('options');
@@ -470,6 +495,7 @@
           pkStartTimer(Store.current());
         } else if (result) {
           pkStopTimer();
+          petReact(result.ok);
           if (result.ok) pkMy++; else pkRobot++;
           const box = $('options');
           box.querySelectorAll('.opt-btn').forEach(b => {
