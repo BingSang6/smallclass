@@ -30,14 +30,22 @@
     const loadUnits = () => {
       if (meta.unitsBank && !banks[sub + '#units']) {
         fetch(meta.unitsBank).then(r => r.json())
-          .then(j => { banks[sub + '#units'] = 1; merge(j); })
+          .then(j => { banks[sub + '#units'] = 1; merge(j); done(); })
           .catch(() => done());
       } else done();
     };
-    if (banks[sub] && banks[sub].length) return loadUnits();
+    // v3.2 专题训练题库（unit 字段复用单元模式）
+    const loadTopics = () => {
+      if (meta.topicsBank && !banks[sub + '#topics']) {
+        fetch(meta.topicsBank).then(r => r.json())
+          .then(j => { banks[sub + '#topics'] = 1; merge(j); loadUnits(); })
+          .catch(() => loadUnits());
+      } else loadUnits();
+    };
+    if (banks[sub] && banks[sub].length) return loadTopics();
     fetch(meta.bank)
       .then(r => r.json())
-      .then(j => { banks[sub] = j; loadUnits(); })
+      .then(j => { banks[sub] = j; loadTopics(); })
       .catch(() => { alert('题库加载失败，请刷新页面'); });
   }
   function loadBank(done) { loadBankOf(subject, done); }
@@ -50,7 +58,7 @@
   /** 混合挑战：四科各按已解锁段位混出 10 题（数学 4 + 字词 3 + 古诗 3，需先 loadAll） */
   function mixedList(stu) {
     const take = [];
-    const quota = { math: 4, chinese: 2, poem: 2, english: 2 };
+    const quota = { math: 4, chinese: 2, poem: 1, guwen: 1, english: 2 };
     Object.keys(quota).forEach(sub => {
       const p = Store.subj(stu, sub);
       const pool = bank(sub).filter(q => q.grade === stu.grade && !q.unit && q.level <= p.level + 1);

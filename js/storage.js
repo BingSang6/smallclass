@@ -28,6 +28,15 @@
       units: {
         4: ['第一单元 认识更大的数', '第二单元 线与角', '第三单元 乘法', '第四单元 运算律',
             '第五单元 方向与位置', '第六单元 除法', '第七单元 生活中的负数', '第八单元 可能性']
+      },
+      // v3.2 专题训练：单位换算 + 解决问题（gen_math_topics.py，题名 = q.unit）
+      topicsBank: 'data/banks/math-topics.json',
+      topics: {
+        2: ['专题·人民币'],
+        3: ['专题·长度', '专题·质量', '专题·时间', '专题·解决问题'],
+        4: ['专题·面积', '专题·解决问题'],
+        5: ['专题·体积与容积', '专题·解决问题'],
+        6: ['专题·解决问题']
       }
     },
     chinese: {
@@ -54,6 +63,18 @@
         6: ['爱国诗', '托物言志', '节令诗', '送别诗', '长诗名篇', '名句运用']
       }
     },
+    guwen: {   // 语文·小古文（题源 chinese-primary-curriculum.md 第三部分，11 篇公版小古文）
+      name: '小古文', short: '小古文', icon: '🧧', bank: 'data/banks/guwen.json', group: '语文',
+      levels: LEVELS, medals: MEDALS,
+      levelDesc: {
+        1: ['句意衔接', '字词释义', '认出处', '句意衔接', '字词释义', '综合'],
+        2: ['句意衔接', '字词释义', '认出处', '句意衔接', '字词释义', '综合'],
+        3: ['司马光', '守株待兔', '字词释义', '句意衔接', '认出处', '综合'],
+        4: ['精卫填海', '王戎识李', '囊萤夜读', '铁杵成针', '字词释义', '综合'],
+        5: ['自相矛盾', '杨氏之子', '字词释义', '句意衔接', '认出处', '综合'],
+        6: ['学弈', '两小儿辩日', '伯牙鼓琴', '字词释义', '句意衔接', '综合']
+      }
+    },
     english: {   // 英语·单词（题源 english-primary-shenzhen-oxford.md 沪教牛津深圳版，公共词表）
       name: '英语·单词', short: '单词', icon: '🔤', bank: 'data/banks/english-words.json',
       levels: LEVELS, medals: MEDALS,
@@ -71,7 +92,7 @@
   // 学科大厅分组：语数英三大学科（语文内含 字词+古诗 两个分支）
   const GROUPS = [
     { key: 'math', name: '数学', icon: '🦁', subs: ['math'], desc: '口算 · 单元巩固' },
-    { key: 'chinese', name: '语文', icon: '📖', subs: ['chinese', 'poem'], desc: '字词 · 古诗' },
+    { key: 'chinese', name: '语文', icon: '📖', subs: ['chinese', 'poem', 'guwen'], desc: '字词 · 古诗 · 小古文' },
     { key: 'english', name: '英语', icon: '🔤', subs: ['english'], desc: '单词' }
   ];
 
@@ -131,7 +152,7 @@
   function newStudent(name, grade) {
     return {
       name: name, grade: grade,
-      sub: { math: newSubj(), chinese: newSubj(), poem: newSubj() },   // 各学科进度
+      sub: { math: newSubj(), chinese: newSubj(), poem: newSubj(), guwen: newSubj() },   // 各学科进度
       stars: 0,                                   // 累计星数（贴纸）
       stickers: [],                               // 贴纸 id 列表
       clearedTags: {},                            // 已攻克知识点 tag -> 连对次数

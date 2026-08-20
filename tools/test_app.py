@@ -209,9 +209,19 @@ def test_v11():
         page.click('#btn-units')
         page.wait_for_timeout(200)
         n_units = page.locator('#unit-list button').count()
-        print('unit list (expect 8):', n_units)
-        assert n_units == 8
+        print('unit list (expect 10 = 8单元+2专题):', n_units)
+        assert n_units == 10
         page.screenshot(path='shots/14-units.png')
+        # v3.2 专题训练：点「解决问题」
+        page.locator('#unit-list button', has_text='解决问题').click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        tq = page.locator('#question-text').inner_text()
+        print('topic question:', tq)
+        assert '专题·解决问题' in page.locator('#quiz-level').inner_text()
+        page.screenshot(path='shots/14b-topic-quiz.png')
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card').first.click(); page.wait_for_timeout(300)
+        page.click('#btn-units'); page.wait_for_timeout(200)
         page.locator('#unit-list button').nth(3).click()   # 第四单元 运算律
         page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
         uq = page.locator('#question-text').inner_text()
@@ -264,8 +274,24 @@ def test_v11():
         assert '语文' in page.locator('#hello-name').inner_text()
         tabs = page.locator('#subject-tabs .tab-btn')
         print('chinese tabs:', tabs.all_inner_texts())
-        assert tabs.count() == 2, 'chinese should have 2 tabs'
+        assert tabs.count() == 3, 'chinese should have 3 tabs'
         page.screenshot(path='shots/18-chinese-tabs.png')
+        # v3.2：小古文 tab（第 3 个）
+        tabs.nth(2).click()
+        page.wait_for_timeout(400)
+        assert '小古文' in page.locator('#hello-name').inner_text()
+        page.screenshot(path='shots/19b-guwen-home.png')
+        page.click('#btn-go')
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        wq = page.locator('#question-text').inner_text()
+        print('guwen question:', wq)
+        assert ('接下句' in wq or '接上句' in wq or '的意思' in wq or '出自哪一篇' in wq)
+        assert page.locator('.opt-btn').count() == 3
+        page.screenshot(path='shots/19c-guwen-quiz.png')
+        # 回语文 tab 切古诗
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card').nth(1).click(); page.wait_for_timeout(300)
+        tabs = page.locator('#subject-tabs .tab-btn')
         tabs.nth(1).click()   # 切到古诗
         page.wait_for_timeout(400)
         assert '古诗' in page.locator('#hello-name').inner_text()

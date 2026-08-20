@@ -218,8 +218,9 @@
     renderReadToggle();
     // 挑战模式：白银段位（level≥1）解锁
     $('btn-challenge').style.display = p.level >= 1 ? '' : 'none';
-    // 单元巩固：该年级有单元题库才显示
-    $('btn-units').style.display = meta.units && meta.units[stu.grade] ? '' : 'none';
+    // 单元巩固 + 专题训练：该年级有题库才显示
+    $('btn-units').style.display =
+      (meta.units && meta.units[stu.grade]) || (meta.topics && meta.topics[stu.grade]) ? '' : 'none';
     const map = $('level-map');
     map.innerHTML = '';
     const desc = meta.levelDesc[stu.grade];
@@ -395,16 +396,23 @@
     );
   }
 
-  /* ---------- 单元巩固（v2.6） ---------- */
+  /* ---------- 单元巩固 + 专题训练（v2.6 / v3.2） ---------- */
   function renderUnits() {
     const stu = Store.current();
     const meta = Store.SUBJECTS[curSubject];
     const list = $('unit-list');
     list.innerHTML = '';
-    meta.units[stu.grade].forEach(name => {
+    (meta.units && meta.units[stu.grade] || []).forEach(name => {
       const b = document.createElement('button');
       b.className = 'btn big-btn-list-item';
       b.textContent = name;
+      b.onclick = () => startUnit(name);
+      list.appendChild(b);
+    });
+    (meta.topics && meta.topics[stu.grade] || []).forEach(name => {
+      const b = document.createElement('button');
+      b.className = 'btn big-btn-list-item';
+      b.textContent = '🎯 ' + name.replace('专题·', '');
       b.onclick = () => startUnit(name);
       list.appendChild(b);
     });
