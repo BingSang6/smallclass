@@ -29,21 +29,42 @@
       <button class="btn tiny corner" id="btn-settings">⚙️</button>
     </section>
 
-    <!-- ============ 屏：学科大厅 ============ -->
+    <!-- ============ 屏：学科大厅（v2.9 分层改版） ============ -->
     <section id="screen-hub" class="screen hidden">
-      <div class="hello">
-        <div id="hub-avatar" class="avatar">🦁</div>
-        <div>
+      <div class="hub-status">
+        <div class="hub-avatar" id="hub-avatar">🦁</div>
+        <div class="hub-who">
           <div id="hub-name">小朋友</div>
-          <div id="hub-info" class="sub">28⭐</div>
+          <div class="sub" id="hub-sub">⭐ 0 · 🪙 0</div>
         </div>
+        <div class="hub-streak" id="hub-streak">🔥 0 天</div>
+      </div>
+      <div class="task-bar">
+        <div class="task-title">📅 今日任务 <span id="task-done-count"></span></div>
+        <div class="task-row" id="task-row"></div>
       </div>
       <button class="btn review-card hidden" id="btn-review">🌅 今日复习</button>
+      <button class="btn pet-card" id="btn-pet">
+        <span class="pet-emoji" id="pet-emoji">🥚</span>
+        <span class="pet-info"><b id="pet-name">神秘蛋</b><i class="sub" id="pet-growth">成长 0/3</i></span>
+        <span class="pet-feed">🍖 喂食</span>
+      </button>
       <div id="subject-grid" class="subject-grid"></div>
       <div class="home-row">
         <button class="btn small" id="btn-album2">🏅 我的贴纸</button>
         <button class="btn small" id="btn-switch2">🔄 换人</button>
       </div>
+    </section>
+
+    <!-- ============ 屏：宠物小屋 ============ -->
+    <section id="screen-pet" class="screen hidden">
+      <button class="btn tiny corner3" id="btn-pet-back">🔙</button>
+      <div class="pet-big" id="pet-big">🥚</div>
+      <h2 id="pet-title">神秘蛋</h2>
+      <p class="sub" id="pet-detail">成长值 0</p>
+      <div class="pet-stages" id="pet-stages"></div>
+      <button class="btn primary" id="btn-feed">🍖 喂食（10 🪙）</button>
+      <p class="sub" id="pet-msg"></p>
     </section>
 
     <!-- ============ 屏：学科主页（段位地图） ============ -->

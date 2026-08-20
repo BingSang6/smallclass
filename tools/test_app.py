@@ -22,7 +22,7 @@ with sync_playwright() as p:
     page.click('#btn-create')
     page.wait_for_timeout(500)
     page.screenshot(path='shots/02-hub.png')
-    print('hub:', page.locator('#hub-name').inner_text(), '|', page.locator('#hub-info').inner_text())
+    print('hub:', page.locator('#hub-name').inner_text(), '|', page.locator('#hub-sub').inner_text())
     # 进入数学学科
     page.locator('.subject-card').first.click()
     page.wait_for_timeout(300)
@@ -256,6 +256,57 @@ def test_v11():
         assert page.locator('.opt-btn').count() == 3
         page.screenshot(path='shots/17-poem-quiz.png')
         print('v2.8 errors:', errs if errs else 'none')
+        # ---- v2.9: 任务条 / 宠物 / 人机PK ----
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.wait_for_timeout(400)
+        n_tasks = page.locator('.task-item').count()
+        print('task items (expect 3):', n_tasks)
+        assert n_tasks == 3
+        print('pet card:', page.locator('#pet-name').inner_text(), '| streak:', page.locator('#hub-streak').inner_text())
+        # 宠物喂食：给 10 金币
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].coins = 10;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.click('#btn-pet')
+        page.wait_for_timeout(200)
+        page.click('#btn-feed')
+        page.wait_for_timeout(200)
+        growth = page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          return d.students[0].pet.growth + '/' + d.students[0].coins;
+        }""")
+        print('after feed (growth/coins expect 1/0):', growth)
+        assert growth == '1/0'
+        page.screenshot(path='shots/18-pet.png')
+        # 人机 PK
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.wait_for_timeout(300)
+        pk = page.locator('.pk-card')
+        assert pk.is_visible(), 'pk card not shown'
+        pk.click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        print('pk question:', page.locator('#question-text').inner_text(), '| score:', page.locator('#quiz-progress').inner_text())
+        assert ': ' in page.locator('#quiz-progress').inner_text() or ' : ' in page.locator('#quiz-progress').inner_text()
+        page.evaluate("""() => {
+          const q = Quiz.current;
+          const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
+          b.click();
+        }""")
+        page.wait_for_timeout(400)
+        print('pk score after correct:', page.locator('#quiz-progress').inner_text())
+        assert '1' in page.locator('#quiz-progress').inner_text()
+        page.screenshot(path='shots/19-pk.png')
+        # 任务进度：PK 答对过 1 题 → 答对10题任务应显示 1/10
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.wait_for_timeout(400)
+        t3 = page.locator('.task-item').nth(2).inner_text()
+        print('task3 progress:', t3)
+        assert '/10）' in t3 and '0/10' not in t3, 'correct counter not tracked'
+        page.screenshot(path='shots/20-hub-v29.png')
+        print('v2.9 errors:', errs if errs else 'none')
         browser.close()
 
 test_v11()

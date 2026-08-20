@@ -76,24 +76,28 @@
     return false;
   }
 
-  /* ---------- 屏：学科大厅 ---------- */
+  /* ---------- 屏：学科大厅（v2.9 分层：状态→任务→复习→宠物→学科） ---------- */
   function renderHub(stu) {
     $('hub-name').textContent = stu.name;
-    $('hub-info').textContent = (stu.stars || 0) + '⭐ · ' + (stu.stickers || []).length + ' 枚贴纸';
+    const dl = Store.daily(stu);
+    $('hub-sub').textContent = '⭐ ' + (stu.stars || 0) + ' · 🪙 ' + (stu.coins || 0);
+    $('hub-streak').textContent = '🔥 ' + (stu.streak || 0) + ' 天';
+    renderTasks(stu);
     // 🌅 今日复习卡片（到期错题 > 0 才显示）
     const rb = $('btn-review');
     Quiz.dueCount(stu, n => {
       if (n > 0) {
-        rb.textContent = '🌅 今日复习 · ' + n + ' 题';
+        rb.textContent = '🌅 今日复习 · ' + n + ' 题  +3🪙';
         rb.classList.remove('hidden');
       } else {
         rb.classList.add('hidden');
       }
     });
+    renderPetCard(stu);
     const grid = $('subject-grid');
     grid.innerHTML = '';
     const extra = [
-      { key: 'more', name: '更多学科', icon: '➕', desc: '敬请期待' }
+      { key: 'pk', name: '人机 PK', icon: '⚔️', desc: '' }
     ];
     Object.keys(Store.SUBJECTS).concat(extra.map(e => e.key)).forEach(key => {
       const meta = Store.SUBJECTS[key] || extra.find(e => e.key === key);
@@ -106,14 +110,76 @@
           '<div class="sc-desc">' + Store.LEVELS[p.level] + starStr(p.levelStars[p.level]) + '</div>';
         b.onclick = () => enterSubject(key);
       } else {
-        b.className = 'subject-card locked';
-        b.innerHTML = '<div class="sc-icon">' + meta.icon + '</div>' +
-          '<div class="sc-name">' + meta.name + '</div>' +
-          '<div class="sc-desc">🔒 ' + meta.desc + '</div>';
+        // 人机 PK 卡
+        const lvNames = ['🤖 慢吞吞', '🤖 正常速', '🤖 闪电手'];
+        b.className = 'subject-card pk-card';
+        b.innerHTML = '<div class="sc-icon">⚔️</div>' +
+          '<div class="sc-name">人机 PK</div>' +
+          '<div class="sc-desc">' + lvNames[Math.min(2, stu.pkLevel || 0)] + ' · 胜 ' + (stu.pkWins || 0) + '</div>';
+        b.onclick = startPK;
       }
       grid.appendChild(b);
     });
   }
+
+  /* ---------- 每日任务条 ---------- */
+  const TASK_DEFS = [
+    { key: 'review', icon: '🌅', label: '复习一次' },
+    { key: 'round', icon: '🎮', label: '闯一关' },
+    { key: 'correct10', icon: '✏️', label: '答对10题' }
+  ];
+  function renderTasks(stu) {
+    const dl = Store.daily(stu);
+    const done = TASK_DEFS.filter(t => dl[t.key]).length;
+    $('task-done-count').textContent = done + '/3' + (dl.bonus ? ' 🎉' : '');
+    const row = $('task-row');
+    row.innerHTML = '';
+    TASK_DEFS.forEach(t => {
+      const d = document.createElement('div');
+      const ok = !!dl[t.key];
+      d.className = 'task-item' + (ok ? ' done' : '');
+      d.innerHTML = (ok ? '✅ ' : '⬜ ') + t.icon + ' ' + t.label;
+      if (t.key === 'correct10' && !ok) d.innerHTML += '（' + dl.correctToday + '/10）';
+      row.appendChild(d);
+    });
+  }
+
+  /* ---------- 宠物 ---------- */
+  function renderPetCard(stu) {
+    const st = Store.petStage(stu.pet.growth);
+    $('pet-emoji').textContent = st.name.split(' ')[0];
+    $('pet-name').textContent = st.name.split(' ')[1] || st.name;
+    $('pet-growth').textContent = st.next ? ('成长 ' + stu.pet.growth + '/' + st.next) : '已满级 ✨';
+  }
+  function openPet() {
+    const stu = Store.current();
+    const st = Store.petStage(stu.pet.growth);
+    $('pet-big').textContent = st.name.split(' ')[0];
+    $('pet-title').textContent = st.name.split(' ')[1] || st.name;
+    $('pet-detail').textContent = '成长值 ' + stu.pet.growth + (st.next ? '（再喂 ' + (st.next - stu.pet.growth) + ' 次进化）' : ' · 满级啦！');
+    const stages = $('pet-stages');
+    stages.innerHTML = '';
+    Store.PET_STAGES.forEach((n, i) => {
+      const d = document.createElement('div');
+      d.className = 'pet-stage' + (i <= st.index ? ' got' : '');
+      d.textContent = n.split(' ')[0];
+      stages.appendChild(d);
+    });
+    $('pet-msg').textContent = '';
+    go('pet');
+  }
+  $('btn-pet').onclick = openPet;
+  $('btn-pet-back').onclick = () => init();
+  $('btn-feed').onclick = () => {
+    Store.updateCurrent(s => {
+      const r = Store.feedPet(s);
+      const msg = $('pet-msg');
+      if (!r.ok) { msg.textContent = r.msg; return; }
+      const before = Store.petStage(r.growth - 1), after = Store.petStage(r.growth);
+      msg.textContent = '好吃！成长 +1' + (after.index > before.index ? ' 🎉 进化成【' + after.name + '】啦！' : '');
+    });
+    openPet(); renderHub(Store.current());
+  };
 
   function enterSubject(sub) {
     curSubject = sub;
@@ -261,6 +327,7 @@
       r => {
         clearInterval(restTimer);
         stopQTimer();
+        Store.updateCurrent(s => { s.coins = (s.coins || 0) + Store.taskDone(s, 'round'); });
         // 得星：对 5 题得 2 星，对 4 题得 1 星
         const win = r.correct >= 4 ? (r.correct >= 5 ? 2 : 1) : 0;
         if (win > 0) {
@@ -320,7 +387,10 @@
       r => {
         clearInterval(restTimer);
         stopQTimer();
-        Store.updateCurrent(s => { s.stars = (s.stars || 0) + r.correct; });
+        Store.updateCurrent(s => {
+          s.stars = (s.stars || 0) + r.correct;
+          s.coins = (s.coins || 0) + Store.taskDone(s, 'round');
+        });
         if (r.correct >= r.total - 1) {
           if (Store.current().stickers.length < 60) Store.updateCurrent(s => { s.stickers.push('U' + name.slice(1, 3)); });
           $('result-title').textContent = '🎉 这个单元掌握得很好！';
@@ -334,6 +404,113 @@
         go('result');
       },
       { unit: name }
+    );
+  }
+
+  /* ---------- 人机 PK（v2.9：单机竞速） ---------- */
+  const PK_ROBOTS = [
+    { name: '慢吞吞龟', icon: '🐢', sec: 15 },
+    { name: '机器人', icon: '🤖', sec: 10 },
+    { name: '闪电手', icon: '⚡', sec: 6 }
+  ];
+  let lastWasPK = false;
+  let pkMy = 0, pkRobot = 0, pkTimer = null, pkSec = 10;
+
+  function pkStopTimer() {
+    clearInterval(pkTimer);
+    $('quiz-timer').classList.add('hidden');
+    $('quiz-timer').classList.remove('urgent');
+  }
+  function pkStartTimer(stu) {
+    pkStopTimer();
+    let left = pkSec;
+    const el = $('quiz-timer');
+    el.textContent = '⏱ ' + left;
+    el.classList.remove('hidden');
+    pkTimer = setInterval(() => {
+      left--;
+      el.textContent = '⏱ ' + left;
+      el.classList.toggle('urgent', left <= 3);
+      if (left <= 0) {
+        clearInterval(pkTimer);
+        document.querySelectorAll('.opt-btn').forEach(x => x.disabled = true);
+        Quiz.answer(stu, null);   // 机器人抢答
+      }
+    }, 1000);
+  }
+
+  function startPK() {
+    const stu = Store.current();
+    lastWasPK = true; lastWasReview = false; lastWasUnit = false; challenge = false;
+    pkMy = 0; pkRobot = 0;
+    const robot = PK_ROBOTS[Math.min(2, stu.pkLevel || 0)];
+    pkSec = robot.sec;
+    go('quiz');
+    $('quiz-level').textContent = '⚔️ PK vs ' + robot.icon + robot.name;
+    $('wrong-overlay').classList.add('hidden');
+    startRestTimer();
+    Quiz.start(stu, 'math',
+      (q, opts, result) => {
+        if (opts) {
+          $('quiz-progress').textContent = '🧒 ' + pkMy + ' : ' + pkRobot + ' 🤖';
+          $('question-text').textContent = q.q;
+          const box = $('options');
+          box.innerHTML = '';
+          $('feedback').classList.add('hidden');
+          opts.forEach(o => {
+            const b = document.createElement('button');
+            b.className = 'opt-btn';
+            b.textContent = o;
+            b.onclick = () => {
+              box.querySelectorAll('.opt-btn').forEach(x => x.disabled = true);
+              Quiz.answer(Store.current(), o);
+            };
+            box.appendChild(b);
+          });
+          pkStartTimer(Store.current());
+        } else if (result) {
+          pkStopTimer();
+          if (result.ok) pkMy++; else pkRobot++;
+          const box = $('options');
+          box.querySelectorAll('.opt-btn').forEach(b => {
+            if (b.textContent === String(q.a)) b.classList.add('correct');
+            else if (result.val && b.textContent === result.val) b.classList.add('wrong');
+          });
+          $('quiz-progress').textContent = '🧒 ' + pkMy + ' : ' + pkRobot + ' 🤖';
+          const fb = $('feedback');
+          if (result.ok) {
+            fb.textContent = (Date.now() % 2) ? '⚡ 抢到了！' : '✅ 你赢了这题！';
+            fb.className = 'feedback ok';
+            setTimeout(() => Quiz.next(Store.current()), 800);
+          } else {
+            fb.textContent = '🤖 机器人抢走了这题';
+            fb.className = 'feedback';
+            setTimeout(() => Quiz.next(Store.current()), 1100);
+          }
+          fb.classList.remove('hidden');
+        }
+      },
+      r => {
+        clearInterval(restTimer);
+        pkStopTimer();
+        const win = pkMy > pkRobot;
+        Store.updateCurrent(s => {
+          s.coins = (s.coins || 0) + Store.taskDone(s, 'correct');
+          if (win) {
+            s.pkWins = (s.pkWins || 0) + 1;
+            s.coins = (s.coins || 0) + 5;
+            if (s.pkWins % 3 === 0 && s.pkLevel < 2) s.pkLevel++;
+          }
+        });
+        const s2 = Store.current();
+        $('result-title').textContent = win ? '🏆 你赢啦！' : '🤖 机器人赢了，再来！';
+        $('result-detail').textContent = '比分 ' + pkMy + ' : ' + pkRobot +
+          (win ? '，金币 +5！' : '，下一次一定赢！') +
+          (s2.pkWins % 3 === 0 && win && s2.pkLevel > 0 ? ' 解锁了更快的机器人 ⚡' : '');
+        $('result-sticker').textContent = win ? '🏆' : '💪';
+        go('result');
+      },
+      { pk: true }
     );
   }
 
@@ -356,7 +533,7 @@
         clearInterval(restTimer);
         stopQTimer();
         if (r.total === 0) { init(); return; }   // 没有到期题
-        Store.updateCurrent(s => { s.stars = (s.stars || 0) + r.correct; });
+        Store.updateCurrent(s => { s.coins = (s.coins || 0) + 3 + Store.taskDone(s, 'review'); });
         $('result-title').textContent = '🎉 复习完成！';
         $('result-detail').textContent = '复习了 ' + r.total + ' 题，记住 ' + r.correct + ' 题。记不牢的题明天还会再来哦。';
         $('result-sticker').textContent = '🌅';
@@ -368,7 +545,7 @@
 
   /* ---------- 结算 / 贴纸册 ---------- */
   $('btn-next').onclick = () => {
-    if (lastWasReview) { init(); return; }   // 复习完回大厅
+    if (lastWasReview || lastWasPK) { init(); return; }   // 复习/PK 完回大厅
     if (lastWasUnit) { renderUnits(); return; }   // 单元巩固完回单元列表
     startRound(Store.subj(Store.current(), curSubject).level);   // 同段位再来一轮
   };

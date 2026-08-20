@@ -94,6 +94,12 @@
         delete s.level; delete s.levelStars; delete s.wrongPool; delete s.tagStreaks; delete s.recentQs;
       }
       migrateReview(s);
+      // v2.9 激励体系字段兜底
+      if (s.coins === undefined) s.coins = 0;
+      if (!s.daily) s.daily = { day: '', review: false, round: false, correct10: false, correctToday: 0, bonus: false };
+      if (s.streak === undefined) { s.streak = 0; s.streakDay = ''; }
+      if (!s.pet) s.pet = { growth: 0, fedToday: 0, lastFeed: '' };
+      if (s.pkLevel === undefined) { s.pkLevel = 0; s.pkWins = 0; }
     });
     return d;
   }
@@ -106,11 +112,17 @@
   function newStudent(name, grade) {
     return {
       name: name, grade: grade,
-      sub: { math: newSubj(), chinese: newSubj() },   // 各学科进度
+      sub: { math: newSubj(), chinese: newSubj(), poem: newSubj() },   // 各学科进度
       stars: 0,                                   // 累计星数（贴纸）
       stickers: [],                               // 贴纸 id 列表
       clearedTags: {},                            // 已攻克知识点 tag -> 连对次数
-      todayMins: 0, lastDay: ''                   // 当日学习分钟（20 分钟休息提醒）
+      todayMins: 0, lastDay: '',                  // 当日学习分钟（20 分钟休息提醒）
+      // v2.9 激励体系
+      coins: 0,                                   // 🪙 金币（闯关/复习/任务产出，宠物消费）
+      daily: { day: '', review: false, round: false, correct10: false, correctToday: 0, bonus: false },  // 每日任务
+      streak: 0, streakDay: '',                   // 连续打卡天数
+      pet: { growth: 0, fedToday: 0, lastFeed: '' },   // 宠物成长值
+      pkLevel: 0, pkWins: 0                       // 人机 PK：机器人档位 / 累计胜场
     };
   }
 
@@ -154,6 +166,62 @@
 
     /** 更新当前学生（传入修改函数） */
     updateCurrent(fn) { const d = load(); if (d.current >= 0) { fn(d.students[d.current]); save(d); } },
+
+    /* ---------- v2.9 激励体系 ---------- */
+    today() { const n = new Date(); return n.getFullYear() + '-' + (n.getMonth() + 1) + '-' + n.getDate(); },
+    /** 每日任务状态（跨天自动重置） */
+    daily(stu) {
+      const t = this.today();
+      if (stu.daily.day !== t) stu.daily = { day: t, review: false, round: false, correct10: false, correctToday: 0, bonus: false };
+      return stu.daily;
+    },
+    /** 完成一项任务 / 答对计数，返回获得的金币（任务 +5，全部完成奖励 +10，由调用方提示） */
+    taskDone(stu, key) {
+      const dl = this.daily(stu);
+      let coins = 0;
+      if (key === 'correct') {
+        dl.correctToday++;
+        if (!dl.correct10 && dl.correctToday >= 10) { dl.correct10 = true; coins += 5; }
+      } else if (!dl[key]) {
+        dl[key] = true; coins += 5;
+      }
+      coins += this.checkBonus(stu);
+      return coins;
+    },
+    checkBonus(stu) {
+      const dl = this.daily(stu);
+      if (!dl.bonus && dl.review && dl.round && dl.correct10) {
+        dl.bonus = true;
+        this.bumpStreak(stu);
+        return 10;
+      }
+      return 0;
+    },
+    /** 连续打卡：任务全完成当天记 1 天；断了不清零惩罚，从 1 重新数 */
+    bumpStreak(stu) {
+      const t = this.today();
+      if (stu.streakDay === t) return;
+      const y = new Date(Date.now() - 86400000);
+      const ys = y.getFullYear() + '-' + (y.getMonth() + 1) + '-' + y.getDate();
+      stu.streak = (stu.streakDay === ys) ? (stu.streak || 0) + 1 : 1;
+      stu.streakDay = t;
+    },
+    /** 宠物阶段（成长值：嗂食+1，每嗂 10 金币） */
+    PET_STAGES: ['🥚 神秘蛋', '🐣 破壳啦', '🐤 小绒球', '🐥 跳跳鸟', '🐦 飞行员', '🦅 大boss', '🦄 神话宠'],
+    petStage(growth) {
+      const th = [0, 3, 7, 12, 20, 30, 45];
+      let i = 0; while (i < th.length - 1 && growth >= th[i + 1]) i++;
+      return { index: i, name: this.PET_STAGES[i], next: th[i + 1] || null };
+    },
+    /** 嗂食：花 10 金币，成长 +1（每天限 3 次，防刷） */
+    feedPet(stu) {
+      const t = this.today();
+      if (stu.pet.lastFeed !== t) { stu.pet.lastFeed = t; stu.pet.fedToday = 0; }
+      if (stu.pet.fedToday >= 3) return { ok: false, msg: '今天吃太饱啦，明天再来喂～' };
+      if ((stu.coins || 0) < 10) return { ok: false, msg: '金币不够啦，去做任务赚金币吧！' };
+      stu.coins -= 10; stu.pet.fedToday++; stu.pet.growth++;
+      return { ok: true, growth: stu.pet.growth };
+    },
 
     autoRead() { return load().autoRead; },
     setAutoRead(v) { const d = load(); d.autoRead = v; save(d); },

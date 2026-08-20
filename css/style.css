@@ -160,3 +160,30 @@ body {
 /* 今日复习卡片（v2.5） */
 .review-card { width: 92%; margin-top: 3vh; background: linear-gradient(135deg, #fff3e0, #ffe0b2);
   border: 3px solid #ffcc80; color: #e65100; font-size: 20px; font-weight: 800; }
+
+/* v2.9 激励体系 */
+.hub-status { display: flex; align-items: center; gap: 14px; width: 92%; margin-top: 2vh; }
+.hub-avatar { font-size: 46px; }
+.hub-who { flex: 1; text-align: left; }
+.hub-who #hub-name { font-size: 22px; font-weight: 800; color: var(--c-text, #5d4037); }
+.hub-streak { font-size: 18px; font-weight: 800; color: #ff7043; background: #fff3e0;
+  border-radius: 14px; padding: 6px 10px; }
+.task-bar { width: 92%; margin-top: 12px; background: #fff; border: 3px solid #e3f2fd;
+  border-radius: 18px; padding: 10px 14px; }
+.task-title { font-size: 15px; font-weight: 800; color: #5d4037; text-align: left; margin-bottom: 6px; }
+.task-row { display: flex; gap: 8px; }
+.task-item { flex: 1; font-size: 13px; color: #888; background: #f5f5f5; border-radius: 10px; padding: 6px 4px; }
+.task-item.done { color: #2e7d32; background: #e8f5e9; }
+.pet-card { width: 92%; margin-top: 12px; display: flex; align-items: center; gap: 12px;
+  background: linear-gradient(135deg, #e8f5e9, #d1c4e9); border: 3px solid #c8e6c9;
+  color: #4a148c; text-align: left; padding: 10px 16px; }
+.pet-emoji { font-size: 40px; }
+.pet-info { flex: 1; display: flex; flex-direction: column; }
+.pet-info b { font-size: 18px; }
+.pet-feed { background: #fff; border-radius: 12px; padding: 6px 12px; font-weight: 800; }
+.pet-big { font-size: 90px; margin-top: 6vh; animation: pulse 1.2s infinite alternate; }
+.pet-stages { display: flex; gap: 10px; margin: 16px 0; font-size: 30px; }
+.pet-stage { filter: grayscale(1); opacity: 0.4; }
+.pet-stage.got { filter: none; opacity: 1; }
+.pk-card { border-color: #ffcdd2; background: linear-gradient(135deg, #fff, #ffebee); }
+.subject-grid { margin-top: 12px; }

@@ -8,6 +8,7 @@
   let subject = 'math';  // 当前学科
   let mode = 'round';    // round=闯关 / review=今日复习
   let unitName = null;   // 单元巩固模式：当前单元名（null=段位闯关）
+  let pkFlag = false;    // 人机 PK 模式：10 题竞速
   let queue = [];        // 本关题目队列（错题会追加）
   let queueTotal = 0;    // 复习模式总题数（用于进度条）
   let cur = null;        // 当前题
@@ -64,6 +65,17 @@
   }
 
   function pickQuestions(stu, n) {
+    // 人机 PK：数学已解锁段位内随机 10 题
+    if (pkFlag) {
+      const p = Store.subj(stu, 'math');
+      const pool = bank().filter(q => q.grade === stu.grade && !q.unit && q.level <= p.level + 1);
+      const qs = pool.slice();
+      for (let i = qs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [qs[i], qs[j]] = [qs[j], qs[i]];
+      }
+      return qs.slice(0, 10);
+    }
     // 单元巩固模式：只按单元过滤，不分段位
     if (unitName) {
       const pool = bank().filter(q => q.unit === unitName);
@@ -124,6 +136,7 @@
         correct++; streak++;
         TTS.praise();
         Store.updateCurrent(s => advanceReview(s, subjKey, cur.id));
+        Store.updateCurrent(s => { s.coins = (s.coins || 0) + Store.taskDone(s, 'correct'); });
       } else {
         streak = 0;
         TTS.speak('再想一想。' + (cur.wrongReasons && cur.wrongReasons[0] ? cur.wrongReasons[0] : ''));
@@ -139,6 +152,7 @@
     if (ok) {
       correct++; streak++;
       TTS.praise();
+      Store.updateCurrent(s => { s.coins = (s.coins || 0) + Store.taskDone(s, 'correct'); });
       // 精通出池：错题 tag 连对 2 次 → 该 tag 全部移出错题池（含复习队列）
       if (isMastery) {
         Store.updateCurrent(s => {
@@ -156,10 +170,10 @@
     } else {
       streak = 0;
       TTS.speak('再想一想。' + (cur.wrongReasons && cur.wrongReasons[0] ? cur.wrongReasons[0] : ''));
-      // 错题当场重现：单元题重问本题，口算换同 tag 数字再练
+      // 错题当场重现：单元题重问本题，口算换同 tag 数字再练（PK 模式不重现，继续下一题）
       if (unitName) {
         queue.push(cur);
-      } else {
+      } else if (!pkFlag) {
         const pool = bank().filter(q => q.grade === stu.grade && q.level === p.level + 1 && q.tag === tag && q.id !== cur.id);
         if (pool.length) queue.push(pool[Math.floor(Math.random() * pool.length)]);
       }
@@ -216,6 +230,7 @@
     start(stu, subjName, ui, end, opts) {
       mode = 'round';
       unitName = (opts && opts.unit) || null;
+      pkFlag = !!(opts && opts.pk);
       subject = subjName;
       loadBank(() => {
         reset();
