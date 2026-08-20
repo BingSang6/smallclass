@@ -21,7 +21,7 @@
   // 学科定义：名称、图标、题库文件、段位描述
   const SUBJECTS = {
     math: {
-      name: '数学·口算', icon: '🦁', bank: 'data/banks/math-oral.json',
+      name: '数学·口算', short: '口算', icon: '🦁', bank: 'data/banks/math-oral.json',
       levels: LEVELS, medals: MEDALS, levelDesc: LEVEL_DESC,
       // v2.6 单元巩固：按年级的单元题库 + 单元名（题源 primary-tutor-skill 知识库）
       unitsBank: 'data/banks/math-g4-units.json',
@@ -31,7 +31,7 @@
       }
     },
     chinese: {
-      name: '语文·字词', icon: '📖', bank: 'data/banks/chinese-words.json',
+      name: '语文·字词', short: '字词', icon: '📖', bank: 'data/banks/chinese-words.json', group: '语文',
       levels: LEVELS, medals: MEDALS,
       levelDesc: {
         1: ['会认字', '形近字', '多音字', '词语搭配', '近反义词', '四字词语'],
@@ -42,8 +42,8 @@
         6: ['易错字', '形近字', '多音字', '词语搭配', '近反义词', '成语运用']
       }
     },
-    poem: {   // v2.8 古诗·背诵（题源 chinese-primary-curriculum.md，公版诗词）
-      name: '古诗·背诵', icon: '📜', bank: 'data/banks/poems.json',
+    poem: {   // 语文·古诗（题源 chinese-primary-curriculum.md，公版诗词）
+      name: '古诗·背诵', short: '古诗', icon: '📜', bank: 'data/banks/poems.json', group: '语文',
       levels: LEVELS, medals: MEDALS,
       levelDesc: {
         1: ['五言启蒙', '乐府民歌', '咏物诗', '写景名句', '七言绝句', '名句运用'],
@@ -53,8 +53,27 @@
         5: ['爱国诗', '托物言志', '节令诗', '送别诗', '长诗名篇', '名句运用'],
         6: ['爱国诗', '托物言志', '节令诗', '送别诗', '长诗名篇', '名句运用']
       }
+    },
+    english: {   // 英语·单词（题源 english-primary-shenzhen-oxford.md 沪教牛津深圳版，公共词表）
+      name: '英语·单词', short: '单词', icon: '🔤', bank: 'data/banks/english-words.json',
+      levels: LEVELS, medals: MEDALS,
+      levelDesc: {
+        1: ['动物数字', '颜色', '水果食物', '动物数字', '颜色水果', '综合'],
+        2: ['人物称呼', '身体部位', '自然植物', '人物称呼', '身体自然', '综合'],
+        3: ['食物饮品', '一日三餐', '时间', '动作', '读写画', '综合'],
+        4: ['场所', '学科', '星期', '天气', '四季', '综合'],
+        5: ['职业', '交通工具', '方位', '情绪感觉', '方位情绪', '综合'],
+        6: ['形容词', '买卖清洁', '观看旅行', '书报刊物', '网络节目', '综合']
+      }
     }
   };
+
+  // 学科大厅分组：语数英三大学科（语文内含 字词+古诗 两个分支）
+  const GROUPS = [
+    { key: 'math', name: '数学', icon: '🦁', subs: ['math'], desc: '口算 · 单元巩固' },
+    { key: 'chinese', name: '语文', icon: '📖', subs: ['chinese', 'poem'], desc: '字词 · 古诗' },
+    { key: 'english', name: '英语', icon: '🔤', subs: ['english'], desc: '单词' }
+  ];
 
   function newSubj() {
     // review: 错题id -> {box: 0~5, due: 天数(自1970起)}
@@ -132,6 +151,7 @@
     get MEDALS() { return MEDALS; },
     get LEVEL_DESC() { return LEVEL_DESC; },
     get SUBJECTS() { return SUBJECTS; },
+    get GROUPS() { return GROUPS; },
     /** 取某学生的某学科进度（迁移保证存在） */
     subj(stu, subject) {
       if (!stu.sub) migrate({ students: [stu], unlockAll: false });

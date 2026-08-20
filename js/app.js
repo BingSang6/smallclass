@@ -21,11 +21,11 @@
       list.innerHTML = '<p class="sub">还没有同学，点下面的 ➕ 新同学 添加吧</p>';
     }
     stus.forEach((s, i) => {
-      const m = Store.subj(s, 'math'), c = Store.subj(s, 'chinese');
+      const m = Store.subj(s, 'math'), c = Store.subj(s, 'chinese'), pm = Store.subj(s, 'poem'), e = Store.subj(s, 'english');
       const b = document.createElement('button');
       b.className = 'btn student-btn' + (Store.db.current === i ? ' green' : '');
       b.textContent = '🦁 ' + s.name + '（' + s.grade + '年级·数学' + Store.LEVELS[m.level] +
-        '·语文' + Store.LEVELS[c.level] + '）';
+        '·语文' + Store.LEVELS[c.level] + '·英语' + Store.LEVELS[e.level] + '）';
       b.onclick = () => { Store.setCurrent(i); init(); };
       list.appendChild(b);
     });
@@ -96,30 +96,30 @@
     renderPetCard(stu);
     const grid = $('subject-grid');
     grid.innerHTML = '';
-    const extra = [
-      { key: 'pk', name: '人机 PK', icon: '⚔️', desc: '' }
-    ];
-    Object.keys(Store.SUBJECTS).concat(extra.map(e => e.key)).forEach(key => {
-      const meta = Store.SUBJECTS[key] || extra.find(e => e.key === key);
+    // 语数英三大学科卡片 + 人机 PK
+    Store.GROUPS.forEach(g => {
       const b = document.createElement('button');
-      if (Store.SUBJECTS[key]) {
-        const p = Store.subj(stu, key);
-        b.className = 'subject-card';
-        b.innerHTML = '<div class="sc-icon">' + meta.icon + '</div>' +
-          '<div class="sc-name">' + meta.name + '</div>' +
-          '<div class="sc-desc">' + Store.LEVELS[p.level] + starStr(p.levelStars[p.level]) + '</div>';
-        b.onclick = () => enterSubject(key);
-      } else {
-        // 人机 PK 卡
-        const lvNames = ['🤖 慢吞吞', '🤖 正常速', '🤖 闪电手'];
-        b.className = 'subject-card pk-card';
-        b.innerHTML = '<div class="sc-icon">⚔️</div>' +
-          '<div class="sc-name">人机 PK</div>' +
-          '<div class="sc-desc">' + lvNames[Math.min(2, stu.pkLevel || 0)] + ' · 胜 ' + (stu.pkWins || 0) + '</div>';
-        b.onclick = startPK;
-      }
+      b.className = 'subject-card';
+      // 组内各分支段位（语文：字词+古诗）
+      const descs = g.subs.map(sk => {
+        const p = Store.subj(stu, sk);
+        const short = Store.SUBJECTS[sk].short;   // 字词/古诗/口算/单词
+        return Store.SUBJECTS[sk].short + Store.LEVELS[p.level] + starStr(p.levelStars[p.level]);
+      });
+      b.innerHTML = '<div class="sc-icon">' + g.icon + '</div>' +
+        '<div class="sc-name">' + g.name + '</div>' +
+        '<div class="sc-desc">' + descs.join('<br>') + '</div>';
+      b.onclick = () => enterSubject(g.subs[0]);   // 语文默认进字词分支
       grid.appendChild(b);
     });
+    const pk = document.createElement('button');
+    pk.className = 'subject-card pk-card';
+    const lvNames = ['🤖 慢吞吞', '🤖 正常速', '🤖 闪电手'];
+    pk.innerHTML = '<div class="sc-icon">⚔️</div>' +
+      '<div class="sc-name">人机 PK</div>' +
+      '<div class="sc-desc">' + lvNames[Math.min(2, stu.pkLevel || 0)] + ' · 胜 ' + (stu.pkWins || 0) + '</div>';
+    pk.onclick = startPK;
+    grid.appendChild(pk);
   }
 
   /* ---------- 每日任务条 ---------- */
@@ -195,9 +195,26 @@
     const meta = Store.SUBJECTS[curSubject];
     const p = Store.subj(stu, curSubject);
     $('hello-avatar').textContent = meta.icon;
-    $('hello-name').textContent = meta.name;
+    // 学科名：语文显示大科名，其余显示分支名
+    $('hello-name').textContent = meta.group === '语文' ? '语文 · ' + meta.short : meta.name;
     $('hello-info').textContent = Store.MEDALS[p.level] + ' ' + Store.LEVELS[p.level] + starStr(p.levelStars[p.level]) +
       ' · ' + (stu.stars || 0) + '⭐';
+    // 语文分支 tab：字词 / 古诗
+    const tabs = $('subject-tabs');
+    if (meta.group === '语文') {
+      tabs.classList.remove('hidden');
+      tabs.innerHTML = '';
+      Store.GROUPS.find(g => g.key === 'chinese').subs.forEach(sk => {
+        const sm = Store.SUBJECTS[sk];
+        const t = document.createElement('button');
+        t.className = 'btn small tab-btn' + (sk === curSubject ? ' green' : '');
+        t.textContent = sm.icon + ' ' + sm.short;
+        t.onclick = () => { curSubject = sk; renderHome(Store.current()); };
+        tabs.appendChild(t);
+      });
+    } else {
+      tabs.classList.add('hidden');
+    }
     renderReadToggle();
     // 挑战模式：白银段位（level≥1）解锁
     $('btn-challenge').style.display = p.level >= 1 ? '' : 'none';

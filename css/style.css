@@ -205,3 +205,7 @@ body {
 /* v2.7 混合挑战入口 */
 .mixed-card { width: 92%; margin-top: 12px; background: linear-gradient(135deg, #ede7f6, #e1bee7);
   border: 3px solid #d1c4e9; color: #4a148c; font-size: 20px; font-weight: 800; }
+
+/* v3.0 语文分支 tab（字词/古诗） */
+.subject-tabs { display: flex; gap: 10px; justify-content: center; margin-bottom: 12px; }
+.tab-btn { min-width: 110px; }

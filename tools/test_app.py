@@ -236,26 +236,48 @@ def test_v11():
         print('review after unit wrong:', sched2)
         assert 'u4-' in sched2, 'unit wrong not scheduled'
         print('all errors:', errs if errs else 'none')
-        # ---- v2.8: 古诗·背诵 ----
+        # ---- v3.0: 语数英三科大厅 + 语文分支 tab ----
         page.goto(BASE); page.wait_for_load_state('networkidle')
         cards = page.locator('.subject-card').count()
         print('subject cards now (expect 4):', cards)
         assert cards == 4
         names = page.locator('.sc-name').all_inner_texts()
         print('subjects:', names)
-        assert '古诗·背诵' in names
-        page.locator('.subject-card').nth(2).click()   # 古诗
+        assert names[:3] == ['数学', '语文', '英语'], 'group names wrong: ' + str(names)
+        # 英语卡片 → 英语·单词
+        page.locator('.subject-card').nth(2).click()
+        page.wait_for_timeout(400)
+        assert '英语' in page.locator('#hello-name').inner_text()
+        assert page.locator('#subject-tabs').is_hidden(), 'english should have no tabs'
+        page.screenshot(path='shots/16-english-home.png')
+        page.click('#btn-go')
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        eq = page.locator('#question-text').inner_text()
+        print('english question:', eq)
+        assert ('什么意思' in eq or '的英文是' in eq)
+        assert page.locator('.opt-btn').count() == 3
+        page.screenshot(path='shots/17-english-quiz.png')
+        # 语文卡片 → 字词/古诗 tab 切换
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card').nth(1).click()   # 语文（默认字词）
+        page.wait_for_timeout(400)
+        assert '语文' in page.locator('#hello-name').inner_text()
+        tabs = page.locator('#subject-tabs .tab-btn')
+        print('chinese tabs:', tabs.all_inner_texts())
+        assert tabs.count() == 2, 'chinese should have 2 tabs'
+        page.screenshot(path='shots/18-chinese-tabs.png')
+        tabs.nth(1).click()   # 切到古诗
         page.wait_for_timeout(400)
         assert '古诗' in page.locator('#hello-name').inner_text()
-        page.screenshot(path='shots/16-poem-home.png')
+        page.screenshot(path='shots/19-poem-home.png')
         page.click('#btn-go')
         page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
         pq = page.locator('#question-text').inner_text()
         print('poem question:', pq)
         assert ('接下句' in pq or '接上句' in pq or '作者是谁' in pq or '出自哪首诗' in pq)
         assert page.locator('.opt-btn').count() == 3
-        page.screenshot(path='shots/17-poem-quiz.png')
-        print('v2.8 errors:', errs if errs else 'none')
+        page.screenshot(path='shots/20-poem-quiz.png')
+        print('v3.0 errors:', errs if errs else 'none')
         # ---- v2.9: 任务条 / 宠物 / 人机PK ----
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.wait_for_timeout(400)
@@ -349,16 +371,17 @@ def test_v11():
         assert '混合挑战' in page.locator('#quiz-level').inner_text()
         mq = page.locator('#question-text').inner_text()
         print('mixed question 1:', mq)
-        # 连答两题看学科是否交错（第二题应来自不同学科）
+        # 连答几题看学科是否交错（math 配额 4，前两题同为 math 属正常，取 4 个样本）
         subs = [page.evaluate('() => Quiz.current.subject')]
-        for _ in range(2):
+        for _ in range(4):
             page.evaluate("""() => {
               const q = Quiz.current;
               const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
               if (b) b.click();
             }""")
             page.wait_for_timeout(1200)
-        subs.append(page.evaluate('() => Quiz.current ? Quiz.current.subject : null'))
+            s = page.evaluate('() => Quiz.current ? Quiz.current.subject : null')
+            if s: subs.append(s)
         print('mixed subjects seen:', subs)
         assert len(set(subs)) > 1 or subs[0] != subs[1], 'mixed not interleaved'
         page.screenshot(path='shots/22-mixed.png')

@@ -50,7 +50,7 @@
   /** 混合挑战：四科各按已解锁段位混出 10 题（数学 4 + 字词 3 + 古诗 3，需先 loadAll） */
   function mixedList(stu) {
     const take = [];
-    const quota = { math: 4, chinese: 3, poem: 3 };
+    const quota = { math: 4, chinese: 2, poem: 2, english: 2 };
     Object.keys(quota).forEach(sub => {
       const p = Store.subj(stu, sub);
       const pool = bank(sub).filter(q => q.grade === stu.grade && !q.unit && q.level <= p.level + 1);
