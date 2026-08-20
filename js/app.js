@@ -327,7 +327,7 @@
         $('wrong-reason').innerHTML = q.q + ' = <b>' + q.a + '</b><br>' +
           (result.val === null ? '时间到啦，没关系，下次算快一点。' : '') +
           (q.wrongReasons && q.wrongReasons[0] ? q.wrongReasons[0] : '再想一想哦。') +
-          '<br>' + (Quiz.mode === 'review' ? '这题一会儿还会再问一次哦' : '稍后会再练一道类似的题哦');
+          '<br>' + (Quiz.mode === 'review' || Quiz.mode === 'mixed' ? '这题一会儿还会再问一次哦' : '稍后会再练一道类似的题哦');
         $('wrong-overlay').classList.remove('hidden');
       }
     }
@@ -430,6 +430,37 @@
       { unit: name }
     );
   }
+
+  /* ---------- 混合挑战（v2.7 交错练习） ---------- */
+  function startMixed() {
+    lastWasReview = true; lastWasUnit = false; lastWasPK = false;   // 结束回大厅
+    challenge = false;
+    const stu = Store.current();
+    go('quiz');
+    $('quiz-level').textContent = '🔀 混合挑战';
+    $('wrong-overlay').classList.add('hidden');
+    startRestTimer();
+    let idx = 0;
+    Quiz.startMixed(stu,
+      (q, opts, result) => { if (opts) idx++; roundUI(idx, q, opts, result); },
+      r => {
+        clearInterval(restTimer);
+        stopQTimer();
+        if (r.total === 0) { init(); return; }
+        const good = r.correct >= r.total - 1;
+        Store.updateCurrent(s => {
+          s.stars = (s.stars || 0) + r.correct;
+          s.coins = (s.coins || 0) + (good ? 5 : 2) + Store.taskDone(s, 'round');
+        });
+        $('result-title').textContent = good ? '🎉 混合挑战大成功！' : '🔀 混合挑战完成！';
+        $('result-detail').textContent = '四科混战答对 ' + r.correct + ' / ' + r.total +
+          ' 题' + (good ? '，金币 +5！' : '。错的题明天「今日复习」见。');
+        $('result-sticker').textContent = good ? '🔀' : '💪';
+        go('result');
+      }
+    );
+  }
+  $('btn-mixed').onclick = startMixed;
 
   /* ---------- 人机 PK（v2.9：单机竞速） ---------- */
   const PK_ROBOTS = [

@@ -201,3 +201,7 @@ body {
   0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px #ffd54f); }
   50% { transform: scale(1.35); filter: drop-shadow(0 0 16px #ffab00); }
 }
+
+/* v2.7 混合挑战入口 */
+.mixed-card { width: 92%; margin-top: 12px; background: linear-gradient(135deg, #ede7f6, #e1bee7);
+  border: 3px solid #d1c4e9; color: #4a148c; font-size: 20px; font-weight: 800; }

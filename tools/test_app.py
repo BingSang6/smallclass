@@ -340,6 +340,29 @@ def test_v11():
         assert 'jump' in cls or 'glow' in cls, 'pet animation missing'
         page.screenshot(path='shots/21-quiz-pet.png')
         print('v2.9.1 errors:', errs if errs else 'none')
+        # ---- v2.7: 混合挑战（交错练习） ----
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.wait_for_timeout(300)
+        assert page.locator('#btn-mixed').is_visible(), 'mixed btn hidden'
+        page.click('#btn-mixed')
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(400)
+        assert '混合挑战' in page.locator('#quiz-level').inner_text()
+        mq = page.locator('#question-text').inner_text()
+        print('mixed question 1:', mq)
+        # 连答两题看学科是否交错（第二题应来自不同学科）
+        subs = [page.evaluate('() => Quiz.current.subject')]
+        for _ in range(2):
+            page.evaluate("""() => {
+              const q = Quiz.current;
+              const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
+              if (b) b.click();
+            }""")
+            page.wait_for_timeout(1200)
+        subs.append(page.evaluate('() => Quiz.current ? Quiz.current.subject : null'))
+        print('mixed subjects seen:', subs)
+        assert len(set(subs)) > 1 or subs[0] != subs[1], 'mixed not interleaved'
+        page.screenshot(path='shots/22-mixed.png')
+        print('v2.7 errors:', errs if errs else 'none')
         print('v2.9 errors:', errs if errs else 'none')
         browser.close()
 

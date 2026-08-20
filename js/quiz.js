@@ -6,7 +6,7 @@
   const REVIEW_MAX = 8;  // 今日复习每次最多 8 题
   const banks = {};      // 各学科题库缓存 {subject: [...]}
   let subject = 'math';  // 当前学科
-  let mode = 'round';    // round=闯关 / review=今日复习
+  let mode = 'round';    // round=闯关 / review=今日复习 / mixed=混合挑战
   let unitName = null;   // 单元巩固模式：当前单元名（null=段位闯关）
   let pkFlag = false;    // 人机 PK 模式：10 题竞速
   let queue = [];        // 本关题目队列（错题会追加）
@@ -45,6 +45,32 @@
     const subs = Object.keys(Store.SUBJECTS);
     let n = 0;
     subs.forEach(s => loadBankOf(s, () => { if (++n === subs.length) done(); }));
+  }
+
+  /** 混合挑战：四科各按已解锁段位混出 10 题（数学 4 + 字词 3 + 古诗 3，需先 loadAll） */
+  function mixedList(stu) {
+    const take = [];
+    const quota = { math: 4, chinese: 3, poem: 3 };
+    Object.keys(quota).forEach(sub => {
+      const p = Store.subj(stu, sub);
+      const pool = bank(sub).filter(q => q.grade === stu.grade && !q.unit && q.level <= p.level + 1);
+      const shuffled = pool.slice();
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      shuffled.slice(0, quota[sub]).forEach(q => take.push(Object.assign({}, q, { subject: sub })));
+    });
+    // 学科交错排列
+    const out = [];
+    while (take.length) {
+      // 优先取出现次数最多的学科，保证交错
+      const counts = {};
+      take.forEach(x => counts[x.subject] = (counts[x.subject] || 0) + 1);
+      const sub = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
+      out.push(take.splice(take.findIndex(x => x.subject === sub), 1)[0]);
+    }
+    return out.slice(0, 10);
   }
 
   /** 今日复习：跨学科收集到期错题（需先 loadAll） */
@@ -131,17 +157,20 @@
     const tag = cur.tag;
     const subjKey = mode === 'review' ? cur.subject : subject;
     const p = Store.subj(stu, subjKey);
-    if (mode === 'review') {
+    if (mode === 'review' || mode === 'mixed') {
       if (ok) {
         correct++; streak++;
         TTS.praise();
-        Store.updateCurrent(s => advanceReview(s, subjKey, cur.id));
+        if (mode === 'review') Store.updateCurrent(s => advanceReview(s, subjKey, cur.id));
         Store.updateCurrent(s => { s.coins = (s.coins || 0) + Store.taskDone(s, 'correct'); });
       } else {
         streak = 0;
         TTS.speak('再想一想。' + (cur.wrongReasons && cur.wrongReasons[0] ? cur.wrongReasons[0] : ''));
-        queue.push(cur);   // 复习答错：当场再问一次
-        Store.updateCurrent(s => resetReview(s, subjKey, cur.id));
+        queue.push(cur);   // 复习/混合：答错当场再问一次
+        Store.updateCurrent(s => {
+          if (mode === 'review') resetReview(s, subjKey, cur.id);
+          else resetReview(s, subjKey, cur.id, true);   // 混合：新错题入池+排明天复习
+        });
       }
       onUI(cur, null, { ok, val: val === null ? null : String(val) });
       return;
@@ -247,7 +276,7 @@
     /** 今日复习：跨学科混合，最多 REVIEW_MAX 题 */
     startReview(stu, ui, end) {
       mode = 'review';
-      unitName = null;
+      unitName = null; pkFlag = false;
       loadAll(() => {
         reset();
         onUI = ui; onEnd = end;
@@ -263,6 +292,19 @@
         showQuestion(stu);
       });
     },
+    /** 混合挑战（v2.7）：四科混出 10 题，交错练习 */
+    startMixed(stu, ui, end) {
+      mode = 'mixed';
+      unitName = null; pkFlag = false;
+      loadAll(() => {
+        reset();
+        onUI = ui; onEnd = end;
+        queue = mixedList(stu);
+        queueTotal = queue.length;
+        if (!queueTotal) { if (onEnd) onEnd({ correct: 0, total: 0, passed: true, mixed: true }); reset(); return; }
+        showQuestion(stu);
+      });
+    },
     /** 预加载全部题库并回调到期题数（大厅卡片用） */
     dueCount(stu, cb) {
       loadAll(() => cb(dueList(stu).length));
@@ -272,7 +314,7 @@
     get current() { return cur; },
     get streak() { return streak; },
     get PER_ROUND() { return PER_ROUND; },
-    get TOTAL() { return mode === 'review' ? queueTotal : PER_ROUND; },
+    get TOTAL() { return (mode === 'review' || mode === 'mixed') ? queueTotal : PER_ROUND; },
     get mode() { return mode; }
   };
 
