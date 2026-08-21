@@ -164,5 +164,20 @@
 <script src="js/quiz.js"></script>
 <script src="js/app.js"></script>
 <script src="js/sw-register.js"></script>
+<script>
+// 防呆：8 秒后若 App 未渲染成功（JS 挂了/坏缓存），提示硬刷新
+setTimeout(function () {
+  var hub = document.getElementById('screen-hub');
+  var setup = document.getElementById('screen-setup');
+  var ok = false;
+  if (hub && setup) ok = !hub.classList.contains('hidden') || !setup.classList.contains('hidden');
+  if (!ok) {
+    var d = document.createElement('div');
+    d.style.cssText = 'position:fixed;left:0;right:0;top:40%;text-align:center;padding:16px;background:#fff3e0;color:#c62828;font-size:14px;z-index:9999';
+    d.innerHTML = '⚠️ 页面加载异常（可能是旧缓存）。<br>请到浏览器「设置→网站设置→清除该网站数据」后重新打开';
+    document.body.appendChild(d);
+  }
+}, 8000);
+</script>
 </body>
 </html>
