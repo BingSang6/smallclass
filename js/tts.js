@@ -13,6 +13,30 @@
     return s;
   }
 
+  let unlocked = false;
+  /** iOS/安卓必须由用户手势内真正 speak 过一次才能解锁音频通道 */
+  function unlock() {
+    if (unlocked || !('speechSynthesis' in window)) return;
+    unlocked = true;
+    try {
+      const u = new SpeechSynthesisUtterance(' ');
+      u.volume = 0;            // 无声占位，只为激活
+      u.lang = 'zh-CN';
+      speechSynthesis.speak(u);
+      speechSynthesis.getVoices();   // 顺便触发声音列表加载
+    } catch (e) {}
+  }
+  document.addEventListener('touchend', unlock, { once: true, passive: true });
+  document.addEventListener('click', unlock, { once: true, passive: true });
+
+  // 声音列表异步加载（部分安卓/iOS 首次为空）
+  if ('speechSynthesis' in window) {
+    speechSynthesis.getVoices();
+    if (typeof speechSynthesis.onvoiceschanged !== 'undefined') {
+      speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+    }
+  }
+
   const TTS = {
     speak(text) {
       try {
@@ -23,8 +47,9 @@
         u.rate = 0.85;           // 慢一点，孩子听得清
         u.pitch = 1.1;           // 稍微活泼
         const zh = speechSynthesis.getVoices().filter(v => v.lang && v.lang.indexOf('zh') === 0);
-        if (zh.length) u.voice = zh.find(v => / Ting |^Ting |Ting$/i.test(v.name)) || zh[0];
-        speechSynthesis.speak(u);
+        if (zh.length) u.voice = zh.find(v => /Ting|Xiaoxiao|Yaoyao/i.test(v.name)) || zh[0];
+        // iOS bug：cancel 后立刻 speak 会静音，稍等一拍
+        setTimeout(() => { try { speechSynthesis.speak(u); } catch (e) {} }, 80);
       } catch (e) { /* 语音失败不影响答题 */ }
     },
     stop() { try { speechSynthesis.cancel(); } catch (e) {} },
@@ -33,11 +58,6 @@
       this.speak(words[Math.floor(Math.random() * words.length)]);
     }
   };
-
-  // iOS Safari 需要用户首次交互后激活语音
-  document.addEventListener('touchend', () => {
-    try { speechSynthesis.getVoices(); } catch (e) {}
-  }, { once: true, passive: true });
 
   window.TTS = TTS;
 })();
