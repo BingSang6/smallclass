@@ -753,14 +753,35 @@
     vt.className = 'btn small';
     vt.textContent = '🔊 播放测试：你好，小朋友';
     vt.onclick = () => {
-      TTS.speak('你好，小朋友');
-      TTS.zhVoices(zh => {
-        alert(zh.length
-          ? '已调用中文语音：' + zh.map(v => v.name).slice(0, 3).join('、') + '\n\n如果刚才没听到声音，请检查：\n1. 媒体音量（不是铃声音量）\n2. 浏览器是否处于静音/勿扰\n3. 换 Chrome 浏览器试试（部分国产浏览器内核不支持网页语音）'
-          : '❌ 浏览器没有上报任何中文语音（系统里可能已安装）。\n\n1. 先刷新页面再点一次本按钮（语音列表常要二次加载）\n2. 换 Chrome 浏览器打开\n3. 系统设置→文字转语音→确认引擎选 Google 或讯飞，语言含中文（简体）');
-      });
+      // 带事件侦测的测试：onstart=真开始播了，onerror=引擎报错
+      let msg = '';
+      try {
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance('你好，小朋友');
+        u.lang = 'zh-CN';
+        u.rate = 0.85;
+        u.onstart = () => { msg = '✅ 已开始播放（有声音才正常；没声音查媒体音量）'; };
+        u.onend = () => { $('voice-result').textContent = msg || '⚠️ 播放结束但没触发开始事件'; };
+        u.onerror = e => { $('voice-result').textContent = '❌ 引擎报错：' + (e.error || '未知'); };
+        setTimeout(() => { speechSynthesis.speak(u); }, 80);
+      } catch (err) {
+        $('voice-result').textContent = '❌ 异常：' + err.message;
+      }
+      // 1.5 秒后补充语音列表情况
+      setTimeout(() => {
+        TTS.zhVoices(zh => {
+          $('voice-result').textContent += zh.length
+            ? ' ｜ 中文语音：' + zh.map(v => v.name).slice(0, 3).join('、')
+            : ' ｜ 语音列表无中文（安卓 Chrome 常见，系统 TTS 仍可能正常播）';
+        });
+      }, 1600);
     };
     body.appendChild(vt);
+    const vr = document.createElement('div');
+    vr.id = 'voice-result';
+    vr.className = 'sub';
+    vr.style.cssText = 'font-size:13px;color:#c62828;margin:6px 0;min-height:18px;word-break:break-all';
+    body.appendChild(vr);
 
     // 段位全部解锁（家长开关）
     const h0 = document.createElement('h3');
