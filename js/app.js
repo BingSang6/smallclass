@@ -665,7 +665,18 @@
   $('btn-switch2').onclick = () => { renderSetup(); go('setup'); };
   $('btn-back-hub').onclick = () => init();
   $('btn-read-toggle').onclick = () => { Store.setAutoRead(!Store.autoRead()); renderReadToggle(); };
-  $('btn-speak').onclick = () => { const q = Quiz.current; if (q) TTS.speak(q.speak || q.q); };
+  $('btn-speak').onclick = () => {
+    const q = Quiz.current;
+    if (!q) return;
+    TTS.speak(q.speak || q.q);
+    // 1.2 秒后仍处于 pending 且无中文语音 → 提示装语音包（多数安卓静音的根因）
+    setTimeout(() => {
+      try {
+        const zh = speechSynthesis.getVoices().filter(v => v.lang && v.lang.indexOf('zh') === 0);
+        if (!zh.length) $('speak-tip').textContent = '🔇 手机没有中文语音包：设置→辅助功能→文字转语音→安装中文（简体）语音';
+      } catch (e) {}
+    }, 1200);
+  };
   $('btn-rest-ok').onclick = () => { $('rest-overlay').classList.add('hidden'); init(); };
 
   /* ---------- 家长设置（含 导出错题本） ---------- */
@@ -734,6 +745,30 @@
       row.appendChild(del);
       body.appendChild(row);
     });
+
+    // 语音自检（手机没声音先来这里测）
+    const hv = document.createElement('h3');
+    hv.textContent = '语音检测（没声音先点这里）';
+    body.appendChild(hv);
+    const vt = document.createElement('button');
+    vt.className = 'btn small';
+    vt.textContent = '🔊 播放测试：你好，小朋友';
+    vt.onclick = () => {
+      TTS.speak('你好，小朋友');
+      const voices = ('speechSynthesis' in window) ? speechSynthesis.getVoices() : [];
+      const zh = voices.filter(v => v.lang && v.lang.indexOf('zh') === 0);
+      alert(zh.length
+        ? '已调用中文语音：' + zh.map(v => v.name).slice(0, 3).join('、') + '
+
+如果刚才没听到声音，请检查：
+1. 媒体音量（不是铃声音量）
+2. 系统设置→文字转语音→引擎是否支持中文'
+        : '❌ 手机上没有任何中文语音包！
+
+解决：系统设置 → 辅助功能（或语言和输入）→ 文字转语音输出 → 安装/下载「中文（简体）」语音
+（华为/OPPO 可选「讯飞语音+」引擎）');
+    };
+    body.appendChild(vt);
 
     // 段位全部解锁（家长开关）
     const h0 = document.createElement('h3');
