@@ -758,15 +758,8 @@
       const voices = ('speechSynthesis' in window) ? speechSynthesis.getVoices() : [];
       const zh = voices.filter(v => v.lang && v.lang.indexOf('zh') === 0);
       alert(zh.length
-        ? '已调用中文语音：' + zh.map(v => v.name).slice(0, 3).join('、') + '
-
-如果刚才没听到声音，请检查：
-1. 媒体音量（不是铃声音量）
-2. 系统设置→文字转语音→引擎是否支持中文'
-        : '❌ 手机上没有任何中文语音包！
-
-解决：系统设置 → 辅助功能（或语言和输入）→ 文字转语音输出 → 安装/下载「中文（简体）」语音
-（华为/OPPO 可选「讯飞语音+」引擎）');
+        ? '已调用中文语音：' + zh.map(v => v.name).slice(0, 3).join('、') + '\n\n如果刚才没听到声音，请检查：\n1. 媒体音量（不是铃声音量）\n2. 系统设置→文字转语音→引擎是否支持中文'
+        : '❌ 手机上没有任何中文语音包！\n\n解决：系统设置 → 辅助功能（或语言和输入）→ 文字转语音输出 → 安装/下载「中文（简体）」语音\n（华为/OPPO 可选「讯飞语音+」引擎）');
     };
     body.appendChild(vt);
 
