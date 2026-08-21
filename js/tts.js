@@ -38,6 +38,17 @@
   }
 
   const TTS = {
+    /** 获取中文语音（异步加载，等 voiceschanged 最多 1.5s 再回调；安卓首次点击时列表可能还没就绪） */
+    zhVoices(cb) {
+      if (!('speechSynthesis' in window)) { cb([]); return; }
+      const pick = () => speechSynthesis.getVoices().filter(v => v.lang && v.lang.indexOf('zh') === 0);
+      let done = false;
+      const finish = () => { if (!done) { done = true; cb(pick()); } };
+      const vs = pick();
+      if (vs.length) { cb(vs); return; }
+      speechSynthesis.onvoiceschanged = finish;
+      setTimeout(finish, 1500);
+    },
     speak(text) {
       try {
         if (!('speechSynthesis' in window)) return;

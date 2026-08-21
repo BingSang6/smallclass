@@ -669,13 +669,12 @@
     const q = Quiz.current;
     if (!q) return;
     TTS.speak(q.speak || q.q);
-    // 1.2 秒后仍处于 pending 且无中文语音 → 提示装语音包（多数安卓静音的根因）
+    // 稍后检查语音列表（异步加载）；确实没有中文语音才提示装语音包
     setTimeout(() => {
-      try {
-        const zh = speechSynthesis.getVoices().filter(v => v.lang && v.lang.indexOf('zh') === 0);
+      TTS.zhVoices(zh => {
         if (!zh.length) $('speak-tip').textContent = '🔇 手机没有中文语音包：设置→辅助功能→文字转语音→安装中文（简体）语音';
-      } catch (e) {}
-    }, 1200);
+      });
+    }, 1500);
   };
   $('btn-rest-ok').onclick = () => { $('rest-overlay').classList.add('hidden'); init(); };
 
@@ -755,11 +754,11 @@
     vt.textContent = '🔊 播放测试：你好，小朋友';
     vt.onclick = () => {
       TTS.speak('你好，小朋友');
-      const voices = ('speechSynthesis' in window) ? speechSynthesis.getVoices() : [];
-      const zh = voices.filter(v => v.lang && v.lang.indexOf('zh') === 0);
-      alert(zh.length
-        ? '已调用中文语音：' + zh.map(v => v.name).slice(0, 3).join('、') + '\n\n如果刚才没听到声音，请检查：\n1. 媒体音量（不是铃声音量）\n2. 系统设置→文字转语音→引擎是否支持中文'
-        : '❌ 手机上没有任何中文语音包！\n\n解决：系统设置 → 辅助功能（或语言和输入）→ 文字转语音输出 → 安装/下载「中文（简体）」语音\n（华为/OPPO 可选「讯飞语音+」引擎）');
+      TTS.zhVoices(zh => {
+        alert(zh.length
+          ? '已调用中文语音：' + zh.map(v => v.name).slice(0, 3).join('、') + '\n\n如果刚才没听到声音，请检查：\n1. 媒体音量（不是铃声音量）\n2. 浏览器是否处于静音/勿扰\n3. 换 Chrome 浏览器试试（部分国产浏览器内核不支持网页语音）'
+          : '❌ 浏览器没有上报任何中文语音（系统里可能已安装）。\n\n1. 先刷新页面再点一次本按钮（语音列表常要二次加载）\n2. 换 Chrome 浏览器打开\n3. 系统设置→文字转语音→确认引擎选 Google 或讯飞，语言含中文（简体）');
+      });
     };
     body.appendChild(vt);
 
