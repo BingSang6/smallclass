@@ -322,6 +322,26 @@ def test_v11():
         print('poem sample ids:', ids)
         assert len(set(ids)) == len(ids), 'poem repeats across rounds'
         page.screenshot(path='shots/24-poems-big-pool.png')
+        # ---- v3.6: 练习卷生成（单元/期中/期末，可打印） ----
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.evaluate("document.getElementById('btn-settings').click()")
+        page.wait_for_timeout(500)
+        page.locator('button', has_text='生成练习卷').click()
+        page.wait_for_timeout(300)
+        assert page.locator('#screen-paper').is_visible(), 'paper screen not shown'
+        n_scopes = page.locator('#paper-scope option').count()
+        print('paper scopes (expect 2+8=10):', n_scopes)
+        assert n_scopes == 10
+        page.click('#btn-paper-gen')
+        page.wait_for_timeout(500)
+        nq = page.locator('.paper-questions li').count()
+        print('paper questions (expect 20):', nq)
+        assert nq == 20
+        assert '参考答案' in page.locator('#paper-area').inner_text()
+        page.select_option('#paper-scope', 'final')
+        page.click('#btn-paper-gen'); page.wait_for_timeout(500)
+        print('final paper questions:', page.locator('.paper-questions li').count())
+        page.screenshot(path='shots/25-paper.png')
         # 还原年级为 3（后续测试基于三年级）
         page.evaluate("""() => {
           const d = JSON.parse(localStorage.getItem('smallclass.v1'));

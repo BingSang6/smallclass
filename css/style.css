@@ -218,3 +218,24 @@ body {
   20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -30px); } }
 .overlay-card { background: #fff; border-radius: 18px; padding: 20px 22px; max-width: 88vw;
   box-shadow: 0 8px 30px rgba(0,0,0,.2); }
+
+/* ---------- v3.6 练习卷（可打印 A4） ---------- */
+.paper-controls { background:#fff8ea; border-radius:12px; padding:10px 12px; margin-bottom:12px; }
+.paper-row { display:flex; gap:10px; margin:8px 0; flex-wrap:wrap; align-items:center; }
+.paper-row label { font-size:14px; display:flex; gap:6px; align-items:center; }
+.paper-row select { padding:6px 8px; border-radius:8px; border:1px solid #d8cfc0; font-size:14px; }
+#paper-area { background:#fff; border-radius:8px; }
+.paper-sheet { padding:18px 14px; color:#222; font-size:15px; line-height:1.7; }
+.paper-title { text-align:center; letter-spacing:2px; }
+.paper-meta { font-size:13px; margin:6px 0 12px; border-bottom:1px solid #999; padding-bottom:6px; }
+.paper-questions { padding-left:22px; }
+.paper-questions li { margin-bottom:10px; }
+.paper-opts { display:flex; gap:16px; flex-wrap:wrap; padding-left:8px; font-size:14px; }
+.paper-key { margin-top:14px; border-top:1px dashed #999; padding-top:8px; font-size:13px; color:#444; }
+@media print {
+  body { background:#fff; }
+  .screen { display:none !important; }
+  #screen-paper { display:block !important; }
+  .no-print, #ver-badge { display:none !important; }
+  .paper-sheet { padding:0; font-size:13px; }
+}

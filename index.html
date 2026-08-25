@@ -140,6 +140,32 @@
       <button class="btn small" id="btn-settings-back">返回 🔙</button>
     </section>
 
+    <!-- ============ 屏：练习卷（v3.6，可打印） ============ -->
+    <section id="screen-paper" class="screen hidden">
+      <div class="paper-controls no-print">
+        <h2>🖨 生成练习卷</h2>
+        <div class="paper-row">
+          <label>科目 <select id="paper-subject">
+            <option value="math">数学（北师大·上册）</option>
+            <option value="chinese">语文（部编·上册）</option>
+          </select></label>
+          <label>年级 <select id="paper-grade"></select></label>
+        </div>
+        <div class="paper-row">
+          <label>范围 <select id="paper-scope"></select></label>
+          <label>题数 <select id="paper-count">
+            <option>10</option><option selected>20</option><option>30</option>
+          </select></label>
+        </div>
+        <div class="paper-row">
+          <button class="btn primary" id="btn-paper-gen">生成试卷</button>
+          <button class="btn green" id="btn-paper-print">🖨 打印 / 存 PDF</button>
+          <button class="btn small" id="btn-paper-back">返回 🔙</button>
+        </div>
+      </div>
+      <div id="paper-area"></div>
+    </section>
+
     <!-- 休息提醒遮罩 -->
     <div id="help-overlay" class="overlay hidden">
       <div class="overlay-card">
@@ -180,7 +206,7 @@
       </div>
     </div>
 
-    <div id="ver-badge" style="position:fixed;right:8px;bottom:8px;font-size:11px;color:#b0a99f;z-index:50;pointer-events:none">v3.5.2</div>
+    <div id="ver-badge" style="position:fixed;right:8px;bottom:8px;font-size:11px;color:#b0a99f;z-index:50;pointer-events:none">v3.6</div>
   </div>
 <script src="js/storage.js"></script>
 <script src="js/tts.js"></script>

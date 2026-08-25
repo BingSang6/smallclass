@@ -842,7 +842,98 @@
       setTimeout(() => cp.textContent = '📋 复制', 1500);
     };
     body.appendChild(cp);
+
+    // v3.6 练习卷入口
+    const hp = document.createElement('h3');
+    hp.textContent = '练习卷（单元 / 期中 / 期末，可打印）';
+    body.appendChild(hp);
+    const pb = document.createElement('button');
+    pb.className = 'btn small green';
+    pb.textContent = '🖨 生成练习卷';
+    pb.onclick = () => { renderPaperSetup(); go('paper'); };
+    body.appendChild(pb);
   }
+
+  /* ---------- v3.6 练习卷（单元/期中/期末，打印成 A4） ---------- */
+  const PAPER_BANKS = { math: 'data/banks/math-units.json', chinese: 'data/banks/chinese-units.json' };
+  function renderPaperSetup() {
+    const stu = Store.current();
+    const gSel = $('paper-grade');
+    gSel.innerHTML = '';
+    for (let g = 1; g <= 6; g++) {
+      const o = document.createElement('option');
+      o.value = g; o.textContent = g + ' 年级';
+      if (stu && stu.grade == g) o.selected = true;
+      gSel.appendChild(o);
+    }
+    renderPaperScopes();
+  }
+  function renderPaperScopes() {
+    const sub = $('paper-subject').value;
+    const grade = +$('paper-grade').value;
+    const units = (Store.SUBJECTS[sub].units || {})[grade] || [];
+    const s = $('paper-scope');
+    s.innerHTML = '';
+    [['mid', '期中（第 1~4 单元）'], ['final', '期末（全册单元）']].forEach(([v, t]) => {
+      const o = document.createElement('option'); o.value = v; o.textContent = t; s.appendChild(o);
+    });
+    units.forEach(u => {
+      const o = document.createElement('option'); o.value = u; o.textContent = u; s.appendChild(o);
+    });
+  }
+  $('paper-subject').onchange = renderPaperScopes;
+  $('paper-grade').onchange = renderPaperScopes;
+
+  function genPaper() {
+    const sub = $('paper-subject').value;
+    const grade = +$('paper-grade').value;
+    const scope = $('paper-scope').value;
+    const count = +$('paper-count').value;
+    fetch(PAPER_BANKS[sub]).then(r => r.json()).then(bank => {
+      const unitList = (Store.SUBJECTS[sub].units || {})[grade] || [];
+      let qs = bank.filter(q => q.grade === grade);
+      if (scope === 'mid') {
+        const mids = unitList.slice(0, 4);
+        qs = qs.filter(q => mids.indexOf(q.unit) >= 0);
+      } else if (scope !== 'final') {
+        qs = qs.filter(q => q.unit === scope);
+      }
+      // 洗牌取 count 题
+      for (let i = qs.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [qs[i], qs[j]] = [qs[j], qs[i]];
+      }
+      qs = qs.slice(0, count);
+      const subName = sub === 'math' ? '数学' : '语文';
+      const scopeName = scope === 'mid' ? '期中' : scope === 'final' ? '期末' : scope;
+      const today = new Date();
+      const dstr = today.getFullYear() + '.' + (today.getMonth() + 1) + '.' + today.getDate();
+      const letters = ['A', 'B', 'C'];
+      let html = '<div class="paper-sheet">'
+        + '<h3 class="paper-title">' + grade + ' 年级' + subName + '·' + scopeName + '练习卷</h3>'
+        + '<div class="paper-meta">姓名：＿＿＿＿＿　日期：' + dstr + '　　得分：＿＿＿＿</div>'
+        + '<ol class="paper-questions">';
+      const key = [];
+      qs.forEach((q, i) => {
+        const opts = [String(q.a)].concat(q.options.map(String));
+        // 简单乱序（seed 按 index 保持稳定）
+        for (let k = opts.length - 1; k > 0; k--) {
+          const j2 = Math.floor(Math.random() * (k + 1));
+          [opts[k], opts[j2]] = [opts[j2], opts[k]];
+        }
+        key.push((i + 1) + '. ' + letters[opts.indexOf(String(q.a))] + '（' + q.a + '）');
+        html += '<li>' + q.q.replace('（　）', '（　）')
+          + '<div class="paper-opts">' + opts.map((o, oi) =>
+            '<span>' + letters[oi] + '. ' + o + '</span>').join('') + '</div></li>';
+      });
+      html += '</ol>'
+        + '<div class="paper-key"><b>参考答案</b><br>' + key.join('　') + '</div></div>';
+      $('paper-area').innerHTML = html;
+    });
+  }
+  $('btn-paper-gen').onclick = genPaper;
+  $('btn-paper-print').onclick = () => window.print();
+  $('btn-paper-back').onclick = () => { renderSettings(); go('settings'); };
   $('btn-settings').onclick = () => {
     // 先把两科题库都加载好，导出错题本才能带上题目内容
     Object.keys(Store.SUBJECTS).forEach(sub => {
