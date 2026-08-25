@@ -245,6 +245,39 @@ def test_v11():
         }""")
         print('review after unit wrong:', sched2)
         assert 'u4-' in sched2, 'unit wrong not scheduled'
+        # ---- v3.4: 全年级单元库（三年级学生应看到 8 个单元 + 4 个专题） ----
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].grade = 3;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card').first.click(); page.wait_for_timeout(300)
+        assert page.locator('#btn-units').is_visible(), 'units btn hidden (grade3)'
+        page.click('#btn-units'); page.wait_for_timeout(200)
+        n3 = page.locator('#unit-list button').count()
+        print('grade3 unit list (expect 12 = 8单元+4专题):', n3)
+        assert n3 == 12
+        page.locator('#unit-list button', has_text='周长').click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        print('grade3 unit question:', page.locator('#question-text').inner_text())
+        assert '周长' in page.locator('#quiz-level').inner_text()
+        page.screenshot(path='shots/15b-grade3-units.png')
+        # 一年级也应有单元（回归：按钮可见性）
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].grade = 1;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card').first.click(); page.wait_for_timeout(300)
+        assert page.locator('#btn-units').is_visible(), 'units btn hidden (grade1)'
+        # 还原年级为 3（后续测试基于三年级）
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].grade = 3;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
         print('all errors:', errs if errs else 'none')
         # ---- v3.0: 语数英三科大厅 + 语文分支 tab ----
         page.goto(BASE); page.wait_for_load_state('networkidle')
