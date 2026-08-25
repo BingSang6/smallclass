@@ -687,6 +687,14 @@
   $('btn-switch').onclick = () => { renderSetup(); go('setup'); };
   $('btn-switch2').onclick = () => { renderSetup(); go('setup'); };
   $('btn-back-hub').onclick = () => init();
+  // v3.5.2 答题页退出：回学科主页（停止计时/语音，本轮不结算）
+  $('btn-quit-quiz').onclick = () => {
+    clearInterval(restTimer);
+    stopQTimer();
+    TTS.stop();
+    Quiz.reset();
+    enterSubject(curSubject);
+  };
   $('btn-read-toggle').onclick = () => { Store.setAutoRead(!Store.autoRead()); renderReadToggle(); };
   $('btn-speak').onclick = () => {
     const q = Quiz.current;

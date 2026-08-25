@@ -355,7 +355,8 @@
     get streak() { return streak; },
     get PER_ROUND() { return PER_ROUND; },
     get TOTAL() { return (mode === 'review' || mode === 'mixed') ? queueTotal : PER_ROUND; },
-    get mode() { return mode; }
+    get mode() { return mode; },
+    reset() { reset(); }
   };
 
   window.Quiz = Quiz;
