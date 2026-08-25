@@ -122,7 +122,11 @@
     }
     const p = Store.subj(stu, subject);
     const lv = p.level + 1;   // 学生段位 0~5 ↔ 题库 level 1~6
-    const pool = bank().filter(q => q.grade === stu.grade && q.level === lv);
+    let pool = bank().filter(q => q.grade === stu.grade && q.level === lv);
+    // v3.4.1 题池太小（如一年级古诗某段位只有 ~10 题）时放宽到相邻段位，减少重复感
+    if (pool.length < 20) {
+      pool = bank().filter(q => q.grade === stu.grade && !q.unit && q.level >= lv - 1 && q.level <= lv + 1);
+    }
     const wrongIds = p.wrongPool || [];
     // 错题 tag 出题权重 ×2（自适应：薄弱点更多练）
     const wrongTags = {};
@@ -143,8 +147,9 @@
     while (qs.length < n && rest.length) {
       qs.push(rest.splice(Math.floor(Math.random() * rest.length), 1)[0]);
     }
-    // 1 道下一段位挑战题替换随机一题（答对同样计分，给孩子一点挑战）
-    const nextPool = bank().filter(q => q.grade === stu.grade && q.level === lv + 1 && !q.unit);
+    // 1 道下一段位挑战题替换随机一题（答对同样计分，给孩子一点挑战；同样避开最近出过的）
+    const nextPool = bank().filter(q => q.grade === stu.grade && q.level === lv + 1 && !q.unit
+      && (p.recentQs || []).indexOf(q.id) < 0);
     if (nextPool.length && qs.length >= 3) {
       const idx = Math.floor(Math.random() * qs.length);
       const cq = nextPool[Math.floor(Math.random() * nextPool.length)];
