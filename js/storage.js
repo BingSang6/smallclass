@@ -165,6 +165,7 @@
       if (!s.daily) s.daily = { day: '', review: false, round: false, correct10: false, correctToday: 0, bonus: false };
       if (s.streak === undefined) { s.streak = 0; s.streakDay = ''; }
       if (!s.pet) s.pet = { growth: 0, fedToday: 0, lastFeed: '' };
+      if (!s.pet.decos) s.pet.decos = []; if (s.pet.wearing === undefined) s.pet.wearing = null;
       if (s.pkLevel === undefined) { s.pkLevel = 0; s.pkWins = 0; }
     });
     return d;
@@ -187,7 +188,7 @@
       coins: 0,                                   // 🪙 金币（闯关/复习/任务产出，宠物消费）
       daily: { day: '', review: false, round: false, correct10: false, correctToday: 0, bonus: false },  // 每日任务
       streak: 0, streakDay: '',                   // 连续打卡天数
-      pet: { growth: 0, fedToday: 0, lastFeed: '' },   // 宠物成长值
+      pet: { growth: 0, fedToday: 0, lastFeed: '', decos: [], wearing: null, name: '' },   // 宠物成长值 + 装扮
       pkLevel: 0, pkWins: 0                       // 人机 PK：机器人档位 / 累计胜场
     };
   }
@@ -288,6 +289,36 @@
       if ((stu.coins || 0) < 10) return { ok: false, msg: '金币不够啦，去做任务赚金币吧！' };
       stu.coins -= 10; stu.pet.fedToday++; stu.pet.growth++;
       return { ok: true, growth: stu.pet.growth };
+    },
+
+    /** v3.7 装扮商店 */
+    DECOS: [
+      { id: 'hat', name: '小礼帽', icon: '🎩', price: 20 },
+      { id: 'crown', name: '王冠', icon: '👑', price: 50 },
+      { id: 'scarf', name: '红围巾', icon: '🧣', price: 20 },
+      { id: 'glasses', name: '墨镜', icon: '🕶️', price: 30 },
+      { id: 'bow', name: '蝴蝶结', icon: '🎀', price: 15 },
+      { id: 'flower', name: '小花', icon: '🌸', price: 15 }
+    ],
+    buyDeco(stu, id) {
+      const d = this.DECOS.find(x => x.id === id);
+      if (!d) return { ok: false, msg: '没有这个装扮' };
+      if (stu.pet.decos.indexOf(id) >= 0) return { ok: false, msg: '已经买过啦' };
+      if ((stu.coins || 0) < d.price) return { ok: false, msg: '金币不够（还差 ' + (d.price - stu.coins) + ' 🪙），去答题赚吧！' };
+      stu.coins -= d.price; stu.pet.decos.push(id); stu.pet.wearing = id;
+      return { ok: true, msg: '🛍 买到了【' + d.name + '】' + d.icon + '，已经戴上啦！' };
+    },
+    equipDeco(stu, id) { stu.pet.wearing = (stu.pet.wearing === id) ? null : id; },
+    namePet(stu, name) {
+      name = (name || '').trim().slice(0, 6);
+      if (!name) return { ok: false, msg: '名字不能为空' };
+      stu.pet.name = name;
+      return { ok: true, msg: '它现在叫【' + name + '】啦！' };
+    },
+    petEmoji(stu) {
+      const st = this.petStage(stu.pet.growth);
+      const deco = this.DECOS.find(x => x.id === stu.pet.wearing);
+      return st.name.split(' ')[0] + (deco ? deco.icon : '');
     },
 
     autoRead() { return load().autoRead; },

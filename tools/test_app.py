@@ -342,6 +342,39 @@ def test_v11():
         page.click('#btn-paper-gen'); page.wait_for_timeout(500)
         print('final paper questions:', page.locator('.paper-questions li').count())
         page.screenshot(path='shots/25-paper.png')
+        # ---- v3.7: 装扮商店 + 起名 ----
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].coins = 60;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.click('#btn-pet'); page.wait_for_timeout(300)
+        n_deco = page.locator('.deco-item').count()
+        print('deco items (expect 6):', n_deco)
+        assert n_deco == 6
+        page.screenshot(path='shots/26-deco-shop.png')
+        # 买 20 币的礼帽
+        page.locator('.deco-item', has_text='小礼帽').locator('button').click()
+        page.wait_for_timeout(300)
+        state = page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          return d.students[0].coins + '|' + d.students[0].pet.decos.join(',') + '|' + d.students[0].pet.wearing;
+        }""")
+        print('after buy (coins|decos|wearing):', state)
+        assert state == '40|hat|hat', state
+        # 大厅宠物卡应显示装扮
+        page.goto(BASE); page.wait_for_load_state('networkidle'); page.wait_for_timeout(300)
+        emoji = page.locator('#pet-emoji').inner_text()
+        print('hub pet emoji:', emoji)
+        assert '🎩' in emoji
+        # 起名
+        page.click('#btn-pet'); page.wait_for_timeout(300)
+        page.fill('#inp-pet-name', '跳跳')
+        page.click('#btn-pet-name'); page.wait_for_timeout(300)
+        assert page.locator('#pet-title').inner_text() == '跳跳'
+        page.screenshot(path='shots/27-pet-named.png')
         # 还原年级为 3（后续测试基于三年级）
         page.evaluate("""() => {
           const d = JSON.parse(localStorage.getItem('smallclass.v1'));

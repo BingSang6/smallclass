@@ -239,3 +239,13 @@ body {
   .no-print, #ver-badge { display:none !important; }
   .paper-sheet { padding:0; font-size:13px; }
 }
+
+/* ---------- v3.7 装扮商店 ---------- */
+.deco-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:10px 0; }
+.deco-item { background:#fff; border:2px solid #eee; border-radius:12px; padding:8px 4px; text-align:center; }
+.deco-item.owned { border-color:#b7e4c7; background:#f2fbf5; }
+.deco-item.wearing { border-color:#f4a261; box-shadow:0 0 6px #f4a26166; }
+.deco-icon { font-size:28px; }
+.deco-name { font-size:12px; margin:2px 0 6px; color:#555; }
+.pet-name-row { display:flex; gap:8px; margin-top:10px; }
+.pet-name-row input { flex:1; padding:8px 10px; border-radius:10px; border:1px solid #d8cfc0; font-size:15px; }

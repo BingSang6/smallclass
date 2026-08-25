@@ -156,15 +156,15 @@
   /* ---------- 宠物 ---------- */
   function renderPetCard(stu) {
     const st = Store.petStage(stu.pet.growth);
-    $('pet-emoji').textContent = st.name.split(' ')[0];
-    $('pet-name').textContent = st.name.split(' ')[1] || st.name;
+    $('pet-emoji').textContent = Store.petEmoji(stu);
+    $('pet-name').textContent = stu.pet.name || (st.name.split(' ')[1] || st.name);
     $('pet-growth').textContent = st.next ? ('成长 ' + stu.pet.growth + '/' + st.next) : '已满级 ✨';
   }
   function openPet() {
     const stu = Store.current();
     const st = Store.petStage(stu.pet.growth);
-    $('pet-big').textContent = st.name.split(' ')[0];
-    $('pet-title').textContent = st.name.split(' ')[1] || st.name;
+    $('pet-big').textContent = Store.petEmoji(stu);
+    $('pet-title').textContent = stu.pet.name || (st.name.split(' ')[1] || st.name);
     $('pet-detail').textContent = '成长值 ' + stu.pet.growth + (st.next ? '（再喂 ' + (st.next - stu.pet.growth) + ' 次进化）' : ' · 满级啦！');
     const stages = $('pet-stages');
     stages.innerHTML = '';
@@ -174,10 +174,44 @@
       d.textContent = n.split(' ')[0];
       stages.appendChild(d);
     });
+    // v3.7 装扮商店
+    const grid = $('deco-grid');
+    grid.innerHTML = '';
+    Store.DECOS.forEach(d => {
+      const owned = stu.pet.decos.indexOf(d.id) >= 0;
+      const wearing = stu.pet.wearing === d.id;
+      const item = document.createElement('div');
+      item.className = 'deco-item' + (owned ? ' owned' : '') + (wearing ? ' wearing' : '');
+      item.innerHTML = '<div class="deco-icon">' + d.icon + '</div><div class="deco-name">' + d.name + '</div>';
+      const b = document.createElement('button');
+      b.className = 'btn tiny';
+      b.textContent = owned ? (wearing ? '脱下' : '戴上') : (d.price + ' 🪙');
+      b.onclick = () => {
+        let msg = '';
+        Store.updateCurrent(s => {
+          if (owned) { Store.equipDeco(s, d.id); msg = wearing ? '已脱下 ' + d.icon : '戴上啦 ' + d.icon; }
+          else { const r = Store.buyDeco(s, d.id); msg = r.msg; }
+        });
+        openPet();
+        renderHub(Store.current());
+        $('pet-msg').textContent = msg;
+      };
+      item.appendChild(b);
+      grid.appendChild(item);
+    });
     $('pet-msg').textContent = '';
     go('pet');
   }
   $('btn-pet').onclick = openPet;
+  $('btn-pet-name').onclick = () => {
+    const inp = $('inp-pet-name');
+    let msg = '';
+    Store.updateCurrent(s => { msg = Store.namePet(s, inp.value).msg; });
+    openPet();
+    renderHub(Store.current());
+    $('pet-msg').textContent = msg;
+    inp.value = '';
+  };
   $('btn-pet-back').onclick = () => init();
   $('btn-feed').onclick = () => {
     let msg = '';
@@ -301,7 +335,7 @@
     const stu = Store.current();
     if (!stu) return;
     const el = $('quiz-pet');
-    el.textContent = Store.petStage(stu.pet.growth).name.split(' ')[0];
+    el.textContent = Store.petEmoji(stu);
     el.classList.remove('hidden');
     el.classList.remove('jump', 'glow');
   }
