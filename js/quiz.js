@@ -61,7 +61,7 @@
     const quota = { math: 4, chinese: 2, poem: 1, guwen: 1, english: 2 };
     Object.keys(quota).forEach(sub => {
       const p = Store.subj(stu, sub);
-      const pool = bank(sub).filter(q => q.grade === stu.grade && !q.unit && q.level <= p.level + 1);
+      const pool = bank(sub).filter(q => (q.grade === stu.grade || q.grade === 0) && !q.unit && q.level <= p.level + 1);
       const shuffled = pool.slice();
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -102,7 +102,7 @@
     // 人机 PK：数学已解锁段位内随机 10 题
     if (pkFlag) {
       const p = Store.subj(stu, 'math');
-      const pool = bank().filter(q => q.grade === stu.grade && !q.unit && q.level <= p.level + 1);
+      const pool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && !q.unit && q.level <= p.level + 1);
       const qs = pool.slice();
       for (let i = qs.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -122,10 +122,10 @@
     }
     const p = Store.subj(stu, subject);
     const lv = p.level + 1;   // 学生段位 0~5 ↔ 题库 level 1~6
-    let pool = bank().filter(q => q.grade === stu.grade && q.level === lv);
+    let pool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && q.level === lv);
     // v3.4.1 题池太小（如一年级古诗某段位只有 ~10 题）时放宽到相邻段位，减少重复感
     if (pool.length < 20) {
-      pool = bank().filter(q => q.grade === stu.grade && !q.unit && q.level >= lv - 1 && q.level <= lv + 1);
+      pool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && !q.unit && q.level >= lv - 1 && q.level <= lv + 1);
     }
     const wrongIds = p.wrongPool || [];
     // 错题 tag 出题权重 ×2（自适应：薄弱点更多练）
@@ -148,7 +148,7 @@
       qs.push(rest.splice(Math.floor(Math.random() * rest.length), 1)[0]);
     }
     // 1 道下一段位挑战题替换随机一题（答对同样计分，给孩子一点挑战；同样避开最近出过的）
-    const nextPool = bank().filter(q => q.grade === stu.grade && q.level === lv + 1 && !q.unit
+    const nextPool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && q.level === lv + 1 && !q.unit
       && (p.recentQs || []).indexOf(q.id) < 0);
     if (nextPool.length && qs.length >= 3) {
       const idx = Math.floor(Math.random() * qs.length);
@@ -200,7 +200,7 @@
       return;
     }
     const isMastery = (p.wrongPool || []).some(id => id === cur.id) ||
-                      bank().some(q => q.grade === stu.grade && q.level === p.level + 1 &&
+                      bank().some(q => (q.grade === stu.grade || q.grade === 0) && q.level === p.level + 1 &&
                                        q.tag === tag && p.wrongPool.indexOf(q.id) >= 0);
     if (ok) {
       correct++; streak++;
@@ -231,7 +231,7 @@
       if (unitName) {
         queue.push(cur);
       } else if (!pkFlag) {
-        const pool = bank().filter(q => q.grade === stu.grade && q.level === p.level + 1 && q.tag === tag && q.id !== cur.id);
+        const pool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && q.level === p.level + 1 && q.tag === tag && q.id !== cur.id);
         if (pool.length) queue.push(pool[Math.floor(Math.random() * pool.length)]);
       }
       // 记入待巩固池 + 排入复习计划（明天到期）

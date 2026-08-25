@@ -278,6 +278,56 @@ def test_v11():
           d.students[0].grade = 3;
           localStorage.setItem('smallclass.v1', JSON.stringify(d));
         }""")
+        # ---- v3.5: 语文单元巩固（部编版全年级）+ 古诗大池（不分年级） ----
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card', has_text='语文').first.click(); page.wait_for_timeout(400)
+        page.locator('.tab-btn', has_text='字词').click(); page.wait_for_timeout(300)
+        assert page.locator('#btn-units').is_visible(), 'chinese units btn hidden'
+        page.click('#btn-units'); page.wait_for_timeout(200)
+        n_cu = page.locator('#unit-list button').count()
+        print('chinese unit list (expect 8):', n_cu)
+        assert n_cu == 8
+        page.locator('#unit-list button', has_text='美好品质').click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        print('chinese unit question:', page.locator('#question-text').inner_text())
+        assert '美好品质' in page.locator('#quiz-level').inner_text()
+        page.screenshot(path='shots/23-chinese-units.png')
+        # 古诗大池：一年级进古诗也应有大量题（grade 0 通用）
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].grade = 1;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card', has_text='语文').first.click(); page.wait_for_timeout(400)
+        page.locator('.tab-btn', has_text='古诗').click(); page.wait_for_timeout(300)
+        page.click('#btn-go')
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        pq1 = page.locator('#question-text').inner_text()
+        print('grade1 poem question:', pq1)
+        assert '接下句' in pq1 or '接上句' in pq1 or '出自' in pq1 or '作者' in pq1
+        # 连续两轮抽题应很少重复（池 1800+）
+        ids = [page.evaluate('() => Quiz.current.id')]
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card', has_text='语文').first.click(); page.wait_for_timeout(400)
+        page.locator('.tab-btn', has_text='古诗').click(); page.wait_for_timeout(300)
+        page.click('#btn-go'); page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        ids.append(page.evaluate('() => Quiz.current.id'))
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card', has_text='语文').first.click(); page.wait_for_timeout(400)
+        page.locator('.tab-btn', has_text='古诗').click(); page.wait_for_timeout(300)
+        page.click('#btn-go'); page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        ids.append(page.evaluate('() => Quiz.current.id'))
+        print('poem sample ids:', ids)
+        assert len(set(ids)) == len(ids), 'poem repeats across rounds'
+        page.screenshot(path='shots/24-poems-big-pool.png')
+        # 还原年级为 3（后续测试基于三年级）
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].grade = 3;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
         print('all errors:', errs if errs else 'none')
         # ---- v3.0: 语数英三科大厅 + 语文分支 tab ----
         page.goto(BASE); page.wait_for_load_state('networkidle')
