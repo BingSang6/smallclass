@@ -209,3 +209,12 @@ body {
 /* v3.0 语文分支 tab（字词/古诗） */
 .subject-tabs { display: flex; gap: 10px; justify-content: center; margin-bottom: 12px; }
 .tab-btn { min-width: 110px; }
+
+/* v3.3 金币飘字 + 帮助浮层 */
+.coin-toast { position: fixed; top: 14%; left: 50%; transform: translateX(-50%);
+  font-size: 22px; font-weight: 800; color: #f9a825; text-shadow: 0 1px 2px #fff59d;
+  z-index: 999; animation: coinUp 1.6s ease forwards; pointer-events: none; }
+@keyframes coinUp { 0% { opacity: 0; transform: translate(-50%, 10px); }
+  20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -30px); } }
+.overlay-card { background: #fff; border-radius: 18px; padding: 20px 22px; max-width: 88vw;
+  box-shadow: 0 8px 30px rgba(0,0,0,.2); }

@@ -103,14 +103,23 @@ def mk(q, a, kind, grade, level, tag):
 # ---------- 各年级 6 段位生成器 ----------
 
 def add_sub(qs, grade, level, tags, alo, ahi, blo, bhi, add_n=15, sub_n=15):
-    """加减混合生成：加法不超上限、减法结果 ≥ 0"""
+    """加减混合生成：优先出进位/退位题（低段位也要有挑战），80 次尝试后放宽"""
+    def pick(ok):
+        for _ in range(80):
+            a, b = random.randint(alo, ahi), random.randint(blo, bhi)
+            if ok(a, b):
+                return a, b
+        return random.randint(alo, ahi), random.randint(blo, bhi)
     for _ in range(add_n):
-        a = random.randint(alo, ahi); b = random.randint(blo, bhi)
+        a, b = pick(lambda a, b: a % 10 + b % 10 > 10)
         qs.append(mk(f"{a} + {b}", a + b, "add", grade, level, tags[0]))
     for _ in range(sub_n):
-        a = random.randint(alo, ahi); b = random.randint(blo, bhi)
-        if a > b:
-            qs.append(mk(f"{a} - {b}", a - b, "sub", grade, level, tags[1]))
+        a, b = pick(lambda a, b: a > b and a % 10 < b % 10)
+        if a <= b:
+            a, b = max(a, b), min(a, b)
+            if a == b:
+                continue
+        qs.append(mk(f"{a} - {b}", a - b, "sub", grade, level, tags[1]))
 
 def gen_cell(grade, level):
     qs = []
@@ -118,26 +127,27 @@ def gen_cell(grade, level):
         qs.append(mk(q, a, kind, grade, level, tag))
 
     if grade == 1:
-        # 1:20以内(含10) 2:50以内 3:100以内 4:100进退位混合 5:200以内 6:200进退位混合
-        rng = {1: (2, 18, 2, 18), 2: (11, 45, 6, 39), 3: (23, 88, 15, 66),
-               4: (23, 88, 15, 66), 5: (55, 195, 35, 145), 6: (55, 195, 35, 145)}[level]
+        # 每个段位都含进退位：1:20以内进退位 2:50以内加减 3:50以内进退位
+        # 4:100以内加减 5:100以内进退位 6:200以内混合
+        rng = {1: (5, 14, 5, 14), 2: (11, 45, 6, 39), 3: (21, 45, 17, 39),
+               4: (23, 88, 15, 66), 5: (43, 88, 29, 66), 6: (55, 195, 35, 145)}[level]
+        cap = {1: 20, 2: 50, 3: 50, 4: 100, 5: 100, 6: 200}[level]
+        need = level in (1, 3, 5)   # 单数段位强制进退位
         def carry(a, b): return a % 10 + b % 10 > 10
         def borrow(a, b): return a % 10 < b % 10
-        # 加法
-        n = 0
-        while n < 16:
+        n = 0; tries = 0
+        while n < 16 and tries < 400:
+            tries += 1
             a = random.randint(rng[0], rng[1]); b = random.randint(rng[2], rng[3])
-            if a + b > {1: 20, 2: 50, 3: 100, 4: 100, 5: 200, 6: 200}[level]: continue
-            if level in (4, 6) and not carry(a, b): continue
-            if level in (1, 2, 3, 5) and carry(a, b) and random.random() < 0.5: continue
+            if a + b > cap: continue
+            if need and not carry(a, b): continue
             add(f"{a} + {b}", a + b, "add", "加法"); n += 1
-        # 减法
-        n = 0
-        while n < 15:
+        n = 0; tries = 0
+        while n < 15 and tries < 400:
+            tries += 1
             a = random.randint(rng[0], rng[1]); b = random.randint(rng[2], rng[3])
             if a <= b: continue
-            if level in (4, 6) and not borrow(a, b): continue
-            if level in (1, 2, 3, 5) and borrow(a, b) and random.random() < 0.5: continue
+            if need and not borrow(a, b): continue
             add(f"{a} - {b}", a - b, "sub", "减法"); n += 1
 
     elif grade == 2:
@@ -203,14 +213,15 @@ def gen_cell(grade, level):
             for _ in range(15):
                 a, b = random.randint(12, 30), random.randint(3, 5)
                 add(f"{a} × {b}", a * b, "mul", "多位乘一位")
-        else:             # 估算
+        else:             # 两步计算（原估算已按家长反馈移除）
             for _ in range(15):
-                a = random.randint(21, 89); a -= a % 10
-                b = random.randint(21, 79); b += 10 - b % 10
-                add(f"{a} + {b} ≈ ?", (round(a / 10) + round(b / 10)) * 10, "est", "加减估算")
+                a, b = random.randint(3, 9), random.randint(3, 9)
+                c = random.randint(20, 90)
+                add(f"{a} × {b} + {c}", a * b + c, "mix", "两步计算")
             for _ in range(15):
-                a = random.randint(12, 39); b = random.randint(21, 49)
-                add(f"{a} × {b} ≈ ?", round(a) * round(b / 10) * 10 // 100 * 100, "est", "乘法估算")
+                a, b = random.randint(12, 40), random.randint(3, 9)
+                c = random.randint(10, a * b - 1)
+                add(f"{a} × {b} - {c}", a * b - c, "mix", "两步计算")
 
     elif grade == 4:
         if level == 1:  # 大数口算
@@ -227,12 +238,10 @@ def gen_cell(grade, level):
             for _ in range(15):
                 b, c = random.randint(2, 9) * 10, random.randint(2, 9)
                 add(f"{b * c} ÷ {b}", c, "div", "整十乘除")
-        elif level == 3:  # 乘法估算
+        elif level == 3:  # 整百乘整十（原乘法估算已按家长反馈移除）
             for _ in range(30):
-                a = random.randint(105, 995); a -= a % 10
-                b = random.randint(12, 98); b -= b % 10
-                ans = round(a / 100) * 100 * round(b / 10) * 10 // 1000 * 1000
-                add(f"{a} × {b} ≈ ?", ans, "est", "乘法估算")
+                a, b = random.randint(2, 9) * 100, random.randint(2, 9) * 10
+                add(f"{a} × {b}", a * b, "mul", "整百乘整十")
         elif level == 4:  # 简算凑整
             for _ in range(10):
                 a = random.choice([98, 99, 97, 199, 298]); b = random.randint(35, 96)

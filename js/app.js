@@ -65,6 +65,15 @@
   };
 
   /* ---------- 通用小组件 ---------- */
+  /** 得金币飘字提示（+5🪙 从顶部飘出） */
+  window.coinFlash = function (n) {
+    if (!n) return;
+    const d = document.createElement('div');
+    d.className = 'coin-toast';
+    d.textContent = '+' + n + '🪙';
+    document.body.appendChild(d);
+    setTimeout(() => d.remove(), 1600);
+  };
   function starStr(lvStars) {
     return '★'.repeat(lvStars) + '☆'.repeat(3 - Math.min(3, lvStars));
   }
@@ -369,8 +378,9 @@
       r => {
         clearInterval(restTimer);
         stopQTimer();
-        Store.updateCurrent(s => { s.coins = (s.coins || 0) + Store.taskDone(s, 'round'); });
-        // 得星：对 5 题得 2 星，对 4 题得 1 星
+        let got = 0;
+        Store.updateCurrent(s => { got = Store.taskDone(s, 'round'); s.coins = (s.coins || 0) + got; });
+        coinFlash(got);
         const win = r.correct >= 4 ? (r.correct >= 5 ? 2 : 1) : 0;
         if (win > 0) {
           Store.updateCurrent(s => {
@@ -436,10 +446,13 @@
       r => {
         clearInterval(restTimer);
         stopQTimer();
+        let gotU = 0;
         Store.updateCurrent(s => {
           s.stars = (s.stars || 0) + r.correct;
-          s.coins = (s.coins || 0) + Store.taskDone(s, 'round');
+          gotU = Store.taskDone(s, 'round');
+          s.coins = (s.coins || 0) + gotU;
         });
+        coinFlash(gotU);
         if (r.correct >= r.total - 1) {
           if (Store.current().stickers.length < 60) Store.updateCurrent(s => { s.stickers.push('U' + name.slice(1, 3)); });
           $('result-title').textContent = '🎉 这个单元掌握得很好！';
@@ -473,10 +486,13 @@
         stopQTimer();
         if (r.total === 0) { init(); return; }
         const good = r.correct >= r.total - 1;
+        let gotM = 0;
         Store.updateCurrent(s => {
           s.stars = (s.stars || 0) + r.correct;
-          s.coins = (s.coins || 0) + (good ? 5 : 2) + Store.taskDone(s, 'round');
+          gotM = (good ? 5 : 2) + Store.taskDone(s, 'round');
+          s.coins = (s.coins || 0) + gotM;
         });
+        coinFlash(gotM);
         $('result-title').textContent = good ? '🎉 混合挑战大成功！' : '🔀 混合挑战完成！';
         $('result-detail').textContent = '四科混战答对 ' + r.correct + ' / ' + r.total +
           ' 题' + (good ? '，金币 +5！' : '。错的题明天「今日复习」见。');
@@ -524,7 +540,8 @@
     lastWasPK = true; lastWasReview = false; lastWasUnit = false; challenge = false;
     pkMy = 0; pkRobot = 0;
     const robot = PK_ROBOTS[Math.min(2, stu.pkLevel || 0)];
-    pkSec = robot.sec;
+    // 低年级机器人反应更慢（题也简单），高年级更快
+    pkSec = robot.sec + Math.max(0, 5 - stu.grade);
     go('quiz');
     $('quiz-level').textContent = '⚔️ PK vs ' + robot.icon + robot.name;
     $('wrong-overlay').classList.add('hidden');
@@ -576,14 +593,18 @@
         clearInterval(restTimer);
         pkStopTimer();
         const win = pkMy > pkRobot;
+        let gotP = 0;
         Store.updateCurrent(s => {
-          s.coins = (s.coins || 0) + Store.taskDone(s, 'correct');
+          gotP = Store.taskDone(s, 'correct');
+          s.coins = (s.coins || 0) + gotP;
           if (win) {
             s.pkWins = (s.pkWins || 0) + 1;
             s.coins = (s.coins || 0) + 5;
+            gotP += 5;
             if (s.pkWins % 3 === 0 && s.pkLevel < 2) s.pkLevel++;
           }
         });
+        coinFlash(gotP);
         const s2 = Store.current();
         $('result-title').textContent = win ? '🏆 你赢啦！' : '🤖 机器人赢了，再来！';
         $('result-detail').textContent = '比分 ' + pkMy + ' : ' + pkRobot +
@@ -615,7 +636,9 @@
         clearInterval(restTimer);
         stopQTimer();
         if (r.total === 0) { init(); return; }   // 没有到期题
-        Store.updateCurrent(s => { s.coins = (s.coins || 0) + 3 + Store.taskDone(s, 'review'); });
+        let gotR = 0;
+        Store.updateCurrent(s => { gotR = 3 + Store.taskDone(s, 'review'); s.coins = (s.coins || 0) + gotR; });
+        coinFlash(gotR);
         $('result-title').textContent = '🎉 复习完成！';
         $('result-detail').textContent = '复习了 ' + r.total + ' 题，记住 ' + r.correct + ' 题。记不牢的题明天还会再来哦。';
         $('result-sticker').textContent = '🌅';
@@ -824,6 +847,10 @@
     go('settings');
   };
   $('btn-settings-back').onclick = () => init();
+
+  /* ---------- 金币/星星说明 ---------- */
+  $('btn-help').onclick = () => $('help-overlay').classList.remove('hidden');
+  $('btn-help-ok').onclick = () => $('help-overlay').classList.add('hidden');
 
   /* ---------- 入口 ---------- */
   function init() {

@@ -143,6 +143,13 @@
     while (qs.length < n && rest.length) {
       qs.push(rest.splice(Math.floor(Math.random() * rest.length), 1)[0]);
     }
+    // 1 道下一段位挑战题替换随机一题（答对同样计分，给孩子一点挑战）
+    const nextPool = bank().filter(q => q.grade === stu.grade && q.level === lv + 1 && !q.unit);
+    if (nextPool.length && qs.length >= 3) {
+      const idx = Math.floor(Math.random() * qs.length);
+      const cq = nextPool[Math.floor(Math.random() * nextPool.length)];
+      qs[idx] = Object.assign({}, cq, { challenge: true });
+    }
     return qs.slice(0, n);
   }
 
@@ -170,7 +177,11 @@
         correct++; streak++;
         TTS.praise();
         if (mode === 'review') Store.updateCurrent(s => advanceReview(s, subjKey, cur.id));
-        Store.updateCurrent(s => { s.coins = (s.coins || 0) + Store.taskDone(s, 'correct'); });
+        Store.updateCurrent(s => {
+          const got = Store.taskDone(s, 'correct');
+          s.coins = (s.coins || 0) + got;
+          if (got && window.coinFlash) window.coinFlash(got);
+        });
       } else {
         streak = 0;
         TTS.speak('再想一想。' + (cur.wrongReasons && cur.wrongReasons[0] ? cur.wrongReasons[0] : ''));
@@ -189,7 +200,11 @@
     if (ok) {
       correct++; streak++;
       TTS.praise();
-      Store.updateCurrent(s => { s.coins = (s.coins || 0) + Store.taskDone(s, 'correct'); });
+      Store.updateCurrent(s => {
+        const got = Store.taskDone(s, 'correct');
+        s.coins = (s.coins || 0) + got;
+        if (got && window.coinFlash) window.coinFlash(got);
+      });
       // 精通出池：错题 tag 连对 2 次 → 该 tag 全部移出错题池（含复习队列）
       if (isMastery) {
         Store.updateCurrent(s => {
@@ -273,10 +288,10 @@
         reset();
         onUI = ui; onEnd = end;
         queue = pickQuestions(stu, PER_ROUND);
-        // recentQs 记录
+        // recentQs 记录（保留最近 25 题，避免连续几轮重复出题）
         Store.updateCurrent(s => {
           const p = Store.subj(s, subject);
-          p.recentQs = queue.map(q => q.id);
+          p.recentQs = (p.recentQs || []).concat(queue.map(q => q.id)).slice(-25);
         });
         showQuestion(stu);
       });
