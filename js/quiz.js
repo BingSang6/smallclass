@@ -61,7 +61,9 @@
     const quota = { math: 4, chinese: 2, poem: 1, guwen: 1, english: 2 };
     Object.keys(quota).forEach(sub => {
       const p = Store.subj(stu, sub);
-      const pool = bank(sub).filter(q => (q.grade === stu.grade || q.grade === 0) && !q.unit && q.level <= p.level + 1);
+      const rec = p.recentQs || [];
+      const pool = bank(sub).filter(q => (q.grade === stu.grade || q.grade === 0) && !q.unit && q.level <= p.level + 1
+        && rec.indexOf(q.id) < 0);
       const shuffled = pool.slice();
       for (let i = shuffled.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -146,6 +148,16 @@
     if (rest.length < n - qs.length) rest = weighted.filter(q => qs.indexOf(q) < 0);
     while (qs.length < n && rest.length) {
       qs.push(rest.splice(Math.floor(Math.random() * rest.length), 1)[0]);
+    }
+    // v3.5.1 同一轮去重（加权列表里同一题会出现两次引用，防止一轮内重复出同一题）
+    const seen = {};
+    qs = qs.filter(q => q.id in seen ? false : (seen[q.id] = 1));
+    // 去重后缺额从剩余候选补足
+    let more = pool.filter(q => !(q.id in seen) && recent.indexOf(q.id) < 0);
+    if (more.length < n - qs.length) more = pool.filter(q => !(q.id in seen));
+    while (qs.length < n && more.length) {
+      const q = more.splice(Math.floor(Math.random() * more.length), 1)[0];
+      seen[q.id] = 1; qs.push(q);
     }
     // 1 道下一段位挑战题替换随机一题（答对同样计分，给孩子一点挑战；同样避开最近出过的）
     const nextPool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && q.level === lv + 1 && !q.unit
