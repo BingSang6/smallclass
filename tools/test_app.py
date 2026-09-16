@@ -326,15 +326,25 @@ def test_v11():
         uniq_tags = sorted(set(en_tags))
         print('english g4 tags:', uniq_tags)
         assert '英语单词·道路安全' in uniq_tags and '英语单词·祖辈与职业' in uniq_tags, 'english g4 new themes missing'
-        # ---- v3.9: 英语单元巩固（沪教版 3~6 年级；当前年级=4，应见 8 个单元） ----
+        # ---- v3.9: 英语单元巩固（沪教版 3~6 年级；当前年级=4，应见 8 单元 + 2 专题(v3.10) = 10） ----
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.locator('.subject-card', has_text='英语').first.click(); page.wait_for_timeout(400)
         assert page.locator('#btn-units').is_visible(), 'english units btn hidden (grade4)'
         page.click('#btn-units'); page.wait_for_timeout(200)
         n_eu = page.locator('#unit-list button').count()
-        print('english g4 unit list (expect 8):', n_eu)
-        assert n_eu == 8
+        print('english g4 unit list (expect 10 = 8单元+2专题):', n_eu)
+        assert n_eu == 10
         page.screenshot(path='shots/28-english-units.png')
+        # v3.10 专题训练：点「方位介词」
+        page.locator('#unit-list button', has_text='方位介词').click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        print('english topic question:', page.locator('#question-text').inner_text())
+        assert '方位介词' in page.locator('#quiz-level').inner_text()
+        assert page.locator('.opt-btn').count() == 3
+        page.screenshot(path='shots/28a-english-topic.png')
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card', has_text='英语').first.click(); page.wait_for_timeout(400)
+        page.click('#btn-units'); page.wait_for_timeout(200)
         page.locator('#unit-list button', has_text='道路安全').click()
         page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
         print('english unit question:', page.locator('#question-text').inner_text())

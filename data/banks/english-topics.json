@@ -1,0 +1,722 @@
+[
+ {
+  "q": "问「是什么东西」用哪个疑问词？",
+  "a": "What",
+  "options": [
+   "Where",
+   "Who"
+  ],
+  "wrongReasons": [
+   "What 问事物，Where 问地点，Who 问人",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 3,
+  "level": 0,
+  "tag": "英语专题·疑问词",
+  "unit": "专题·疑问词",
+  "speak": "问「是什么东西」用哪个疑问词",
+  "id": "et-000"
+ },
+ {
+  "q": "（　）is your bag? — It's on the desk. 选哪个疑问词？",
+  "a": "Where",
+  "options": [
+   "What",
+   "How many"
+  ],
+  "wrongReasons": [
+   "回答是地点，用 Where 问地点",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 3,
+  "level": 0,
+  "tag": "英语专题·疑问词",
+  "unit": "专题·疑问词",
+  "speak": "哪个is your bag? — It's on the desk. 选哪个疑问词",
+  "id": "et-001"
+ },
+ {
+  "q": "（　）is that girl? — She's my sister. 选哪个疑问词？",
+  "a": "Who",
+  "options": [
+   "What",
+   "Where"
+  ],
+  "wrongReasons": [
+   "回答是人，用 Who 问人",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 3,
+  "level": 0,
+  "tag": "英语专题·疑问词",
+  "unit": "专题·疑问词",
+  "speak": "哪个is that girl? — She's my sister. 选哪个疑问词",
+  "id": "et-002"
+ },
+ {
+  "q": "（　）books do you have? — Five. 选哪个疑问词？",
+  "a": "How many",
+  "options": [
+   "How old",
+   "What"
+  ],
+  "wrongReasons": [
+   "回答是数量，用 How many 问数量",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 3,
+  "level": 0,
+  "tag": "英语专题·疑问词",
+  "unit": "专题·疑问词",
+  "speak": "哪个books do you have? — Five. 选哪个疑问词",
+  "id": "et-003"
+ },
+ {
+  "q": "How old 用来问什么？",
+  "a": "年龄",
+  "options": [
+   "数量",
+   "地点"
+  ],
+  "wrongReasons": [
+   "How old = 多大年纪",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 3,
+  "level": 0,
+  "tag": "英语专题·疑问词",
+  "unit": "专题·疑问词",
+  "speak": "How old 用来问什么",
+  "id": "et-004"
+ },
+ {
+  "q": "I （　） a student. 选哪个 be 动词？",
+  "a": "am",
+  "options": [
+   "is",
+   "are"
+  ],
+  "wrongReasons": [
+   "I 永远搭配 am",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 3,
+  "level": 0,
+  "tag": "英语专题·be动词",
+  "unit": "专题·be动词",
+  "speak": "I 哪个 a student. 选哪个 be 动词",
+  "id": "et-005"
+ },
+ {
+  "q": "She （　） my English teacher. 选哪个？",
+  "a": "is",
+  "options": [
+   "am",
+   "are"
+  ],
+  "wrongReasons": [
+   "she/he/it 等单数用 is",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 3,
+  "level": 0,
+  "tag": "英语专题·be动词",
+  "unit": "专题·be动词",
+  "speak": "She 哪个 my English teacher. 选哪个",
+  "id": "et-006"
+ },
+ {
+  "q": "We （　） good friends. 选哪个？",
+  "a": "are",
+  "options": [
+   "is",
+   "am"
+  ],
+  "wrongReasons": [
+   "we/you/they 复数用 are",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 3,
+  "level": 0,
+  "tag": "英语专题·be动词",
+  "unit": "专题·be动词",
+  "speak": "We 哪个 good friends. 选哪个",
+  "id": "et-007"
+ },
+ {
+  "q": "The cats （　） on the sofa. 选哪个？",
+  "a": "are",
+  "options": [
+   "is",
+   "am"
+  ],
+  "wrongReasons": [
+   "cats 是复数，用 are",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 3,
+  "level": 0,
+  "tag": "英语专题·be动词",
+  "unit": "专题·be动词",
+  "speak": "The cats 哪个 on the sofa. 选哪个",
+  "id": "et-008"
+ },
+ {
+  "q": "am / is / are 分别搭配谁？",
+  "a": "I 用 am，单数用 is，复数用 are",
+  "options": [
+   "I 用 is，复数用 am",
+   "可以随意换用"
+  ],
+  "wrongReasons": [
+   "口诀：我用 am，单三 is，复数 are",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 3,
+  "level": 0,
+  "tag": "英语专题·be动词",
+  "unit": "专题·be动词",
+  "speak": "am / is / are 分别搭配谁",
+  "id": "et-009"
+ },
+ {
+  "q": "「她」做主语时用哪个词？",
+  "a": "she",
+  "options": [
+   "her",
+   "hers"
+  ],
+  "wrongReasons": [
+   "she 是主格，做主语",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 4,
+  "level": 0,
+  "tag": "英语专题·人称代词",
+  "unit": "专题·人称代词",
+  "speak": "「她」做主语时用哪个词",
+  "id": "et-010"
+ },
+ {
+  "q": "（　） is my best friend.（他） 选哪个词？",
+  "a": "He",
+  "options": [
+   "Him",
+   "His"
+  ],
+  "wrongReasons": [
+   "做主语用主格 He",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 4,
+  "level": 0,
+  "tag": "英语专题·人称代词",
+  "unit": "专题·人称代词",
+  "speak": "哪个 is my best friend.（他） 选哪个词",
+  "id": "et-011"
+ },
+ {
+  "q": "This is （　） ruler.（我的） 选哪个词？",
+  "a": "my",
+  "options": [
+   "me",
+   "I"
+  ],
+  "wrongReasons": [
+   "名词前面用 my（我的）",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 4,
+  "level": 0,
+  "tag": "英语专题·人称代词",
+  "unit": "专题·人称代词",
+  "speak": "This is 哪个 ruler.（我的） 选哪个词",
+  "id": "et-012"
+ },
+ {
+  "q": "him 是什么意思？",
+  "a": "他（宾格，做宾语）",
+  "options": [
+   "他的（形容词性物主代词）",
+   "他自己（反身代词）"
+  ],
+  "wrongReasons": [
+   "him 是 he 的宾格，用在动词/介词后",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 4,
+  "level": 0,
+  "tag": "英语专题·人称代词",
+  "unit": "专题·人称代词",
+  "speak": "him 是什么意思",
+  "id": "et-013"
+ },
+ {
+  "q": "Look at （　）!（看我） 选哪个词？",
+  "a": "me",
+  "options": [
+   "I",
+   "my"
+  ],
+  "wrongReasons": [
+   "介词 at 后面用宾格 me",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 4,
+  "level": 0,
+  "tag": "英语专题·人称代词",
+  "unit": "专题·人称代词",
+  "speak": "Look at 哪个!（看我） 选哪个词",
+  "id": "et-014"
+ },
+ {
+  "q": "The cat is （　） the box.（在盒子里）",
+  "a": "in",
+  "options": [
+   "on",
+   "under"
+  ],
+  "wrongReasons": [
+   "in = 在…里面",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 4,
+  "level": 0,
+  "tag": "英语专题·方位介词",
+  "unit": "专题·方位介词",
+  "speak": "The cat is 哪个 the box.（在盒子里）",
+  "id": "et-015"
+ },
+ {
+  "q": "The book is （　） the desk.（在桌面上）",
+  "a": "on",
+  "options": [
+   "in",
+   "under"
+  ],
+  "wrongReasons": [
+   "on = 在…上面（表面有接触）",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 4,
+  "level": 0,
+  "tag": "英语专题·方位介词",
+  "unit": "专题·方位介词",
+  "speak": "The book is 哪个 the desk.（在桌面上）",
+  "id": "et-016"
+ },
+ {
+  "q": "under 的意思是？",
+  "a": "在…下面",
+  "options": [
+   "在…旁边",
+   "在…后面"
+  ],
+  "wrongReasons": [
+   "under = 在…正下方",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 4,
+  "level": 0,
+  "tag": "英语专题·方位介词",
+  "unit": "专题·方位介词",
+  "speak": "under 的意思是",
+  "id": "et-017"
+ },
+ {
+  "q": "「在…旁边」用哪个词组？",
+  "a": "next to",
+  "options": [
+   "next on",
+   "next in"
+  ],
+  "wrongReasons": [
+   "next to = 紧挨着、在旁边",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 4,
+  "level": 0,
+  "tag": "英语专题·方位介词",
+  "unit": "专题·方位介词",
+  "speak": "「在…旁边」用哪个词组",
+  "id": "et-018"
+ },
+ {
+  "q": "The ball is behind the door. behind 是？",
+  "a": "在…后面",
+  "options": [
+   "在…前面",
+   "在…里面"
+  ],
+  "wrongReasons": [
+   "behind 后面；in front of 前面",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 4,
+  "level": 0,
+  "tag": "英语专题·方位介词",
+  "unit": "专题·方位介词",
+  "speak": "The ball is behind the door. behind 是",
+  "id": "et-019"
+ },
+ {
+  "q": "He （　） to school at seven every day. 选哪个？",
+  "a": "goes",
+  "options": [
+   "go",
+   "going"
+  ],
+  "wrongReasons": [
+   "主语是三单 he，动词加 es",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 5,
+  "level": 0,
+  "tag": "英语专题·一般现在时",
+  "unit": "专题·一般现在时",
+  "speak": "He 哪个 to school at seven every day. 选哪个",
+  "id": "et-020"
+ },
+ {
+  "q": "She （　） TV every evening. 选哪个？",
+  "a": "watches",
+  "options": [
+   "watch",
+   "watchs"
+  ],
+  "wrongReasons": [
+   "以 ch 结尾的三单动词加 es（没有 watchs 这个词）",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 5,
+  "level": 0,
+  "tag": "英语专题·一般现在时",
+  "unit": "专题·一般现在时",
+  "speak": "She 哪个 TV every evening. 选哪个",
+  "id": "et-021"
+ },
+ {
+  "q": "I （　） football on Sundays. 选哪个？",
+  "a": "play",
+  "options": [
+   "plays",
+   "playing"
+  ],
+  "wrongReasons": [
+   "主语是 I，动词用原形",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 5,
+  "level": 0,
+  "tag": "英语专题·一般现在时",
+  "unit": "专题·一般现在时",
+  "speak": "I 哪个 football on Sundays. 选哪个",
+  "id": "et-022"
+ },
+ {
+  "q": "主语是第三人称单数时，一般现在时的动词要？",
+  "a": "加 -s 或 -es",
+  "options": [
+   "加 -ing",
+   "加 -ed"
+  ],
+  "wrongReasons": [
+   "三单规则：一般加 s，ch/sh/o 结尾加 es",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 5,
+  "level": 0,
+  "tag": "英语专题·一般现在时",
+  "unit": "专题·一般现在时",
+  "speak": "主语是第三人称单数时，一般现在时的动词要",
+  "id": "et-023"
+ },
+ {
+  "q": "every day / yesterday 哪个是一般现在时的时间标志？",
+  "a": "every day",
+  "options": [
+   "yesterday",
+   "tomorrow"
+  ],
+  "wrongReasons": [
+   "every day 表示经常发生，用一般现在时",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 5,
+  "level": 0,
+  "tag": "英语专题·一般现在时",
+  "unit": "专题·一般现在时",
+  "speak": "every day / yesterday 哪个是一般现在时的时间标志",
+  "id": "et-024"
+ },
+ {
+  "q": "water（水）是可数名词还是不可数名词？",
+  "a": "不可数",
+  "options": [
+   "可数",
+   "既是可数又是不可数"
+  ],
+  "wrongReasons": [
+   "水不可数，不能说 a water / two waters",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 5,
+  "level": 0,
+  "tag": "英语专题·可数与不可数",
+  "unit": "专题·可数与不可数",
+  "speak": "water（水）是可数名词还是不可数名词",
+  "id": "et-025"
+ },
+ {
+  "q": "不可数名词问「多少」用？",
+  "a": "How much",
+  "options": [
+   "How many",
+   "How old"
+  ],
+  "wrongReasons": [
+   "How much + 不可数，How many + 可数复数",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 5,
+  "level": 0,
+  "tag": "英语专题·可数与不可数",
+  "unit": "专题·可数与不可数",
+  "speak": "不可数名词问「多少」用",
+  "id": "et-026"
+ },
+ {
+  "q": "可数名词复数问「多少」用？",
+  "a": "How many",
+  "options": [
+   "How much",
+   "What"
+  ],
+  "wrongReasons": [
+   "How many + 可数复数",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 5,
+  "level": 0,
+  "tag": "英语专题·可数与不可数",
+  "unit": "专题·可数与不可数",
+  "speak": "可数名词复数问「多少」用",
+  "id": "et-027"
+ },
+ {
+  "q": "apple 的复数形式是？",
+  "a": "apples",
+  "options": [
+   "applees",
+   "apple"
+  ],
+  "wrongReasons": [
+   "多数可数名词直接加 s",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 5,
+  "level": 0,
+  "tag": "英语专题·可数与不可数",
+  "unit": "专题·可数与不可数",
+  "speak": "apple 的复数形式是",
+  "id": "et-028"
+ },
+ {
+  "q": "bread（面包）是？",
+  "a": "不可数名词",
+  "options": [
+   "可数名词",
+   "动词"
+  ],
+  "wrongReasons": [
+   "面包不可数，一片说 a piece of bread",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 5,
+  "level": 0,
+  "tag": "英语专题·可数与不可数",
+  "unit": "专题·可数与不可数",
+  "speak": "bread（面包）是",
+  "id": "et-029"
+ },
+ {
+  "q": "go 的过去式是？",
+  "a": "went",
+  "options": [
+   "goed",
+   "goes"
+  ],
+  "wrongReasons": [
+   "go 是不规则动词，过去式 went",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 6,
+  "level": 0,
+  "tag": "英语专题·一般过去时",
+  "unit": "专题·一般过去时",
+  "speak": "go 的过去式是",
+  "id": "et-030"
+ },
+ {
+  "q": "I （　） a film last night. 选哪个？",
+  "a": "watched",
+  "options": [
+   "watch",
+   "watching"
+  ],
+  "wrongReasons": [
+   "last night 是过去时间，动词用过去式",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 6,
+  "level": 0,
+  "tag": "英语专题·一般过去时",
+  "unit": "专题·一般过去时",
+  "speak": "I 哪个 a film last night. 选哪个",
+  "id": "et-031"
+ },
+ {
+  "q": "eat 的过去式是？",
+  "a": "ate",
+  "options": [
+   "eated",
+   "eats"
+  ],
+  "wrongReasons": [
+   "eat 不规则变化：eat → ate",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 6,
+  "level": 0,
+  "tag": "英语专题·一般过去时",
+  "unit": "专题·一般过去时",
+  "speak": "eat 的过去式是",
+  "id": "et-032"
+ },
+ {
+  "q": "yesterday 是哪个时态的时间标志？",
+  "a": "一般过去时",
+  "options": [
+   "一般现在时",
+   "现在进行时"
+  ],
+  "wrongReasons": [
+   "yesterday 昨天 → 过去的事",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 6,
+  "level": 0,
+  "tag": "英语专题·一般过去时",
+  "unit": "专题·一般过去时",
+  "speak": "yesterday 是哪个时态的时间标志",
+  "id": "et-033"
+ },
+ {
+  "q": "一般过去时的否定句用什么？",
+  "a": "didn't + 动词原形",
+  "options": [
+   "don't + 动词原形",
+   "didn't + 动词过去式"
+  ],
+  "wrongReasons": [
+   "过去时否定用 didn't，后面动词还原成原形",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 6,
+  "level": 0,
+  "tag": "英语专题·一般过去时",
+  "unit": "专题·一般过去时",
+  "speak": "一般过去时的否定句用什么",
+  "id": "et-034"
+ },
+ {
+  "q": "tall 的比较级是？",
+  "a": "taller",
+  "options": [
+   "tall",
+   "tallest"
+  ],
+  "wrongReasons": [
+   "单音节形容词直接加 -er",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 6,
+  "level": 0,
+  "tag": "英语专题·比较级",
+  "unit": "专题·比较级",
+  "speak": "tall 的比较级是",
+  "id": "et-035"
+ },
+ {
+  "q": "big 的比较级是？",
+  "a": "bigger",
+  "options": [
+   "biger",
+   "biggest"
+  ],
+  "wrongReasons": [
+   "重读闭音节双写 g 再加 -er",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 6,
+  "level": 0,
+  "tag": "英语专题·比较级",
+  "unit": "专题·比较级",
+  "speak": "big 的比较级是",
+  "id": "et-036"
+ },
+ {
+  "q": "「A 比 B 高」中的「比」用哪个词？",
+  "a": "than",
+  "options": [
+   "then",
+   "that"
+  ],
+  "wrongReasons": [
+   "比较级后面用 than 连接（then 是“那时”）",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 6,
+  "level": 0,
+  "tag": "英语专题·比较级",
+  "unit": "专题·比较级",
+  "speak": "「A 比 B 高」中的「比」用哪个词",
+  "id": "et-037"
+ },
+ {
+  "q": "good 的比较级是？",
+  "a": "better",
+  "options": [
+   "gooder",
+   "more good"
+  ],
+  "wrongReasons": [
+   "good/better/best 是不规则变化",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 6,
+  "level": 0,
+  "tag": "英语专题·比较级",
+  "unit": "专题·比较级",
+  "speak": "good 的比较级是",
+  "id": "et-038"
+ },
+ {
+  "q": "This pen is （　） than that one.（更长）",
+  "a": "longer",
+  "options": [
+   "long",
+   "longest"
+  ],
+  "wrongReasons": [
+   "两样东西比较用比较级 longer",
+   "再想想这个专题的语法规则"
+  ],
+  "grade": 6,
+  "level": 0,
+  "tag": "英语专题·比较级",
+  "unit": "专题·比较级",
+  "speak": "This pen is 哪个 than that one.（更长）",
+  "id": "et-039"
+ }
+]
