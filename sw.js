@@ -1,5 +1,5 @@
 /* sw.js — 离线缓存（cache-first，版本号升级时更新） */
-const CACHE = 'smallclass-v31';
+const CACHE = 'smallclass-v32';
 const ASSETS = [
   './', './index.html', './manifest.webmanifest',
   './css/style.css',

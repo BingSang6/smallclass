@@ -940,8 +940,8 @@
   }
   function renderPaperScopes() {
     const sub = $('paper-subject').value;
-    // v3.9 英语三年级起始：1~2 年级无英语单元卷，年级选项随科目切换
-    const minG = sub === 'english' ? 3 : 1;
+    // v3.11 英语单元卷覆盖 1~6 年级（一、二年级对齐沪教牛津深圳版，各 12 单元）
+    const minG = 1;
     const gSel = $('paper-grade');
     const curG = Math.max(+$('paper-grade').value || 1, minG);
     gSel.innerHTML = '';

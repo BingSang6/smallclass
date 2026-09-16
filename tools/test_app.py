@@ -358,7 +358,7 @@ def test_v11():
         }""")
         page.wait_for_timeout(300)
         page.screenshot(path='shots/28b-english-unit-quiz.png')
-        # 英语三年级起始：一年级不应出现单元按钮
+        # v3.11 一年级英语单元（沪教牛津深圳版一上 12 单元）
         page.evaluate("""() => {
           const d = JSON.parse(localStorage.getItem('smallclass.v1'));
           d.students[0].grade = 1;
@@ -366,7 +366,18 @@ def test_v11():
         }""")
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.locator('.subject-card', has_text='英语').first.click(); page.wait_for_timeout(400)
-        assert page.locator('#btn-units').is_hidden(), 'english units btn visible for grade1 (should be hidden)'
+        assert page.locator('#btn-units').is_visible(), 'english units btn hidden (grade1, v3.11)'
+        page.click('#btn-units'); page.wait_for_timeout(200)
+        n_eu1 = page.locator('#unit-list button').count()
+        print('english g1 unit list (expect 12):', n_eu1)
+        assert n_eu1 == 12
+        page.screenshot(path='shots/28c-english-g1-units.png')
+        page.locator('#unit-list button', has_text='打招呼').click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        print('english g1 unit question:', page.locator('#question-text').inner_text())
+        assert '打招呼' in page.locator('#quiz-level').inner_text()
+        assert page.locator('.opt-btn').count() == 3
+        page.screenshot(path='shots/28d-english-g1-quiz.png')
         # 还原年级为 3
         page.evaluate("""() => {
           const d = JSON.parse(localStorage.getItem('smallclass.v1'));
@@ -428,12 +439,12 @@ def test_v11():
         page.click('#btn-paper-gen'); page.wait_for_timeout(500)
         print('final paper questions:', page.locator('.paper-questions li').count())
         page.screenshot(path='shots/25-paper.png')
-        # ---- v3.9: 英语练习卷（三年级起始：年级只显示 3~6；范围 = 期中期末 + 8 单元 = 10） ----
+        # ---- v3.9/v3.11: 英语练习卷（v3.11 起覆盖 1~6 年级；当前年级=4：范围 = 期中期末 + 8 单元 = 10） ----
         page.select_option('#paper-subject', 'english')
         page.wait_for_timeout(300)
         n_eg = page.locator('#paper-grade option').count()
-        print('english paper grades (expect 4, i.e. 3~6):', n_eg)
-        assert n_eg == 4
+        print('english paper grades (expect 6, i.e. 1~6):', n_eg)
+        assert n_eg == 6
         n_escopes = page.locator('#paper-scope option').count()
         print('english paper scopes (expect 2+8=10):', n_escopes)
         assert n_escopes == 10
@@ -443,6 +454,18 @@ def test_v11():
         assert neq == 20
         assert '英语' in page.locator('.paper-title').inner_text(), 'paper title should say 英语'
         page.screenshot(path='shots/25b-english-paper.png')
+        # v3.11 一年级英语卷：范围 = 期中期末 + 12 单元 = 14；期末全册抽 20 题
+        page.select_option('#paper-grade', '1')
+        page.wait_for_timeout(300)
+        n_g1scopes = page.locator('#paper-scope option').count()
+        print('english g1 paper scopes (expect 2+12=14):', n_g1scopes)
+        assert n_g1scopes == 14
+        page.select_option('#paper-scope', 'final')
+        page.click('#btn-paper-gen'); page.wait_for_timeout(500)
+        neq1 = page.locator('.paper-questions li').count()
+        print('english g1 paper questions (expect 20):', neq1)
+        assert neq1 == 20
+        page.screenshot(path='shots/25c-english-g1-paper.png')
         # ---- v3.7: 装扮商店 + 起名 ----
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.evaluate("""() => {

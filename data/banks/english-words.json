@@ -1,179 +1,1403 @@
 [
  {
-  "q": "cat 是什么意思？",
-  "a": "猫",
+  "q": "hello 是什么意思？",
+  "a": "你好",
   "options": [
-   "梨",
-   "七"
+   "一天",
+   "五"
   ],
   "wrongReasons": [
-   "cat = 猫",
+   "hello = 你好",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 1,
   "level": 1,
-  "tag": "英语单词·动物",
-  "speak": "cat 是什么意思",
+  "tag": "英语单词·打招呼",
+  "speak": "hello 是什么意思",
   "id": "e1-000"
  },
  {
-  "q": "「猫」的英文是？",
-  "a": "cat",
+  "q": "「你好」的英文是？",
+  "a": "hello",
   "options": [
-   "ten",
-   "yellow"
+   "ear",
+   "you"
   ],
   "wrongReasons": [
-   "猫 = cat",
+   "你好 = hello",
    "注意拼写，跟着读音记"
   ],
   "grade": 1,
   "level": 1,
-  "tag": "英语单词·动物",
-  "speak": "猫的英文是",
+  "tag": "英语单词·打招呼",
+  "speak": "你好的英文是",
   "id": "e1-001"
  },
  {
-  "q": "dog 是什么意思？",
-  "a": "狗",
+  "q": "「嗨」的英文是？",
+  "a": "hi",
   "options": [
-   "老虎",
-   "绿色"
+   "four",
+   "chick"
   ],
   "wrongReasons": [
-   "dog = 狗",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 1,
-  "tag": "英语单词·动物",
-  "speak": "dog 是什么意思",
-  "id": "e1-002"
- },
- {
-  "q": "「狗」的英文是？",
-  "a": "dog",
-  "options": [
-   "five",
-   "pear"
-  ],
-  "wrongReasons": [
-   "狗 = dog",
+   "嗨 = hi",
    "注意拼写，跟着读音记"
   ],
   "grade": 1,
   "level": 1,
-  "tag": "英语单词·动物",
-  "speak": "狗的英文是",
-  "id": "e1-003"
+  "tag": "英语单词·打招呼",
+  "speak": "嗨的英文是",
+  "id": "e1-002"
  },
  {
-  "q": "pig 是什么意思？",
-  "a": "猪",
+  "q": "goodbye 是什么意思？",
+  "a": "再见",
   "options": [
-   "红色",
-   "黄色"
+   "能",
+   "蓝色"
   ],
   "wrongReasons": [
-   "pig = 猪",
+   "goodbye = 再见",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 1,
   "level": 1,
-  "tag": "英语单词·动物",
-  "speak": "pig 是什么意思",
+  "tag": "英语单词·打招呼",
+  "speak": "goodbye 是什么意思",
+  "id": "e1-003"
+ },
+ {
+  "q": "「早上」的英文是？",
+  "a": "morning",
+  "options": [
+   "supermarket",
+   "yellow"
+  ],
+  "wrongReasons": [
+   "早上 = morning",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·打招呼",
+  "speak": "早上的英文是",
   "id": "e1-004"
  },
  {
-  "q": "「猪」的英文是？",
-  "a": "pig",
+  "q": "afternoon 是什么意思？",
+  "a": "下午",
+  "options": [
+   "大的",
+   "小鸡"
+  ],
+  "wrongReasons": [
+   "afternoon = 下午",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·打招呼",
+  "speak": "afternoon 是什么意思",
+  "id": "e1-005"
+ },
+ {
+  "q": "「学校」的英文是？",
+  "a": "school",
+  "options": [
+   "tiger",
+   "small"
+  ],
+  "wrongReasons": [
+   "学校 = school",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·打招呼",
+  "speak": "学校的英文是",
+  "id": "e1-006"
+ },
+ {
+  "q": "day 是什么意思？",
+  "a": "一天",
+  "options": [
+   "猴子",
+   "爸爸"
+  ],
+  "wrongReasons": [
+   "day = 一天",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·打招呼",
+  "speak": "day 是什么意思",
+  "id": "e1-007"
+ },
+ {
+  "q": "「书」的英文是？",
+  "a": "book",
+  "options": [
+   "father",
+   "picture"
+  ],
+  "wrongReasons": [
+   "书 = book",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·同学与文具",
+  "speak": "书的英文是",
+  "id": "e1-008"
+ },
+ {
+  "q": "book 是什么意思？",
+  "a": "书",
+  "options": [
+   "桔子",
+   "爷爷（外公）"
+  ],
+  "wrongReasons": [
+   "book = 书",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·同学与文具",
+  "speak": "book 是什么意思",
+  "id": "e1-009"
+ },
+ {
+  "q": "ruler 是什么意思？",
+  "a": "尺子",
+  "options": [
+   "熊",
+   "汉堡包"
+  ],
+  "wrongReasons": [
+   "ruler = 尺子",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·同学与文具",
+  "speak": "ruler 是什么意思",
+  "id": "e1-010"
+ },
+ {
+  "q": "「铅笔」的英文是？",
+  "a": "pencil",
+  "options": [
+   "apple",
+   "pear"
+  ],
+  "wrongReasons": [
+   "铅笔 = pencil",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·同学与文具",
+  "speak": "铅笔的英文是",
+  "id": "e1-011"
+ },
+ {
+  "q": "rubber 是什么意思？",
+  "a": "橡皮",
+  "options": [
+   "那",
+   "多少"
+  ],
+  "wrongReasons": [
+   "rubber = 橡皮",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·同学与文具",
+  "speak": "rubber 是什么意思",
+  "id": "e1-012"
+ },
+ {
+  "q": "「请」的英文是？",
+  "a": "please",
+  "options": [
+   "face",
+   "bar"
+  ],
+  "wrongReasons": [
+   "请 = please",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·同学与文具",
+  "speak": "请的英文是",
+  "id": "e1-013"
+ },
+ {
+  "q": "thank 是什么意思？",
+  "a": "谢谢",
+  "options": [
+   "学校",
+   "看"
+  ],
+  "wrongReasons": [
+   "thank = 谢谢",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·同学与文具",
+  "speak": "thank 是什么意思",
+  "id": "e1-014"
+ },
+ {
+  "q": "「给」的英文是？",
+  "a": "give",
+  "options": [
+   "cake",
+   "green"
+  ],
+  "wrongReasons": [
+   "给 = give",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·同学与文具",
+  "speak": "给的英文是",
+  "id": "e1-015"
+ },
+ {
+  "q": "you 是什么意思？",
+  "a": "你",
+  "options": [
+   "高的",
+   "那"
+  ],
+  "wrongReasons": [
+   "you = 你",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·同学与文具",
+  "speak": "you 是什么意思",
+  "id": "e1-016"
+ },
+ {
+  "q": "「星期天」的英文是？",
+  "a": "Sunday",
+  "options": [
+   "snack",
+   "my"
+  ],
+  "wrongReasons": [
+   "星期天 = Sunday",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·同学与文具",
+  "speak": "星期天的英文是",
+  "id": "e1-017"
+ },
+ {
+  "q": "nice 是什么意思？",
+  "a": "美好的",
+  "options": [
+   "早上",
+   "铅笔"
+  ],
+  "wrongReasons": [
+   "nice = 美好的",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 1,
+  "tag": "英语单词·同学与文具",
+  "speak": "nice 是什么意思",
+  "id": "e1-018"
+ },
+ {
+  "q": "「脸」的英文是？",
+  "a": "face",
+  "options": [
+   "day",
+   "three"
+  ],
+  "wrongReasons": [
+   "脸 = face",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我的五官",
+  "speak": "脸的英文是",
+  "id": "e1-019"
+ },
+ {
+  "q": "face 是什么意思？",
+  "a": "脸",
+  "options": [
+   "早上",
+   "瘦的"
+  ],
+  "wrongReasons": [
+   "face = 脸",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我的五官",
+  "speak": "face 是什么意思",
+  "id": "e1-020"
+ },
+ {
+  "q": "mouth 是什么意思？",
+  "a": "嘴巴",
+  "options": [
+   "点心",
+   "奶奶（外婆）"
+  ],
+  "wrongReasons": [
+   "mouth = 嘴巴",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我的五官",
+  "speak": "mouth 是什么意思",
+  "id": "e1-021"
+ },
+ {
+  "q": "「鼻子」的英文是？",
+  "a": "nose",
+  "options": [
+   "apple",
+   "big"
+  ],
+  "wrongReasons": [
+   "鼻子 = nose",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我的五官",
+  "speak": "鼻子的英文是",
+  "id": "e1-022"
+ },
+ {
+  "q": "eye 是什么意思？",
+  "a": "眼睛",
+  "options": [
+   "一天",
+   "果馅饼"
+  ],
+  "wrongReasons": [
+   "eye = 眼睛",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我的五官",
+  "speak": "eye 是什么意思",
+  "id": "e1-023"
+ },
+ {
+  "q": "「耳朵」的英文是？",
+  "a": "ear",
+  "options": [
+   "monkey",
+   "blue"
+  ],
+  "wrongReasons": [
+   "耳朵 = ear",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我的五官",
+  "speak": "耳朵的英文是",
+  "id": "e1-024"
+ },
+ {
+  "q": "touch 是什么意思？",
+  "a": "摸",
+  "options": [
+   "高的",
+   "星期天"
+  ],
+  "wrongReasons": [
+   "touch = 摸",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我的五官",
+  "speak": "touch 是什么意思",
+  "id": "e1-025"
+ },
+ {
+  "q": "「图画」的英文是？",
+  "a": "picture",
+  "options": [
+   "small",
+   "you"
+  ],
+  "wrongReasons": [
+   "图画 = picture",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我的五官",
+  "speak": "图画的英文是",
+  "id": "e1-026"
+ },
+ {
+  "q": "look 是什么意思？",
+  "a": "看",
+  "options": [
+   "一天",
+   "黄色"
+  ],
+  "wrongReasons": [
+   "look = 看",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我的五官",
+  "speak": "look 是什么意思",
+  "id": "e1-027"
+ },
+ {
+  "q": "「我的」的英文是？",
+  "a": "my",
+  "options": [
+   "dance",
+   "she"
+  ],
+  "wrongReasons": [
+   "我的 = my",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我的五官",
+  "speak": "我的的英文是",
+  "id": "e1-028"
+ },
+ {
+  "q": "your 是什么意思？",
+  "a": "你的",
+  "options": [
+   "红色",
+   "奶牛"
+  ],
+  "wrongReasons": [
+   "your = 你的",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我的五官",
+  "speak": "your 是什么意思",
+  "id": "e1-029"
+ },
+ {
+  "q": "「唱歌」的英文是？",
+  "a": "sing",
+  "options": [
+   "nice",
+   "goodbye"
+  ],
+  "wrongReasons": [
+   "唱歌 = sing",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我会做",
+  "speak": "唱歌的英文是",
+  "id": "e1-030"
+ },
+ {
+  "q": "sing 是什么意思？",
+  "a": "唱歌",
+  "options": [
+   "老虎",
+   "谢谢"
+  ],
+  "wrongReasons": [
+   "sing = 唱歌",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我会做",
+  "speak": "sing 是什么意思",
+  "id": "e1-031"
+ },
+ {
+  "q": "dance 是什么意思？",
+  "a": "跳舞",
+  "options": [
+   "铅笔",
+   "朋友"
+  ],
+  "wrongReasons": [
+   "dance = 跳舞",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我会做",
+  "speak": "dance 是什么意思",
+  "id": "e1-032"
+ },
+ {
+  "q": "「读」的英文是？",
+  "a": "read",
+  "options": [
+   "dance",
+   "Sunday"
+  ],
+  "wrongReasons": [
+   "读 = read",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我会做",
+  "speak": "读的英文是",
+  "id": "e1-033"
+ },
+ {
+  "q": "draw 是什么意思？",
+  "a": "画画",
+  "options": [
+   "耳朵",
+   "点心"
+  ],
+  "wrongReasons": [
+   "draw = 画画",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我会做",
+  "speak": "draw 是什么意思",
+  "id": "e1-034"
+ },
+ {
+  "q": "「能」的英文是？",
+  "a": "can",
+  "options": [
+   "ear",
+   "hi"
+  ],
+  "wrongReasons": [
+   "能 = can",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 2,
+  "tag": "英语单词·我会做",
+  "speak": "能的英文是",
+  "id": "e1-035"
+ },
+ {
+  "q": "father 是什么意思？",
+  "a": "爸爸",
+  "options": [
+   "书",
+   "二"
+  ],
+  "wrongReasons": [
+   "father = 爸爸",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的家人",
+  "speak": "father 是什么意思",
+  "id": "e1-036"
+ },
+ {
+  "q": "「妈妈」的英文是？",
+  "a": "mother",
   "options": [
    "five",
    "six"
   ],
   "wrongReasons": [
-   "猪 = pig",
+   "妈妈 = mother",
    "注意拼写，跟着读音记"
   ],
   "grade": 1,
-  "level": 1,
-  "tag": "英语单词·动物",
-  "speak": "猪的英文是",
-  "id": "e1-005"
+  "level": 3,
+  "tag": "英语单词·我的家人",
+  "speak": "妈妈的英文是",
+  "id": "e1-037"
+ },
+ {
+  "q": "mother 是什么意思？",
+  "a": "妈妈",
+  "options": [
+   "四",
+   "熊"
+  ],
+  "wrongReasons": [
+   "mother = 妈妈",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的家人",
+  "speak": "mother 是什么意思",
+  "id": "e1-038"
+ },
+ {
+  "q": "grandmother 是什么意思？",
+  "a": "奶奶（外婆）",
+  "options": [
+   "果馅饼",
+   "桔子"
+  ],
+  "wrongReasons": [
+   "grandmother = 奶奶（外婆）",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的家人",
+  "speak": "grandmother 是什么意思",
+  "id": "e1-039"
+ },
+ {
+  "q": "「爷爷（外公）」的英文是？",
+  "a": "grandfather",
+  "options": [
+   "my",
+   "supermarket"
+  ],
+  "wrongReasons": [
+   "爷爷（外公） = grandfather",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的家人",
+  "speak": "爷爷（外公）的英文是",
+  "id": "e1-040"
+ },
+ {
+  "q": "she 是什么意思？",
+  "a": "她",
+  "options": [
+   "六",
+   "鼻子"
+  ],
+  "wrongReasons": [
+   "she = 她",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的家人",
+  "speak": "she 是什么意思",
+  "id": "e1-041"
+ },
+ {
+  "q": "「他」的英文是？",
+  "a": "he",
+  "options": [
+   "hamburger",
+   "cake"
+  ],
+  "wrongReasons": [
+   "他 = he",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的家人",
+  "speak": "他的英文是",
+  "id": "e1-042"
+ },
+ {
+  "q": "who 是什么意思？",
+  "a": "谁",
+  "options": [
+   "苹果",
+   "摸"
+  ],
+  "wrongReasons": [
+   "who = 谁",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的家人",
+  "speak": "who 是什么意思",
+  "id": "e1-043"
+ },
+ {
+  "q": "「高的」的英文是？",
+  "a": "tall",
+  "options": [
+   "grandfather",
+   "thank"
+  ],
+  "wrongReasons": [
+   "高的 = tall",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的朋友",
+  "speak": "高的的英文是",
+  "id": "e1-044"
+ },
+ {
+  "q": "short 是什么意思？",
+  "a": "矮的",
+  "options": [
+   "摸",
+   "早上"
+  ],
+  "wrongReasons": [
+   "short = 矮的",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的朋友",
+  "speak": "short 是什么意思",
+  "id": "e1-045"
+ },
+ {
+  "q": "「胖的」的英文是？",
+  "a": "fat",
+  "options": [
+   "you",
+   "panda"
+  ],
+  "wrongReasons": [
+   "胖的 = fat",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的朋友",
+  "speak": "胖的的英文是",
+  "id": "e1-046"
+ },
+ {
+  "q": "thin 是什么意思？",
+  "a": "瘦的",
+  "options": [
+   "小吃部",
+   "我的"
+  ],
+  "wrongReasons": [
+   "thin = 瘦的",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的朋友",
+  "speak": "thin 是什么意思",
+  "id": "e1-047"
+ },
+ {
+  "q": "「同学」的英文是？",
+  "a": "classmate",
+  "options": [
+   "mother",
+   "my"
+  ],
+  "wrongReasons": [
+   "同学 = classmate",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的朋友",
+  "speak": "同学的英文是",
+  "id": "e1-048"
+ },
+ {
+  "q": "friend 是什么意思？",
+  "a": "朋友",
+  "options": [
+   "瘦的",
+   "摸"
+  ],
+  "wrongReasons": [
+   "friend = 朋友",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的朋友",
+  "speak": "friend 是什么意思",
+  "id": "e1-049"
+ },
+ {
+  "q": "「朋友」的英文是？",
+  "a": "friend",
+  "options": [
+   "give",
+   "you"
+  ],
+  "wrongReasons": [
+   "朋友 = friend",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 3,
+  "tag": "英语单词·我的朋友",
+  "speak": "朋友的英文是",
+  "id": "e1-050"
+ },
+ {
+  "q": "「一」的英文是？",
+  "a": "one",
+  "options": [
+   "count",
+   "yellow"
+  ],
+  "wrongReasons": [
+   "一 = one",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·数一数",
+  "speak": "一的英文是",
+  "id": "e1-051"
+ },
+ {
+  "q": "two 是什么意思？",
+  "a": "二",
+  "options": [
+   "脸",
+   "爷爷（外公）"
+  ],
+  "wrongReasons": [
+   "two = 二",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·数一数",
+  "speak": "two 是什么意思",
+  "id": "e1-052"
+ },
+ {
+  "q": "「三」的英文是？",
+  "a": "three",
+  "options": [
+   "pie",
+   "book"
+  ],
+  "wrongReasons": [
+   "三 = three",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·数一数",
+  "speak": "三的英文是",
+  "id": "e1-053"
+ },
+ {
+  "q": "three 是什么意思？",
+  "a": "三",
+  "options": [
+   "鸭子",
+   "高的"
+  ],
+  "wrongReasons": [
+   "three = 三",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·数一数",
+  "speak": "three 是什么意思",
+  "id": "e1-054"
+ },
+ {
+  "q": "four 是什么意思？",
+  "a": "四",
+  "options": [
+   "数数",
+   "点心"
+  ],
+  "wrongReasons": [
+   "four = 四",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·数一数",
+  "speak": "four 是什么意思",
+  "id": "e1-055"
+ },
+ {
+  "q": "「五」的英文是？",
+  "a": "five",
+  "options": [
+   "pig",
+   "pizza"
+  ],
+  "wrongReasons": [
+   "五 = five",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·数一数",
+  "speak": "五的英文是",
+  "id": "e1-056"
+ },
+ {
+  "q": "six 是什么意思？",
+  "a": "六",
+  "options": [
+   "橡皮",
+   "数数"
+  ],
+  "wrongReasons": [
+   "six = 六",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·数一数",
+  "speak": "six 是什么意思",
+  "id": "e1-057"
+ },
+ {
+  "q": "「数数」的英文是？",
+  "a": "count",
+  "options": [
+   "grandfather",
+   "snack"
+  ],
+  "wrongReasons": [
+   "数数 = count",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·数一数",
+  "speak": "数数的英文是",
+  "id": "e1-058"
+ },
+ {
+  "q": "how many 是什么意思？",
+  "a": "多少",
+  "options": [
+   "你好",
+   "鸭子"
+  ],
+  "wrongReasons": [
+   "how many = 多少",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·数一数",
+  "speak": "how many 是什么意思",
+  "id": "e1-059"
+ },
+ {
+  "q": "「苹果」的英文是？",
+  "a": "apple",
+  "options": [
+   "please",
+   "ear"
+  ],
+  "wrongReasons": [
+   "苹果 = apple",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·买水果",
+  "speak": "苹果的英文是",
+  "id": "e1-060"
+ },
+ {
+  "q": "apple 是什么意思？",
+  "a": "苹果",
+  "options": [
+   "一天",
+   "一"
+  ],
+  "wrongReasons": [
+   "apple = 苹果",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·买水果",
+  "speak": "apple 是什么意思",
+  "id": "e1-061"
+ },
+ {
+  "q": "pear 是什么意思？",
+  "a": "梨",
+  "options": [
+   "猴子",
+   "超市"
+  ],
+  "wrongReasons": [
+   "pear = 梨",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·买水果",
+  "speak": "pear 是什么意思",
+  "id": "e1-062"
+ },
+ {
+  "q": "「桃子」的英文是？",
+  "a": "peach",
+  "options": [
+   "nose",
+   "can"
+  ],
+  "wrongReasons": [
+   "桃子 = peach",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·买水果",
+  "speak": "桃子的英文是",
+  "id": "e1-063"
+ },
+ {
+  "q": "orange 是什么意思？",
+  "a": "桔子",
+  "options": [
+   "画画",
+   "点心"
+  ],
+  "wrongReasons": [
+   "orange = 桔子",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·买水果",
+  "speak": "orange 是什么意思",
+  "id": "e1-064"
+ },
+ {
+  "q": "「超市」的英文是？",
+  "a": "supermarket",
+  "options": [
+   "hi",
+   "nice"
+  ],
+  "wrongReasons": [
+   "超市 = supermarket",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 4,
+  "tag": "英语单词·买水果",
+  "speak": "超市的英文是",
+  "id": "e1-065"
+ },
+ {
+  "q": "pie 是什么意思？",
+  "a": "果馅饼",
+  "options": [
+   "读",
+   "谢谢"
+  ],
+  "wrongReasons": [
+   "pie = 果馅饼",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 5,
+  "tag": "英语单词·买食物",
+  "speak": "pie 是什么意思",
+  "id": "e1-066"
+ },
+ {
+  "q": "「汉堡包」的英文是？",
+  "a": "hamburger",
+  "options": [
+   "thank",
+   "face"
+  ],
+  "wrongReasons": [
+   "汉堡包 = hamburger",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 5,
+  "tag": "英语单词·买食物",
+  "speak": "汉堡包的英文是",
+  "id": "e1-067"
+ },
+ {
+  "q": "pizza 是什么意思？",
+  "a": "比萨饼",
+  "options": [
+   "给",
+   "鸭子"
+  ],
+  "wrongReasons": [
+   "pizza = 比萨饼",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 5,
+  "tag": "英语单词·买食物",
+  "speak": "pizza 是什么意思",
+  "id": "e1-068"
+ },
+ {
+  "q": "「蛋糕」的英文是？",
+  "a": "cake",
+  "options": [
+   "nose",
+   "how many"
+  ],
+  "wrongReasons": [
+   "蛋糕 = cake",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 5,
+  "tag": "英语单词·买食物",
+  "speak": "蛋糕的英文是",
+  "id": "e1-069"
+ },
+ {
+  "q": "cake 是什么意思？",
+  "a": "蛋糕",
+  "options": [
+   "下午",
+   "同学"
+  ],
+  "wrongReasons": [
+   "cake = 蛋糕",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 5,
+  "tag": "英语单词·买食物",
+  "speak": "cake 是什么意思",
+  "id": "e1-070"
+ },
+ {
+  "q": "snack 是什么意思？",
+  "a": "点心",
+  "options": [
+   "橡皮",
+   "她"
+  ],
+  "wrongReasons": [
+   "snack = 点心",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 5,
+  "tag": "英语单词·买食物",
+  "speak": "snack 是什么意思",
+  "id": "e1-071"
+ },
+ {
+  "q": "「小吃部」的英文是？",
+  "a": "bar",
+  "options": [
+   "two",
+   "mouth"
+  ],
+  "wrongReasons": [
+   "小吃部 = bar",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 5,
+  "tag": "英语单词·买食物",
+  "speak": "小吃部的英文是",
+  "id": "e1-072"
+ },
+ {
+  "q": "cow 是什么意思？",
+  "a": "奶牛",
+  "options": [
+   "谁",
+   "嗨"
+  ],
+  "wrongReasons": [
+   "cow = 奶牛",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 5,
+  "tag": "英语单词·农场动物",
+  "speak": "cow 是什么意思",
+  "id": "e1-073"
+ },
+ {
+  "q": "「奶牛」的英文是？",
+  "a": "cow",
+  "options": [
+   "give",
+   "thank"
+  ],
+  "wrongReasons": [
+   "奶牛 = cow",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 5,
+  "tag": "英语单词·农场动物",
+  "speak": "奶牛的英文是",
+  "id": "e1-074"
+ },
+ {
+  "q": "「小鸡」的英文是？",
+  "a": "chick",
+  "options": [
+   "hamburger",
+   "count"
+  ],
+  "wrongReasons": [
+   "小鸡 = chick",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 5,
+  "tag": "英语单词·农场动物",
+  "speak": "小鸡的英文是",
+  "id": "e1-075"
  },
  {
   "q": "duck 是什么意思？",
   "a": "鸭子",
   "options": [
-   "蓝色",
-   "白色"
+   "蛋糕",
+   "奶奶（外婆）"
   ],
   "wrongReasons": [
    "duck = 鸭子",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 1,
-  "level": 1,
-  "tag": "英语单词·动物",
+  "level": 5,
+  "tag": "英语单词·农场动物",
   "speak": "duck 是什么意思",
-  "id": "e1-006"
+  "id": "e1-076"
  },
  {
-  "q": "「鸭子」的英文是？",
-  "a": "duck",
+  "q": "「猪」的英文是？",
+  "a": "pig",
   "options": [
-   "white",
-   "four"
+   "hello",
+   "cake"
   ],
   "wrongReasons": [
-   "鸭子 = duck",
+   "猪 = pig",
    "注意拼写，跟着读音记"
   ],
   "grade": 1,
-  "level": 1,
-  "tag": "英语单词·动物",
-  "speak": "鸭子的英文是",
-  "id": "e1-007"
+  "level": 5,
+  "tag": "英语单词·农场动物",
+  "speak": "猪的英文是",
+  "id": "e1-077"
+ },
+ {
+  "q": "that 是什么意思？",
+  "a": "那",
+  "options": [
+   "画画",
+   "我的"
+  ],
+  "wrongReasons": [
+   "that = 那",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 5,
+  "tag": "英语单词·农场动物",
+  "speak": "that 是什么意思",
+  "id": "e1-078"
+ },
+ {
+  "q": "「猴子」的英文是？",
+  "a": "monkey",
+  "options": [
+   "peach",
+   "dance"
+  ],
+  "wrongReasons": [
+   "猴子 = monkey",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 1,
+  "level": 6,
+  "tag": "英语单词·动物园",
+  "speak": "猴子的英文是",
+  "id": "e1-079"
  },
  {
   "q": "bear 是什么意思？",
   "a": "熊",
   "options": [
-   "十",
-   "八"
+   "你的",
+   "再见"
   ],
   "wrongReasons": [
    "bear = 熊",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 1,
-  "level": 1,
-  "tag": "英语单词·动物",
+  "level": 6,
+  "tag": "英语单词·动物园",
   "speak": "bear 是什么意思",
-  "id": "e1-008"
+  "id": "e1-080"
  },
  {
-  "q": "「熊」的英文是？",
-  "a": "bear",
+  "q": "「熊猫」的英文是？",
+  "a": "panda",
   "options": [
-   "pig",
-   "five"
+   "hamburger",
+   "yellow"
   ],
   "wrongReasons": [
-   "熊 = bear",
+   "熊猫 = panda",
    "注意拼写，跟着读音记"
   ],
   "grade": 1,
-  "level": 1,
-  "tag": "英语单词·动物",
-  "speak": "熊的英文是",
-  "id": "e1-009"
+  "level": 6,
+  "tag": "英语单词·动物园",
+  "speak": "熊猫的英文是",
+  "id": "e1-081"
  },
  {
   "q": "panda 是什么意思？",
   "a": "熊猫",
   "options": [
-   "黑色",
+   "二",
    "苹果"
   ],
   "wrongReasons": [
@@ -181,918 +1405,289 @@
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 1,
-  "level": 1,
-  "tag": "英语单词·动物",
+  "level": 6,
+  "tag": "英语单词·动物园",
   "speak": "panda 是什么意思",
-  "id": "e1-010"
- },
- {
-  "q": "「熊猫」的英文是？",
-  "a": "panda",
-  "options": [
-   "blue",
-   "green"
-  ],
-  "wrongReasons": [
-   "熊猫 = panda",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 1,
-  "tag": "英语单词·动物",
-  "speak": "熊猫的英文是",
-  "id": "e1-011"
- },
- {
-  "q": "bird 是什么意思？",
-  "a": "鸟",
-  "options": [
-   "黄色",
-   "桃子"
-  ],
-  "wrongReasons": [
-   "bird = 鸟",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 2,
-  "tag": "英语单词·动物",
-  "speak": "bird 是什么意思",
-  "id": "e1-012"
- },
- {
-  "q": "「鸟」的英文是？",
-  "a": "bird",
-  "options": [
-   "fish",
-   "four"
-  ],
-  "wrongReasons": [
-   "鸟 = bird",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 2,
-  "tag": "英语单词·动物",
-  "speak": "鸟的英文是",
-  "id": "e1-013"
- },
- {
-  "q": "fish 是什么意思？",
-  "a": "鱼",
-  "options": [
-   "梨",
-   "十"
-  ],
-  "wrongReasons": [
-   "fish = 鱼",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 2,
-  "tag": "英语单词·动物",
-  "speak": "fish 是什么意思",
-  "id": "e1-014"
- },
- {
-  "q": "「鱼」的英文是？",
-  "a": "fish",
-  "options": [
-   "two",
-   "seven"
-  ],
-  "wrongReasons": [
-   "鱼 = fish",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 2,
-  "tag": "英语单词·动物",
-  "speak": "鱼的英文是",
-  "id": "e1-015"
+  "id": "e1-082"
  },
  {
   "q": "tiger 是什么意思？",
   "a": "老虎",
   "options": [
-   "五",
-   "桃子"
+   "脸",
+   "尺子"
   ],
   "wrongReasons": [
    "tiger = 老虎",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 1,
-  "level": 2,
-  "tag": "英语单词·动物",
+  "level": 6,
+  "tag": "英语单词·动物园",
   "speak": "tiger 是什么意思",
-  "id": "e1-016"
+  "id": "e1-083"
  },
  {
-  "q": "「老虎」的英文是？",
-  "a": "tiger",
+  "q": "「颜色」的英文是？",
+  "a": "colour",
   "options": [
-   "pear",
-   "black"
+   "two",
+   "nice"
   ],
   "wrongReasons": [
-   "老虎 = tiger",
+   "颜色 = colour",
    "注意拼写，跟着读音记"
   ],
   "grade": 1,
-  "level": 2,
-  "tag": "英语单词·动物",
-  "speak": "老虎的英文是",
-  "id": "e1-017"
- },
- {
-  "q": "monkey 是什么意思？",
-  "a": "猴子",
-  "options": [
-   "猪",
-   "红色"
-  ],
-  "wrongReasons": [
-   "monkey = 猴子",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 2,
-  "tag": "英语单词·动物",
-  "speak": "monkey 是什么意思",
-  "id": "e1-018"
- },
- {
-  "q": "「猴子」的英文是？",
-  "a": "monkey",
-  "options": [
-   "eight",
-   "ten"
-  ],
-  "wrongReasons": [
-   "猴子 = monkey",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 2,
-  "tag": "英语单词·动物",
-  "speak": "猴子的英文是",
-  "id": "e1-019"
- },
- {
-  "q": "one 是什么意思？",
-  "a": "一",
-  "options": [
-   "二",
-   "苹果"
-  ],
-  "wrongReasons": [
-   "one = 一",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 2,
-  "tag": "英语单词·数字",
-  "speak": "one 是什么意思",
-  "id": "e1-020"
- },
- {
-  "q": "「一」的英文是？",
-  "a": "one",
-  "options": [
-   "eight",
-   "nine"
-  ],
-  "wrongReasons": [
-   "一 = one",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 2,
-  "tag": "英语单词·数字",
-  "speak": "一的英文是",
-  "id": "e1-021"
- },
- {
-  "q": "two 是什么意思？",
-  "a": "二",
-  "options": [
-   "四",
-   "九"
-  ],
-  "wrongReasons": [
-   "two = 二",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 3,
-  "tag": "英语单词·数字",
-  "speak": "two 是什么意思",
-  "id": "e1-022"
- },
- {
-  "q": "「二」的英文是？",
-  "a": "two",
-  "options": [
-   "five",
-   "dog"
-  ],
-  "wrongReasons": [
-   "二 = two",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 3,
-  "tag": "英语单词·数字",
-  "speak": "二的英文是",
-  "id": "e1-023"
- },
- {
-  "q": "three 是什么意思？",
-  "a": "三",
-  "options": [
-   "十",
-   "香蕉"
-  ],
-  "wrongReasons": [
-   "three = 三",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 3,
-  "tag": "英语单词·数字",
-  "speak": "three 是什么意思",
-  "id": "e1-024"
- },
- {
-  "q": "「三」的英文是？",
-  "a": "three",
-  "options": [
-   "pear",
-   "monkey"
-  ],
-  "wrongReasons": [
-   "三 = three",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 3,
-  "tag": "英语单词·数字",
-  "speak": "三的英文是",
-  "id": "e1-025"
- },
- {
-  "q": "four 是什么意思？",
-  "a": "四",
-  "options": [
-   "黄色",
-   "蓝色"
-  ],
-  "wrongReasons": [
-   "four = 四",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 3,
-  "tag": "英语单词·数字",
-  "speak": "four 是什么意思",
-  "id": "e1-026"
- },
- {
-  "q": "「四」的英文是？",
-  "a": "four",
-  "options": [
-   "eight",
-   "five"
-  ],
-  "wrongReasons": [
-   "四 = four",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 3,
-  "tag": "英语单词·数字",
-  "speak": "四的英文是",
-  "id": "e1-027"
- },
- {
-  "q": "five 是什么意思？",
-  "a": "五",
-  "options": [
-   "猴子",
-   "狗"
-  ],
-  "wrongReasons": [
-   "five = 五",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 3,
-  "tag": "英语单词·数字",
-  "speak": "five 是什么意思",
-  "id": "e1-028"
- },
- {
-  "q": "「五」的英文是？",
-  "a": "five",
-  "options": [
-   "pear",
-   "pig"
-  ],
-  "wrongReasons": [
-   "五 = five",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 3,
-  "tag": "英语单词·数字",
-  "speak": "五的英文是",
-  "id": "e1-029"
- },
- {
-  "q": "six 是什么意思？",
-  "a": "六",
-  "options": [
-   "橙子",
-   "苹果"
-  ],
-  "wrongReasons": [
-   "six = 六",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 3,
-  "tag": "英语单词·数字",
-  "speak": "six 是什么意思",
-  "id": "e1-030"
- },
- {
-  "q": "「六」的英文是？",
-  "a": "six",
-  "options": [
-   "monkey",
-   "red"
-  ],
-  "wrongReasons": [
-   "六 = six",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 3,
-  "tag": "英语单词·数字",
-  "speak": "六的英文是",
-  "id": "e1-031"
- },
- {
-  "q": "seven 是什么意思？",
-  "a": "七",
-  "options": [
-   "黑色",
-   "黄色"
-  ],
-  "wrongReasons": [
-   "seven = 七",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·数字",
-  "speak": "seven 是什么意思",
-  "id": "e1-032"
- },
- {
-  "q": "「七」的英文是？",
-  "a": "seven",
-  "options": [
-   "peach",
-   "banana"
-  ],
-  "wrongReasons": [
-   "七 = seven",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·数字",
-  "speak": "七的英文是",
-  "id": "e1-033"
- },
- {
-  "q": "eight 是什么意思？",
-  "a": "八",
-  "options": [
-   "狗",
-   "一"
-  ],
-  "wrongReasons": [
-   "eight = 八",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·数字",
-  "speak": "eight 是什么意思",
-  "id": "e1-034"
- },
- {
-  "q": "「八」的英文是？",
-  "a": "eight",
-  "options": [
-   "tiger",
-   "four"
-  ],
-  "wrongReasons": [
-   "八 = eight",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·数字",
-  "speak": "八的英文是",
-  "id": "e1-035"
- },
- {
-  "q": "nine 是什么意思？",
-  "a": "九",
-  "options": [
-   "熊猫",
-   "鸟"
-  ],
-  "wrongReasons": [
-   "nine = 九",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·数字",
-  "speak": "nine 是什么意思",
-  "id": "e1-036"
- },
- {
-  "q": "「九」的英文是？",
-  "a": "nine",
-  "options": [
-   "panda",
-   "monkey"
-  ],
-  "wrongReasons": [
-   "九 = nine",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·数字",
-  "speak": "九的英文是",
-  "id": "e1-037"
- },
- {
-  "q": "ten 是什么意思？",
-  "a": "十",
-  "options": [
-   "熊",
-   "梨"
-  ],
-  "wrongReasons": [
-   "ten = 十",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·数字",
-  "speak": "ten 是什么意思",
-  "id": "e1-038"
- },
- {
-  "q": "「十」的英文是？",
-  "a": "ten",
-  "options": [
-   "cat",
-   "monkey"
-  ],
-  "wrongReasons": [
-   "十 = ten",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·数字",
-  "speak": "十的英文是",
-  "id": "e1-039"
- },
- {
-  "q": "red 是什么意思？",
-  "a": "红色",
-  "options": [
-   "白色",
-   "猴子"
-  ],
-  "wrongReasons": [
-   "red = 红色",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·颜色",
-  "speak": "red 是什么意思",
-  "id": "e1-040"
- },
- {
-  "q": "「红色」的英文是？",
-  "a": "red",
-  "options": [
-   "nine",
-   "bird"
-  ],
-  "wrongReasons": [
-   "红色 = red",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·颜色",
-  "speak": "红色的英文是",
-  "id": "e1-041"
- },
- {
-  "q": "blue 是什么意思？",
-  "a": "蓝色",
-  "options": [
-   "香蕉",
-   "四"
-  ],
-  "wrongReasons": [
-   "blue = 蓝色",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·颜色",
-  "speak": "blue 是什么意思",
-  "id": "e1-042"
- },
- {
-  "q": "「蓝色」的英文是？",
-  "a": "blue",
-  "options": [
-   "duck",
-   "three"
-  ],
-  "wrongReasons": [
-   "蓝色 = blue",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 4,
-  "tag": "英语单词·颜色",
-  "speak": "蓝色的英文是",
-  "id": "e1-043"
+  "level": 6,
+  "tag": "英语单词·公园与颜色",
+  "speak": "颜色的英文是",
+  "id": "e1-084"
  },
  {
   "q": "yellow 是什么意思？",
   "a": "黄色",
   "options": [
-   "一",
-   "猫"
+   "多少",
+   "点心"
   ],
   "wrongReasons": [
    "yellow = 黄色",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 1,
-  "level": 5,
-  "tag": "英语单词·颜色",
+  "level": 6,
+  "tag": "英语单词·公园与颜色",
   "speak": "yellow 是什么意思",
-  "id": "e1-044"
+  "id": "e1-085"
  },
  {
-  "q": "「黄色」的英文是？",
-  "a": "yellow",
+  "q": "「红色」的英文是？",
+  "a": "red",
   "options": [
-   "pig",
-   "green"
+   "Sunday",
+   "grandmother"
   ],
   "wrongReasons": [
-   "黄色 = yellow",
+   "红色 = red",
    "注意拼写，跟着读音记"
   ],
   "grade": 1,
-  "level": 5,
-  "tag": "英语单词·颜色",
-  "speak": "黄色的英文是",
-  "id": "e1-045"
+  "level": 6,
+  "tag": "英语单词·公园与颜色",
+  "speak": "红色的英文是",
+  "id": "e1-086"
  },
  {
-  "q": "green 是什么意思？",
-  "a": "绿色",
+  "q": "red 是什么意思？",
+  "a": "红色",
   "options": [
-   "苹果",
-   "狗"
+   "画画",
+   "数数"
   ],
   "wrongReasons": [
-   "green = 绿色",
+   "red = 红色",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 1,
-  "level": 5,
-  "tag": "英语单词·颜色",
-  "speak": "green 是什么意思",
-  "id": "e1-046"
+  "level": 6,
+  "tag": "英语单词·公园与颜色",
+  "speak": "red 是什么意思",
+  "id": "e1-087"
+ },
+ {
+  "q": "blue 是什么意思？",
+  "a": "蓝色",
+  "options": [
+   "请",
+   "尺子"
+  ],
+  "wrongReasons": [
+   "blue = 蓝色",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 1,
+  "level": 6,
+  "tag": "英语单词·公园与颜色",
+  "speak": "blue 是什么意思",
+  "id": "e1-088"
  },
  {
   "q": "「绿色」的英文是？",
   "a": "green",
   "options": [
-   "apple",
-   "three"
+   "fat",
+   "cake"
   ],
   "wrongReasons": [
    "绿色 = green",
    "注意拼写，跟着读音记"
   ],
   "grade": 1,
-  "level": 5,
-  "tag": "英语单词·颜色",
+  "level": 6,
+  "tag": "英语单词·公园与颜色",
   "speak": "绿色的英文是",
-  "id": "e1-047"
+  "id": "e1-089"
  },
  {
-  "q": "black 是什么意思？",
-  "a": "黑色",
+  "q": "big 是什么意思？",
+  "a": "大的",
   "options": [
-   "蓝色",
-   "白色"
+   "四",
+   "熊"
   ],
   "wrongReasons": [
-   "black = 黑色",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 5,
-  "tag": "英语单词·颜色",
-  "speak": "black 是什么意思",
-  "id": "e1-048"
- },
- {
-  "q": "「黑色」的英文是？",
-  "a": "black",
-  "options": [
-   "dog",
-   "six"
-  ],
-  "wrongReasons": [
-   "黑色 = black",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 5,
-  "tag": "英语单词·颜色",
-  "speak": "黑色的英文是",
-  "id": "e1-049"
- },
- {
-  "q": "white 是什么意思？",
-  "a": "白色",
-  "options": [
-   "绿色",
-   "猫"
-  ],
-  "wrongReasons": [
-   "white = 白色",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 5,
-  "tag": "英语单词·颜色",
-  "speak": "white 是什么意思",
-  "id": "e1-050"
- },
- {
-  "q": "「白色」的英文是？",
-  "a": "white",
-  "options": [
-   "cake",
-   "seven"
-  ],
-  "wrongReasons": [
-   "白色 = white",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 5,
-  "tag": "英语单词·颜色",
-  "speak": "白色的英文是",
-  "id": "e1-051"
- },
- {
-  "q": "apple 是什么意思？",
-  "a": "苹果",
-  "options": [
-   "九",
-   "十"
-  ],
-  "wrongReasons": [
-   "apple = 苹果",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 1,
-  "level": 5,
-  "tag": "英语单词·水果食物",
-  "speak": "apple 是什么意思",
-  "id": "e1-052"
- },
- {
-  "q": "「苹果」的英文是？",
-  "a": "apple",
-  "options": [
-   "black",
-   "red"
-  ],
-  "wrongReasons": [
-   "苹果 = apple",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 5,
-  "tag": "英语单词·水果食物",
-  "speak": "苹果的英文是",
-  "id": "e1-053"
- },
- {
-  "q": "banana 是什么意思？",
-  "a": "香蕉",
-  "options": [
-   "猫",
-   "白色"
-  ],
-  "wrongReasons": [
-   "banana = 香蕉",
+   "big = 大的",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 1,
   "level": 6,
-  "tag": "英语单词·水果食物",
-  "speak": "banana 是什么意思",
-  "id": "e1-054"
+  "tag": "英语单词·公园与颜色",
+  "speak": "big 是什么意思",
+  "id": "e1-090"
  },
  {
-  "q": "「香蕉」的英文是？",
-  "a": "banana",
+  "q": "「小的」的英文是？",
+  "a": "small",
   "options": [
-   "five",
-   "green"
+   "four",
+   "school"
   ],
   "wrongReasons": [
-   "香蕉 = banana",
+   "小的 = small",
    "注意拼写，跟着读音记"
   ],
   "grade": 1,
   "level": 6,
-  "tag": "英语单词·水果食物",
-  "speak": "香蕉的英文是",
-  "id": "e1-055"
+  "tag": "英语单词·公园与颜色",
+  "speak": "小的的英文是",
+  "id": "e1-091"
  },
  {
-  "q": "orange 是什么意思？",
-  "a": "橙子",
+  "q": "evening 是什么意思？",
+  "a": "晚上",
   "options": [
-   "绿色",
-   "梨"
+   "今天",
+   "姐姐（妹妹）"
   ],
   "wrongReasons": [
-   "orange = 橙子",
+   "evening = 晚上",
    "多读几遍，连着中文意思一起记"
   ],
-  "grade": 1,
-  "level": 6,
-  "tag": "英语单词·水果食物",
-  "speak": "orange 是什么意思",
-  "id": "e1-056"
+  "grade": 2,
+  "level": 1,
+  "tag": "英语单词·日常问候",
+  "speak": "evening 是什么意思",
+  "id": "e2-000"
  },
  {
-  "q": "「橙子」的英文是？",
-  "a": "orange",
+  "q": "「夜晚」的英文是？",
+  "a": "night",
   "options": [
-   "eight",
-   "monkey"
+   "ten",
+   "moon"
   ],
   "wrongReasons": [
-   "橙子 = orange",
+   "夜晚 = night",
    "注意拼写，跟着读音记"
   ],
-  "grade": 1,
-  "level": 6,
-  "tag": "英语单词·水果食物",
-  "speak": "橙子的英文是",
-  "id": "e1-057"
+  "grade": 2,
+  "level": 1,
+  "tag": "英语单词·日常问候",
+  "speak": "夜晚的英文是",
+  "id": "e2-001"
  },
  {
-  "q": "cake 是什么意思？",
-  "a": "蛋糕",
+  "q": "night 是什么意思？",
+  "a": "夜晚",
   "options": [
-   "香蕉",
-   "鸟"
+   "八",
+   "鸽子"
   ],
   "wrongReasons": [
-   "cake = 蛋糕",
+   "night = 夜晚",
    "多读几遍，连着中文意思一起记"
   ],
-  "grade": 1,
-  "level": 6,
-  "tag": "英语单词·水果食物",
-  "speak": "cake 是什么意思",
-  "id": "e1-058"
+  "grade": 2,
+  "level": 1,
+  "tag": "英语单词·日常问候",
+  "speak": "night 是什么意思",
+  "id": "e2-002"
  },
  {
-  "q": "「蛋糕」的英文是？",
-  "a": "cake",
+  "q": "today 是什么意思？",
+  "a": "今天",
   "options": [
-   "orange",
-   "ten"
+   "大街",
+   "蛇"
   ],
   "wrongReasons": [
-   "蛋糕 = cake",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 1,
-  "level": 6,
-  "tag": "英语单词·水果食物",
-  "speak": "蛋糕的英文是",
-  "id": "e1-059"
- },
- {
-  "q": "pear 是什么意思？",
-  "a": "梨",
-  "options": [
-   "香蕉",
-   "白色"
-  ],
-  "wrongReasons": [
-   "pear = 梨",
+   "today = 今天",
    "多读几遍，连着中文意思一起记"
   ],
-  "grade": 1,
-  "level": 6,
-  "tag": "英语单词·颜色水果",
-  "speak": "pear 是什么意思",
-  "id": "e1-060"
+  "grade": 2,
+  "level": 1,
+  "tag": "英语单词·日常问候",
+  "speak": "today 是什么意思",
+  "id": "e2-003"
  },
  {
-  "q": "「梨」的英文是？",
-  "a": "pear",
+  "q": "「妈妈」的英文是？",
+  "a": "mum",
   "options": [
-   "eight",
-   "duck"
+   "box",
+   "cute"
   ],
   "wrongReasons": [
-   "梨 = pear",
+   "妈妈 = mum",
    "注意拼写，跟着读音记"
   ],
-  "grade": 1,
-  "level": 6,
-  "tag": "英语单词·颜色水果",
-  "speak": "梨的英文是",
-  "id": "e1-061"
+  "grade": 2,
+  "level": 1,
+  "tag": "英语单词·日常问候",
+  "speak": "妈妈的英文是",
+  "id": "e2-004"
  },
  {
-  "q": "peach 是什么意思？",
-  "a": "桃子",
+  "q": "morning 是什么意思？",
+  "a": "早晨",
   "options": [
-   "梨",
-   "七"
+   "骑自行车",
+   "天空"
   ],
   "wrongReasons": [
-   "peach = 桃子",
+   "morning = 早晨",
    "多读几遍，连着中文意思一起记"
   ],
-  "grade": 1,
-  "level": 6,
-  "tag": "英语单词·综合",
-  "speak": "peach 是什么意思",
-  "id": "e1-062"
+  "grade": 2,
+  "level": 1,
+  "tag": "英语单词·日常问候",
+  "speak": "morning 是什么意思",
+  "id": "e2-005"
  },
  {
-  "q": "「桃子」的英文是？",
-  "a": "peach",
+  "q": "「下午」的英文是？",
+  "a": "afternoon",
   "options": [
-   "six",
-   "banana"
+   "dinner",
+   "park"
   ],
   "wrongReasons": [
-   "桃子 = peach",
+   "下午 = afternoon",
    "注意拼写，跟着读音记"
   ],
-  "grade": 1,
-  "level": 6,
-  "tag": "英语单词·综合",
-  "speak": "桃子的英文是",
-  "id": "e1-063"
+  "grade": 2,
+  "level": 1,
+  "tag": "英语单词·日常问候",
+  "speak": "下午的英文是",
+  "id": "e2-006"
  },
  {
   "q": "boy 是什么意思？",
   "a": "男孩",
   "options": [
-   "妈妈",
-   "嘴巴"
+   "滑梯",
+   "今天"
   ],
   "wrongReasons": [
    "boy = 男孩",
@@ -1100,50 +1695,16 @@
   ],
   "grade": 2,
   "level": 1,
-  "tag": "英语单词·人物称呼",
+  "tag": "英语单词·自我介绍",
   "speak": "boy 是什么意思",
-  "id": "e2-064"
- },
- {
-  "q": "「男孩」的英文是？",
-  "a": "boy",
-  "options": [
-   "tree",
-   "sun"
-  ],
-  "wrongReasons": [
-   "男孩 = boy",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 1,
-  "tag": "英语单词·人物称呼",
-  "speak": "男孩的英文是",
-  "id": "e2-065"
- },
- {
-  "q": "girl 是什么意思？",
-  "a": "女孩",
-  "options": [
-   "大的",
-   "爷爷"
-  ],
-  "wrongReasons": [
-   "girl = 女孩",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 2,
-  "level": 1,
-  "tag": "英语单词·人物称呼",
-  "speak": "girl 是什么意思",
-  "id": "e2-066"
+  "id": "e2-007"
  },
  {
   "q": "「女孩」的英文是？",
   "a": "girl",
   "options": [
-   "long",
-   "big"
+   "white",
+   "write"
   ],
   "wrongReasons": [
    "女孩 = girl",
@@ -1151,645 +1712,985 @@
   ],
   "grade": 2,
   "level": 1,
-  "tag": "英语单词·人物称呼",
+  "tag": "英语单词·自我介绍",
   "speak": "女孩的英文是",
-  "id": "e2-067"
+  "id": "e2-008"
  },
  {
-  "q": "mother 是什么意思？",
-  "a": "妈妈",
+  "q": "big 是什么意思？",
+  "a": "大的",
   "options": [
-   "星星",
-   "手臂"
+   "九",
+   "袋鼠"
   ],
   "wrongReasons": [
-   "mother = 妈妈",
+   "big = 大的",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 1,
-  "tag": "英语单词·人物称呼",
-  "speak": "mother 是什么意思",
-  "id": "e2-068"
+  "tag": "英语单词·自我介绍",
+  "speak": "big 是什么意思",
+  "id": "e2-009"
  },
  {
-  "q": "「妈妈」的英文是？",
-  "a": "mother",
+  "q": "「小的」的英文是？",
+  "a": "small",
   "options": [
-   "foot",
-   "eye"
+   "cute",
+   "hippo"
   ],
   "wrongReasons": [
-   "妈妈 = mother",
+   "小的 = small",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
   "level": 1,
-  "tag": "英语单词·人物称呼",
-  "speak": "妈妈的英文是",
-  "id": "e2-069"
+  "tag": "英语单词·自我介绍",
+  "speak": "小的的英文是",
+  "id": "e2-010"
  },
  {
-  "q": "father 是什么意思？",
-  "a": "爸爸",
+  "q": "name 是什么意思？",
+  "a": "名字",
   "options": [
-   "冷的",
-   "家庭"
+   "年老的",
+   "狮子"
   ],
   "wrongReasons": [
-   "father = 爸爸",
+   "name = 名字",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 1,
-  "tag": "英语单词·人物称呼",
-  "speak": "father 是什么意思",
-  "id": "e2-070"
+  "tag": "英语单词·自我介绍",
+  "speak": "name 是什么意思",
+  "id": "e2-011"
  },
  {
-  "q": "「爸爸」的英文是？",
-  "a": "father",
+  "q": "「名字」的英文是？",
+  "a": "name",
   "options": [
-   "arm",
-   "hair"
+   "dinner",
+   "seven"
   ],
   "wrongReasons": [
-   "爸爸 = father",
+   "名字 = name",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
   "level": 1,
-  "tag": "英语单词·人物称呼",
-  "speak": "爸爸的英文是",
-  "id": "e2-071"
+  "tag": "英语单词·自我介绍",
+  "speak": "名字的英文是",
+  "id": "e2-012"
  },
  {
-  "q": "grandma 是什么意思？",
-  "a": "奶奶",
+  "q": "「对不起」的英文是？",
+  "a": "sorry",
   "options": [
-   "头发",
-   "月亮"
+   "sky",
+   "name"
   ],
   "wrongReasons": [
-   "grandma = 奶奶",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 2,
-  "level": 1,
-  "tag": "英语单词·人物称呼",
-  "speak": "grandma 是什么意思",
-  "id": "e2-072"
- },
- {
-  "q": "「奶奶」的英文是？",
-  "a": "grandma",
-  "options": [
-   "small",
-   "big"
-  ],
-  "wrongReasons": [
-   "奶奶 = grandma",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 1,
-  "tag": "英语单词·人物称呼",
-  "speak": "奶奶的英文是",
-  "id": "e2-073"
- },
- {
-  "q": "grandpa 是什么意思？",
-  "a": "爷爷",
-  "options": [
-   "腿",
-   "女孩"
-  ],
-  "wrongReasons": [
-   "grandpa = 爷爷",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 2,
-  "level": 2,
-  "tag": "英语单词·人物称呼",
-  "speak": "grandpa 是什么意思",
-  "id": "e2-074"
- },
- {
-  "q": "「爷爷」的英文是？",
-  "a": "grandpa",
-  "options": [
-   "boy",
-   "sun"
-  ],
-  "wrongReasons": [
-   "爷爷 = grandpa",
+   "对不起 = sorry",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
   "level": 2,
-  "tag": "英语单词·人物称呼",
-  "speak": "爷爷的英文是",
-  "id": "e2-075"
+  "tag": "英语单词·你是谁",
+  "speak": "对不起的英文是",
+  "id": "e2-013"
  },
  {
-  "q": "teacher 是什么意思？",
-  "a": "老师",
+  "q": "seven 是什么意思？",
+  "a": "七",
   "options": [
-   "长的",
-   "花"
+   "晚上",
+   "八"
   ],
   "wrongReasons": [
-   "teacher = 老师",
+   "seven = 七",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 2,
-  "tag": "英语单词·人物称呼",
-  "speak": "teacher 是什么意思",
-  "id": "e2-076"
+  "tag": "英语单词·你是谁",
+  "speak": "seven 是什么意思",
+  "id": "e2-014"
  },
  {
-  "q": "「老师」的英文是？",
-  "a": "teacher",
+  "q": "「八」的英文是？",
+  "a": "eight",
   "options": [
-   "eye",
-   "big"
+   "snake",
+   "ride a bicycle"
   ],
   "wrongReasons": [
-   "老师 = teacher",
+   "八 = eight",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
   "level": 2,
-  "tag": "英语单词·人物称呼",
-  "speak": "老师的英文是",
-  "id": "e2-077"
+  "tag": "英语单词·你是谁",
+  "speak": "八的英文是",
+  "id": "e2-015"
  },
  {
-  "q": "student 是什么意思？",
-  "a": "学生",
+  "q": "nine 是什么意思？",
+  "a": "九",
   "options": [
-   "冷的",
-   "鼻子"
+   "昆虫",
+   "房间"
   ],
   "wrongReasons": [
-   "student = 学生",
+   "nine = 九",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 2,
-  "tag": "英语单词·人物称呼",
-  "speak": "student 是什么意思",
-  "id": "e2-078"
+  "tag": "英语单词·你是谁",
+  "speak": "nine 是什么意思",
+  "id": "e2-016"
  },
  {
-  "q": "「学生」的英文是？",
-  "a": "student",
+  "q": "「十」的英文是？",
+  "a": "ten",
   "options": [
-   "hot",
-   "boy"
+   "box",
+   "moon"
   ],
   "wrongReasons": [
-   "学生 = student",
+   "十 = ten",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
   "level": 2,
-  "tag": "英语单词·人物称呼",
-  "speak": "学生的英文是",
-  "id": "e2-079"
+  "tag": "英语单词·你是谁",
+  "speak": "十的英文是",
+  "id": "e2-017"
  },
  {
-  "q": "friend 是什么意思？",
-  "a": "朋友",
+  "q": "ten 是什么意思？",
+  "a": "十",
   "options": [
-   "家庭",
-   "小的"
+   "狐狸",
+   "睡觉"
   ],
   "wrongReasons": [
-   "friend = 朋友",
+   "ten = 十",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 2,
-  "tag": "英语单词·人物称呼",
-  "speak": "friend 是什么意思",
-  "id": "e2-080"
+  "tag": "英语单词·你是谁",
+  "speak": "ten 是什么意思",
+  "id": "e2-018"
  },
  {
-  "q": "「朋友」的英文是？",
-  "a": "friend",
-  "options": [
-   "short",
-   "arm"
-  ],
-  "wrongReasons": [
-   "朋友 = friend",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 2,
-  "tag": "英语单词·人物称呼",
-  "speak": "朋友的英文是",
-  "id": "e2-081"
- },
- {
-  "q": "eye 是什么意思？",
-  "a": "眼睛",
-  "options": [
-   "小的",
-   "脚"
-  ],
-  "wrongReasons": [
-   "eye = 眼睛",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 2,
-  "level": 2,
-  "tag": "英语单词·身体部位",
-  "speak": "eye 是什么意思",
-  "id": "e2-082"
- },
- {
-  "q": "「眼睛」的英文是？",
-  "a": "eye",
-  "options": [
-   "cold",
-   "friend"
-  ],
-  "wrongReasons": [
-   "眼睛 = eye",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 2,
-  "tag": "英语单词·身体部位",
-  "speak": "眼睛的英文是",
-  "id": "e2-083"
- },
- {
-  "q": "ear 是什么意思？",
-  "a": "耳朵",
-  "options": [
-   "爷爷",
-   "花"
-  ],
-  "wrongReasons": [
-   "ear = 耳朵",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 2,
-  "level": 3,
-  "tag": "英语单词·身体部位",
-  "speak": "ear 是什么意思",
-  "id": "e2-084"
- },
- {
-  "q": "「耳朵」的英文是？",
-  "a": "ear",
-  "options": [
-   "leg",
-   "star"
-  ],
-  "wrongReasons": [
-   "耳朵 = ear",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 3,
-  "tag": "英语单词·身体部位",
-  "speak": "耳朵的英文是",
-  "id": "e2-085"
- },
- {
-  "q": "nose 是什么意思？",
-  "a": "鼻子",
-  "options": [
-   "老师",
-   "爷爷"
-  ],
-  "wrongReasons": [
-   "nose = 鼻子",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 2,
-  "level": 3,
-  "tag": "英语单词·身体部位",
-  "speak": "nose 是什么意思",
-  "id": "e2-086"
- },
- {
-  "q": "「鼻子」的英文是？",
-  "a": "nose",
-  "options": [
-   "hand",
-   "grandpa"
-  ],
-  "wrongReasons": [
-   "鼻子 = nose",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 3,
-  "tag": "英语单词·身体部位",
-  "speak": "鼻子的英文是",
-  "id": "e2-087"
- },
- {
-  "q": "mouth 是什么意思？",
-  "a": "嘴巴",
+  "q": "elephant 是什么意思？",
+  "a": "大象",
   "options": [
    "妈妈",
-   "小的"
+   "狐狸"
   ],
   "wrongReasons": [
-   "mouth = 嘴巴",
+   "elephant = 大象",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
-  "level": 3,
-  "tag": "英语单词·身体部位",
-  "speak": "mouth 是什么意思",
-  "id": "e2-088"
+  "level": 2,
+  "tag": "英语单词·你是谁",
+  "speak": "elephant 是什么意思",
+  "id": "e2-019"
  },
  {
-  "q": "「嘴巴」的英文是？",
-  "a": "mouth",
+  "q": "「游泳」的英文是？",
+  "a": "swim",
   "options": [
-   "tree",
-   "cold"
+   "eight",
+   "name"
   ],
   "wrongReasons": [
-   "嘴巴 = mouth",
+   "游泳 = swim",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 2,
+  "tag": "英语单词·我会运动",
+  "speak": "游泳的英文是",
+  "id": "e2-020"
+ },
+ {
+  "q": "swim 是什么意思？",
+  "a": "游泳",
+  "options": [
+   "对不起",
+   "白色的"
+  ],
+  "wrongReasons": [
+   "swim = 游泳",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 2,
+  "tag": "英语单词·我会运动",
+  "speak": "swim 是什么意思",
+  "id": "e2-021"
+ },
+ {
+  "q": "run 是什么意思？",
+  "a": "跑",
+  "options": [
+   "书桌",
+   "草"
+  ],
+  "wrongReasons": [
+   "run = 跑",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 2,
+  "tag": "英语单词·我会运动",
+  "speak": "run 是什么意思",
+  "id": "e2-022"
+ },
+ {
+  "q": "「写字」的英文是？",
+  "a": "write",
+  "options": [
+   "street",
+   "dinner"
+  ],
+  "wrongReasons": [
+   "写字 = write",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 2,
+  "tag": "英语单词·我会运动",
+  "speak": "写字的英文是",
+  "id": "e2-023"
+ },
+ {
+  "q": "fly 是什么意思？",
+  "a": "飞",
+  "options": [
+   "下午",
+   "碗"
+  ],
+  "wrongReasons": [
+   "fly = 飞",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 2,
+  "tag": "英语单词·我会运动",
+  "speak": "fly 是什么意思",
+  "id": "e2-024"
+ },
+ {
+  "q": "「骑自行车」的英文是？",
+  "a": "ride a bicycle",
+  "options": [
+   "long",
+   "mum"
+  ],
+  "wrongReasons": [
+   "骑自行车 = ride a bicycle",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 2,
+  "tag": "英语单词·我会运动",
+  "speak": "骑自行车的英文是",
+  "id": "e2-025"
+ },
+ {
+  "q": "giraffe 是什么意思？",
+  "a": "长颈鹿",
+  "options": [
+   "草",
+   "头发"
+  ],
+  "wrongReasons": [
+   "giraffe = 长颈鹿",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 2,
+  "tag": "英语单词·我会运动",
+  "speak": "giraffe 是什么意思",
+  "id": "e2-026"
+ },
+ {
+  "q": "「家庭」的英文是？",
+  "a": "family",
+  "options": [
+   "small",
+   "hippo"
+  ],
+  "wrongReasons": [
+   "家庭 = family",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
   "level": 3,
-  "tag": "英语单词·身体部位",
-  "speak": "嘴巴的英文是",
-  "id": "e2-089"
+  "tag": "英语单词·我的家庭",
+  "speak": "家庭的英文是",
+  "id": "e2-027"
  },
  {
-  "q": "hand 是什么意思？",
-  "a": "手",
+  "q": "family 是什么意思？",
+  "a": "家庭",
   "options": [
-   "小的",
-   "星星"
+   "蛇",
+   "现在"
   ],
   "wrongReasons": [
-   "hand = 手",
+   "family = 家庭",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 3,
-  "tag": "英语单词·身体部位",
-  "speak": "hand 是什么意思",
-  "id": "e2-090"
+  "tag": "英语单词·我的家庭",
+  "speak": "family 是什么意思",
+  "id": "e2-028"
  },
  {
-  "q": "「手」的英文是？",
-  "a": "hand",
+  "q": "brother 是什么意思？",
+  "a": "弟弟",
   "options": [
-   "arm",
-   "family"
+   "明亮的",
+   "妈妈"
   ],
   "wrongReasons": [
-   "手 = hand",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 3,
-  "tag": "英语单词·身体部位",
-  "speak": "手的英文是",
-  "id": "e2-091"
- },
- {
-  "q": "arm 是什么意思？",
-  "a": "手臂",
-  "options": [
-   "热的",
-   "小的"
-  ],
-  "wrongReasons": [
-   "arm = 手臂",
+   "brother = 弟弟",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 3,
-  "tag": "英语单词·身体部位",
-  "speak": "arm 是什么意思",
-  "id": "e2-092"
+  "tag": "英语单词·我的家庭",
+  "speak": "brother 是什么意思",
+  "id": "e2-029"
  },
  {
-  "q": "「手臂」的英文是？",
-  "a": "arm",
+  "q": "「姐姐（妹妹）」的英文是？",
+  "a": "sister",
   "options": [
-   "girl",
-   "grandma"
+   "seesaw",
+   "brother"
   ],
   "wrongReasons": [
-   "手臂 = arm",
+   "姐姐（妹妹） = sister",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
   "level": 3,
-  "tag": "英语单词·身体部位",
-  "speak": "手臂的英文是",
-  "id": "e2-093"
+  "tag": "英语单词·我的家庭",
+  "speak": "姐姐（妹妹）的英文是",
+  "id": "e2-030"
  },
  {
-  "q": "leg 是什么意思？",
-  "a": "腿",
+  "q": "young 是什么意思？",
+  "a": "年轻的",
   "options": [
-   "爷爷",
-   "眼睛"
+   "男孩",
+   "秋千"
   ],
   "wrongReasons": [
-   "leg = 腿",
+   "young = 年轻的",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
-  "level": 4,
-  "tag": "英语单词·身体部位",
-  "speak": "leg 是什么意思",
-  "id": "e2-094"
+  "level": 3,
+  "tag": "英语单词·我的家庭",
+  "speak": "young 是什么意思",
+  "id": "e2-031"
  },
  {
-  "q": "「腿」的英文是？",
-  "a": "leg",
+  "q": "「年老的」的英文是？",
+  "a": "old",
   "options": [
-   "mother",
-   "short"
+   "desk",
+   "hippo"
   ],
   "wrongReasons": [
-   "腿 = leg",
+   "年老的 = old",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
-  "level": 4,
-  "tag": "英语单词·身体部位",
-  "speak": "腿的英文是",
-  "id": "e2-095"
+  "level": 3,
+  "tag": "英语单词·我的家庭",
+  "speak": "年老的的英文是",
+  "id": "e2-032"
  },
  {
-  "q": "foot 是什么意思？",
-  "a": "脚",
+  "q": "insect 是什么意思？",
+  "a": "昆虫",
   "options": [
-   "家庭",
-   "朋友"
+   "今天",
+   "蛇"
   ],
   "wrongReasons": [
-   "foot = 脚",
+   "insect = 昆虫",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
-  "level": 4,
-  "tag": "英语单词·身体部位",
-  "speak": "foot 是什么意思",
-  "id": "e2-096"
+  "level": 3,
+  "tag": "英语单词·我的家庭",
+  "speak": "insect 是什么意思",
+  "id": "e2-033"
  },
  {
-  "q": "「脚」的英文是？",
-  "a": "foot",
+  "q": "「水母」的英文是？",
+  "a": "jellyfish",
   "options": [
-   "hot",
-   "family"
+   "family",
+   "desk"
   ],
   "wrongReasons": [
-   "脚 = foot",
+   "水母 = jellyfish",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
-  "level": 4,
-  "tag": "英语单词·身体部位",
-  "speak": "脚的英文是",
-  "id": "e2-097"
+  "level": 3,
+  "tag": "英语单词·我的家庭",
+  "speak": "水母的英文是",
+  "id": "e2-034"
  },
  {
   "q": "hair 是什么意思？",
   "a": "头发",
   "options": [
-   "耳朵",
-   "妈妈"
+   "写字",
+   "花"
   ],
   "wrongReasons": [
    "hair = 头发",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
-  "level": 4,
-  "tag": "英语单词·身体部位",
+  "level": 3,
+  "tag": "英语单词·外貌特征",
   "speak": "hair 是什么意思",
-  "id": "e2-098"
+  "id": "e2-035"
  },
  {
   "q": "「头发」的英文是？",
   "a": "hair",
   "options": [
-   "small",
-   "flower"
+   "sorry",
+   "swan"
   ],
   "wrongReasons": [
    "头发 = hair",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
-  "level": 4,
-  "tag": "英语单词·身体部位",
+  "level": 3,
+  "tag": "英语单词·外貌特征",
   "speak": "头发的英文是",
-  "id": "e2-099"
+  "id": "e2-036"
  },
  {
-  "q": "sun 是什么意思？",
-  "a": "太阳",
+  "q": "「头」的英文是？",
+  "a": "head",
   "options": [
-   "手臂",
-   "女孩"
+   "swim",
+   "tree"
   ],
   "wrongReasons": [
-   "sun = 太阳",
+   "头 = head",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 3,
+  "tag": "英语单词·外貌特征",
+  "speak": "头的英文是",
+  "id": "e2-037"
+ },
+ {
+  "q": "long 是什么意思？",
+  "a": "长的",
+  "options": [
+   "房间",
+   "头发"
+  ],
+  "wrongReasons": [
+   "long = 长的",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 3,
+  "tag": "英语单词·外貌特征",
+  "speak": "long 是什么意思",
+  "id": "e2-038"
+ },
+ {
+  "q": "「现在」的英文是？",
+  "a": "now",
+  "options": [
+   "grass",
+   "ten"
+  ],
+  "wrongReasons": [
+   "现在 = now",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 3,
+  "tag": "英语单词·外貌特征",
+  "speak": "现在的英文是",
+  "id": "e2-039"
+ },
+ {
+  "q": "kangaroo 是什么意思？",
+  "a": "袋鼠",
+  "options": [
+   "椅子",
+   "妈妈"
+  ],
+  "wrongReasons": [
+   "kangaroo = 袋鼠",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 3,
+  "tag": "英语单词·外貌特征",
+  "speak": "kangaroo 是什么意思",
+  "id": "e2-040"
+ },
+ {
+  "q": "「狮子」的英文是？",
+  "a": "lion",
+  "options": [
+   "small",
+   "swan"
+  ],
+  "wrongReasons": [
+   "狮子 = lion",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 3,
+  "tag": "英语单词·外貌特征",
+  "speak": "狮子的英文是",
+  "id": "e2-041"
+ },
+ {
+  "q": "playground 是什么意思？",
+  "a": "操场",
+  "options": [
+   "昆虫",
+   "夜晚"
+  ],
+  "wrongReasons": [
+   "playground = 操场",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 4,
-  "tag": "英语单词·自然植物",
-  "speak": "sun 是什么意思",
-  "id": "e2-100"
+  "tag": "英语单词·游乐场",
+  "speak": "playground 是什么意思",
+  "id": "e2-042"
  },
  {
-  "q": "「太阳」的英文是？",
-  "a": "sun",
+  "q": "「滑梯」的英文是？",
+  "a": "slide",
   "options": [
-   "mouth",
-   "arm"
+   "room",
+   "head"
   ],
   "wrongReasons": [
-   "太阳 = sun",
+   "滑梯 = slide",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
   "level": 4,
-  "tag": "英语单词·自然植物",
-  "speak": "太阳的英文是",
-  "id": "e2-101"
+  "tag": "英语单词·游乐场",
+  "speak": "滑梯的英文是",
+  "id": "e2-043"
  },
  {
-  "q": "moon 是什么意思？",
-  "a": "月亮",
+  "q": "swing 是什么意思？",
+  "a": "秋千",
   "options": [
-   "手",
-   "花"
+   "太阳",
+   "弟弟"
   ],
   "wrongReasons": [
-   "moon = 月亮",
+   "swing = 秋千",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 4,
-  "tag": "英语单词·自然植物",
-  "speak": "moon 是什么意思",
-  "id": "e2-102"
+  "tag": "英语单词·游乐场",
+  "speak": "swing 是什么意思",
+  "id": "e2-044"
+ },
+ {
+  "q": "「跷跷板」的英文是？",
+  "a": "seesaw",
+  "options": [
+   "ride a bicycle",
+   "write"
+  ],
+  "wrongReasons": [
+   "跷跷板 = seesaw",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 4,
+  "tag": "英语单词·游乐场",
+  "speak": "跷跷板的英文是",
+  "id": "e2-045"
+ },
+ {
+  "q": "room 是什么意思？",
+  "a": "房间",
+  "options": [
+   "铅笔盒",
+   "鸽子"
+  ],
+  "wrongReasons": [
+   "room = 房间",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 4,
+  "tag": "英语单词·我的房间",
+  "speak": "room 是什么意思",
+  "id": "e2-046"
+ },
+ {
+  "q": "「包」的英文是？",
+  "a": "bag",
+  "options": [
+   "snake",
+   "chopsticks"
+  ],
+  "wrongReasons": [
+   "包 = bag",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 4,
+  "tag": "英语单词·我的房间",
+  "speak": "包的英文是",
+  "id": "e2-047"
+ },
+ {
+  "q": "box 是什么意思？",
+  "a": "箱子",
+  "options": [
+   "鸽子",
+   "花"
+  ],
+  "wrongReasons": [
+   "box = 箱子",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 4,
+  "tag": "英语单词·我的房间",
+  "speak": "box 是什么意思",
+  "id": "e2-048"
+ },
+ {
+  "q": "「椅子」的英文是？",
+  "a": "chair",
+  "options": [
+   "animal",
+   "mum"
+  ],
+  "wrongReasons": [
+   "椅子 = chair",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 4,
+  "tag": "英语单词·我的房间",
+  "speak": "椅子的英文是",
+  "id": "e2-049"
+ },
+ {
+  "q": "chair 是什么意思？",
+  "a": "椅子",
+  "options": [
+   "勺子",
+   "年轻的"
+  ],
+  "wrongReasons": [
+   "chair = 椅子",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 4,
+  "tag": "英语单词·我的房间",
+  "speak": "chair 是什么意思",
+  "id": "e2-050"
+ },
+ {
+  "q": "desk 是什么意思？",
+  "a": "书桌",
+  "options": [
+   "对不起",
+   "七"
+  ],
+  "wrongReasons": [
+   "desk = 书桌",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 4,
+  "tag": "英语单词·我的房间",
+  "speak": "desk 是什么意思",
+  "id": "e2-051"
+ },
+ {
+  "q": "「小汽车」的英文是？",
+  "a": "car",
+  "options": [
+   "cute",
+   "morning"
+  ],
+  "wrongReasons": [
+   "小汽车 = car",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 4,
+  "tag": "英语单词·我的房间",
+  "speak": "小汽车的英文是",
+  "id": "e2-052"
+ },
+ {
+  "q": "pencil case 是什么意思？",
+  "a": "铅笔盒",
+  "options": [
+   "天空",
+   "月亮"
+  ],
+  "wrongReasons": [
+   "pencil case = 铅笔盒",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 4,
+  "tag": "英语单词·我的房间",
+  "speak": "pencil case 是什么意思",
+  "id": "e2-053"
+ },
+ {
+  "q": "「睡觉」的英文是？",
+  "a": "sleep",
+  "options": [
+   "head",
+   "tree"
+  ],
+  "wrongReasons": [
+   "睡觉 = sleep",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 4,
+  "tag": "英语单词·我的房间",
+  "speak": "睡觉的英文是",
+  "id": "e2-054"
+ },
+ {
+  "q": "dinner 是什么意思？",
+  "a": "晚饭",
+  "options": [
+   "花",
+   "斑马"
+  ],
+  "wrongReasons": [
+   "dinner = 晚饭",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 5,
+  "tag": "英语单词·晚餐",
+  "speak": "dinner 是什么意思",
+  "id": "e2-055"
+ },
+ {
+  "q": "「晚饭」的英文是？",
+  "a": "dinner",
+  "options": [
+   "sleep",
+   "girl"
+  ],
+  "wrongReasons": [
+   "晚饭 = dinner",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 5,
+  "tag": "英语单词·晚餐",
+  "speak": "晚饭的英文是",
+  "id": "e2-056"
+ },
+ {
+  "q": "「盘子」的英文是？",
+  "a": "plate",
+  "options": [
+   "bowl",
+   "ride a bicycle"
+  ],
+  "wrongReasons": [
+   "盘子 = plate",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 5,
+  "tag": "英语单词·晚餐",
+  "speak": "盘子的英文是",
+  "id": "e2-057"
+ },
+ {
+  "q": "chopsticks 是什么意思？",
+  "a": "筷子",
+  "options": [
+   "骑自行车",
+   "现在"
+  ],
+  "wrongReasons": [
+   "chopsticks = 筷子",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 5,
+  "tag": "英语单词·晚餐",
+  "speak": "chopsticks 是什么意思",
+  "id": "e2-058"
+ },
+ {
+  "q": "「碗」的英文是？",
+  "a": "bowl",
+  "options": [
+   "bright",
+   "seesaw"
+  ],
+  "wrongReasons": [
+   "碗 = bowl",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 5,
+  "tag": "英语单词·晚餐",
+  "speak": "碗的英文是",
+  "id": "e2-059"
+ },
+ {
+  "q": "spoon 是什么意思？",
+  "a": "勺子",
+  "options": [
+   "水母",
+   "对不起"
+  ],
+  "wrongReasons": [
+   "spoon = 勺子",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 5,
+  "tag": "英语单词·晚餐",
+  "speak": "spoon 是什么意思",
+  "id": "e2-060"
+ },
+ {
+  "q": "「准备好的」的英文是？",
+  "a": "ready",
+  "options": [
+   "beautiful",
+   "head"
+  ],
+  "wrongReasons": [
+   "准备好的 = ready",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 5,
+  "tag": "英语单词·晚餐",
+  "speak": "准备好的的英文是",
+  "id": "e2-061"
+ },
+ {
+  "q": "sky 是什么意思？",
+  "a": "天空",
+  "options": [
+   "八",
+   "昆虫"
+  ],
+  "wrongReasons": [
+   "sky = 天空",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 5,
+  "tag": "英语单词·天空",
+  "speak": "sky 是什么意思",
+  "id": "e2-062"
  },
  {
   "q": "「月亮」的英文是？",
   "a": "moon",
   "options": [
-   "grandma",
-   "grandpa"
+   "bowl",
+   "hair"
   ],
   "wrongReasons": [
    "月亮 = moon",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
-  "level": 4,
-  "tag": "英语单词·自然植物",
+  "level": 5,
+  "tag": "英语单词·天空",
   "speak": "月亮的英文是",
-  "id": "e2-103"
+  "id": "e2-063"
  },
  {
-  "q": "star 是什么意思？",
-  "a": "星星",
+  "q": "moon 是什么意思？",
+  "a": "月亮",
   "options": [
-   "女孩",
-   "手"
+   "箱子",
+   "狮子"
   ],
   "wrongReasons": [
-   "star = 星星",
+   "moon = 月亮",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 5,
-  "tag": "英语单词·自然植物",
-  "speak": "star 是什么意思",
-  "id": "e2-104"
+  "tag": "英语单词·天空",
+  "speak": "moon 是什么意思",
+  "id": "e2-064"
+ },
+ {
+  "q": "sun 是什么意思？",
+  "a": "太阳",
+  "options": [
+   "滑梯",
+   "森林"
+  ],
+  "wrongReasons": [
+   "sun = 太阳",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 5,
+  "tag": "英语单词·天空",
+  "speak": "sun 是什么意思",
+  "id": "e2-065"
  },
  {
   "q": "「星星」的英文是？",
   "a": "star",
   "options": [
-   "teacher",
-   "mouth"
+   "name",
+   "long"
   ],
   "wrongReasons": [
    "星星 = star",
@@ -1797,315 +2698,383 @@
   ],
   "grade": 2,
   "level": 5,
-  "tag": "英语单词·自然植物",
+  "tag": "英语单词·天空",
   "speak": "星星的英文是",
-  "id": "e2-105"
+  "id": "e2-066"
  },
  {
-  "q": "tree 是什么意思？",
-  "a": "树",
+  "q": "bright 是什么意思？",
+  "a": "明亮的",
   "options": [
-   "星星",
-   "嘴巴"
+   "头发",
+   "家庭"
   ],
   "wrongReasons": [
-   "tree = 树",
+   "bright = 明亮的",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 5,
-  "tag": "英语单词·自然植物",
-  "speak": "tree 是什么意思",
-  "id": "e2-106"
+  "tag": "英语单词·天空",
+  "speak": "bright 是什么意思",
+  "id": "e2-067"
  },
  {
-  "q": "「树」的英文是？",
-  "a": "tree",
+  "q": "「蛇」的英文是？",
+  "a": "snake",
   "options": [
-   "moon",
-   "family"
+   "hair",
+   "spoon"
   ],
   "wrongReasons": [
-   "树 = tree",
+   "蛇 = snake",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
   "level": 5,
-  "tag": "英语单词·自然植物",
-  "speak": "树的英文是",
-  "id": "e2-107"
+  "tag": "英语单词·天空",
+  "speak": "蛇的英文是",
+  "id": "e2-068"
+ },
+ {
+  "q": "forest 是什么意思？",
+  "a": "森林",
+  "options": [
+   "小汽车",
+   "头发"
+  ],
+  "wrongReasons": [
+   "forest = 森林",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·森林动物",
+  "speak": "forest 是什么意思",
+  "id": "e2-069"
+ },
+ {
+  "q": "「森林」的英文是？",
+  "a": "forest",
+  "options": [
+   "chair",
+   "small"
+  ],
+  "wrongReasons": [
+   "森林 = forest",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·森林动物",
+  "speak": "森林的英文是",
+  "id": "e2-070"
+ },
+ {
+  "q": "「狐狸」的英文是？",
+  "a": "fox",
+  "options": [
+   "flower",
+   "now"
+  ],
+  "wrongReasons": [
+   "狐狸 = fox",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·森林动物",
+  "speak": "狐狸的英文是",
+  "id": "e2-071"
+ },
+ {
+  "q": "hippo 是什么意思？",
+  "a": "河马",
+  "options": [
+   "今天",
+   "蛇"
+  ],
+  "wrongReasons": [
+   "hippo = 河马",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·森林动物",
+  "speak": "hippo 是什么意思",
+  "id": "e2-072"
+ },
+ {
+  "q": "「草」的英文是？",
+  "a": "grass",
+  "options": [
+   "star",
+   "eight"
+  ],
+  "wrongReasons": [
+   "草 = grass",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·森林动物",
+  "speak": "草的英文是",
+  "id": "e2-073"
+ },
+ {
+  "q": "animal 是什么意思？",
+  "a": "动物",
+  "options": [
+   "弟弟",
+   "十"
+  ],
+  "wrongReasons": [
+   "animal = 动物",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·森林动物",
+  "speak": "animal 是什么意思",
+  "id": "e2-074"
+ },
+ {
+  "q": "「可爱的」的英文是？",
+  "a": "cute",
+  "options": [
+   "nine",
+   "fox"
+  ],
+  "wrongReasons": [
+   "可爱的 = cute",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·森林动物",
+  "speak": "可爱的的英文是",
+  "id": "e2-075"
+ },
+ {
+  "q": "dove 是什么意思？",
+  "a": "鸽子",
+  "options": [
+   "水母",
+   "骑自行车"
+  ],
+  "wrongReasons": [
+   "dove = 鸽子",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·森林动物",
+  "speak": "dove 是什么意思",
+  "id": "e2-076"
+ },
+ {
+  "q": "「天鹅」的英文是？",
+  "a": "swan",
+  "options": [
+   "grass",
+   "family"
+  ],
+  "wrongReasons": [
+   "天鹅 = swan",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·森林动物",
+  "speak": "天鹅的英文是",
+  "id": "e2-077"
+ },
+ {
+  "q": "white 是什么意思？",
+  "a": "白色的",
+  "options": [
+   "草",
+   "小汽车"
+  ],
+  "wrongReasons": [
+   "white = 白色的",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·森林动物",
+  "speak": "white 是什么意思",
+  "id": "e2-078"
+ },
+ {
+  "q": "「大街」的英文是？",
+  "a": "street",
+  "options": [
+   "car",
+   "swing"
+  ],
+  "wrongReasons": [
+   "大街 = street",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·爱护花草",
+  "speak": "大街的英文是",
+  "id": "e2-079"
  },
  {
   "q": "flower 是什么意思？",
   "a": "花",
   "options": [
-   "月亮",
-   "长的"
+   "晚饭",
+   "可爱的"
   ],
   "wrongReasons": [
    "flower = 花",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
-  "level": 5,
-  "tag": "英语单词·自然植物",
+  "level": 6,
+  "tag": "英语单词·爱护花草",
   "speak": "flower 是什么意思",
-  "id": "e2-108"
+  "id": "e2-080"
  },
  {
   "q": "「花」的英文是？",
   "a": "flower",
   "options": [
-   "nose",
-   "student"
+   "brother",
+   "name"
   ],
   "wrongReasons": [
    "花 = flower",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
-  "level": 5,
-  "tag": "英语单词·自然植物",
+  "level": 6,
+  "tag": "英语单词·爱护花草",
   "speak": "花的英文是",
-  "id": "e2-109"
+  "id": "e2-081"
  },
  {
-  "q": "big 是什么意思？",
-  "a": "大的",
+  "q": "「爬」的英文是？",
+  "a": "climb",
   "options": [
-   "家庭",
+   "tree",
+   "park"
+  ],
+  "wrongReasons": [
+   "爬 = climb",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·爱护花草",
+  "speak": "爬的英文是",
+  "id": "e2-082"
+ },
+ {
+  "q": "tree 是什么意思？",
+  "a": "树",
+  "options": [
+   "天鹅",
    "男孩"
   ],
   "wrongReasons": [
-   "big = 大的",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 2,
-  "level": 5,
-  "tag": "英语单词·形容词",
-  "speak": "big 是什么意思",
-  "id": "e2-110"
- },
- {
-  "q": "「大的」的英文是？",
-  "a": "big",
-  "options": [
-   "hair",
-   "foot"
-  ],
-  "wrongReasons": [
-   "大的 = big",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 5,
-  "tag": "英语单词·形容词",
-  "speak": "大的的英文是",
-  "id": "e2-111"
- },
- {
-  "q": "small 是什么意思？",
-  "a": "小的",
-  "options": [
-   "老师",
-   "耳朵"
-  ],
-  "wrongReasons": [
-   "small = 小的",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 2,
-  "level": 5,
-  "tag": "英语单词·形容词",
-  "speak": "small 是什么意思",
-  "id": "e2-112"
- },
- {
-  "q": "「小的」的英文是？",
-  "a": "small",
-  "options": [
-   "big",
-   "long"
-  ],
-  "wrongReasons": [
-   "小的 = small",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 5,
-  "tag": "英语单词·形容词",
-  "speak": "小的的英文是",
-  "id": "e2-113"
- },
- {
-  "q": "long 是什么意思？",
-  "a": "长的",
-  "options": [
-   "花",
-   "腿"
-  ],
-  "wrongReasons": [
-   "long = 长的",
+   "tree = 树",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 6,
-  "tag": "英语单词·形容词",
-  "speak": "long 是什么意思",
-  "id": "e2-114"
+  "tag": "英语单词·爱护花草",
+  "speak": "tree 是什么意思",
+  "id": "e2-083"
  },
  {
-  "q": "「长的」的英文是？",
-  "a": "long",
+  "q": "「公园」的英文是？",
+  "a": "park",
   "options": [
-   "student",
-   "hand"
+   "moon",
+   "afternoon"
   ],
   "wrongReasons": [
-   "长的 = long",
+   "公园 = park",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
   "level": 6,
-  "tag": "英语单词·形容词",
-  "speak": "长的的英文是",
-  "id": "e2-115"
+  "tag": "英语单词·爱护花草",
+  "speak": "公园的英文是",
+  "id": "e2-084"
  },
  {
-  "q": "short 是什么意思？",
-  "a": "短的",
+  "q": "beautiful 是什么意思？",
+  "a": "美丽的",
   "options": [
-   "耳朵",
-   "手臂"
+   "森林",
+   "书桌"
   ],
   "wrongReasons": [
-   "short = 短的",
+   "beautiful = 美丽的",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 6,
-  "tag": "英语单词·形容词",
-  "speak": "short 是什么意思",
-  "id": "e2-116"
+  "tag": "英语单词·爱护花草",
+  "speak": "beautiful 是什么意思",
+  "id": "e2-085"
  },
  {
-  "q": "「短的」的英文是？",
-  "a": "short",
+  "q": "「美丽的」的英文是？",
+  "a": "beautiful",
   "options": [
-   "father",
-   "big"
+   "desk",
+   "cute"
   ],
   "wrongReasons": [
-   "短的 = short",
+   "美丽的 = beautiful",
    "注意拼写，跟着读音记"
   ],
   "grade": 2,
   "level": 6,
-  "tag": "英语单词·形容词",
-  "speak": "短的的英文是",
-  "id": "e2-117"
+  "tag": "英语单词·爱护花草",
+  "speak": "美丽的的英文是",
+  "id": "e2-086"
  },
  {
-  "q": "hot 是什么意思？",
-  "a": "热的",
+  "q": "「哭」的英文是？",
+  "a": "cry",
   "options": [
-   "小的",
-   "太阳"
+   "bright",
+   "old"
   ],
   "wrongReasons": [
-   "hot = 热的",
+   "哭 = cry",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 2,
+  "level": 6,
+  "tag": "英语单词·爱护花草",
+  "speak": "哭的英文是",
+  "id": "e2-087"
+ },
+ {
+  "q": "zebra 是什么意思？",
+  "a": "斑马",
+  "options": [
+   "飞",
+   "滑梯"
+  ],
+  "wrongReasons": [
+   "zebra = 斑马",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 2,
   "level": 6,
-  "tag": "英语单词·身体自然",
-  "speak": "hot 是什么意思",
-  "id": "e2-118"
- },
- {
-  "q": "「热的」的英文是？",
-  "a": "hot",
-  "options": [
-   "big",
-   "nose"
-  ],
-  "wrongReasons": [
-   "热的 = hot",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 6,
-  "tag": "英语单词·身体自然",
-  "speak": "热的的英文是",
-  "id": "e2-119"
- },
- {
-  "q": "cold 是什么意思？",
-  "a": "冷的",
-  "options": [
-   "女孩",
-   "老师"
-  ],
-  "wrongReasons": [
-   "cold = 冷的",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 2,
-  "level": 6,
-  "tag": "英语单词·身体自然",
-  "speak": "cold 是什么意思",
-  "id": "e2-120"
- },
- {
-  "q": "「冷的」的英文是？",
-  "a": "cold",
-  "options": [
-   "short",
-   "father"
-  ],
-  "wrongReasons": [
-   "冷的 = cold",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 6,
-  "tag": "英语单词·身体自然",
-  "speak": "冷的的英文是",
-  "id": "e2-121"
- },
- {
-  "q": "family 是什么意思？",
-  "a": "家庭",
-  "options": [
-   "眼睛",
-   "妈妈"
-  ],
-  "wrongReasons": [
-   "family = 家庭",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 2,
-  "level": 6,
-  "tag": "英语单词·综合",
-  "speak": "family 是什么意思",
-  "id": "e2-122"
- },
- {
-  "q": "「家庭」的英文是？",
-  "a": "family",
-  "options": [
-   "nose",
-   "tree"
-  ],
-  "wrongReasons": [
-   "家庭 = family",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 2,
-  "level": 6,
-  "tag": "英语单词·综合",
-  "speak": "家庭的英文是",
-  "id": "e2-123"
+  "tag": "英语单词·爱护花草",
+  "speak": "zebra 是什么意思",
+  "id": "e2-088"
  },
  {
   "q": "water 是什么意思？",

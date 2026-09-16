@@ -1,14 +1,163 @@
 # -*- coding: utf-8 -*-
-"""gen_english_units.py — 沪教版英语 3~6 年级上册单元题库（v3.9）
-题源：沪教版义务教育教科书·英语（深圳 2026 统一用书，三年级起始）
+"""gen_english_units.py — 沪教版英语 1~6 年级上册单元题库（v3.9 / v3.11）
+题源：沪教版义务教育教科书·英语（深圳用书）
+  一上 / 二上（沪教牛津深圳版 12 单元·v3.11 增补，深圳为英语一年级起始地区）
   三上 2024 秋版 / 四上 2025 秋版 / 五上 2026 秋版（各 8 单元）
   六上 2026 秋版（6 单元）
 题目类型：单元主题理解（英文标题）、核心功能句型、主题词汇归类、情景应答
 版权规则：只出事实性/通用课程内容（单元标题、功能句型、常用词汇），不引用课文原文
-产出：data/banks/english-units.json（q.unit = '第X单元 主题'，q.grade = 3~6，level 0）
+产出：data/banks/english-units.json（q.unit = '第X单元 主题'，q.grade = 1~6，level 0）
 """
 
 UNITS = {
+1: [
+  ('第一单元 打招呼', [
+    ('早上见到老师，打招呼说？', 'Good morning!', ['Good night!', 'Goodbye!'], '早上用 Good morning 问好'),
+    ('hello 的意思是？', '你好', ['再见', '谢谢'], 'hello = 你好'),
+    ('和别人分开时说？', 'Goodbye!', ['Hello!', 'Good morning!'], '分开时说再见'),
+    ('Good afternoon 是什么时候问好？', '下午', ['早上', '晚上'], 'afternoon = 下午'),
+  ]),
+  ('第二单元 同学与文具', [
+    ('「书」的英文是？', 'book', ['ruler', 'pencil'], 'book 书，ruler 尺子'),
+    ('rubber 是什么文具？', '橡皮', ['铅笔', '书'], 'rubber = 橡皮'),
+    ('ruler 的意思是？', '尺子', ['橡皮', '铅笔'], 'ruler = 尺子'),
+    ('得到帮助时说？', 'Thank you.', ['Hello.', 'Goodbye.'], '感谢别人说 Thank you'),
+  ]),
+  ('第三单元 我的五官', [
+    ('Touch your nose. 是让你做什么？', '摸摸你的鼻子', ['摸摸你的耳朵', '看看你的眼睛'], 'nose 鼻子，ear 耳朵'),
+    ('eye 是？', '眼睛', ['嘴巴', '鼻子'], 'eye 眼睛，mouth 嘴巴，nose 鼻子'),
+    ('「这是我的脸。」说？', 'This is my face.', ['This is your face.', 'This is my nose.'], 'my 我的 + face 脸'),
+    ('ear 的意思是？', '耳朵', ['眼睛', '头发'], 'ear = 耳朵'),
+  ]),
+  ('第四单元 我会做', [
+    ('「我会唱歌。」用英语说？', 'I can sing.', ['I can dance.', 'I am sing.'], 'can + 动词 表示会做'),
+    ('draw 是做什么？', '画画', ['读书', '跳舞'], 'draw = 画画'),
+    ('dance 是？', '跳舞', ['唱歌', '读书'], 'dance 跳舞，sing 唱歌，read 读书'),
+    ('can 的意思是？', '能；会', ['想；要', '喜欢'], 'can 表示会做某事'),
+  ]),
+  ('第五单元 我的家人', [
+    ('介绍「这是我妈妈」说？', 'This is my mother.', ['This is my father.', 'I am mother.'], 'mother 妈妈，father 爸爸'),
+    ('grandmother 是？', '奶奶（外婆）', ['爷爷（外公）', '哥哥'], 'grandmother 是祖辈女性'),
+    ('father 的意思是？', '爸爸', ['妈妈', '姐姐'], 'father = 爸爸'),
+    ('he 和 she 的区别是？', 'he 是他，she 是她', ['he 是她，she 是他', '两个都是它'], 'he 指男生，she 指女生'),
+  ]),
+  ('第六单元 我的朋友', [
+    ('friend 的意思是？', '朋友', ['同学', '老师'], 'friend = 朋友'),
+    ('tall 的反义词是？', 'short', ['fat', 'thin'], 'tall 高 ↔ short 矮'),
+    ('fat 是？', '胖的', ['瘦的', '高的'], 'fat 胖 ↔ thin 瘦'),
+    ('classmate 是？', '同学', ['朋友', '家人'], 'class 同班 + mate 伙伴'),
+  ]),
+  ('第七单元 数一数', [
+    ('how many 是问什么？', '多少', ['多高', '多远'], 'how many 问数量'),
+    ('「三」的英文是？', 'three', ['two', 'four'], 'three 三，two 二，four 四'),
+    ('one, two, ____, four，缺的数是？', 'three', ['five', 'six'], '数数顺序 1 2 3 4'),
+    ('five 是数字几？', '5', ['4', '6'], 'five = 5'),
+  ]),
+  ('第八单元 买水果', [
+    ('apple 是？', '苹果', ['梨', '桃子'], 'apple 苹果，pear 梨，peach 桃子'),
+    ('买水果时「请给我苹果。」说？', 'Apples, please.', ['Pears, please.', 'Apples, goodbye.'], '名词 + please 礼貌请求'),
+    ('peach 的意思是？', '桃子', ['桔子', '苹果'], 'peach = 桃子'),
+    ('supermarket 是？', '超市', ['学校', '公园'], 'supermarket = 超市'),
+  ]),
+  ('第九单元 买食物', [
+    ('想吃蛋糕时说？', 'May I have a cake?', ['May I have a pie?', 'I am cake.'], 'May I have...? 请求得到某物'),
+    ('hamburger 是？', '汉堡包', ['比萨饼', '蛋糕'], 'hamburger 汉堡，pizza 比萨'),
+    ('pizza 的意思是？', '比萨饼', ['汉堡包', '点心'], 'pizza = 比萨饼'),
+    ('snack 是？', '点心', ['尺子', '橡皮'], 'snack = 小吃点心'),
+  ]),
+  ('第十单元 农场动物', [
+    ('cow 是？', '奶牛', ['鸭子', '小鸡'], 'cow 奶牛，duck 鸭子，chick 小鸡'),
+    ('pig 的意思是？', '猪', ['牛', '鸡'], 'pig = 猪'),
+    ('chick 是？', '小鸡', ['鸭子', '猪'], 'chick = 小鸡'),
+    ('duck 是？', '鸭子', ['奶牛', '小鸡'], 'duck = 鸭子'),
+  ]),
+  ('第十一单元 动物园', [
+    ('monkey 是？', '猴子', ['熊猫', '老虎'], 'monkey 猴子，panda 熊猫，tiger 老虎'),
+    ('panda 的意思是？', '熊猫', ['熊', '老虎'], 'panda 是我们的国宝'),
+    ('tiger 是？', '老虎', ['熊', '猴子'], 'tiger = 老虎'),
+    ('bear 的意思是？', '熊', ['熊猫', '老虎'], 'bear = 熊'),
+  ]),
+  ('第十二单元 公园与颜色', [
+    ('red 是？', '红色', ['蓝色', '绿色'], 'red 红，blue 蓝，green 绿'),
+    ('yellow 的意思是？', '黄色', ['红色', '蓝色'], 'yellow = 黄色'),
+    ('blue 是？', '蓝色', ['绿色', '黄色'], 'blue = 蓝色'),
+    ('big 的反义词是？', 'small', ['tall', 'long'], 'big 大 ↔ small 小'),
+  ]),
+],
+2: [
+  ('第一单元 日常问候', [
+    ('晚上见面问好说？', 'Good evening!', ['Good morning!', 'Good night!'], 'evening = 晚上'),
+    ('睡觉前说？', 'Good night!', ['Good afternoon!', 'Good morning!'], '睡前固定用语 Good night'),
+    ('today 的意思是？', '今天', ['明天', '昨天'], 'today = 今天'),
+    ('回答 How are you? 可以说？', 'Very well, thank you.', ['How are you?', 'Good night.'], 'very well = 很好'),
+  ]),
+  ('第二单元 自我介绍', [
+    ('介绍自己名字说？', "I'm Danny.", ['You are Danny.', 'He is Danny.'], "I'm = I am 我是"),
+    ('boy 是？', '男孩', ['女孩', '妈妈'], 'boy 男孩，girl 女孩'),
+    ('name 的意思是？', '名字', ['年龄', '班级'], 'name = 名字'),
+    ('big 的反义词是？', 'small', ['long', 'tall'], 'big 大 ↔ small 小'),
+  ]),
+  ('第三单元 你是谁', [
+    ('Are you Alice? 肯定回答是？', 'Yes, I am.', ['Yes, I is.', 'No, I am.'], 'Are you...? 用 Yes, I am 回答'),
+    ('seven 是数字几？', '7', ['8', '9'], 'seven 7，eight 8，nine 9，ten 10'),
+    ('ten 的意思是？', '十', ['九', '八'], 'ten = 10'),
+    ('做错事时说？', 'Sorry.', ['Thank you.', 'Hello.'], '道歉说 Sorry'),
+  ]),
+  ('第四单元 我会运动', [
+    ('「你会游泳吗？」怎么问？', 'Can you swim?', ['Are you swim?', 'You can swim?'], 'Can you + 动词'),
+    ('run 是？', '跑', ['飞', '写'], 'run 跑，fly 飞，write 写'),
+    ('ride a bicycle 是？', '骑自行车', ['开小汽车', '滑滑梯'], 'bicycle 自行车'),
+    ("can't 的意思是？", '不能；不会', ['能；会', '想要'], "can't = cannot"),
+  ]),
+  ('第五单元 我的家庭', [
+    ("That's my family. 是什么意思？", '那是我的家庭', ['这是我的朋友', '那是我的学校'], "That's = That is"),
+    ('brother 是？', '弟弟；兄弟', ['姐姐；妹妹', '妈妈'], 'brother 兄弟，sister 姐妹'),
+    ('sister 的意思是？', '姐姐；妹妹', ['弟弟', '爸爸'], 'sister = 姐妹'),
+    ('young 的反义词是？', 'old', ['small', 'short'], 'young 年轻 ↔ old 年老'),
+  ]),
+  ('第六单元 外貌特征', [
+    ('「我的头发长。」说？', 'My hair is long.', ['My hair is short.', 'My head is long.'], 'hair 头发，long 长'),
+    ('hair 是？', '头发', ['头', '手'], 'hair 头发，head 头'),
+    ('head 的意思是？', '头', ['头发', '脸'], 'head = 头'),
+    ('long 的反义词是？', 'short', ['big', 'old'], 'long 长 ↔ short 短'),
+  ]),
+  ('第七单元 游乐场', [
+    ('slide 是？', '滑梯', ['秋千', '跷跷板'], 'slide 滑梯，swing 秋千，seesaw 跷跷板'),
+    ('swing 的意思是？', '秋千', ['滑梯', '操场'], 'swing = 秋千'),
+    ('seesaw 是？', '跷跷板', ['秋千', '滑梯'], 'seesaw = 跷跷板'),
+    ('playground 是？', '操场', ['房间', '大街'], 'play 玩 + ground 场地'),
+  ]),
+  ('第八单元 我的房间', [
+    ('Put the book in the bag. 是让你做什么？', '把书放进书包里', ['把书放在椅子上', '把书扔掉'], 'put 放，in 里面'),
+    ('chair 是？', '椅子', ['书桌', '床'], 'chair 椅子，desk 书桌'),
+    ('desk 的意思是？', '书桌', ['椅子', '箱子'], 'desk = 书桌'),
+    ('pencil case 是？', '铅笔盒', ['书包', '书桌'], 'pencil 铅笔 + case 盒'),
+  ]),
+  ('第九单元 晚餐', [
+    ('Dinner is ready. 是什么意思？', '晚饭准备好了', ['该睡觉了', '该上学了'], 'dinner 晚饭，ready 准备好'),
+    ('chopsticks 是？', '筷子', ['勺子', '碗'], 'chopsticks 常用复数'),
+    ('bowl 的意思是？', '碗', ['盘子', '勺子'], 'bowl = 碗'),
+    ('spoon 是？', '勺子', ['筷子', '盘子'], 'spoon = 勺子'),
+  ]),
+  ('第十单元 天空', [
+    ('sky 是？', '天空', ['大海', '森林'], 'sky = 天空'),
+    ('moon 的意思是？', '月亮', ['太阳', '星星'], 'moon 月亮，sun 太阳，star 星星'),
+    ('sun 是？', '太阳', ['月亮', '天空'], 'sun = 太阳'),
+    ('star 的意思是？', '星星', ['月亮', '太阳'], 'star = 星星'),
+  ]),
+  ('第十一单元 森林动物', [
+    ('forest 是？', '森林', ['大街', '操场'], 'forest = 森林'),
+    ('fox 是？', '狐狸', ['河马', '天鹅'], 'fox 狐狸，hippo 河马'),
+    ('hippo 的意思是？', '河马', ['狐狸', '鸽子'], 'hippo = 河马'),
+    ('swan 是？', '天鹅', ['鸽子', '鸭子'], 'swan 天鹅，dove 鸽子'),
+  ]),
+  ('第十二单元 爱护花草', [
+    ("Don't pick the flowers. 是什么意思？", '不要摘花', ['不要种树', '快去摘花'], "don't + 动词 表示不要做"),
+    ('flower 是？', '花', ['树', '草'], 'flower 花，tree 树，grass 草'),
+    ('climb the tree 是？', '爬树', ['砍树', '种树'], 'climb = 爬'),
+    ('beautiful 的意思是？', '美丽的', ['可爱的', '野生的'], 'beautiful = 美丽'),
+  ]),
+],
 3: [
   ('第一单元 感受与情绪', [
     ('happy 的意思是？', '开心的', ['伤心的', '生气的'], 'How do we feel? 单元学表达感受'),
