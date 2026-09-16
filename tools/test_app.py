@@ -209,11 +209,11 @@ def test_v11():
         page.click('#btn-units')
         page.wait_for_timeout(200)
         n_units = page.locator('#unit-list button').count()
-        print('unit list (expect 10 = 8单元+2专题):', n_units)
-        assert n_units == 10
+        print('unit list (expect 12 = 10单元+2专题, 2026新版):', n_units)
+        assert n_units == 12
         page.screenshot(path='shots/14-units.png')
-        # v3.2 专题训练：点「解决问题」
-        page.locator('#unit-list button', has_text='解决问题').click()
+        # v3.2 专题训练：点「🎯 解决问题」（按钮文本带 emoji，去掉“专题·”前缀）
+        page.locator('#unit-list button', has_text='🎯 解决问题').click()
         page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
         tq = page.locator('#question-text').inner_text()
         print('topic question:', tq)
@@ -222,7 +222,7 @@ def test_v11():
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.locator('.subject-card').first.click(); page.wait_for_timeout(300)
         page.click('#btn-units'); page.wait_for_timeout(200)
-        page.locator('#unit-list button').nth(3).click()   # 第四单元 运算律
+        page.locator('#unit-list button', has_text='第五单元 运算律').click()
         page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
         uq = page.locator('#question-text').inner_text()
         print('unit question:', uq)
@@ -244,7 +244,7 @@ def test_v11():
           return JSON.stringify(d.students[0].sub.math.review);
         }""")
         print('review after unit wrong:', sched2)
-        assert 'u4-' in sched2, 'unit wrong not scheduled'
+        assert 'ua4-' in sched2, 'unit wrong not scheduled'
         # ---- v3.4: 全年级单元库（三年级学生应看到 8 个单元 + 4 个专题） ----
         page.evaluate("""() => {
           const d = JSON.parse(localStorage.getItem('smallclass.v1'));
@@ -263,7 +263,7 @@ def test_v11():
         print('grade3 unit question:', page.locator('#question-text').inner_text())
         assert '周长' in page.locator('#quiz-level').inner_text()
         page.screenshot(path='shots/15b-grade3-units.png')
-        # 一年级也应有单元（回归：按钮可见性）
+        # 一年级也应有单元（v3.8：2024 新版 7 个单元）
         page.evaluate("""() => {
           const d = JSON.parse(localStorage.getItem('smallclass.v1'));
           d.students[0].grade = 1;
@@ -272,6 +272,14 @@ def test_v11():
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.locator('.subject-card').first.click(); page.wait_for_timeout(300)
         assert page.locator('#btn-units').is_visible(), 'units btn hidden (grade1)'
+        page.click('#btn-units'); page.wait_for_timeout(200)
+        n1 = page.locator('#unit-list button').count()
+        print('grade1 unit list (expect 7, 2024新版):', n1)
+        assert n1 == 7
+        page.locator('#unit-list button', has_text='记录我的一天').click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        assert '综合实践' in page.locator('#quiz-level').inner_text()
+        page.screenshot(path='shots/15c-grade1-units.png')
         # 还原年级为 3（后续测试基于三年级）
         page.evaluate("""() => {
           const d = JSON.parse(localStorage.getItem('smallclass.v1'));
@@ -292,6 +300,38 @@ def test_v11():
         print('chinese unit question:', page.locator('#question-text').inner_text())
         assert '美好品质' in page.locator('#quiz-level').inner_text()
         page.screenshot(path='shots/23-chinese-units.png')
+        # ---- v3.8: 2026 新教材（语文四上新 8 单元 + 英语四上新主题） ----
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].grade = 4;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card', has_text='语文').first.click(); page.wait_for_timeout(400)
+        page.locator('.tab-btn', has_text='字词').click(); page.wait_for_timeout(300)
+        page.click('#btn-units'); page.wait_for_timeout(200)
+        n_cu4 = page.locator('#unit-list button').count()
+        print('chinese g4 unit list (expect 8, 2026新版):', n_cu4)
+        assert n_cu4 == 8
+        page.locator('#unit-list button', has_text='中国的世界文化遗产').click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        assert '中国的世界文化遗产' in page.locator('#quiz-level').inner_text()
+        page.screenshot(path='shots/23b-chinese-g4-2026.png')
+        # 英语四上：沪教新版单元主题词已入库
+        en_tags = page.evaluate("""async () => {
+          const r = await fetch('data/banks/english-words.json');
+          const bank = await r.json();
+          return bank.filter(q => q.grade === 4).map(q => q.tag);
+        }""")
+        uniq_tags = sorted(set(en_tags))
+        print('english g4 tags:', uniq_tags)
+        assert '英语单词·道路安全' in uniq_tags and '英语单词·祖辈与职业' in uniq_tags, 'english g4 new themes missing'
+        # 还原年级为 3
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].grade = 3;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
         # 古诗大池：一年级进古诗也应有大量题（grade 0 通用）
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.evaluate("""() => {
@@ -322,7 +362,12 @@ def test_v11():
         print('poem sample ids:', ids)
         assert len(set(ids)) == len(ids), 'poem repeats across rounds'
         page.screenshot(path='shots/24-poems-big-pool.png')
-        # ---- v3.6: 练习卷生成（单元/期中/期末，可打印） ----
+        # ---- v3.6: 练习卷生成（单元/期中/期末，可打印）→ v3.8 用四上 2026 新版（10 单元+期中期末=12）----
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].grade = 4;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.evaluate("document.getElementById('btn-settings').click()")
         page.wait_for_timeout(500)
@@ -330,8 +375,8 @@ def test_v11():
         page.wait_for_timeout(300)
         assert page.locator('#screen-paper').is_visible(), 'paper screen not shown'
         n_scopes = page.locator('#paper-scope option').count()
-        print('paper scopes (expect 2+8=10):', n_scopes)
-        assert n_scopes == 10
+        print('paper scopes (expect 2+10=12, 四上2026新版):', n_scopes)
+        assert n_scopes == 12
         page.click('#btn-paper-gen')
         page.wait_for_timeout(500)
         nq = page.locator('.paper-questions li').count()

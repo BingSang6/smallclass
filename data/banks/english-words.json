@@ -3060,79 +3060,215 @@
   "id": "e3-179"
  },
  {
-  "q": "school 是什么意思？",
-  "a": "学校",
+  "q": "home 是什么意思？",
+  "a": "家",
   "options": [
    "医院",
-   "冬天"
+   "山"
   ],
   "wrongReasons": [
-   "school = 学校",
+   "home = 家",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
   "level": 1,
-  "tag": "英语单词·场所",
-  "speak": "school 是什么意思",
+  "tag": "英语单词·住所",
+  "speak": "home 是什么意思",
   "id": "e4-180"
  },
  {
-  "q": "「学校」的英文是？",
-  "a": "school",
+  "q": "「家」的英文是？",
+  "a": "home",
   "options": [
-   "shop",
-   "snowy"
+   "grandmother",
+   "clothes"
   ],
   "wrongReasons": [
-   "学校 = school",
+   "家 = home",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
   "level": 1,
-  "tag": "英语单词·场所",
-  "speak": "学校的英文是",
+  "tag": "英语单词·住所",
+  "speak": "家的英文是",
   "id": "e4-181"
  },
  {
-  "q": "classroom 是什么意思？",
-  "a": "教室",
+  "q": "house 是什么意思？",
+  "a": "房子",
   "options": [
-   "星期二",
-   "秋天"
+   "交通",
+   "生长"
   ],
   "wrongReasons": [
-   "classroom = 教室",
+   "house = 房子",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
   "level": 1,
-  "tag": "英语单词·场所",
-  "speak": "classroom 是什么意思",
+  "tag": "英语单词·住所",
+  "speak": "house 是什么意思",
   "id": "e4-182"
  },
  {
-  "q": "「教室」的英文是？",
-  "a": "classroom",
+  "q": "「房子」的英文是？",
+  "a": "house",
   "options": [
-   "windy",
-   "sunny"
+   "forest",
+   "warm"
   ],
   "wrongReasons": [
-   "教室 = classroom",
+   "房子 = house",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
   "level": 1,
-  "tag": "英语单词·场所",
-  "speak": "教室的英文是",
+  "tag": "英语单词·住所",
+  "speak": "房子的英文是",
   "id": "e4-183"
+ },
+ {
+  "q": "city 是什么意思？",
+  "a": "城市",
+  "options": [
+   "叶子",
+   "交通"
+  ],
+  "wrongReasons": [
+   "city = 城市",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 1,
+  "tag": "英语单词·住所",
+  "speak": "city 是什么意思",
+  "id": "e4-184"
+ },
+ {
+  "q": "「城市」的英文是？",
+  "a": "city",
+  "options": [
+   "elephant",
+   "hundred"
+  ],
+  "wrongReasons": [
+   "城市 = city",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 1,
+  "tag": "英语单词·住所",
+  "speak": "城市的英文是",
+  "id": "e4-185"
+ },
+ {
+  "q": "town 是什么意思？",
+  "a": "城镇",
+  "options": [
+   "穿过",
+   "街道"
+  ],
+  "wrongReasons": [
+   "town = 城镇",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 1,
+  "tag": "英语单词·住所",
+  "speak": "town 是什么意思",
+  "id": "e4-186"
+ },
+ {
+  "q": "「城镇」的英文是？",
+  "a": "town",
+  "options": [
+   "grandmother",
+   "price"
+  ],
+  "wrongReasons": [
+   "城镇 = town",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 1,
+  "tag": "英语单词·住所",
+  "speak": "城镇的英文是",
+  "id": "e4-187"
+ },
+ {
+  "q": "village 是什么意思？",
+  "a": "村庄",
+  "options": [
+   "城镇",
+   "电话"
+  ],
+  "wrongReasons": [
+   "village = 村庄",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 1,
+  "tag": "英语单词·住所",
+  "speak": "village 是什么意思",
+  "id": "e4-188"
+ },
+ {
+  "q": "「村庄」的英文是？",
+  "a": "village",
+  "options": [
+   "plant",
+   "grass"
+  ],
+  "wrongReasons": [
+   "村庄 = village",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 1,
+  "tag": "英语单词·住所",
+  "speak": "村庄的英文是",
+  "id": "e4-189"
+ },
+ {
+  "q": "street 是什么意思？",
+  "a": "街道",
+  "options": [
+   "河流",
+   "叶子"
+  ],
+  "wrongReasons": [
+   "street = 街道",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 1,
+  "tag": "英语单词·住所",
+  "speak": "street 是什么意思",
+  "id": "e4-190"
+ },
+ {
+  "q": "「街道」的英文是？",
+  "a": "street",
+  "options": [
+   "hospital",
+   "park"
+  ],
+  "wrongReasons": [
+   "街道 = street",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 1,
+  "tag": "英语单词·住所",
+  "speak": "街道的英文是",
+  "id": "e4-191"
  },
  {
   "q": "library 是什么意思？",
   "a": "图书馆",
   "options": [
-   "动物园",
-   "星期四"
+   "公园",
+   "工作"
   ],
   "wrongReasons": [
    "library = 图书馆",
@@ -3140,16 +3276,16 @@
   ],
   "grade": 4,
   "level": 1,
-  "tag": "英语单词·场所",
+  "tag": "英语单词·家周围的场所",
   "speak": "library 是什么意思",
-  "id": "e4-184"
+  "id": "e4-192"
  },
  {
   "q": "「图书馆」的英文是？",
   "a": "library",
   "options": [
-   "Saturday",
-   "windy"
+   "driver",
+   "phone"
   ],
   "wrongReasons": [
    "图书馆 = library",
@@ -3157,50 +3293,16 @@
   ],
   "grade": 4,
   "level": 1,
-  "tag": "英语单词·场所",
+  "tag": "英语单词·家周围的场所",
   "speak": "图书馆的英文是",
-  "id": "e4-185"
- },
- {
-  "q": "playground 是什么意思？",
-  "a": "操场",
-  "options": [
-   "农场",
-   "音乐"
-  ],
-  "wrongReasons": [
-   "playground = 操场",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 1,
-  "tag": "英语单词·场所",
-  "speak": "playground 是什么意思",
-  "id": "e4-186"
- },
- {
-  "q": "「操场」的英文是？",
-  "a": "playground",
-  "options": [
-   "cloudy",
-   "library"
-  ],
-  "wrongReasons": [
-   "操场 = playground",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 1,
-  "tag": "英语单词·场所",
-  "speak": "操场的英文是",
-  "id": "e4-187"
+  "id": "e4-193"
  },
  {
   "q": "hospital 是什么意思？",
   "a": "医院",
   "options": [
-   "下雪的",
-   "夏天"
+   "草",
+   "冬天"
   ],
   "wrongReasons": [
    "hospital = 医院",
@@ -3208,16 +3310,16 @@
   ],
   "grade": 4,
   "level": 1,
-  "tag": "英语单词·场所",
+  "tag": "英语单词·家周围的场所",
   "speak": "hospital 是什么意思",
-  "id": "e4-188"
+  "id": "e4-194"
  },
  {
   "q": "「医院」的英文是？",
   "a": "hospital",
   "options": [
-   "English",
-   "classroom"
+   "cool",
+   "home"
   ],
   "wrongReasons": [
    "医院 = hospital",
@@ -3225,50 +3327,50 @@
   ],
   "grade": 4,
   "level": 1,
-  "tag": "英语单词·场所",
+  "tag": "英语单词·家周围的场所",
   "speak": "医院的英文是",
-  "id": "e4-189"
+  "id": "e4-195"
  },
  {
   "q": "park 是什么意思？",
   "a": "公园",
   "options": [
-   "科学",
-   "星期五"
+   "爷爷",
+   "城镇"
   ],
   "wrongReasons": [
    "park = 公园",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
-  "level": 2,
-  "tag": "英语单词·场所",
+  "level": 1,
+  "tag": "英语单词·家周围的场所",
   "speak": "park 是什么意思",
-  "id": "e4-190"
+  "id": "e4-196"
  },
  {
   "q": "「公园」的英文是？",
   "a": "park",
   "options": [
-   "Sunday",
-   "winter"
+   "farm",
+   "hundred"
   ],
   "wrongReasons": [
    "公园 = park",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
-  "level": 2,
-  "tag": "英语单词·场所",
+  "level": 1,
+  "tag": "英语单词·家周围的场所",
   "speak": "公园的英文是",
-  "id": "e4-191"
+  "id": "e4-197"
  },
  {
   "q": "zoo 是什么意思？",
   "a": "动物园",
   "options": [
-   "商店",
-   "星期六"
+   "厨师",
+   "医生"
   ],
   "wrongReasons": [
    "zoo = 动物园",
@@ -3276,16 +3378,16 @@
   ],
   "grade": 4,
   "level": 2,
-  "tag": "英语单词·场所",
+  "tag": "英语单词·家周围的场所",
   "speak": "zoo 是什么意思",
-  "id": "e4-192"
+  "id": "e4-198"
  },
  {
   "q": "「动物园」的英文是？",
   "a": "zoo",
   "options": [
-   "playground",
-   "snowy"
+   "money",
+   "house"
   ],
   "wrongReasons": [
    "动物园 = zoo",
@@ -3293,50 +3395,50 @@
   ],
   "grade": 4,
   "level": 2,
-  "tag": "英语单词·场所",
+  "tag": "英语单词·家周围的场所",
   "speak": "动物园的英文是",
-  "id": "e4-193"
+  "id": "e4-199"
  },
  {
-  "q": "shop 是什么意思？",
-  "a": "商店",
+  "q": "supermarket 是什么意思？",
+  "a": "超市",
   "options": [
-   "夏天",
-   "科学"
+   "衣服",
+   "农场"
   ],
   "wrongReasons": [
-   "shop = 商店",
+   "supermarket = 超市",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
   "level": 2,
-  "tag": "英语单词·场所",
-  "speak": "shop 是什么意思",
-  "id": "e4-194"
+  "tag": "英语单词·家周围的场所",
+  "speak": "supermarket 是什么意思",
+  "id": "e4-200"
  },
  {
-  "q": "「商店」的英文是？",
-  "a": "shop",
+  "q": "「超市」的英文是？",
+  "a": "supermarket",
   "options": [
-   "autumn",
-   "Sunday"
+   "lion",
+   "cook"
   ],
   "wrongReasons": [
-   "商店 = shop",
+   "超市 = supermarket",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
   "level": 2,
-  "tag": "英语单词·场所",
-  "speak": "商店的英文是",
-  "id": "e4-195"
+  "tag": "英语单词·家周围的场所",
+  "speak": "超市的英文是",
+  "id": "e4-201"
  },
  {
   "q": "farm 是什么意思？",
   "a": "农场",
   "options": [
-   "星期四",
-   "星期五"
+   "房子",
+   "零"
   ],
   "wrongReasons": [
    "farm = 农场",
@@ -3344,16 +3446,16 @@
   ],
   "grade": 4,
   "level": 2,
-  "tag": "英语单词·场所",
+  "tag": "英语单词·家周围的场所",
   "speak": "farm 是什么意思",
-  "id": "e4-196"
+  "id": "e4-202"
  },
  {
   "q": "「农场」的英文是？",
   "a": "farm",
   "options": [
-   "school",
-   "cloudy"
+   "number",
+   "flower"
   ],
   "wrongReasons": [
    "农场 = farm",
@@ -3361,730 +3463,1444 @@
   ],
   "grade": 4,
   "level": 2,
-  "tag": "英语单词·场所",
+  "tag": "英语单词·家周围的场所",
   "speak": "农场的英文是",
-  "id": "e4-197"
- },
- {
-  "q": "maths 是什么意思？",
-  "a": "数学",
-  "options": [
-   "教室",
-   "公园"
-  ],
-  "wrongReasons": [
-   "maths = 数学",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 2,
-  "tag": "英语单词·学科",
-  "speak": "maths 是什么意思",
-  "id": "e4-198"
- },
- {
-  "q": "「数学」的英文是？",
-  "a": "maths",
-  "options": [
-   "music",
-   "spring"
-  ],
-  "wrongReasons": [
-   "数学 = maths",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 2,
-  "tag": "英语单词·学科",
-  "speak": "数学的英文是",
-  "id": "e4-199"
- },
- {
-  "q": "music 是什么意思？",
-  "a": "音乐",
-  "options": [
-   "春天",
-   "英语"
-  ],
-  "wrongReasons": [
-   "music = 音乐",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 3,
-  "tag": "英语单词·学科",
-  "speak": "music 是什么意思",
-  "id": "e4-200"
- },
- {
-  "q": "「音乐」的英文是？",
-  "a": "music",
-  "options": [
-   "school",
-   "Tuesday"
-  ],
-  "wrongReasons": [
-   "音乐 = music",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 3,
-  "tag": "英语单词·学科",
-  "speak": "音乐的英文是",
-  "id": "e4-201"
- },
- {
-  "q": "art 是什么意思？",
-  "a": "美术",
-  "options": [
-   "公园",
-   "农场"
-  ],
-  "wrongReasons": [
-   "art = 美术",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 3,
-  "tag": "英语单词·学科",
-  "speak": "art 是什么意思",
-  "id": "e4-202"
- },
- {
-  "q": "「美术」的英文是？",
-  "a": "art",
-  "options": [
-   "spring",
-   "school"
-  ],
-  "wrongReasons": [
-   "美术 = art",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 3,
-  "tag": "英语单词·学科",
-  "speak": "美术的英文是",
   "id": "e4-203"
  },
  {
-  "q": "science 是什么意思？",
-  "a": "科学",
+  "q": "forest 是什么意思？",
+  "a": "森林",
   "options": [
-   "音乐",
-   "农场"
+   "凉爽的",
+   "安全的"
   ],
   "wrongReasons": [
-   "science = 科学",
+   "forest = 森林",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
-  "level": 3,
-  "tag": "英语单词·学科",
-  "speak": "science 是什么意思",
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "forest 是什么意思",
   "id": "e4-204"
  },
  {
-  "q": "「科学」的英文是？",
-  "a": "science",
+  "q": "「森林」的英文是？",
+  "a": "forest",
   "options": [
-   "Saturday",
-   "Friday"
+   "zero",
+   "grass"
   ],
   "wrongReasons": [
-   "科学 = science",
+   "森林 = forest",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
-  "level": 3,
-  "tag": "英语单词·学科",
-  "speak": "科学的英文是",
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "森林的英文是",
   "id": "e4-205"
  },
  {
-  "q": "English 是什么意思？",
-  "a": "英语",
+  "q": "river 是什么意思？",
+  "a": "河流",
   "options": [
-   "有风的",
-   "音乐"
+   "千",
+   "公园"
   ],
   "wrongReasons": [
-   "English = 英语",
+   "river = 河流",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
-  "level": 3,
-  "tag": "英语单词·学科",
-  "speak": "English 是什么意思",
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "river 是什么意思",
   "id": "e4-206"
  },
  {
-  "q": "「英语」的英文是？",
-  "a": "English",
+  "q": "「河流」的英文是？",
+  "a": "river",
   "options": [
-   "Sunday",
-   "winter"
+   "driver",
+   "zero"
   ],
   "wrongReasons": [
-   "英语 = English",
+   "河流 = river",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
-  "level": 3,
-  "tag": "英语单词·学科",
-  "speak": "英语的英文是",
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "河流的英文是",
   "id": "e4-207"
  },
  {
-  "q": "Monday 是什么意思？",
-  "a": "星期一",
+  "q": "mountain 是什么意思？",
+  "a": "山",
   "options": [
-   "音乐",
-   "医院"
+   "钱",
+   "种子"
   ],
   "wrongReasons": [
-   "Monday = 星期一",
+   "mountain = 山",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
-  "level": 3,
-  "tag": "英语单词·星期",
-  "speak": "Monday 是什么意思",
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "mountain 是什么意思",
   "id": "e4-208"
  },
  {
-  "q": "「星期一」的英文是？",
-  "a": "Monday",
+  "q": "「山」的英文是？",
+  "a": "mountain",
   "options": [
-   "summer",
-   "music"
+   "driver",
+   "count"
   ],
   "wrongReasons": [
-   "星期一 = Monday",
+   "山 = mountain",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "山的英文是",
+  "id": "e4-209"
+ },
+ {
+  "q": "sea 是什么意思？",
+  "a": "海洋",
+  "options": [
+   "夏天",
+   "厨师"
+  ],
+  "wrongReasons": [
+   "sea = 海洋",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "sea 是什么意思",
+  "id": "e4-210"
+ },
+ {
+  "q": "「海洋」的英文是？",
+  "a": "sea",
+  "options": [
+   "spring",
+   "forest"
+  ],
+  "wrongReasons": [
+   "海洋 = sea",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "海洋的英文是",
+  "id": "e4-211"
+ },
+ {
+  "q": "elephant 是什么意思？",
+  "a": "大象",
+  "options": [
+   "厨师",
+   "城市"
+  ],
+  "wrongReasons": [
+   "elephant = 大象",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "elephant 是什么意思",
+  "id": "e4-212"
+ },
+ {
+  "q": "「大象」的英文是？",
+  "a": "elephant",
+  "options": [
+   "town",
+   "grass"
+  ],
+  "wrongReasons": [
+   "大象 = elephant",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "大象的英文是",
+  "id": "e4-213"
+ },
+ {
+  "q": "lion 是什么意思？",
+  "a": "狮子",
+  "options": [
+   "温暖的",
+   "爷爷"
+  ],
+  "wrongReasons": [
+   "lion = 狮子",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "lion 是什么意思",
+  "id": "e4-214"
+ },
+ {
+  "q": "「狮子」的英文是？",
+  "a": "lion",
+  "options": [
+   "town",
+   "stop"
+  ],
+  "wrongReasons": [
+   "狮子 = lion",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 2,
+  "tag": "英语单词·动物栖息地",
+  "speak": "狮子的英文是",
+  "id": "e4-215"
+ },
+ {
+  "q": "number 是什么意思？",
+  "a": "数字",
+  "options": [
+   "医生",
+   "工作"
+  ],
+  "wrongReasons": [
+   "number = 数字",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·数字",
+  "speak": "number 是什么意思",
+  "id": "e4-216"
+ },
+ {
+  "q": "「数字」的英文是？",
+  "a": "number",
+  "options": [
+   "grandfather",
+   "flower"
+  ],
+  "wrongReasons": [
+   "数字 = number",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
   "level": 3,
-  "tag": "英语单词·星期",
-  "speak": "星期一的英文是",
-  "id": "e4-209"
- },
- {
-  "q": "Tuesday 是什么意思？",
-  "a": "星期二",
-  "options": [
-   "科学",
-   "星期日"
-  ],
-  "wrongReasons": [
-   "Tuesday = 星期二",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 4,
-  "tag": "英语单词·星期",
-  "speak": "Tuesday 是什么意思",
-  "id": "e4-210"
- },
- {
-  "q": "「星期二」的英文是？",
-  "a": "Tuesday",
-  "options": [
-   "summer",
-   "maths"
-  ],
-  "wrongReasons": [
-   "星期二 = Tuesday",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 4,
-  "tag": "英语单词·星期",
-  "speak": "星期二的英文是",
-  "id": "e4-211"
- },
- {
-  "q": "Wednesday 是什么意思？",
-  "a": "星期三",
-  "options": [
-   "星期二",
-   "夏天"
-  ],
-  "wrongReasons": [
-   "Wednesday = 星期三",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 4,
-  "tag": "英语单词·星期",
-  "speak": "Wednesday 是什么意思",
-  "id": "e4-212"
- },
- {
-  "q": "「星期三」的英文是？",
-  "a": "Wednesday",
-  "options": [
-   "spring",
-   "winter"
-  ],
-  "wrongReasons": [
-   "星期三 = Wednesday",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 4,
-  "tag": "英语单词·星期",
-  "speak": "星期三的英文是",
-  "id": "e4-213"
- },
- {
-  "q": "Thursday 是什么意思？",
-  "a": "星期四",
-  "options": [
-   "星期一",
-   "动物园"
-  ],
-  "wrongReasons": [
-   "Thursday = 星期四",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 4,
-  "tag": "英语单词·星期",
-  "speak": "Thursday 是什么意思",
-  "id": "e4-214"
- },
- {
-  "q": "「星期四」的英文是？",
-  "a": "Thursday",
-  "options": [
-   "spring",
-   "classroom"
-  ],
-  "wrongReasons": [
-   "星期四 = Thursday",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 4,
-  "tag": "英语单词·星期",
-  "speak": "星期四的英文是",
-  "id": "e4-215"
- },
- {
-  "q": "Friday 是什么意思？",
-  "a": "星期五",
-  "options": [
-   "教室",
-   "星期日"
-  ],
-  "wrongReasons": [
-   "Friday = 星期五",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 4,
-  "tag": "英语单词·星期",
-  "speak": "Friday 是什么意思",
-  "id": "e4-216"
- },
- {
-  "q": "「星期五」的英文是？",
-  "a": "Friday",
-  "options": [
-   "Wednesday",
-   "cloudy"
-  ],
-  "wrongReasons": [
-   "星期五 = Friday",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 4,
-  "tag": "英语单词·星期",
-  "speak": "星期五的英文是",
+  "tag": "英语单词·数字",
+  "speak": "数字的英文是",
   "id": "e4-217"
  },
  {
-  "q": "Saturday 是什么意思？",
-  "a": "星期六",
+  "q": "count 是什么意思？",
+  "a": "数数",
   "options": [
-   "教室",
-   "下雨的"
+   "价格",
+   "河流"
   ],
   "wrongReasons": [
-   "Saturday = 星期六",
+   "count = 数数",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
-  "level": 4,
-  "tag": "英语单词·星期",
-  "speak": "Saturday 是什么意思",
+  "level": 3,
+  "tag": "英语单词·数字",
+  "speak": "count 是什么意思",
   "id": "e4-218"
  },
  {
-  "q": "「星期六」的英文是？",
-  "a": "Saturday",
+  "q": "「数数」的英文是？",
+  "a": "count",
   "options": [
-   "summer",
-   "spring"
+   "elephant",
+   "grow"
   ],
   "wrongReasons": [
-   "星期六 = Saturday",
+   "数数 = count",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·数字",
+  "speak": "数数的英文是",
+  "id": "e4-219"
+ },
+ {
+  "q": "hundred 是什么意思？",
+  "a": "百",
+  "options": [
+   "公园",
+   "街道"
+  ],
+  "wrongReasons": [
+   "hundred = 百",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·数字",
+  "speak": "hundred 是什么意思",
+  "id": "e4-220"
+ },
+ {
+  "q": "「百」的英文是？",
+  "a": "hundred",
+  "options": [
+   "leaf",
+   "house"
+  ],
+  "wrongReasons": [
+   "百 = hundred",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·数字",
+  "speak": "百的英文是",
+  "id": "e4-221"
+ },
+ {
+  "q": "thousand 是什么意思？",
+  "a": "千",
+  "options": [
+   "公园",
+   "动物园"
+  ],
+  "wrongReasons": [
+   "thousand = 千",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·数字",
+  "speak": "thousand 是什么意思",
+  "id": "e4-222"
+ },
+ {
+  "q": "「千」的英文是？",
+  "a": "thousand",
+  "options": [
+   "river",
+   "road"
+  ],
+  "wrongReasons": [
+   "千 = thousand",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·数字",
+  "speak": "千的英文是",
+  "id": "e4-223"
+ },
+ {
+  "q": "zero 是什么意思？",
+  "a": "零",
+  "options": [
+   "奶奶",
+   "种子"
+  ],
+  "wrongReasons": [
+   "zero = 零",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·数字",
+  "speak": "zero 是什么意思",
+  "id": "e4-224"
+ },
+ {
+  "q": "「零」的英文是？",
+  "a": "zero",
+  "options": [
+   "grow",
+   "grandmother"
+  ],
+  "wrongReasons": [
+   "零 = zero",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·数字",
+  "speak": "零的英文是",
+  "id": "e4-225"
+ },
+ {
+  "q": "phone 是什么意思？",
+  "a": "电话",
+  "options": [
+   "昂贵的",
+   "图书馆"
+  ],
+  "wrongReasons": [
+   "phone = 电话",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·数字",
+  "speak": "phone 是什么意思",
+  "id": "e4-226"
+ },
+ {
+  "q": "「电话」的英文是？",
+  "a": "phone",
+  "options": [
+   "town",
+   "traffic"
+  ],
+  "wrongReasons": [
+   "电话 = phone",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·数字",
+  "speak": "电话的英文是",
+  "id": "e4-227"
+ },
+ {
+  "q": "buy 是什么意思？",
+  "a": "买",
+  "options": [
+   "温暖的",
+   "昂贵的"
+  ],
+  "wrongReasons": [
+   "buy = 买",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·购物",
+  "speak": "buy 是什么意思",
+  "id": "e4-228"
+ },
+ {
+  "q": "「买」的英文是？",
+  "a": "buy",
+  "options": [
+   "town",
+   "job"
+  ],
+  "wrongReasons": [
+   "买 = buy",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·购物",
+  "speak": "买的英文是",
+  "id": "e4-229"
+ },
+ {
+  "q": "money 是什么意思？",
+  "a": "钱",
+  "options": [
+   "价格",
+   "安全的"
+  ],
+  "wrongReasons": [
+   "money = 钱",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·购物",
+  "speak": "money 是什么意思",
+  "id": "e4-230"
+ },
+ {
+  "q": "「钱」的英文是？",
+  "a": "money",
+  "options": [
+   "zero",
+   "doctor"
+  ],
+  "wrongReasons": [
+   "钱 = money",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·购物",
+  "speak": "钱的英文是",
+  "id": "e4-231"
+ },
+ {
+  "q": "price 是什么意思？",
+  "a": "价格",
+  "options": [
+   "马路",
+   "图书馆"
+  ],
+  "wrongReasons": [
+   "price = 价格",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·购物",
+  "speak": "price 是什么意思",
+  "id": "e4-232"
+ },
+ {
+  "q": "「价格」的英文是？",
+  "a": "price",
+  "options": [
+   "cool",
+   "grow"
+  ],
+  "wrongReasons": [
+   "价格 = price",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 3,
+  "tag": "英语单词·购物",
+  "speak": "价格的英文是",
+  "id": "e4-233"
+ },
+ {
+  "q": "cheap 是什么意思？",
+  "a": "便宜的",
+  "options": [
+   "马路",
+   "叶子"
+  ],
+  "wrongReasons": [
+   "cheap = 便宜的",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 4,
+  "tag": "英语单词·购物",
+  "speak": "cheap 是什么意思",
+  "id": "e4-234"
+ },
+ {
+  "q": "「便宜的」的英文是？",
+  "a": "cheap",
+  "options": [
+   "zoo",
+   "job"
+  ],
+  "wrongReasons": [
+   "便宜的 = cheap",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
   "level": 4,
-  "tag": "英语单词·星期",
-  "speak": "星期六的英文是",
-  "id": "e4-219"
+  "tag": "英语单词·购物",
+  "speak": "便宜的的英文是",
+  "id": "e4-235"
  },
  {
-  "q": "Sunday 是什么意思？",
-  "a": "星期日",
+  "q": "expensive 是什么意思？",
+  "a": "昂贵的",
   "options": [
-   "下雪的",
-   "多云的"
+   "厨师",
+   "狮子"
   ],
   "wrongReasons": [
-   "Sunday = 星期日",
+   "expensive = 昂贵的",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
-  "level": 5,
-  "tag": "英语单词·星期",
-  "speak": "Sunday 是什么意思",
-  "id": "e4-220"
+  "level": 4,
+  "tag": "英语单词·购物",
+  "speak": "expensive 是什么意思",
+  "id": "e4-236"
  },
  {
-  "q": "「星期日」的英文是？",
-  "a": "Sunday",
+  "q": "「昂贵的」的英文是？",
+  "a": "expensive",
   "options": [
-   "Friday",
-   "science"
+   "sea",
+   "thousand"
   ],
   "wrongReasons": [
-   "星期日 = Sunday",
+   "昂贵的 = expensive",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
-  "level": 5,
-  "tag": "英语单词·星期",
-  "speak": "星期日的英文是",
-  "id": "e4-221"
+  "level": 4,
+  "tag": "英语单词·购物",
+  "speak": "昂贵的的英文是",
+  "id": "e4-237"
  },
  {
-  "q": "sunny 是什么意思？",
-  "a": "晴朗的",
+  "q": "clothes 是什么意思？",
+  "a": "衣服",
   "options": [
-   "动物园",
-   "农场"
+   "司机",
+   "工作"
   ],
   "wrongReasons": [
-   "sunny = 晴朗的",
+   "clothes = 衣服",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
-  "level": 5,
-  "tag": "英语单词·天气",
-  "speak": "sunny 是什么意思",
-  "id": "e4-222"
+  "level": 4,
+  "tag": "英语单词·购物",
+  "speak": "clothes 是什么意思",
+  "id": "e4-238"
  },
  {
-  "q": "「晴朗的」的英文是？",
-  "a": "sunny",
+  "q": "「衣服」的英文是？",
+  "a": "clothes",
   "options": [
-   "Sunday",
-   "hospital"
+   "summer",
+   "doctor"
   ],
   "wrongReasons": [
-   "晴朗的 = sunny",
+   "衣服 = clothes",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
-  "level": 5,
-  "tag": "英语单词·天气",
-  "speak": "晴朗的的英文是",
-  "id": "e4-223"
- },
- {
-  "q": "rainy 是什么意思？",
-  "a": "下雨的",
-  "options": [
-   "图书馆",
-   "星期五"
-  ],
-  "wrongReasons": [
-   "rainy = 下雨的",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 5,
-  "tag": "英语单词·天气",
-  "speak": "rainy 是什么意思",
-  "id": "e4-224"
- },
- {
-  "q": "「下雨的」的英文是？",
-  "a": "rainy",
-  "options": [
-   "school",
-   "hospital"
-  ],
-  "wrongReasons": [
-   "下雨的 = rainy",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 5,
-  "tag": "英语单词·天气",
-  "speak": "下雨的的英文是",
-  "id": "e4-225"
- },
- {
-  "q": "windy 是什么意思？",
-  "a": "有风的",
-  "options": [
-   "医院",
-   "动物园"
-  ],
-  "wrongReasons": [
-   "windy = 有风的",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 5,
-  "tag": "英语单词·天气",
-  "speak": "windy 是什么意思",
-  "id": "e4-226"
- },
- {
-  "q": "「有风的」的英文是？",
-  "a": "windy",
-  "options": [
-   "Sunday",
-   "snowy"
-  ],
-  "wrongReasons": [
-   "有风的 = windy",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 5,
-  "tag": "英语单词·天气",
-  "speak": "有风的的英文是",
-  "id": "e4-227"
- },
- {
-  "q": "cloudy 是什么意思？",
-  "a": "多云的",
-  "options": [
-   "星期六",
-   "星期日"
-  ],
-  "wrongReasons": [
-   "cloudy = 多云的",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 5,
-  "tag": "英语单词·天气",
-  "speak": "cloudy 是什么意思",
-  "id": "e4-228"
- },
- {
-  "q": "「多云的」的英文是？",
-  "a": "cloudy",
-  "options": [
-   "snowy",
-   "English"
-  ],
-  "wrongReasons": [
-   "多云的 = cloudy",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 5,
-  "tag": "英语单词·天气",
-  "speak": "多云的的英文是",
-  "id": "e4-229"
- },
- {
-  "q": "snowy 是什么意思？",
-  "a": "下雪的",
-  "options": [
-   "操场",
-   "教室"
-  ],
-  "wrongReasons": [
-   "snowy = 下雪的",
-   "多读几遍，连着中文意思一起记"
-  ],
-  "grade": 4,
-  "level": 6,
-  "tag": "英语单词·天气",
-  "speak": "snowy 是什么意思",
-  "id": "e4-230"
- },
- {
-  "q": "「下雪的」的英文是？",
-  "a": "snowy",
-  "options": [
-   "rainy",
-   "Wednesday"
-  ],
-  "wrongReasons": [
-   "下雪的 = snowy",
-   "注意拼写，跟着读音记"
-  ],
-  "grade": 4,
-  "level": 6,
-  "tag": "英语单词·天气",
-  "speak": "下雪的的英文是",
-  "id": "e4-231"
+  "level": 4,
+  "tag": "英语单词·购物",
+  "speak": "衣服的英文是",
+  "id": "e4-239"
  },
  {
   "q": "spring 是什么意思？",
   "a": "春天",
   "options": [
-   "英语",
-   "教室"
+   "房子",
+   "凉爽的"
   ],
   "wrongReasons": [
    "spring = 春天",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
-  "level": 6,
-  "tag": "英语单词·四季",
+  "level": 4,
+  "tag": "英语单词·季节",
   "speak": "spring 是什么意思",
-  "id": "e4-232"
+  "id": "e4-240"
  },
  {
   "q": "「春天」的英文是？",
   "a": "spring",
   "options": [
-   "cloudy",
-   "science"
+   "summer",
+   "number"
   ],
   "wrongReasons": [
    "春天 = spring",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
-  "level": 6,
-  "tag": "英语单词·四季",
+  "level": 4,
+  "tag": "英语单词·季节",
   "speak": "春天的英文是",
-  "id": "e4-233"
+  "id": "e4-241"
  },
  {
   "q": "summer 是什么意思？",
   "a": "夏天",
   "options": [
-   "下雨的",
-   "美术"
+   "奶奶",
+   "穿过"
   ],
   "wrongReasons": [
    "summer = 夏天",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
-  "level": 6,
-  "tag": "英语单词·四季",
+  "level": 4,
+  "tag": "英语单词·季节",
   "speak": "summer 是什么意思",
-  "id": "e4-234"
+  "id": "e4-242"
  },
  {
   "q": "「夏天」的英文是？",
   "a": "summer",
   "options": [
-   "snowy",
-   "Sunday"
+   "money",
+   "zoo"
   ],
   "wrongReasons": [
    "夏天 = summer",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
-  "level": 6,
-  "tag": "英语单词·四季",
+  "level": 4,
+  "tag": "英语单词·季节",
   "speak": "夏天的英文是",
-  "id": "e4-235"
+  "id": "e4-243"
  },
  {
   "q": "autumn 是什么意思？",
   "a": "秋天",
   "options": [
-   "操场",
-   "星期四"
+   "厨师",
+   "公园"
   ],
   "wrongReasons": [
    "autumn = 秋天",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
-  "level": 6,
-  "tag": "英语单词·四季",
+  "level": 4,
+  "tag": "英语单词·季节",
   "speak": "autumn 是什么意思",
-  "id": "e4-236"
+  "id": "e4-244"
  },
  {
   "q": "「秋天」的英文是？",
   "a": "autumn",
   "options": [
-   "Sunday",
-   "Friday"
+   "plant",
+   "careful"
   ],
   "wrongReasons": [
    "秋天 = autumn",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
-  "level": 6,
-  "tag": "英语单词·四季",
+  "level": 4,
+  "tag": "英语单词·季节",
   "speak": "秋天的英文是",
-  "id": "e4-237"
+  "id": "e4-245"
  },
  {
   "q": "winter 是什么意思？",
   "a": "冬天",
   "options": [
    "医院",
-   "多云的"
+   "春天"
   ],
   "wrongReasons": [
    "winter = 冬天",
    "多读几遍，连着中文意思一起记"
   ],
   "grade": 4,
-  "level": 6,
-  "tag": "英语单词·四季",
+  "level": 4,
+  "tag": "英语单词·季节",
   "speak": "winter 是什么意思",
-  "id": "e4-238"
+  "id": "e4-246"
  },
  {
   "q": "「冬天」的英文是？",
   "a": "winter",
   "options": [
-   "snowy",
-   "farm"
+   "job",
+   "buy"
   ],
   "wrongReasons": [
    "冬天 = winter",
    "注意拼写，跟着读音记"
   ],
   "grade": 4,
-  "level": 6,
-  "tag": "英语单词·四季",
+  "level": 4,
+  "tag": "英语单词·季节",
   "speak": "冬天的英文是",
-  "id": "e4-239"
+  "id": "e4-247"
+ },
+ {
+  "q": "warm 是什么意思？",
+  "a": "温暖的",
+  "options": [
+   "医院",
+   "农场"
+  ],
+  "wrongReasons": [
+   "warm = 温暖的",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 4,
+  "tag": "英语单词·季节",
+  "speak": "warm 是什么意思",
+  "id": "e4-248"
+ },
+ {
+  "q": "「温暖的」的英文是？",
+  "a": "warm",
+  "options": [
+   "summer",
+   "elephant"
+  ],
+  "wrongReasons": [
+   "温暖的 = warm",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 4,
+  "tag": "英语单词·季节",
+  "speak": "温暖的的英文是",
+  "id": "e4-249"
+ },
+ {
+  "q": "cool 是什么意思？",
+  "a": "凉爽的",
+  "options": [
+   "工作",
+   "花"
+  ],
+  "wrongReasons": [
+   "cool = 凉爽的",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 4,
+  "tag": "英语单词·季节",
+  "speak": "cool 是什么意思",
+  "id": "e4-250"
+ },
+ {
+  "q": "「凉爽的」的英文是？",
+  "a": "cool",
+  "options": [
+   "hospital",
+   "library"
+  ],
+  "wrongReasons": [
+   "凉爽的 = cool",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 4,
+  "tag": "英语单词·季节",
+  "speak": "凉爽的的英文是",
+  "id": "e4-251"
+ },
+ {
+  "q": "plant 是什么意思？",
+  "a": "植物",
+  "options": [
+   "数字",
+   "停"
+  ],
+  "wrongReasons": [
+   "plant = 植物",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "plant 是什么意思",
+  "id": "e4-252"
+ },
+ {
+  "q": "「植物」的英文是？",
+  "a": "plant",
+  "options": [
+   "summer",
+   "road"
+  ],
+  "wrongReasons": [
+   "植物 = plant",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "植物的英文是",
+  "id": "e4-253"
+ },
+ {
+  "q": "flower 是什么意思？",
+  "a": "花",
+  "options": [
+   "城镇",
+   "厨师"
+  ],
+  "wrongReasons": [
+   "flower = 花",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "flower 是什么意思",
+  "id": "e4-254"
+ },
+ {
+  "q": "「花」的英文是？",
+  "a": "flower",
+  "options": [
+   "park",
+   "town"
+  ],
+  "wrongReasons": [
+   "花 = flower",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "花的英文是",
+  "id": "e4-255"
+ },
+ {
+  "q": "leaf 是什么意思？",
+  "a": "叶子",
+  "options": [
+   "农场",
+   "钱"
+  ],
+  "wrongReasons": [
+   "leaf = 叶子",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "leaf 是什么意思",
+  "id": "e4-256"
+ },
+ {
+  "q": "「叶子」的英文是？",
+  "a": "leaf",
+  "options": [
+   "zoo",
+   "buy"
+  ],
+  "wrongReasons": [
+   "叶子 = leaf",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "叶子的英文是",
+  "id": "e4-257"
+ },
+ {
+  "q": "grass 是什么意思？",
+  "a": "草",
+  "options": [
+   "零",
+   "数字"
+  ],
+  "wrongReasons": [
+   "grass = 草",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "grass 是什么意思",
+  "id": "e4-258"
+ },
+ {
+  "q": "「草」的英文是？",
+  "a": "grass",
+  "options": [
+   "count",
+   "home"
+  ],
+  "wrongReasons": [
+   "草 = grass",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "草的英文是",
+  "id": "e4-259"
+ },
+ {
+  "q": "seed 是什么意思？",
+  "a": "种子",
+  "options": [
+   "安全的",
+   "图书馆"
+  ],
+  "wrongReasons": [
+   "seed = 种子",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "seed 是什么意思",
+  "id": "e4-260"
+ },
+ {
+  "q": "「种子」的英文是？",
+  "a": "seed",
+  "options": [
+   "forest",
+   "lion"
+  ],
+  "wrongReasons": [
+   "种子 = seed",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "种子的英文是",
+  "id": "e4-261"
+ },
+ {
+  "q": "grow 是什么意思？",
+  "a": "生长",
+  "options": [
+   "城镇",
+   "冬天"
+  ],
+  "wrongReasons": [
+   "grow = 生长",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "grow 是什么意思",
+  "id": "e4-262"
+ },
+ {
+  "q": "「生长」的英文是？",
+  "a": "grow",
+  "options": [
+   "mountain",
+   "cross"
+  ],
+  "wrongReasons": [
+   "生长 = grow",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·植物",
+  "speak": "生长的英文是",
+  "id": "e4-263"
+ },
+ {
+  "q": "road 是什么意思？",
+  "a": "马路",
+  "options": [
+   "秋天",
+   "司机"
+  ],
+  "wrongReasons": [
+   "road = 马路",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·道路安全",
+  "speak": "road 是什么意思",
+  "id": "e4-264"
+ },
+ {
+  "q": "「马路」的英文是？",
+  "a": "road",
+  "options": [
+   "flower",
+   "traffic"
+  ],
+  "wrongReasons": [
+   "马路 = road",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·道路安全",
+  "speak": "马路的英文是",
+  "id": "e4-265"
+ },
+ {
+  "q": "stop 是什么意思？",
+  "a": "停",
+  "options": [
+   "数数",
+   "村庄"
+  ],
+  "wrongReasons": [
+   "stop = 停",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·道路安全",
+  "speak": "stop 是什么意思",
+  "id": "e4-266"
+ },
+ {
+  "q": "「停」的英文是？",
+  "a": "stop",
+  "options": [
+   "grandfather",
+   "safe"
+  ],
+  "wrongReasons": [
+   "停 = stop",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·道路安全",
+  "speak": "停的英文是",
+  "id": "e4-267"
+ },
+ {
+  "q": "careful 是什么意思？",
+  "a": "小心的",
+  "options": [
+   "植物",
+   "价格"
+  ],
+  "wrongReasons": [
+   "careful = 小心的",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·道路安全",
+  "speak": "careful 是什么意思",
+  "id": "e4-268"
+ },
+ {
+  "q": "「小心的」的英文是？",
+  "a": "careful",
+  "options": [
+   "supermarket",
+   "forest"
+  ],
+  "wrongReasons": [
+   "小心的 = careful",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 5,
+  "tag": "英语单词·道路安全",
+  "speak": "小心的的英文是",
+  "id": "e4-269"
+ },
+ {
+  "q": "traffic 是什么意思？",
+  "a": "交通",
+  "options": [
+   "种子",
+   "图书馆"
+  ],
+  "wrongReasons": [
+   "traffic = 交通",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·道路安全",
+  "speak": "traffic 是什么意思",
+  "id": "e4-270"
+ },
+ {
+  "q": "「交通」的英文是？",
+  "a": "traffic",
+  "options": [
+   "cook",
+   "grandfather"
+  ],
+  "wrongReasons": [
+   "交通 = traffic",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·道路安全",
+  "speak": "交通的英文是",
+  "id": "e4-271"
+ },
+ {
+  "q": "safe 是什么意思？",
+  "a": "安全的",
+  "options": [
+   "城市",
+   "工作"
+  ],
+  "wrongReasons": [
+   "safe = 安全的",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·道路安全",
+  "speak": "safe 是什么意思",
+  "id": "e4-272"
+ },
+ {
+  "q": "「安全的」的英文是？",
+  "a": "safe",
+  "options": [
+   "cross",
+   "lion"
+  ],
+  "wrongReasons": [
+   "安全的 = safe",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·道路安全",
+  "speak": "安全的的英文是",
+  "id": "e4-273"
+ },
+ {
+  "q": "cross 是什么意思？",
+  "a": "穿过",
+  "options": [
+   "房子",
+   "公园"
+  ],
+  "wrongReasons": [
+   "cross = 穿过",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·道路安全",
+  "speak": "cross 是什么意思",
+  "id": "e4-274"
+ },
+ {
+  "q": "「穿过」的英文是？",
+  "a": "cross",
+  "options": [
+   "home",
+   "sea"
+  ],
+  "wrongReasons": [
+   "穿过 = cross",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·道路安全",
+  "speak": "穿过的英文是",
+  "id": "e4-275"
+ },
+ {
+  "q": "grandfather 是什么意思？",
+  "a": "爷爷",
+  "options": [
+   "冬天",
+   "家"
+  ],
+  "wrongReasons": [
+   "grandfather = 爷爷",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "grandfather 是什么意思",
+  "id": "e4-276"
+ },
+ {
+  "q": "「爷爷」的英文是？",
+  "a": "grandfather",
+  "options": [
+   "elephant",
+   "summer"
+  ],
+  "wrongReasons": [
+   "爷爷 = grandfather",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "爷爷的英文是",
+  "id": "e4-277"
+ },
+ {
+  "q": "grandmother 是什么意思？",
+  "a": "奶奶",
+  "options": [
+   "电话",
+   "百"
+  ],
+  "wrongReasons": [
+   "grandmother = 奶奶",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "grandmother 是什么意思",
+  "id": "e4-278"
+ },
+ {
+  "q": "「奶奶」的英文是？",
+  "a": "grandmother",
+  "options": [
+   "stop",
+   "buy"
+  ],
+  "wrongReasons": [
+   "奶奶 = grandmother",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "奶奶的英文是",
+  "id": "e4-279"
+ },
+ {
+  "q": "job 是什么意思？",
+  "a": "工作",
+  "options": [
+   "叶子",
+   "凉爽的"
+  ],
+  "wrongReasons": [
+   "job = 工作",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "job 是什么意思",
+  "id": "e4-280"
+ },
+ {
+  "q": "「工作」的英文是？",
+  "a": "job",
+  "options": [
+   "town",
+   "supermarket"
+  ],
+  "wrongReasons": [
+   "工作 = job",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "工作的英文是",
+  "id": "e4-281"
  },
  {
   "q": "doctor 是什么意思？",
   "a": "医生",
   "options": [
-   "火车",
-   "自行车"
+   "司机",
+   "山"
+  ],
+  "wrongReasons": [
+   "doctor = 医生",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "doctor 是什么意思",
+  "id": "e4-282"
+ },
+ {
+  "q": "「医生」的英文是？",
+  "a": "doctor",
+  "options": [
+   "stop",
+   "clothes"
+  ],
+  "wrongReasons": [
+   "医生 = doctor",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "医生的英文是",
+  "id": "e4-283"
+ },
+ {
+  "q": "cook 是什么意思？",
+  "a": "厨师",
+  "options": [
+   "便宜的",
+   "千"
+  ],
+  "wrongReasons": [
+   "cook = 厨师",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "cook 是什么意思",
+  "id": "e4-284"
+ },
+ {
+  "q": "「厨师」的英文是？",
+  "a": "cook",
+  "options": [
+   "winter",
+   "elephant"
+  ],
+  "wrongReasons": [
+   "厨师 = cook",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "厨师的英文是",
+  "id": "e4-285"
+ },
+ {
+  "q": "driver 是什么意思？",
+  "a": "司机",
+  "options": [
+   "停",
+   "奶奶"
+  ],
+  "wrongReasons": [
+   "driver = 司机",
+   "多读几遍，连着中文意思一起记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "driver 是什么意思",
+  "id": "e4-286"
+ },
+ {
+  "q": "「司机」的英文是？",
+  "a": "driver",
+  "options": [
+   "thousand",
+   "cook"
+  ],
+  "wrongReasons": [
+   "司机 = driver",
+   "注意拼写，跟着读音记"
+  ],
+  "grade": 4,
+  "level": 6,
+  "tag": "英语单词·祖辈与职业",
+  "speak": "司机的英文是",
+  "id": "e4-287"
+ },
+ {
+  "q": "doctor 是什么意思？",
+  "a": "医生",
+  "options": [
+   "右边",
+   "近的"
   ],
   "wrongReasons": [
    "doctor = 医生",
@@ -4094,14 +4910,14 @@
   "level": 1,
   "tag": "英语单词·职业",
   "speak": "doctor 是什么意思",
-  "id": "e5-240"
+  "id": "e5-288"
  },
  {
   "q": "「医生」的英文是？",
   "a": "doctor",
   "options": [
-   "afraid",
-   "straight"
+   "angry",
+   "near"
   ],
   "wrongReasons": [
    "医生 = doctor",
@@ -4111,14 +4927,14 @@
   "level": 1,
   "tag": "英语单词·职业",
   "speak": "医生的英文是",
-  "id": "e5-241"
+  "id": "e5-289"
  },
  {
   "q": "driver 是什么意思？",
   "a": "司机",
   "options": [
-   "医生",
-   "远的"
+   "近的",
+   "左边"
   ],
   "wrongReasons": [
    "driver = 司机",
@@ -4128,14 +4944,14 @@
   "level": 1,
   "tag": "英语单词·职业",
   "speak": "driver 是什么意思",
-  "id": "e5-242"
+  "id": "e5-290"
  },
  {
   "q": "「司机」的英文是？",
   "a": "driver",
   "options": [
-   "straight",
-   "ship"
+   "tired",
+   "right"
   ],
   "wrongReasons": [
    "司机 = driver",
@@ -4145,14 +4961,14 @@
   "level": 1,
   "tag": "英语单词·职业",
   "speak": "司机的英文是",
-  "id": "e5-243"
+  "id": "e5-291"
  },
  {
   "q": "farmer 是什么意思？",
   "a": "农民",
   "options": [
-   "害怕的",
-   "渴的"
+   "小汽车",
+   "医生"
   ],
   "wrongReasons": [
    "farmer = 农民",
@@ -4162,14 +4978,14 @@
   "level": 1,
   "tag": "英语单词·职业",
   "speak": "farmer 是什么意思",
-  "id": "e5-244"
+  "id": "e5-292"
  },
  {
   "q": "「农民」的英文是？",
   "a": "farmer",
   "options": [
-   "subway",
-   "cook"
+   "ship",
+   "sad"
   ],
   "wrongReasons": [
    "农民 = farmer",
@@ -4179,14 +4995,14 @@
   "level": 1,
   "tag": "英语单词·职业",
   "speak": "农民的英文是",
-  "id": "e5-245"
+  "id": "e5-293"
  },
  {
   "q": "nurse 是什么意思？",
   "a": "护士",
   "options": [
-   "厨师",
-   "远的"
+   "工人",
+   "直的"
   ],
   "wrongReasons": [
    "nurse = 护士",
@@ -4196,14 +5012,14 @@
   "level": 1,
   "tag": "英语单词·职业",
   "speak": "nurse 是什么意思",
-  "id": "e5-246"
+  "id": "e5-294"
  },
  {
   "q": "「护士」的英文是？",
   "a": "nurse",
   "options": [
-   "tired",
-   "worker"
+   "afraid",
+   "far"
   ],
   "wrongReasons": [
    "护士 = nurse",
@@ -4213,14 +5029,14 @@
   "level": 1,
   "tag": "英语单词·职业",
   "speak": "护士的英文是",
-  "id": "e5-247"
+  "id": "e5-295"
  },
  {
   "q": "worker 是什么意思？",
   "a": "工人",
   "options": [
-   "直的",
-   "害怕的"
+   "公交车",
+   "医生"
   ],
   "wrongReasons": [
    "worker = 工人",
@@ -4230,14 +5046,14 @@
   "level": 1,
   "tag": "英语单词·职业",
   "speak": "worker 是什么意思",
-  "id": "e5-248"
+  "id": "e5-296"
  },
  {
   "q": "「工人」的英文是？",
   "a": "worker",
   "options": [
-   "subway",
-   "nurse"
+   "ship",
+   "subway"
   ],
   "wrongReasons": [
    "工人 = worker",
@@ -4247,14 +5063,14 @@
   "level": 1,
   "tag": "英语单词·职业",
   "speak": "工人的英文是",
-  "id": "e5-249"
+  "id": "e5-297"
  },
  {
   "q": "cook 是什么意思？",
   "a": "厨师",
   "options": [
-   "公交车",
-   "直的"
+   "右边",
+   "远的"
   ],
   "wrongReasons": [
    "cook = 厨师",
@@ -4264,14 +5080,14 @@
   "level": 2,
   "tag": "英语单词·职业",
   "speak": "cook 是什么意思",
-  "id": "e5-250"
+  "id": "e5-298"
  },
  {
   "q": "「厨师」的英文是？",
   "a": "cook",
   "options": [
-   "plane",
-   "afraid"
+   "bus",
+   "driver"
   ],
   "wrongReasons": [
    "厨师 = cook",
@@ -4281,14 +5097,14 @@
   "level": 2,
   "tag": "英语单词·职业",
   "speak": "厨师的英文是",
-  "id": "e5-251"
+  "id": "e5-299"
  },
  {
   "q": "bus 是什么意思？",
   "a": "公交车",
   "options": [
-   "开心的",
-   "护士"
+   "害怕的",
+   "开心的"
   ],
   "wrongReasons": [
    "bus = 公交车",
@@ -4298,14 +5114,14 @@
   "level": 2,
   "tag": "英语单词·交通工具",
   "speak": "bus 是什么意思",
-  "id": "e5-252"
+  "id": "e5-300"
  },
  {
   "q": "「公交车」的英文是？",
   "a": "bus",
   "options": [
-   "nurse",
-   "ship"
+   "tired",
+   "thirsty"
   ],
   "wrongReasons": [
    "公交车 = bus",
@@ -4315,14 +5131,14 @@
   "level": 2,
   "tag": "英语单词·交通工具",
   "speak": "公交车的英文是",
-  "id": "e5-253"
+  "id": "e5-301"
  },
  {
   "q": "car 是什么意思？",
   "a": "小汽车",
   "options": [
-   "疲倦的",
-   "直的"
+   "渴的",
+   "医生"
   ],
   "wrongReasons": [
    "car = 小汽车",
@@ -4332,14 +5148,14 @@
   "level": 2,
   "tag": "英语单词·交通工具",
   "speak": "car 是什么意思",
-  "id": "e5-254"
+  "id": "e5-302"
  },
  {
   "q": "「小汽车」的英文是？",
   "a": "car",
   "options": [
-   "angry",
-   "driver"
+   "cook",
+   "thirsty"
   ],
   "wrongReasons": [
    "小汽车 = car",
@@ -4349,14 +5165,14 @@
   "level": 2,
   "tag": "英语单词·交通工具",
   "speak": "小汽车的英文是",
-  "id": "e5-255"
+  "id": "e5-303"
  },
  {
   "q": "train 是什么意思？",
   "a": "火车",
   "options": [
-   "工人",
-   "司机"
+   "左边",
+   "公交车"
   ],
   "wrongReasons": [
    "train = 火车",
@@ -4366,14 +5182,14 @@
   "level": 2,
   "tag": "英语单词·交通工具",
   "speak": "train 是什么意思",
-  "id": "e5-256"
+  "id": "e5-304"
  },
  {
   "q": "「火车」的英文是？",
   "a": "train",
   "options": [
-   "cook",
-   "subway"
+   "ship",
+   "near"
   ],
   "wrongReasons": [
    "火车 = train",
@@ -4383,14 +5199,14 @@
   "level": 2,
   "tag": "英语单词·交通工具",
   "speak": "火车的英文是",
-  "id": "e5-257"
+  "id": "e5-305"
  },
  {
   "q": "plane 是什么意思？",
   "a": "飞机",
   "options": [
-   "工人",
-   "地铁"
+   "司机",
+   "害怕的"
   ],
   "wrongReasons": [
    "plane = 飞机",
@@ -4400,14 +5216,14 @@
   "level": 3,
   "tag": "英语单词·交通工具",
   "speak": "plane 是什么意思",
-  "id": "e5-258"
+  "id": "e5-306"
  },
  {
   "q": "「飞机」的英文是？",
   "a": "plane",
   "options": [
-   "taxi",
-   "ship"
+   "driver",
+   "taxi"
   ],
   "wrongReasons": [
    "飞机 = plane",
@@ -4417,14 +5233,14 @@
   "level": 3,
   "tag": "英语单词·交通工具",
   "speak": "飞机的英文是",
-  "id": "e5-259"
+  "id": "e5-307"
  },
  {
   "q": "ship 是什么意思？",
   "a": "轮船",
   "options": [
-   "飞机",
-   "医生"
+   "医生",
+   "难过的"
   ],
   "wrongReasons": [
    "ship = 轮船",
@@ -4434,14 +5250,14 @@
   "level": 3,
   "tag": "英语单词·交通工具",
   "speak": "ship 是什么意思",
-  "id": "e5-260"
+  "id": "e5-308"
  },
  {
   "q": "「轮船」的英文是？",
   "a": "ship",
   "options": [
-   "hungry",
-   "nurse"
+   "sad",
+   "thirsty"
   ],
   "wrongReasons": [
    "轮船 = ship",
@@ -4451,14 +5267,14 @@
   "level": 3,
   "tag": "英语单词·交通工具",
   "speak": "轮船的英文是",
-  "id": "e5-261"
+  "id": "e5-309"
  },
  {
   "q": "bike 是什么意思？",
   "a": "自行车",
   "options": [
-   "公交车",
-   "火车"
+   "小汽车",
+   "农民"
   ],
   "wrongReasons": [
    "bike = 自行车",
@@ -4468,14 +5284,14 @@
   "level": 3,
   "tag": "英语单词·交通工具",
   "speak": "bike 是什么意思",
-  "id": "e5-262"
+  "id": "e5-310"
  },
  {
   "q": "「自行车」的英文是？",
   "a": "bike",
   "options": [
-   "driver",
-   "near"
+   "straight",
+   "sad"
   ],
   "wrongReasons": [
    "自行车 = bike",
@@ -4485,14 +5301,14 @@
   "level": 3,
   "tag": "英语单词·交通工具",
   "speak": "自行车的英文是",
-  "id": "e5-263"
+  "id": "e5-311"
  },
  {
   "q": "taxi 是什么意思？",
   "a": "出租车",
   "options": [
-   "小汽车",
-   "渴的"
+   "地铁",
+   "小汽车"
   ],
   "wrongReasons": [
    "taxi = 出租车",
@@ -4502,14 +5318,14 @@
   "level": 3,
   "tag": "英语单词·交通工具",
   "speak": "taxi 是什么意思",
-  "id": "e5-264"
+  "id": "e5-312"
  },
  {
   "q": "「出租车」的英文是？",
   "a": "taxi",
   "options": [
-   "near",
-   "happy"
+   "car",
+   "driver"
   ],
   "wrongReasons": [
    "出租车 = taxi",
@@ -4519,14 +5335,14 @@
   "level": 3,
   "tag": "英语单词·交通工具",
   "speak": "出租车的英文是",
-  "id": "e5-265"
+  "id": "e5-313"
  },
  {
   "q": "subway 是什么意思？",
   "a": "地铁",
   "options": [
-   "饿的",
-   "飞机"
+   "火车",
+   "工人"
   ],
   "wrongReasons": [
    "subway = 地铁",
@@ -4536,14 +5352,14 @@
   "level": 4,
   "tag": "英语单词·交通工具",
   "speak": "subway 是什么意思",
-  "id": "e5-266"
+  "id": "e5-314"
  },
  {
   "q": "「地铁」的英文是？",
   "a": "subway",
   "options": [
-   "farmer",
-   "thirsty"
+   "nurse",
+   "afraid"
   ],
   "wrongReasons": [
    "地铁 = subway",
@@ -4553,14 +5369,14 @@
   "level": 4,
   "tag": "英语单词·交通工具",
   "speak": "地铁的英文是",
-  "id": "e5-267"
+  "id": "e5-315"
  },
  {
   "q": "left 是什么意思？",
   "a": "左边",
   "options": [
-   "饿的",
-   "开心的"
+   "医生",
+   "厨师"
   ],
   "wrongReasons": [
    "left = 左边",
@@ -4570,14 +5386,14 @@
   "level": 4,
   "tag": "英语单词·方位",
   "speak": "left 是什么意思",
-  "id": "e5-268"
+  "id": "e5-316"
  },
  {
   "q": "「左边」的英文是？",
   "a": "left",
   "options": [
-   "subway",
-   "cook"
+   "near",
+   "plane"
   ],
   "wrongReasons": [
    "左边 = left",
@@ -4587,14 +5403,14 @@
   "level": 4,
   "tag": "英语单词·方位",
   "speak": "左边的英文是",
-  "id": "e5-269"
+  "id": "e5-317"
  },
  {
   "q": "right 是什么意思？",
   "a": "右边",
   "options": [
-   "公交车",
-   "生气的"
+   "饿的",
+   "农民"
   ],
   "wrongReasons": [
    "right = 右边",
@@ -4604,14 +5420,14 @@
   "level": 4,
   "tag": "英语单词·方位",
   "speak": "right 是什么意思",
-  "id": "e5-270"
+  "id": "e5-318"
  },
  {
   "q": "「右边」的英文是？",
   "a": "right",
   "options": [
-   "nurse",
-   "thirsty"
+   "car",
+   "tired"
   ],
   "wrongReasons": [
    "右边 = right",
@@ -4621,14 +5437,14 @@
   "level": 4,
   "tag": "英语单词·方位",
   "speak": "右边的英文是",
-  "id": "e5-271"
+  "id": "e5-319"
  },
  {
   "q": "straight 是什么意思？",
   "a": "直的",
   "options": [
-   "司机",
-   "害怕的"
+   "小汽车",
+   "渴的"
   ],
   "wrongReasons": [
    "straight = 直的",
@@ -4638,14 +5454,14 @@
   "level": 4,
   "tag": "英语单词·方位",
   "speak": "straight 是什么意思",
-  "id": "e5-272"
+  "id": "e5-320"
  },
  {
   "q": "「直的」的英文是？",
   "a": "straight",
   "options": [
-   "thirsty",
-   "train"
+   "ship",
+   "doctor"
   ],
   "wrongReasons": [
    "直的 = straight",
@@ -4655,14 +5471,14 @@
   "level": 4,
   "tag": "英语单词·方位",
   "speak": "直的的英文是",
-  "id": "e5-273"
+  "id": "e5-321"
  },
  {
   "q": "near 是什么意思？",
   "a": "近的",
   "options": [
-   "医生",
-   "工人"
+   "直的",
+   "轮船"
   ],
   "wrongReasons": [
    "near = 近的",
@@ -4672,14 +5488,14 @@
   "level": 4,
   "tag": "英语单词·方位",
   "speak": "near 是什么意思",
-  "id": "e5-274"
+  "id": "e5-322"
  },
  {
   "q": "「近的」的英文是？",
   "a": "near",
   "options": [
-   "doctor",
-   "car"
+   "right",
+   "nurse"
   ],
   "wrongReasons": [
    "近的 = near",
@@ -4689,14 +5505,14 @@
   "level": 4,
   "tag": "英语单词·方位",
   "speak": "近的的英文是",
-  "id": "e5-275"
+  "id": "e5-323"
  },
  {
   "q": "far 是什么意思？",
   "a": "远的",
   "options": [
-   "直的",
-   "医生"
+   "左边",
+   "工人"
   ],
   "wrongReasons": [
    "far = 远的",
@@ -4706,14 +5522,14 @@
   "level": 5,
   "tag": "英语单词·方位",
   "speak": "far 是什么意思",
-  "id": "e5-276"
+  "id": "e5-324"
  },
  {
   "q": "「远的」的英文是？",
   "a": "far",
   "options": [
-   "train",
-   "right"
+   "tired",
+   "car"
   ],
   "wrongReasons": [
    "远的 = far",
@@ -4723,14 +5539,14 @@
   "level": 5,
   "tag": "英语单词·方位",
   "speak": "远的的英文是",
-  "id": "e5-277"
+  "id": "e5-325"
  },
  {
   "q": "happy 是什么意思？",
   "a": "开心的",
   "options": [
-   "自行车",
-   "轮船"
+   "医生",
+   "近的"
   ],
   "wrongReasons": [
    "happy = 开心的",
@@ -4740,14 +5556,14 @@
   "level": 5,
   "tag": "英语单词·情绪感觉",
   "speak": "happy 是什么意思",
-  "id": "e5-278"
+  "id": "e5-326"
  },
  {
   "q": "「开心的」的英文是？",
   "a": "happy",
   "options": [
-   "tired",
-   "taxi"
+   "nurse",
+   "far"
   ],
   "wrongReasons": [
    "开心的 = happy",
@@ -4757,14 +5573,14 @@
   "level": 5,
   "tag": "英语单词·情绪感觉",
   "speak": "开心的的英文是",
-  "id": "e5-279"
+  "id": "e5-327"
  },
  {
   "q": "sad 是什么意思？",
   "a": "难过的",
   "options": [
-   "开心的",
-   "近的"
+   "小汽车",
+   "害怕的"
   ],
   "wrongReasons": [
    "sad = 难过的",
@@ -4774,14 +5590,14 @@
   "level": 5,
   "tag": "英语单词·情绪感觉",
   "speak": "sad 是什么意思",
-  "id": "e5-280"
+  "id": "e5-328"
  },
  {
   "q": "「难过的」的英文是？",
   "a": "sad",
   "options": [
-   "driver",
-   "cook"
+   "hungry",
+   "driver"
   ],
   "wrongReasons": [
    "难过的 = sad",
@@ -4791,14 +5607,14 @@
   "level": 5,
   "tag": "英语单词·情绪感觉",
   "speak": "难过的的英文是",
-  "id": "e5-281"
+  "id": "e5-329"
  },
  {
   "q": "angry 是什么意思？",
   "a": "生气的",
   "options": [
-   "小汽车",
-   "疲倦的"
+   "疲倦的",
+   "左边"
   ],
   "wrongReasons": [
    "angry = 生气的",
@@ -4808,14 +5624,14 @@
   "level": 5,
   "tag": "英语单词·情绪感觉",
   "speak": "angry 是什么意思",
-  "id": "e5-282"
+  "id": "e5-330"
  },
  {
   "q": "「生气的」的英文是？",
   "a": "angry",
   "options": [
-   "left",
-   "subway"
+   "plane",
+   "train"
   ],
   "wrongReasons": [
    "生气的 = angry",
@@ -4825,14 +5641,14 @@
   "level": 5,
   "tag": "英语单词·情绪感觉",
   "speak": "生气的的英文是",
-  "id": "e5-283"
+  "id": "e5-331"
  },
  {
   "q": "tired 是什么意思？",
   "a": "疲倦的",
   "options": [
-   "轮船",
-   "直的"
+   "渴的",
+   "右边"
   ],
   "wrongReasons": [
    "tired = 疲倦的",
@@ -4842,14 +5658,14 @@
   "level": 6,
   "tag": "英语单词·情绪感觉",
   "speak": "tired 是什么意思",
-  "id": "e5-284"
+  "id": "e5-332"
  },
  {
   "q": "「疲倦的」的英文是？",
   "a": "tired",
   "options": [
-   "train",
-   "angry"
+   "cook",
+   "worker"
   ],
   "wrongReasons": [
    "疲倦的 = tired",
@@ -4859,14 +5675,14 @@
   "level": 6,
   "tag": "英语单词·情绪感觉",
   "speak": "疲倦的的英文是",
-  "id": "e5-285"
+  "id": "e5-333"
  },
  {
   "q": "hungry 是什么意思？",
   "a": "饿的",
   "options": [
-   "害怕的",
-   "轮船"
+   "地铁",
+   "疲倦的"
   ],
   "wrongReasons": [
    "hungry = 饿的",
@@ -4876,14 +5692,14 @@
   "level": 6,
   "tag": "英语单词·情绪感觉",
   "speak": "hungry 是什么意思",
-  "id": "e5-286"
+  "id": "e5-334"
  },
  {
   "q": "「饿的」的英文是？",
   "a": "hungry",
   "options": [
-   "left",
-   "straight"
+   "bike",
+   "far"
   ],
   "wrongReasons": [
    "饿的 = hungry",
@@ -4893,14 +5709,14 @@
   "level": 6,
   "tag": "英语单词·情绪感觉",
   "speak": "饿的的英文是",
-  "id": "e5-287"
+  "id": "e5-335"
  },
  {
   "q": "thirsty 是什么意思？",
   "a": "渴的",
   "options": [
-   "难过的",
-   "直的"
+   "生气的",
+   "害怕的"
   ],
   "wrongReasons": [
    "thirsty = 渴的",
@@ -4910,14 +5726,14 @@
   "level": 6,
   "tag": "英语单词·情绪感觉",
   "speak": "thirsty 是什么意思",
-  "id": "e5-288"
+  "id": "e5-336"
  },
  {
   "q": "「渴的」的英文是？",
   "a": "thirsty",
   "options": [
-   "straight",
-   "subway"
+   "bike",
+   "worker"
   ],
   "wrongReasons": [
    "渴的 = thirsty",
@@ -4927,13 +5743,13 @@
   "level": 6,
   "tag": "英语单词·情绪感觉",
   "speak": "渴的的英文是",
-  "id": "e5-289"
+  "id": "e5-337"
  },
  {
   "q": "afraid 是什么意思？",
   "a": "害怕的",
   "options": [
-   "生气的",
+   "右边",
    "左边"
   ],
   "wrongReasons": [
@@ -4944,14 +5760,14 @@
   "level": 6,
   "tag": "英语单词·方位情绪",
   "speak": "afraid 是什么意思",
-  "id": "e5-290"
+  "id": "e5-338"
  },
  {
   "q": "「害怕的」的英文是？",
   "a": "afraid",
   "options": [
-   "bus",
-   "doctor"
+   "sad",
+   "train"
   ],
   "wrongReasons": [
    "害怕的 = afraid",
@@ -4961,14 +5777,14 @@
   "level": 6,
   "tag": "英语单词·方位情绪",
   "speak": "害怕的的英文是",
-  "id": "e5-291"
+  "id": "e5-339"
  },
  {
   "q": "beautiful 是什么意思？",
   "a": "美丽的",
   "options": [
-   "重要的",
-   "停留"
+   "洗",
+   "报纸"
   ],
   "wrongReasons": [
    "beautiful = 美丽的",
@@ -4978,14 +5794,14 @@
   "level": 1,
   "tag": "英语单词·形容词",
   "speak": "beautiful 是什么意思",
-  "id": "e6-292"
+  "id": "e6-340"
  },
  {
   "q": "「美丽的」的英文是？",
   "a": "beautiful",
   "options": [
-   "dangerous",
-   "wash"
+   "dictionary",
+   "stay"
   ],
   "wrongReasons": [
    "美丽的 = beautiful",
@@ -4995,14 +5811,14 @@
   "level": 1,
   "tag": "英语单词·形容词",
   "speak": "美丽的的英文是",
-  "id": "e6-293"
+  "id": "e6-341"
  },
  {
   "q": "busy 是什么意思？",
   "a": "忙的",
   "options": [
-   "互联网",
-   "参观"
+   "原因",
+   "著名的"
   ],
   "wrongReasons": [
    "busy = 忙的",
@@ -5012,14 +5828,14 @@
   "level": 1,
   "tag": "英语单词·形容词",
   "speak": "busy 是什么意思",
-  "id": "e6-294"
+  "id": "e6-342"
  },
  {
   "q": "「忙的」的英文是？",
   "a": "busy",
   "options": [
-   "easy",
-   "beautiful"
+   "visit",
+   "quiet"
   ],
   "wrongReasons": [
    "忙的 = busy",
@@ -5029,14 +5845,14 @@
   "level": 1,
   "tag": "英语单词·形容词",
   "speak": "忙的的英文是",
-  "id": "e6-295"
+  "id": "e6-343"
  },
  {
   "q": "cheap 是什么意思？",
   "a": "便宜的",
   "options": [
-   "重要的",
-   "买"
+   "早的",
+   "参观"
   ],
   "wrongReasons": [
    "cheap = 便宜的",
@@ -5046,14 +5862,14 @@
   "level": 1,
   "tag": "英语单词·形容词",
   "speak": "cheap 是什么意思",
-  "id": "e6-296"
+  "id": "e6-344"
  },
  {
   "q": "「便宜的」的英文是？",
   "a": "cheap",
   "options": [
-   "clean",
-   "reason"
+   "quiet",
+   "watch"
   ],
   "wrongReasons": [
    "便宜的 = cheap",
@@ -5063,14 +5879,14 @@
   "level": 1,
   "tag": "英语单词·形容词",
   "speak": "便宜的的英文是",
-  "id": "e6-297"
+  "id": "e6-345"
  },
  {
   "q": "expensive 是什么意思？",
   "a": "昂贵的",
   "options": [
-   "打扫",
-   "参观"
+   "杂志",
+   "节目"
   ],
   "wrongReasons": [
    "expensive = 昂贵的",
@@ -5080,14 +5896,14 @@
   "level": 1,
   "tag": "英语单词·形容词",
   "speak": "expensive 是什么意思",
-  "id": "e6-298"
+  "id": "e6-346"
  },
  {
   "q": "「昂贵的」的英文是？",
   "a": "expensive",
   "options": [
    "easy",
-   "busy"
+   "interesting"
   ],
   "wrongReasons": [
    "昂贵的 = expensive",
@@ -5097,13 +5913,13 @@
   "level": 1,
   "tag": "英语单词·形容词",
   "speak": "昂贵的的英文是",
-  "id": "e6-299"
+  "id": "e6-347"
  },
  {
   "q": "dangerous 是什么意思？",
   "a": "危险的",
   "options": [
-   "互联网",
+   "电子邮件",
    "旅行"
   ],
   "wrongReasons": [
@@ -5114,14 +5930,14 @@
   "level": 1,
   "tag": "英语单词·形容词",
   "speak": "dangerous 是什么意思",
-  "id": "e6-300"
+  "id": "e6-348"
  },
  {
   "q": "「危险的」的英文是？",
   "a": "dangerous",
   "options": [
-   "newspaper",
-   "email"
+   "buy",
+   "wash"
   ],
   "wrongReasons": [
    "危险的 = dangerous",
@@ -5131,14 +5947,14 @@
   "level": 1,
   "tag": "英语单词·形容词",
   "speak": "危险的的英文是",
-  "id": "e6-301"
+  "id": "e6-349"
  },
  {
   "q": "difficult 是什么意思？",
   "a": "困难的",
   "options": [
-   "电子邮件",
-   "美丽的"
+   "早的",
+   "节目"
   ],
   "wrongReasons": [
    "difficult = 困难的",
@@ -5148,14 +5964,14 @@
   "level": 2,
   "tag": "英语单词·形容词",
   "speak": "difficult 是什么意思",
-  "id": "e6-302"
+  "id": "e6-350"
  },
  {
   "q": "「困难的」的英文是？",
   "a": "difficult",
   "options": [
-   "easy",
-   "email"
+   "program",
+   "cheap"
   ],
   "wrongReasons": [
    "困难的 = difficult",
@@ -5165,14 +5981,14 @@
   "level": 2,
   "tag": "英语单词·形容词",
   "speak": "困难的的英文是",
-  "id": "e6-303"
+  "id": "e6-351"
  },
  {
   "q": "easy 是什么意思？",
   "a": "容易的",
   "options": [
-   "卖",
-   "早的"
+   "原因",
+   "美丽的"
   ],
   "wrongReasons": [
    "easy = 容易的",
@@ -5182,14 +5998,14 @@
   "level": 2,
   "tag": "英语单词·形容词",
   "speak": "easy 是什么意思",
-  "id": "e6-304"
+  "id": "e6-352"
  },
  {
   "q": "「容易的」的英文是？",
   "a": "easy",
   "options": [
-   "important",
-   "watch"
+   "visit",
+   "cheap"
   ],
   "wrongReasons": [
    "容易的 = easy",
@@ -5199,14 +6015,14 @@
   "level": 2,
   "tag": "英语单词·形容词",
   "speak": "容易的的英文是",
-  "id": "e6-305"
+  "id": "e6-353"
  },
  {
   "q": "early 是什么意思？",
   "a": "早的",
   "options": [
-   "忙的",
-   "原因"
+   "停留",
+   "有趣的"
   ],
   "wrongReasons": [
    "early = 早的",
@@ -5216,14 +6032,14 @@
   "level": 2,
   "tag": "英语单词·形容词",
   "speak": "early 是什么意思",
-  "id": "e6-306"
+  "id": "e6-354"
  },
  {
   "q": "「早的」的英文是？",
   "a": "early",
   "options": [
-   "internet",
-   "busy"
+   "dictionary",
+   "easy"
   ],
   "wrongReasons": [
    "早的 = early",
@@ -5233,14 +6049,14 @@
   "level": 2,
   "tag": "英语单词·形容词",
   "speak": "早的的英文是",
-  "id": "e6-307"
+  "id": "e6-355"
  },
  {
   "q": "late 是什么意思？",
   "a": "晚的",
   "options": [
-   "安静的",
-   "美丽的"
+   "有趣的",
+   "危险的"
   ],
   "wrongReasons": [
    "late = 晚的",
@@ -5250,14 +6066,14 @@
   "level": 2,
   "tag": "英语单词·形容词",
   "speak": "late 是什么意思",
-  "id": "e6-308"
+  "id": "e6-356"
  },
  {
   "q": "「晚的」的英文是？",
   "a": "late",
   "options": [
-   "stay",
-   "program"
+   "watch",
+   "newspaper"
   ],
   "wrongReasons": [
    "晚的 = late",
@@ -5267,14 +6083,14 @@
   "level": 2,
   "tag": "英语单词·形容词",
   "speak": "晚的的英文是",
-  "id": "e6-309"
+  "id": "e6-357"
  },
  {
   "q": "famous 是什么意思？",
   "a": "著名的",
   "options": [
-   "停留",
-   "电子邮件"
+   "重要的",
+   "杂志"
   ],
   "wrongReasons": [
    "famous = 著名的",
@@ -5284,14 +6100,14 @@
   "level": 2,
   "tag": "英语单词·形容词",
   "speak": "famous 是什么意思",
-  "id": "e6-310"
+  "id": "e6-358"
  },
  {
   "q": "「著名的」的英文是？",
   "a": "famous",
   "options": [
-   "early",
-   "cheap"
+   "email",
+   "interesting"
   ],
   "wrongReasons": [
    "著名的 = famous",
@@ -5301,14 +6117,14 @@
   "level": 2,
   "tag": "英语单词·形容词",
   "speak": "著名的的英文是",
-  "id": "e6-311"
+  "id": "e6-359"
  },
  {
   "q": "important 是什么意思？",
   "a": "重要的",
   "options": [
-   "洗",
-   "停留"
+   "晚的",
+   "节目"
   ],
   "wrongReasons": [
    "important = 重要的",
@@ -5318,14 +6134,14 @@
   "level": 3,
   "tag": "英语单词·形容词",
   "speak": "important 是什么意思",
-  "id": "e6-312"
+  "id": "e6-360"
  },
  {
   "q": "「重要的」的英文是？",
   "a": "important",
   "options": [
-   "buy",
-   "early"
+   "email",
+   "late"
   ],
   "wrongReasons": [
    "重要的 = important",
@@ -5335,14 +6151,14 @@
   "level": 3,
   "tag": "英语单词·形容词",
   "speak": "重要的的英文是",
-  "id": "e6-313"
+  "id": "e6-361"
  },
  {
   "q": "interesting 是什么意思？",
   "a": "有趣的",
   "options": [
-   "早的",
-   "节目"
+   "打扫",
+   "观看"
   ],
   "wrongReasons": [
    "interesting = 有趣的",
@@ -5352,14 +6168,14 @@
   "level": 3,
   "tag": "英语单词·形容词",
   "speak": "interesting 是什么意思",
-  "id": "e6-314"
+  "id": "e6-362"
  },
  {
   "q": "「有趣的」的英文是？",
   "a": "interesting",
   "options": [
-   "busy",
-   "late"
+   "dictionary",
+   "travel"
   ],
   "wrongReasons": [
    "有趣的 = interesting",
@@ -5369,14 +6185,14 @@
   "level": 3,
   "tag": "英语单词·形容词",
   "speak": "有趣的的英文是",
-  "id": "e6-315"
+  "id": "e6-363"
  },
  {
   "q": "quiet 是什么意思？",
   "a": "安静的",
   "options": [
-   "晚的",
-   "危险的"
+   "便宜的",
+   "买"
   ],
   "wrongReasons": [
    "quiet = 安静的",
@@ -5386,14 +6202,14 @@
   "level": 3,
   "tag": "英语单词·形容词",
   "speak": "quiet 是什么意思",
-  "id": "e6-316"
+  "id": "e6-364"
  },
  {
   "q": "「安静的」的英文是？",
   "a": "quiet",
   "options": [
-   "expensive",
-   "internet"
+   "newspaper",
+   "easy"
   ],
   "wrongReasons": [
    "安静的 = quiet",
@@ -5403,14 +6219,14 @@
   "level": 3,
   "tag": "英语单词·形容词",
   "speak": "安静的的英文是",
-  "id": "e6-317"
+  "id": "e6-365"
  },
  {
   "q": "buy 是什么意思？",
   "a": "买",
   "options": [
-   "美丽的",
-   "困难的"
+   "打扫",
+   "有趣的"
   ],
   "wrongReasons": [
    "buy = 买",
@@ -5420,14 +6236,14 @@
   "level": 3,
   "tag": "英语单词·动词",
   "speak": "buy 是什么意思",
-  "id": "e6-318"
+  "id": "e6-366"
  },
  {
   "q": "「买」的英文是？",
   "a": "buy",
   "options": [
-   "watch",
-   "famous"
+   "sell",
+   "difficult"
   ],
   "wrongReasons": [
    "买 = buy",
@@ -5437,14 +6253,14 @@
   "level": 3,
   "tag": "英语单词·动词",
   "speak": "买的英文是",
-  "id": "e6-319"
+  "id": "e6-367"
  },
  {
   "q": "sell 是什么意思？",
   "a": "卖",
   "options": [
-   "杂志",
-   "便宜的"
+   "报纸",
+   "昂贵的"
   ],
   "wrongReasons": [
    "sell = 卖",
@@ -5454,14 +6270,14 @@
   "level": 4,
   "tag": "英语单词·动词",
   "speak": "sell 是什么意思",
-  "id": "e6-320"
+  "id": "e6-368"
  },
  {
   "q": "「卖」的英文是？",
   "a": "sell",
   "options": [
-   "early",
-   "newspaper"
+   "beautiful",
+   "difficult"
   ],
   "wrongReasons": [
    "卖 = sell",
@@ -5471,14 +6287,14 @@
   "level": 4,
   "tag": "英语单词·动词",
   "speak": "卖的英文是",
-  "id": "e6-321"
+  "id": "e6-369"
  },
  {
   "q": "clean 是什么意思？",
   "a": "打扫",
   "options": [
-   "早的",
-   "电子邮件"
+   "观看",
+   "杂志"
   ],
   "wrongReasons": [
    "clean = 打扫",
@@ -5488,14 +6304,14 @@
   "level": 4,
   "tag": "英语单词·动词",
   "speak": "clean 是什么意思",
-  "id": "e6-322"
+  "id": "e6-370"
  },
  {
   "q": "「打扫」的英文是？",
   "a": "clean",
   "options": [
-   "important",
-   "beautiful"
+   "travel",
+   "cheap"
   ],
   "wrongReasons": [
    "打扫 = clean",
@@ -5505,14 +6321,14 @@
   "level": 4,
   "tag": "英语单词·动词",
   "speak": "打扫的英文是",
-  "id": "e6-323"
+  "id": "e6-371"
  },
  {
   "q": "wash 是什么意思？",
   "a": "洗",
   "options": [
-   "观看",
-   "节目"
+   "美丽的",
+   "报纸"
   ],
   "wrongReasons": [
    "wash = 洗",
@@ -5522,14 +6338,14 @@
   "level": 4,
   "tag": "英语单词·动词",
   "speak": "wash 是什么意思",
-  "id": "e6-324"
+  "id": "e6-372"
  },
  {
   "q": "「洗」的英文是？",
   "a": "wash",
   "options": [
-   "important",
-   "clean"
+   "watch",
+   "busy"
   ],
   "wrongReasons": [
    "洗 = wash",
@@ -5539,14 +6355,14 @@
   "level": 4,
   "tag": "英语单词·动词",
   "speak": "洗的英文是",
-  "id": "e6-325"
+  "id": "e6-373"
  },
  {
   "q": "watch 是什么意思？",
   "a": "观看",
   "options": [
-   "昂贵的",
-   "卖"
+   "电子邮件",
+   "便宜的"
   ],
   "wrongReasons": [
    "watch = 观看",
@@ -5556,14 +6372,14 @@
   "level": 4,
   "tag": "英语单词·观看旅行",
   "speak": "watch 是什么意思",
-  "id": "e6-326"
+  "id": "e6-374"
  },
  {
   "q": "「观看」的英文是？",
   "a": "watch",
   "options": [
-   "reason",
-   "dangerous"
+   "dangerous",
+   "busy"
   ],
   "wrongReasons": [
    "观看 = watch",
@@ -5573,14 +6389,14 @@
   "level": 4,
   "tag": "英语单词·观看旅行",
   "speak": "观看的英文是",
-  "id": "e6-327"
+  "id": "e6-375"
  },
  {
   "q": "visit 是什么意思？",
   "a": "参观",
   "options": [
-   "报纸",
-   "早的"
+   "词典",
+   "电子邮件"
   ],
   "wrongReasons": [
    "visit = 参观",
@@ -5590,14 +6406,14 @@
   "level": 4,
   "tag": "英语单词·观看旅行",
   "speak": "visit 是什么意思",
-  "id": "e6-328"
+  "id": "e6-376"
  },
  {
   "q": "「参观」的英文是？",
   "a": "visit",
   "options": [
-   "beautiful",
-   "watch"
+   "clean",
+   "internet"
   ],
   "wrongReasons": [
    "参观 = visit",
@@ -5607,14 +6423,14 @@
   "level": 4,
   "tag": "英语单词·观看旅行",
   "speak": "参观的英文是",
-  "id": "e6-329"
+  "id": "e6-377"
  },
  {
   "q": "travel 是什么意思？",
   "a": "旅行",
   "options": [
    "昂贵的",
-   "参观"
+   "卖"
   ],
   "wrongReasons": [
    "travel = 旅行",
@@ -5624,13 +6440,13 @@
   "level": 5,
   "tag": "英语单词·观看旅行",
   "speak": "travel 是什么意思",
-  "id": "e6-330"
+  "id": "e6-378"
  },
  {
   "q": "「旅行」的英文是？",
   "a": "travel",
   "options": [
-   "early",
+   "sell",
    "internet"
   ],
   "wrongReasons": [
@@ -5641,14 +6457,14 @@
   "level": 5,
   "tag": "英语单词·观看旅行",
   "speak": "旅行的英文是",
-  "id": "e6-331"
+  "id": "e6-379"
  },
  {
   "q": "stay 是什么意思？",
   "a": "停留",
   "options": [
-   "杂志",
-   "忙的"
+   "容易的",
+   "词典"
   ],
   "wrongReasons": [
    "stay = 停留",
@@ -5658,14 +6474,14 @@
   "level": 5,
   "tag": "英语单词·观看旅行",
   "speak": "stay 是什么意思",
-  "id": "e6-332"
+  "id": "e6-380"
  },
  {
   "q": "「停留」的英文是？",
   "a": "stay",
   "options": [
-   "newspaper",
-   "sell"
+   "internet",
+   "late"
   ],
   "wrongReasons": [
    "停留 = stay",
@@ -5675,14 +6491,14 @@
   "level": 5,
   "tag": "英语单词·观看旅行",
   "speak": "停留的英文是",
-  "id": "e6-333"
+  "id": "e6-381"
  },
  {
   "q": "dictionary 是什么意思？",
   "a": "词典",
   "options": [
-   "节目",
-   "著名的"
+   "著名的",
+   "晚的"
   ],
   "wrongReasons": [
    "dictionary = 词典",
@@ -5692,14 +6508,14 @@
   "level": 5,
   "tag": "英语单词·书报刊物",
   "speak": "dictionary 是什么意思",
-  "id": "e6-334"
+  "id": "e6-382"
  },
  {
   "q": "「词典」的英文是？",
   "a": "dictionary",
   "options": [
-   "late",
-   "email"
+   "magazine",
+   "wash"
   ],
   "wrongReasons": [
    "词典 = dictionary",
@@ -5709,13 +6525,13 @@
   "level": 5,
   "tag": "英语单词·书报刊物",
   "speak": "词典的英文是",
-  "id": "e6-335"
+  "id": "e6-383"
  },
  {
   "q": "newspaper 是什么意思？",
   "a": "报纸",
   "options": [
-   "原因",
+   "互联网",
    "打扫"
   ],
   "wrongReasons": [
@@ -5726,14 +6542,14 @@
   "level": 5,
   "tag": "英语单词·书报刊物",
   "speak": "newspaper 是什么意思",
-  "id": "e6-336"
+  "id": "e6-384"
  },
  {
   "q": "「报纸」的英文是？",
   "a": "newspaper",
   "options": [
-   "difficult",
-   "dangerous"
+   "cheap",
+   "clean"
   ],
   "wrongReasons": [
    "报纸 = newspaper",
@@ -5743,14 +6559,14 @@
   "level": 5,
   "tag": "英语单词·书报刊物",
   "speak": "报纸的英文是",
-  "id": "e6-337"
+  "id": "e6-385"
  },
  {
   "q": "magazine 是什么意思？",
   "a": "杂志",
   "options": [
-   "买",
-   "报纸"
+   "早的",
+   "打扫"
   ],
   "wrongReasons": [
    "magazine = 杂志",
@@ -5760,14 +6576,14 @@
   "level": 5,
   "tag": "英语单词·书报刊物",
   "speak": "magazine 是什么意思",
-  "id": "e6-338"
+  "id": "e6-386"
  },
  {
   "q": "「杂志」的英文是？",
   "a": "magazine",
   "options": [
-   "interesting",
-   "program"
+   "expensive",
+   "busy"
   ],
   "wrongReasons": [
    "杂志 = magazine",
@@ -5777,14 +6593,14 @@
   "level": 5,
   "tag": "英语单词·书报刊物",
   "speak": "杂志的英文是",
-  "id": "e6-339"
+  "id": "e6-387"
  },
  {
   "q": "email 是什么意思？",
   "a": "电子邮件",
   "options": [
-   "参观",
-   "词典"
+   "便宜的",
+   "昂贵的"
   ],
   "wrongReasons": [
    "email = 电子邮件",
@@ -5794,14 +6610,14 @@
   "level": 6,
   "tag": "英语单词·网络节目",
   "speak": "email 是什么意思",
-  "id": "e6-340"
+  "id": "e6-388"
  },
  {
   "q": "「电子邮件」的英文是？",
   "a": "email",
   "options": [
-   "internet",
-   "program"
+   "newspaper",
+   "difficult"
   ],
   "wrongReasons": [
    "电子邮件 = email",
@@ -5811,14 +6627,14 @@
   "level": 6,
   "tag": "英语单词·网络节目",
   "speak": "电子邮件的英文是",
-  "id": "e6-341"
+  "id": "e6-389"
  },
  {
   "q": "internet 是什么意思？",
   "a": "互联网",
   "options": [
-   "有趣的",
-   "危险的"
+   "安静的",
+   "有趣的"
   ],
   "wrongReasons": [
    "internet = 互联网",
@@ -5828,14 +6644,14 @@
   "level": 6,
   "tag": "英语单词·网络节目",
   "speak": "internet 是什么意思",
-  "id": "e6-342"
+  "id": "e6-390"
  },
  {
   "q": "「互联网」的英文是？",
   "a": "internet",
   "options": [
-   "clean",
-   "sell"
+   "visit",
+   "famous"
   ],
   "wrongReasons": [
    "互联网 = internet",
@@ -5845,14 +6661,14 @@
   "level": 6,
   "tag": "英语单词·网络节目",
   "speak": "互联网的英文是",
-  "id": "e6-343"
+  "id": "e6-391"
  },
  {
   "q": "program 是什么意思？",
   "a": "节目",
   "options": [
-   "停留",
-   "晚的"
+   "昂贵的",
+   "忙的"
   ],
   "wrongReasons": [
    "program = 节目",
@@ -5862,14 +6678,14 @@
   "level": 6,
   "tag": "英语单词·网络节目",
   "speak": "program 是什么意思",
-  "id": "e6-344"
+  "id": "e6-392"
  },
  {
   "q": "「节目」的英文是？",
   "a": "program",
   "options": [
-   "clean",
-   "dictionary"
+   "late",
+   "sell"
   ],
   "wrongReasons": [
    "节目 = program",
@@ -5879,14 +6695,14 @@
   "level": 6,
   "tag": "英语单词·网络节目",
   "speak": "节目的英文是",
-  "id": "e6-345"
+  "id": "e6-393"
  },
  {
   "q": "reason 是什么意思？",
   "a": "原因",
   "options": [
-   "停留",
-   "旅行"
+   "卖",
+   "著名的"
   ],
   "wrongReasons": [
    "reason = 原因",
@@ -5896,14 +6712,14 @@
   "level": 6,
   "tag": "英语单词·综合",
   "speak": "reason 是什么意思",
-  "id": "e6-346"
+  "id": "e6-394"
  },
  {
   "q": "「原因」的英文是？",
   "a": "reason",
   "options": [
-   "program",
-   "late"
+   "wash",
+   "dictionary"
   ],
   "wrongReasons": [
    "原因 = reason",
@@ -5913,6 +6729,6 @@
   "level": 6,
   "tag": "英语单词·综合",
   "speak": "原因的英文是",
-  "id": "e6-347"
+  "id": "e6-395"
  }
 ]
