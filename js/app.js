@@ -925,7 +925,7 @@
   }
 
   /* ---------- v3.6 练习卷（单元/期中/期末，打印成 A4） ---------- */
-  const PAPER_BANKS = { math: 'data/banks/math-units.json', chinese: 'data/banks/chinese-units.json' };
+  const PAPER_BANKS = { math: 'data/banks/math-units.json', chinese: 'data/banks/chinese-units.json', english: 'data/banks/english-units.json' };
   function renderPaperSetup() {
     const stu = Store.current();
     const gSel = $('paper-grade');
@@ -940,7 +940,18 @@
   }
   function renderPaperScopes() {
     const sub = $('paper-subject').value;
-    const grade = +$('paper-grade').value;
+    // v3.9 英语三年级起始：1~2 年级无英语单元卷，年级选项随科目切换
+    const minG = sub === 'english' ? 3 : 1;
+    const gSel = $('paper-grade');
+    const curG = Math.max(+$('paper-grade').value || 1, minG);
+    gSel.innerHTML = '';
+    for (let g = minG; g <= 6; g++) {
+      const o = document.createElement('option');
+      o.value = g; o.textContent = g + ' 年级';
+      if (g === curG) o.selected = true;
+      gSel.appendChild(o);
+    }
+    const grade = +gSel.value;
     const units = (Store.SUBJECTS[sub].units || {})[grade] || [];
     const s = $('paper-scope');
     s.innerHTML = '';
@@ -974,7 +985,8 @@
         [qs[i], qs[j]] = [qs[j], qs[i]];
       }
       qs = qs.slice(0, count);
-      const subName = sub === 'math' ? '数学' : '语文';
+      if (!qs.length) { $('paper-area').innerHTML = '<p>该范围暂时没有题目，换个年级或范围试试～</p>'; return; }
+      const subName = sub === 'math' ? '数学' : sub === 'english' ? '英语' : '语文';
       const scopeName = scope === 'mid' ? '期中' : scope === 'final' ? '期末' : scope;
       const today = new Date();
       const dstr = today.getFullYear() + '.' + (today.getMonth() + 1) + '.' + today.getDate();

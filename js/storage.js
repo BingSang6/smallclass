@@ -106,6 +106,18 @@
     },
     english: {   // 英语·单词（题源 english-primary-shenzhen-oxford.md 沪教牛津深圳版，公共词表）
       name: '英语·单词', short: '单词', icon: '🔤', bank: 'data/banks/english-words.json',
+      // v3.9 英语单元巩固：沪教版上册 3~6 年级（gen_english_units.py；深圳英语三年级起始，1~2 年级无单元）
+      unitsBank: 'data/banks/english-units.json',
+      units: {
+        3: ['第一单元 感受与情绪', '第二单元 家庭', '第三单元 外貌', '第四单元 玩乐',
+            '第五单元 食物', '第六单元 小动物', '第七单元 天气', '第八单元 生日'],
+        4: ['第一单元 住所', '第二单元 动物栖息地', '第三单元 数字', '第四单元 购物',
+            '第五单元 季节', '第六单元 植物', '第七单元 道路安全', '第八单元 祖辈与职业'],
+        5: ['第一单元 周末活动', '第二单元 保持健康', '第三单元 不同的国家', '第四单元 有趣的假日',
+            '第五单元 生物', '第六单元 爱护地球', '第七单元 庆祝节日', '第八单元 音乐与感受'],
+        6: ['第一单元 搬到新地方', '第二单元 艺术创作', '第三单元 保护自己', '第四单元 物体的运动',
+            '第五单元 发明改变生活', '第六单元 城市']
+      },
       levels: LEVELS, medals: MEDALS,
       levelDesc: {
         1: ['动物数字', '颜色', '水果食物', '动物数字', '颜色水果', '综合'],
@@ -122,7 +134,7 @@
   const GROUPS = [
     { key: 'math', name: '数学', icon: '🦁', subs: ['math'], desc: '口算 · 单元巩固' },
     { key: 'chinese', name: '语文', icon: '📖', subs: ['chinese', 'poem', 'guwen'], desc: '字词 · 古诗 · 小古文' },
-    { key: 'english', name: '英语', icon: '🔤', subs: ['english'], desc: '单词' }
+    { key: 'english', name: '英语', icon: '🔤', subs: ['english'], desc: '单词 · 单元巩固' }
   ];
 
   function newSubj() {

@@ -326,6 +326,37 @@ def test_v11():
         uniq_tags = sorted(set(en_tags))
         print('english g4 tags:', uniq_tags)
         assert '英语单词·道路安全' in uniq_tags and '英语单词·祖辈与职业' in uniq_tags, 'english g4 new themes missing'
+        # ---- v3.9: 英语单元巩固（沪教版 3~6 年级；当前年级=4，应见 8 个单元） ----
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card', has_text='英语').first.click(); page.wait_for_timeout(400)
+        assert page.locator('#btn-units').is_visible(), 'english units btn hidden (grade4)'
+        page.click('#btn-units'); page.wait_for_timeout(200)
+        n_eu = page.locator('#unit-list button').count()
+        print('english g4 unit list (expect 8):', n_eu)
+        assert n_eu == 8
+        page.screenshot(path='shots/28-english-units.png')
+        page.locator('#unit-list button', has_text='道路安全').click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        print('english unit question:', page.locator('#question-text').inner_text())
+        assert '道路安全' in page.locator('#quiz-level').inner_text()
+        assert page.locator('.opt-btn').count() == 3
+        # 答对一题 → 单元题正确计分（review 不新增）
+        page.evaluate("""() => {
+          const q = Quiz.current;
+          const btns = [...document.querySelectorAll('.opt-btn')];
+          btns.find(x => x.textContent.trim() === String(q.a)).click();
+        }""")
+        page.wait_for_timeout(300)
+        page.screenshot(path='shots/28b-english-unit-quiz.png')
+        # 英语三年级起始：一年级不应出现单元按钮
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[0].grade = 1;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card', has_text='英语').first.click(); page.wait_for_timeout(400)
+        assert page.locator('#btn-units').is_hidden(), 'english units btn visible for grade1 (should be hidden)'
         # 还原年级为 3
         page.evaluate("""() => {
           const d = JSON.parse(localStorage.getItem('smallclass.v1'));
@@ -387,6 +418,21 @@ def test_v11():
         page.click('#btn-paper-gen'); page.wait_for_timeout(500)
         print('final paper questions:', page.locator('.paper-questions li').count())
         page.screenshot(path='shots/25-paper.png')
+        # ---- v3.9: 英语练习卷（三年级起始：年级只显示 3~6；范围 = 期中期末 + 8 单元 = 10） ----
+        page.select_option('#paper-subject', 'english')
+        page.wait_for_timeout(300)
+        n_eg = page.locator('#paper-grade option').count()
+        print('english paper grades (expect 4, i.e. 3~6):', n_eg)
+        assert n_eg == 4
+        n_escopes = page.locator('#paper-scope option').count()
+        print('english paper scopes (expect 2+8=10):', n_escopes)
+        assert n_escopes == 10
+        page.click('#btn-paper-gen'); page.wait_for_timeout(500)
+        neq = page.locator('.paper-questions li').count()
+        print('english paper questions (expect 20):', neq)
+        assert neq == 20
+        assert '英语' in page.locator('.paper-title').inner_text(), 'paper title should say 英语'
+        page.screenshot(path='shots/25b-english-paper.png')
         # ---- v3.7: 装扮商店 + 起名 ----
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.evaluate("""() => {
