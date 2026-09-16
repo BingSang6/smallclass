@@ -886,6 +886,42 @@
     pb.textContent = '🖨 生成练习卷';
     pb.onclick = () => { renderPaperSetup(); go('paper'); };
     body.appendChild(pb);
+
+    // v3.7.1 进度备份（换设备/清数据前先导出进度码）
+    const hb = document.createElement('h3');
+    hb.textContent = '进度备份（换设备用：导出进度码 → 新设备导入）';
+    body.appendChild(hb);
+    const ta2 = document.createElement('textarea');
+    ta2.id = 'backup-ta';
+    ta2.readOnly = true;
+    ta2.value = Store.exportCode();
+    body.appendChild(ta2);
+    const row = document.createElement('div');
+    row.style.display = 'flex';
+    row.style.gap = '8px';
+    const cp2 = document.createElement('button');
+    cp2.className = 'btn small';
+    cp2.textContent = '📋 复制进度码';
+    cp2.onclick = () => {
+      ta2.select();
+      try { document.execCommand('copy'); cp2.textContent = '✅ 已复制'; } catch (e) {}
+      setTimeout(() => cp2.textContent = '📋 复制进度码', 1500);
+    };
+    row.appendChild(cp2);
+    const imp = document.createElement('button');
+    imp.className = 'btn small warn';
+    imp.textContent = '📥 粘贴导入';
+    imp.onclick = () => {
+      const code = prompt('粘贴进度码（将覆盖当前全部进度）：');
+      if (!code) return;
+      try {
+        Store.importCode(code);
+        alert('✅ 导入成功！');
+        init();
+      } catch (e) { alert('❌ 进度码无效，请检查是否复制完整'); }
+    };
+    row.appendChild(imp);
+    body.appendChild(row);
   }
 
   /* ---------- v3.6 练习卷（单元/期中/期末，打印成 A4） ---------- */
