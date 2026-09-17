@@ -320,19 +320,34 @@
       return { ok: true, growth: stu.pet.growth };
     },
 
-    /** v3.7 装扮商店 */
+    /** v3.16 金币入账：同时累计 coinsEarned（里程碑装扮用，只增不减） */
+    earn(stu, n) {
+      if (!n) return;
+      stu.coins = (stu.coins || 0) + n;
+      stu.coinsEarned = (stu.coinsEarned || 0) + n;
+    },
+
+    /** v3.7 装扮商店；v3.16 加里程碑专属装扮（mile = 累计赚取金币解锁，免费领取） */
     DECOS: [
       { id: 'hat', name: '小礼帽', icon: '🎩', price: 20 },
       { id: 'crown', name: '王冠', icon: '👑', price: 50 },
       { id: 'scarf', name: '红围巾', icon: '🧣', price: 20 },
       { id: 'glasses', name: '墨镜', icon: '🕶️', price: 30 },
       { id: 'bow', name: '蝴蝶结', icon: '🎀', price: 15 },
-      { id: 'flower', name: '小花', icon: '🌸', price: 15 }
+      { id: 'flower', name: '小花', icon: '🌸', price: 15 },
+      { id: 'halo', name: '天使光环', icon: '😇', price: 0, mile: 100 },
+      { id: 'rocket', name: '小火箭', icon: '🚀', price: 0, mile: 300 },
+      { id: 'rainbow', name: '彩虹', icon: '🌈', price: 0, mile: 600 }
     ],
     buyDeco(stu, id) {
       const d = this.DECOS.find(x => x.id === id);
       if (!d) return { ok: false, msg: '没有这个装扮' };
       if (stu.pet.decos.indexOf(id) >= 0) return { ok: false, msg: '已经买过啦' };
+      if (d.mile) {
+        if ((stu.coinsEarned || 0) < d.mile) return { ok: false, msg: '累计赚满 ' + d.mile + ' 金币才能解锁哦（已累计 ' + (stu.coinsEarned || 0) + '）' };
+        stu.pet.decos.push(id); stu.pet.wearing = id;
+        return { ok: true, msg: '🏆 里程碑达成！领到了【' + d.name + '】' + d.icon + '，已经戴上啦！' };
+      }
       if ((stu.coins || 0) < d.price) return { ok: false, msg: '金币不够（还差 ' + (d.price - stu.coins) + ' 🪙），去答题赚吧！' };
       stu.coins -= d.price; stu.pet.decos.push(id); stu.pet.wearing = id;
       return { ok: true, msg: '🛍 买到了【' + d.name + '】' + d.icon + '，已经戴上啦！' };

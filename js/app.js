@@ -185,7 +185,12 @@
       item.innerHTML = '<div class="deco-icon">' + d.icon + '</div><div class="deco-name">' + d.name + '</div>';
       const b = document.createElement('button');
       b.className = 'btn tiny';
-      b.textContent = owned ? (wearing ? '脱下' : '戴上') : (d.price + ' 🪙');
+      // v3.16 里程碑装扮：累计赚取金币解锁，免费领取；未达标显示进度并禁用
+      const locked = !!d.mile && !owned && (stu.coinsEarned || 0) < d.mile;
+      b.textContent = owned ? (wearing ? '脱下' : '戴上')
+        : d.mile ? (locked ? '累计' + d.mile + ' 币解锁' : '🏆 免费领取')
+        : (d.price + ' 🪙');
+      if (locked) { b.disabled = true; b.style.opacity = 0.5; }
       b.onclick = () => {
         let msg = '';
         Store.updateCurrent(s => {
@@ -413,7 +418,7 @@
         clearInterval(restTimer);
         stopQTimer();
         let got = 0;
-        Store.updateCurrent(s => { got = Store.taskDone(s, 'round'); s.coins = (s.coins || 0) + got; });
+        Store.updateCurrent(s => { got = Store.taskDone(s, 'round'); Store.earn(s, got); });
         coinFlash(got);
         const win = r.correct >= 4 ? (r.correct >= 5 ? 2 : 1) : 0;
         if (win > 0) {
@@ -449,7 +454,14 @@
     (meta.units && meta.units[stu.grade] || []).forEach(name => {
       const b = document.createElement('button');
       b.className = 'btn big-btn-list-item';
-      b.textContent = name;
+      // v3.16 单元掌握度：练满 5 题 🌱 → 10 题+正确率 80% 🌿 → 15 题+正确率 90% 🌳
+      const us = (stu.unitStats || {})[curSubject + '|' + name];
+      let chip = '';
+      if (us && us.a >= 5) {
+        const rate = us.c / us.a;
+        chip = (us.a >= 15 && rate >= 0.9) ? ' 🌳' : (us.a >= 10 && rate >= 0.8) ? ' 🌿' : ' 🌱';
+      }
+      b.textContent = name + chip;
       b.onclick = () => startUnit(name);
       list.appendChild(b);
     });
@@ -486,6 +498,11 @@
         const pass = r.total > 0 && r.correct / r.total >= 0.6;
         Store.updateCurrent(s => {
           s.stars = (s.stars || 0) + r.correct;
+          // v3.16 单元掌握度统计（里程碑进度条数据源）
+          s.unitStats = s.unitStats || {};
+          const uk = curSubject + '|' + name;
+          const us = s.unitStats[uk] || (s.unitStats[uk] = { a: 0, c: 0 });
+          us.a += r.total; us.c += r.correct;
           gotU = Store.taskDone(s, 'round');
           if (pass) {
             const day = Math.floor(Date.now() / 864e5);
@@ -500,7 +517,7 @@
               if (!uc.c) { uc.c = 1; gotU += 5; }
             }
           }
-          s.coins = (s.coins || 0) + gotU;
+          Store.earn(s, gotU);
         });
         coinFlash(gotU);
         if (r.correct >= r.total - 1) {
@@ -540,7 +557,7 @@
         Store.updateCurrent(s => {
           s.stars = (s.stars || 0) + r.correct;
           gotM = (good ? 5 : 2) + Store.taskDone(s, 'round');
-          s.coins = (s.coins || 0) + gotM;
+          Store.earn(s, gotM);
         });
         coinFlash(gotM);
         $('result-title').textContent = good ? '🎉 混合挑战大成功！' : '🔀 混合挑战完成！';
@@ -646,10 +663,10 @@
         let gotP = 0;
         Store.updateCurrent(s => {
           gotP = Store.taskDone(s, 'correct');
-          s.coins = (s.coins || 0) + gotP;
+          Store.earn(s, gotP);
           if (win) {
             s.pkWins = (s.pkWins || 0) + 1;
-            s.coins = (s.coins || 0) + 5;
+            Store.earn(s, 5);
             gotP += 5;
             if (s.pkWins % 3 === 0 && s.pkLevel < 2) s.pkLevel++;
           }
@@ -687,7 +704,7 @@
         stopQTimer();
         if (r.total === 0) { init(); return; }   // 没有到期题
         let gotR = 0;
-        Store.updateCurrent(s => { gotR = 3 + Store.taskDone(s, 'review'); s.coins = (s.coins || 0) + gotR; });
+        Store.updateCurrent(s => { gotR = 3 + Store.taskDone(s, 'review'); Store.earn(s, gotR); });
         coinFlash(gotR);
         $('result-title').textContent = '🎉 复习完成！';
         $('result-detail').textContent = '复习了 ' + r.total + ' 题，记住 ' + r.correct + ' 题。记不牢的题明天还会再来哦。';

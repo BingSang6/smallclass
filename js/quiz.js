@@ -210,7 +210,7 @@
         if (mode === 'review') Store.updateCurrent(s => advanceReview(s, subjKey, cur.id));
         Store.updateCurrent(s => {
           const got = Store.taskDone(s, 'correct');
-          s.coins = (s.coins || 0) + got;
+          Store.earn(s, got);
           if (got && window.coinFlash) window.coinFlash(got);
         });
       } else {
@@ -239,7 +239,7 @@
       TTS.praise();
       Store.updateCurrent(s => {
         const got = Store.taskDone(s, 'correct');
-        s.coins = (s.coins || 0) + got;
+        Store.earn(s, got);
         if (got && window.coinFlash) window.coinFlash(got);
       });
       // 精通出池：错题 tag 连对 2 次 → 该 tag 全部移出错题池（含复习队列）

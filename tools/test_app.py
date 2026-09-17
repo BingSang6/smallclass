@@ -477,7 +477,7 @@ def test_v11():
         page.click('#btn-pet'); page.wait_for_timeout(300)
         n_deco = page.locator('.deco-item').count()
         print('deco items (expect 6):', n_deco)
-        assert n_deco == 6
+        assert n_deco == 9   # v3.16：6 常规 + 3 里程碑装扮
         page.screenshot(path='shots/26-deco-shop.png')
         # 买 20 币的礼帽
         page.locator('.deco-item', has_text='小礼帽').locator('button').click()
@@ -881,3 +881,116 @@ def test_v315():
         browser.close()
 
 test_v315()
+
+def test_v316():
+    """v3.16：语文单元扩容（g1/g4 每单元12题）+ 单元掌握度 🌱🌿🌳 + 金币里程碑装扮"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        errs = []
+        page.on('pageerror', lambda e: errs.append('PAGEERROR: ' + str(e)))
+        page.on('console', lambda m: errs.append('CONSOLE: ' + m.text) if m.type == 'error' else None)
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+
+        # ---- ① 语文单元银行：g1/g4 各 8 单元，每单元 ≥12 题 ----
+        cn = page.evaluate("""() => fetch('data/banks/chinese-units.json').then(r => r.json())""")
+        cnt = {}
+        for q in cn:
+            if q['grade'] in (1, 4):
+                cnt[(q['grade'], q['unit'])] = cnt.get((q['grade'], q['unit']), 0) + 1
+        print('chinese units g1:', sum(1 for k in cnt if k[0] == 1), '/ g4:', sum(1 for k in cnt if k[0] == 4))
+        assert sum(1 for k in cnt if k[0] == 1) == 8 and sum(1 for k in cnt if k[0] == 4) == 8
+        for k, n in cnt.items():
+            assert n >= 12, ('chinese unit <12', k, n)
+        assert len(cn) == 360, len(cn)
+        # 公版古诗填空抽查（出塞）
+        mu = [q for q in cn if '秦时明月' in q['q']]
+        assert mu and mu[0]['a'] == '万里长征人未还', 'gushi fill missing'
+        print('chinese g1+g4 per-unit all >=12, total', len(cn))
+
+        # ---- ② 单元掌握度 chips：注入 unitStats → 列表显示 🌱/🌿/🌳 ----
+        page.click('#btn-add-student')
+        page.fill('#inp-name', '里程碑娃')
+        page.click('.grade-btn[data-g="4"]')
+        page.click('#btn-create')
+        page.wait_for_timeout(500)
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          const s = d.students[d.current];
+          s.unitStats = {
+            'chinese|第一单元 自然之美': { a: 5, c: 5 },
+            'chinese|第二单元 提问策略': { a: 10, c: 9 },
+            'chinese|第三单元 连续观察': { a: 20, c: 19 },
+            'chinese|第四单元 中外神话': { a: 3, c: 3 }
+          };
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.locator('.subject-card').nth(1).click(); page.wait_for_timeout(400)
+        page.click('#btn-units'); page.wait_for_timeout(300)
+        texts = page.locator('#unit-list button').all_text_contents()
+        assert any('自然之美 🌱' in t for t in texts), texts[:4]
+        assert any('提问策略 🌿' in t for t in texts), texts[:4]
+        assert any('连续观察 🌳' in t for t in texts), texts[:4]
+        assert not any('中外神话 🌱' in t or '中外神话 🌿' in t or '中外神话 🌳' in t for t in texts), texts[:4]
+        print('mastery chips OK:', [t for t in texts if '单元' in t][:4])
+
+        # ---- ③ 完成一关语文单元 → unitStats 自动累计 + coinsEarned 入账 ----
+        page.locator('#unit-list button', has_text='第五单元').click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        for _ in range(8):
+            if page.locator('#result-title').is_visible():
+                break
+            page.evaluate("""() => {
+              const q = Quiz.current;
+              const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
+              b.click();
+            }""")
+            page.wait_for_timeout(1100)
+        page.wait_for_timeout(400)
+        st = page.evaluate("""() => {
+          const s = JSON.parse(localStorage.getItem('smallclass.v1')).students[
+            JSON.parse(localStorage.getItem('smallclass.v1')).current];
+          return { a: s.unitStats['chinese|第五单元 习作单元（把事情写清楚）'].a,
+                   coins: s.coins || 0, earned: s.coinsEarned || 0 };
+        }""")
+        print('after 1 perfect chinese round:', st)
+        assert st['a'] >= 5, st
+        assert st['earned'] == 18 and st['coins'] == 18, st   # 5题5币+全对3+首通5+任务5，新档案初始0币
+
+        # ---- ④ 金币里程碑装扮：锁定 → 解锁领取（免费） ----
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.click('#btn-pet'); page.wait_for_timeout(400)
+        halo = page.locator('.deco-item', has_text='天使光环')
+        assert halo.locator('button').is_disabled(), 'halo should be locked'
+        assert '累计100' in halo.locator('button').text_content(), halo.locator('button').text_content()
+        rocket = page.locator('.deco-item', has_text='小火箭')
+        assert rocket.locator('button').is_disabled()
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[d.current].coinsEarned = 150;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        page.goto(BASE); page.wait_for_load_state('networkidle'); page.wait_for_timeout(400)
+        page.click('#btn-pet'); page.wait_for_timeout(400)
+        halo = page.locator('.deco-item', has_text='天使光环')
+        btn = halo.locator('button')
+        assert not btn.is_disabled() and '免费领取' in btn.text_content(), btn.text_content()
+        coins0 = page.evaluate("""() => JSON.parse(localStorage.getItem('smallclass.v1')).students[
+          JSON.parse(localStorage.getItem('smallclass.v1')).current].coins""")
+        btn.click(); page.wait_for_timeout(400)
+        st2 = page.evaluate("""() => {
+          const s = JSON.parse(localStorage.getItem('smallclass.v1')).students[
+            JSON.parse(localStorage.getItem('smallclass.v1')).current];
+          return { coins: s.coins, decos: s.pet.decos, wearing: s.pet.wearing };
+        }""")
+        print('after claim halo:', st2, 'coins before:', coins0)
+        assert 'halo' in st2['decos'] and st2['wearing'] == 'halo'
+        assert st2['coins'] == coins0, 'milestone deco must be free'
+        page.screenshot(path='shots/30-v316-milestone.png')
+
+        print('v3.16 errors:', errs if errs else 'none')
+        assert not errs, errs
+        browser.close()
+
+test_v316()
