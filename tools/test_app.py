@@ -358,7 +358,7 @@ def test_v11():
         }""")
         page.wait_for_timeout(300)
         page.screenshot(path='shots/28b-english-unit-quiz.png')
-        # v3.11 一年级英语单元（沪教牛津深圳版一上 12 单元）
+        # v3.12 一年级英语单元（深圳新教材《英语（口语交际）》一上 6 单元）
         page.evaluate("""() => {
           const d = JSON.parse(localStorage.getItem('smallclass.v1'));
           d.students[0].grade = 1;
@@ -366,16 +366,16 @@ def test_v11():
         }""")
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.locator('.subject-card', has_text='英语').first.click(); page.wait_for_timeout(400)
-        assert page.locator('#btn-units').is_visible(), 'english units btn hidden (grade1, v3.11)'
+        assert page.locator('#btn-units').is_visible(), 'english units btn hidden (grade1, v3.12)'
         page.click('#btn-units'); page.wait_for_timeout(200)
         n_eu1 = page.locator('#unit-list button').count()
-        print('english g1 unit list (expect 12):', n_eu1)
-        assert n_eu1 == 12
+        print('english g1 unit list (expect 6):', n_eu1)
+        assert n_eu1 == 6
         page.screenshot(path='shots/28c-english-g1-units.png')
-        page.locator('#unit-list button', has_text='打招呼').click()
+        page.locator('#unit-list button', has_text='家庭').click()
         page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
         print('english g1 unit question:', page.locator('#question-text').inner_text())
-        assert '打招呼' in page.locator('#quiz-level').inner_text()
+        assert '家庭' in page.locator('#quiz-level').inner_text()
         assert page.locator('.opt-btn').count() == 3
         page.screenshot(path='shots/28d-english-g1-quiz.png')
         # 还原年级为 3
@@ -454,12 +454,12 @@ def test_v11():
         assert neq == 20
         assert '英语' in page.locator('.paper-title').inner_text(), 'paper title should say 英语'
         page.screenshot(path='shots/25b-english-paper.png')
-        # v3.11 一年级英语卷：范围 = 期中期末 + 12 单元 = 14；期末全册抽 20 题
+        # v3.12 一年级英语卷：范围 = 期中期末 + 6 单元 = 8；期末全册抽 20 题
         page.select_option('#paper-grade', '1')
         page.wait_for_timeout(300)
         n_g1scopes = page.locator('#paper-scope option').count()
-        print('english g1 paper scopes (expect 2+12=14):', n_g1scopes)
-        assert n_g1scopes == 14
+        print('english g1 paper scopes (expect 2+6=8):', n_g1scopes)
+        assert n_g1scopes == 8
         page.select_option('#paper-scope', 'final')
         page.click('#btn-paper-gen'); page.wait_for_timeout(500)
         neq1 = page.locator('.paper-questions li').count()

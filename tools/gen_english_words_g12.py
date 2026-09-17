@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-"""v3.11 一、二年级英语词库重建：对齐沪教牛津版（深圳）一年级上册 / 二年级上册。
+"""v3.12 一、二年级英语词库重建：对齐深圳 2025 新教材《英语（口语交际）》。
 
-背景：深圳英语为一年级起点（部分学校开设），教材为上海教育出版社《英语》
-（沪教牛津深圳版）。此前 g1/g2 词库为泛用启蒙词，本次按教材 12 单元分主题重建。
+背景：深圳 2025 秋起小一使用上海教育出版社《英语（口语交际）》（广东省审定，
+沪教版新编），每年级上册 6 个单元、每单元一个主题（家庭/感觉/数字文具/…），
+无字母起步、每单元末设 Letters 页。二年级上册同套新教材。
+此前 v3.11 的经典版 12 单元词表（Hello/My classmates/…）已过时，本次整体替换。
 词表来源：教材配套分单元单词表（公共词汇事实，无课文原文）。
 
 运行：python tools/gen_english_words_g12.py
@@ -13,70 +15,47 @@ import random
 
 OUT = 'data/banks/english-words.json'
 
-# 单元主题词表：(主题tag, [(英文, 中文), ...])，按教材单元顺序
+# 单元主题词表：(主题tag, [(英文, 中文), ...])，按教材单元顺序（6 单元）
 G1 = [
-    ('打招呼',   [('hello', '你好'), ('hi', '嗨'), ('goodbye', '再见'), ('morning', '早上'),
-                 ('afternoon', '下午'), ('school', '学校'), ('day', '一天')]),
-    ('同学与文具', [('book', '书'), ('ruler', '尺子'), ('pencil', '铅笔'), ('rubber', '橡皮'),
-                 ('please', '请'), ('thank', '谢谢'), ('give', '给'), ('you', '你'),
-                 ('Sunday', '星期天'), ('nice', '美好的')]),
-    ('我的五官', [('face', '脸'), ('mouth', '嘴巴'), ('nose', '鼻子'), ('eye', '眼睛'),
-                 ('ear', '耳朵'), ('touch', '摸'), ('picture', '图画'), ('look', '看'),
-                 ('my', '我的'), ('your', '你的')]),
-    ('我会做',   [('sing', '唱歌'), ('dance', '跳舞'), ('read', '读'), ('draw', '画画'), ('can', '能')]),
-    ('我的家人', [('father', '爸爸'), ('mother', '妈妈'), ('grandmother', '奶奶（外婆）'),
-                 ('grandfather', '爷爷（外公）'), ('she', '她'), ('he', '他'), ('who', '谁')]),
-    ('我的朋友', [('tall', '高的'), ('short', '矮的'), ('fat', '胖的'), ('thin', '瘦的'),
-                 ('classmate', '同学'), ('friend', '朋友')]),
-    ('数一数',   [('one', '一'), ('two', '二'), ('three', '三'), ('four', '四'), ('five', '五'),
-                 ('six', '六'), ('count', '数数'), ('how many', '多少')]),
-    ('买水果',   [('apple', '苹果'), ('pear', '梨'), ('peach', '桃子'), ('orange', '桔子'),
-                 ('supermarket', '超市')]),
-    ('买食物',   [('pie', '果馅饼'), ('hamburger', '汉堡包'), ('pizza', '比萨饼'),
-                 ('cake', '蛋糕'), ('snack', '点心'), ('bar', '小吃部')]),
-    ('农场动物', [('cow', '奶牛'), ('chick', '小鸡'), ('duck', '鸭子'), ('pig', '猪'), ('that', '那')]),
-    ('动物园',   [('monkey', '猴子'), ('bear', '熊'), ('panda', '熊猫'), ('tiger', '老虎')]),
-    ('公园与颜色', [('colour', '颜色'), ('yellow', '黄色'), ('red', '红色'), ('blue', '蓝色'),
-                 ('green', '绿色'), ('big', '大的'), ('small', '小的')]),
+    ('家庭',   [('family', '家；家庭'), ('grandpa', '爷爷；外公'), ('grandma', '奶奶；外婆'),
+                 ('dad', '爸爸'), ('mum', '妈妈'), ('brother', '兄；弟'), ('sister', '姐；妹'),
+                 ('This is my...', '这是我的……'), ('hungry', '饿的'),
+                 ('magic', '魔法的'), ('noodles', '面条'), ('magic noodles', '魔法面条'),
+                 ('yarn', '毛线')]),
+    ('感觉',   [('cold', '冷的'), ('hot', '热的'), ('thirsty', '口渴的'), ('hungry', '饿的')]),
+    ('数字与文具', [('one', '一'), ('two', '二'), ('three', '三'), ('four', '四'),
+                 ('pencil case', '铅笔盒'), ('eraser', '橡皮'), ('pencil', '铅笔'), ('ruler', '直尺')]),
+    ('动作',   [('draw', '画'), ('write', '写；书写'), ('read', '阅读'), ('sing', '唱歌'),
+                 ('dance', '跳舞')]),
+    ('宠物',   [('dog', '狗'), ('cat', '猫'), ('fish', '鱼'), ('bird', '鸟'),
+                 ('hamster', '仓鼠'), ('tortoise', '乌龟')]),
+    ('颜色',   [('red', '红色'), ('white', '白色'), ('yellow', '黄色'), ('green', '绿色'),
+                 ('blue', '蓝色'), ('black', '黑色')]),
 ]
-G1_CORE = {'hello', 'book', 'face', 'sing', 'mother', 'friend', 'three',
-           'apple', 'cake', 'cow', 'panda', 'red'}  # 核心词双向各出一题
+G1_CORE = {'family', 'hot', 'three', 'draw', 'dog', 'red'}  # 每单元核心词双向各出一题
 
 G2 = [
-    ('日常问候', [('evening', '晚上'), ('night', '夜晚'), ('today', '今天'), ('mum', '妈妈'),
-                 ('morning', '早晨'), ('afternoon', '下午')]),
-    ('自我介绍', [('boy', '男孩'), ('girl', '女孩'), ('big', '大的'), ('small', '小的'),
-                 ('name', '名字')]),
-    ('你是谁',   [('sorry', '对不起'), ('seven', '七'), ('eight', '八'), ('nine', '九'),
-                 ('ten', '十'), ('elephant', '大象')]),
-    ('我会运动', [('swim', '游泳'), ('run', '跑'), ('write', '写字'), ('fly', '飞'),
-                 ('ride a bicycle', '骑自行车'), ('giraffe', '长颈鹿')]),
-    ('我的家庭', [('family', '家庭'), ('brother', '弟弟'), ('sister', '姐姐（妹妹）'),
-                 ('young', '年轻的'), ('old', '年老的'), ('insect', '昆虫'), ('jellyfish', '水母')]),
-    ('外貌特征', [('hair', '头发'), ('head', '头'), ('long', '长的'), ('now', '现在'),
-                 ('kangaroo', '袋鼠'), ('lion', '狮子')]),
-    ('游乐场',   [('playground', '操场'), ('slide', '滑梯'), ('swing', '秋千'), ('seesaw', '跷跷板')]),
-    ('我的房间', [('room', '房间'), ('bag', '包'), ('box', '箱子'), ('chair', '椅子'),
-                 ('desk', '书桌'), ('car', '小汽车'), ('pencil case', '铅笔盒'), ('sleep', '睡觉')]),
-    ('晚餐',     [('dinner', '晚饭'), ('plate', '盘子'), ('chopsticks', '筷子'), ('bowl', '碗'),
-                 ('spoon', '勺子'), ('ready', '准备好的')]),
-    ('天空',     [('sky', '天空'), ('moon', '月亮'), ('sun', '太阳'), ('star', '星星'),
-                 ('bright', '明亮的'), ('snake', '蛇')]),
-    ('森林动物', [('forest', '森林'), ('fox', '狐狸'), ('hippo', '河马'), ('grass', '草'),
-                 ('animal', '动物'), ('cute', '可爱的'), ('dove', '鸽子'), ('swan', '天鹅'),
-                 ('white', '白色的')]),
-    ('爱护花草', [('street', '大街'), ('flower', '花'), ('climb', '爬'), ('tree', '树'),
-                 ('park', '公园'), ('beautiful', '美丽的'), ('cry', '哭'), ('zebra', '斑马')]),
+    ('五感',   [('feel', '感觉到'), ('see', '看见'), ('smell', '闻到'), ('hear', '听见'),
+                 ('taste', '尝一尝')]),
+    ('亲属',   [('uncle', '叔叔；舅舅'), ('aunt', '阿姨；姑姑'), ('cousin', '堂（表）兄弟姐妹'),
+                 ('old', '年纪大的'), ('young', '年轻的'), ('cute', '可爱的')]),
+    ('玩具',   [('doll', '洋娃娃'), ('toy plane', '玩具飞机'), ('toy bear', '玩具熊'),
+                 ('ball', '球'), ('robot', '机器人'), ('jigsaw puzzle', '拼图')]),
+    ('场所',   [('pet shop', '宠物店'), ('fruit shop', '水果店'), ('cinema', '电影院'),
+                 ('zoo', '动物园'), ('park', '公园'), ('toy shop', '玩具店')]),
+    ('农场动物', [('cow', '奶牛'), ('sheep', '羊'), ('duck', '鸭子'), ('chick', '小鸡'),
+                 ('chicken', '鸡'), ('pig', '猪')]),
+    ('节日',   [('play with lanterns', '玩灯笼'), ('eat mooncakes', '吃月饼'),
+                 ('solve riddles', '猜谜语'), ('look at the moon', '看月亮')]),
 ]
-G2_CORE = {'night', 'name', 'ten', 'swim', 'family', 'hair', 'chair',
-           'dinner', 'moon', 'forest', 'flower', 'beautiful'}
+G2_CORE = {'see', 'uncle', 'robot', 'zoo', 'cow', 'eat mooncakes'}
 
 rng = random.Random(20260916)
 
 
 def unit_level(u_idx):
-    """单元顺序 → 段位 1~6（前易后难）。"""
-    return min(6, u_idx // 2 + 1)
+    """单元顺序 → 段位：新版每册 6 单元，一单元一段位（1~6）。"""
+    return min(6, u_idx + 1)
 
 
 def build(grade, units, core):

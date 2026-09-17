@@ -1,453 +1,165 @@
 [
  {
-  "q": "早上见到老师，打招呼说？",
-  "a": "Good morning!",
+  "q": "介绍家人「这是我妈妈。」说？",
+  "a": "This is my mum.",
   "options": [
-   "Good night!",
-   "Goodbye!"
+   "This is your mum.",
+   "I am mum."
   ],
   "wrongReasons": [
-   "早上用 Good morning 问好",
+   "This is my + 家人",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·打招呼",
-  "unit": "第一单元 打招呼",
-  "speak": "早上见到老师，打招呼说",
+  "tag": "单元·家庭",
+  "unit": "第一单元 家庭",
+  "speak": "介绍家人「这是我妈妈。」说",
   "id": "eu1-00"
  },
  {
-  "q": "hello 的意思是？",
-  "a": "你好",
+  "q": "grandpa 是？",
+  "a": "爷爷；外公",
   "options": [
-   "再见",
-   "谢谢"
+   "奶奶；外婆",
+   "兄；弟"
   ],
   "wrongReasons": [
-   "hello = 你好",
+   "grandpa 是祖辈男性",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·打招呼",
-  "unit": "第一单元 打招呼",
-  "speak": "hello 的意思是",
+  "tag": "单元·家庭",
+  "unit": "第一单元 家庭",
+  "speak": "grandpa 是",
   "id": "eu1-01"
  },
  {
-  "q": "和别人分开时说？",
-  "a": "Goodbye!",
+  "q": "magic noodles 是？",
+  "a": "魔法面条",
   "options": [
-   "Hello!",
-   "Good morning!"
+   "普通米饭",
+   "魔法帽子"
   ],
   "wrongReasons": [
-   "分开时说再见",
+   "magic 魔法 + noodles 面条",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·打招呼",
-  "unit": "第一单元 打招呼",
-  "speak": "和别人分开时说",
+  "tag": "单元·家庭",
+  "unit": "第一单元 家庭",
+  "speak": "magic noodles 是",
   "id": "eu1-02"
  },
  {
-  "q": "Good afternoon 是什么时候问好？",
-  "a": "下午",
+  "q": "brother 和 sister 的区别是？",
+  "a": "brother 是兄弟，sister 是姐妹",
   "options": [
-   "早上",
-   "晚上"
+   "两个都是姐妹",
+   "两个都是兄弟"
   ],
   "wrongReasons": [
-   "afternoon = 下午",
+   "brother 兄弟，sister 姐妹",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·打招呼",
-  "unit": "第一单元 打招呼",
-  "speak": "Good afternoon 是什么时候问好",
+  "tag": "单元·家庭",
+  "unit": "第一单元 家庭",
+  "speak": "brother 和 sister 的区别是",
   "id": "eu1-03"
  },
  {
-  "q": "「书」的英文是？",
-  "a": "book",
+  "q": "yarn 的意思是？",
+  "a": "毛线",
   "options": [
-   "ruler",
-   "pencil"
+   "面条",
+   "魔法"
   ],
   "wrongReasons": [
-   "book 书，ruler 尺子",
+   "yarn = 毛线",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·同学与文具",
-  "unit": "第二单元 同学与文具",
-  "speak": "「书」的英文是",
+  "tag": "单元·家庭",
+  "unit": "第一单元 家庭",
+  "speak": "yarn 的意思是",
   "id": "eu1-04"
  },
  {
-  "q": "rubber 是什么文具？",
-  "a": "橡皮",
+  "q": "「我饿了。」用英语说？",
+  "a": "I'm hungry.",
   "options": [
-   "铅笔",
-   "书"
+   "I'm cold.",
+   "I hungry."
   ],
   "wrongReasons": [
-   "rubber = 橡皮",
+   "I am + 形容词",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·同学与文具",
-  "unit": "第二单元 同学与文具",
-  "speak": "rubber 是什么文具",
+  "tag": "单元·感觉",
+  "unit": "第二单元 感觉",
+  "speak": "「我饿了。」用英语说",
   "id": "eu1-05"
  },
  {
-  "q": "ruler 的意思是？",
-  "a": "尺子",
+  "q": "「口渴的」英文是？",
+  "a": "thirsty",
   "options": [
-   "橡皮",
-   "铅笔"
+   "cold",
+   "hot"
   ],
   "wrongReasons": [
-   "ruler = 尺子",
+   "thirsty = 口渴的",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·同学与文具",
-  "unit": "第二单元 同学与文具",
-  "speak": "ruler 的意思是",
+  "tag": "单元·感觉",
+  "unit": "第二单元 感觉",
+  "speak": "「口渴的」英文是",
   "id": "eu1-06"
  },
  {
-  "q": "得到帮助时说？",
-  "a": "Thank you.",
+  "q": "hot 的意思是？",
+  "a": "热的",
   "options": [
-   "Hello.",
-   "Goodbye."
+   "冷的",
+   "渴的"
   ],
   "wrongReasons": [
-   "感谢别人说 Thank you",
+   "hot 热 ↔ cold 冷",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·同学与文具",
-  "unit": "第二单元 同学与文具",
-  "speak": "得到帮助时说",
+  "tag": "单元·感觉",
+  "unit": "第二单元 感觉",
+  "speak": "hot 的意思是",
   "id": "eu1-07"
  },
  {
-  "q": "Touch your nose. 是让你做什么？",
-  "a": "摸摸你的鼻子",
+  "q": "冷的时候可以说？",
+  "a": "I'm cold.",
   "options": [
-   "摸摸你的耳朵",
-   "看看你的眼睛"
+   "I'm hot.",
+   "I'm thirsty."
   ],
   "wrongReasons": [
-   "nose 鼻子，ear 耳朵",
+   "cold = 冷的",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·我的五官",
-  "unit": "第三单元 我的五官",
-  "speak": "Touch your nose. 是让你做什么",
+  "tag": "单元·感觉",
+  "unit": "第二单元 感觉",
+  "speak": "冷的时候可以说",
   "id": "eu1-08"
- },
- {
-  "q": "eye 是？",
-  "a": "眼睛",
-  "options": [
-   "嘴巴",
-   "鼻子"
-  ],
-  "wrongReasons": [
-   "eye 眼睛，mouth 嘴巴，nose 鼻子",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我的五官",
-  "unit": "第三单元 我的五官",
-  "speak": "eye 是",
-  "id": "eu1-09"
- },
- {
-  "q": "「这是我的脸。」说？",
-  "a": "This is my face.",
-  "options": [
-   "This is your face.",
-   "This is my nose."
-  ],
-  "wrongReasons": [
-   "my 我的 + face 脸",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我的五官",
-  "unit": "第三单元 我的五官",
-  "speak": "「这是我的脸。」说",
-  "id": "eu1-10"
- },
- {
-  "q": "ear 的意思是？",
-  "a": "耳朵",
-  "options": [
-   "眼睛",
-   "头发"
-  ],
-  "wrongReasons": [
-   "ear = 耳朵",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我的五官",
-  "unit": "第三单元 我的五官",
-  "speak": "ear 的意思是",
-  "id": "eu1-11"
- },
- {
-  "q": "「我会唱歌。」用英语说？",
-  "a": "I can sing.",
-  "options": [
-   "I can dance.",
-   "I am sing."
-  ],
-  "wrongReasons": [
-   "can + 动词 表示会做",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我会做",
-  "unit": "第四单元 我会做",
-  "speak": "「我会唱歌。」用英语说",
-  "id": "eu1-12"
- },
- {
-  "q": "draw 是做什么？",
-  "a": "画画",
-  "options": [
-   "读书",
-   "跳舞"
-  ],
-  "wrongReasons": [
-   "draw = 画画",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我会做",
-  "unit": "第四单元 我会做",
-  "speak": "draw 是做什么",
-  "id": "eu1-13"
- },
- {
-  "q": "dance 是？",
-  "a": "跳舞",
-  "options": [
-   "唱歌",
-   "读书"
-  ],
-  "wrongReasons": [
-   "dance 跳舞，sing 唱歌，read 读书",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我会做",
-  "unit": "第四单元 我会做",
-  "speak": "dance 是",
-  "id": "eu1-14"
- },
- {
-  "q": "can 的意思是？",
-  "a": "能；会",
-  "options": [
-   "想；要",
-   "喜欢"
-  ],
-  "wrongReasons": [
-   "can 表示会做某事",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我会做",
-  "unit": "第四单元 我会做",
-  "speak": "can 的意思是",
-  "id": "eu1-15"
- },
- {
-  "q": "介绍「这是我妈妈」说？",
-  "a": "This is my mother.",
-  "options": [
-   "This is my father.",
-   "I am mother."
-  ],
-  "wrongReasons": [
-   "mother 妈妈，father 爸爸",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我的家人",
-  "unit": "第五单元 我的家人",
-  "speak": "介绍「这是我妈妈」说",
-  "id": "eu1-16"
- },
- {
-  "q": "grandmother 是？",
-  "a": "奶奶（外婆）",
-  "options": [
-   "爷爷（外公）",
-   "哥哥"
-  ],
-  "wrongReasons": [
-   "grandmother 是祖辈女性",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我的家人",
-  "unit": "第五单元 我的家人",
-  "speak": "grandmother 是",
-  "id": "eu1-17"
- },
- {
-  "q": "father 的意思是？",
-  "a": "爸爸",
-  "options": [
-   "妈妈",
-   "姐姐"
-  ],
-  "wrongReasons": [
-   "father = 爸爸",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我的家人",
-  "unit": "第五单元 我的家人",
-  "speak": "father 的意思是",
-  "id": "eu1-18"
- },
- {
-  "q": "he 和 she 的区别是？",
-  "a": "he 是他，she 是她",
-  "options": [
-   "he 是她，she 是他",
-   "两个都是它"
-  ],
-  "wrongReasons": [
-   "he 指男生，she 指女生",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我的家人",
-  "unit": "第五单元 我的家人",
-  "speak": "he 和 she 的区别是",
-  "id": "eu1-19"
- },
- {
-  "q": "friend 的意思是？",
-  "a": "朋友",
-  "options": [
-   "同学",
-   "老师"
-  ],
-  "wrongReasons": [
-   "friend = 朋友",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我的朋友",
-  "unit": "第六单元 我的朋友",
-  "speak": "friend 的意思是",
-  "id": "eu1-20"
- },
- {
-  "q": "tall 的反义词是？",
-  "a": "short",
-  "options": [
-   "fat",
-   "thin"
-  ],
-  "wrongReasons": [
-   "tall 高 ↔ short 矮",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我的朋友",
-  "unit": "第六单元 我的朋友",
-  "speak": "tall 的反义词是",
-  "id": "eu1-21"
- },
- {
-  "q": "fat 是？",
-  "a": "胖的",
-  "options": [
-   "瘦的",
-   "高的"
-  ],
-  "wrongReasons": [
-   "fat 胖 ↔ thin 瘦",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我的朋友",
-  "unit": "第六单元 我的朋友",
-  "speak": "fat 是",
-  "id": "eu1-22"
- },
- {
-  "q": "classmate 是？",
-  "a": "同学",
-  "options": [
-   "朋友",
-   "家人"
-  ],
-  "wrongReasons": [
-   "class 同班 + mate 伙伴",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·我的朋友",
-  "unit": "第六单元 我的朋友",
-  "speak": "classmate 是",
-  "id": "eu1-23"
- },
- {
-  "q": "how many 是问什么？",
-  "a": "多少",
-  "options": [
-   "多高",
-   "多远"
-  ],
-  "wrongReasons": [
-   "how many 问数量",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·数一数",
-  "unit": "第七单元 数一数",
-  "speak": "how many 是问什么",
-  "id": "eu1-24"
  },
  {
   "q": "「三」的英文是？",
@@ -457,15 +169,33 @@
    "four"
   ],
   "wrongReasons": [
-   "three 三，two 二，four 四",
+   "three 3，two 2，four 4",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·数一数",
-  "unit": "第七单元 数一数",
+  "tag": "单元·数字与文具",
+  "unit": "第三单元 数字与文具",
   "speak": "「三」的英文是",
-  "id": "eu1-25"
+  "id": "eu1-09"
+ },
+ {
+  "q": "eraser 是什么文具？",
+  "a": "橡皮",
+  "options": [
+   "铅笔",
+   "直尺"
+  ],
+  "wrongReasons": [
+   "eraser = 橡皮",
+   "再想想这个单元的单词和句型"
+  ],
+  "grade": 1,
+  "level": 0,
+  "tag": "单元·数字与文具",
+  "unit": "第三单元 数字与文具",
+  "speak": "eraser 是什么文具",
+  "id": "eu1-10"
  },
  {
   "q": "one, two, ____, four，缺的数是？",
@@ -480,316 +210,190 @@
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·数一数",
-  "unit": "第七单元 数一数",
+  "tag": "单元·数字与文具",
+  "unit": "第三单元 数字与文具",
   "speak": "one, two, ____, four，缺的数是",
-  "id": "eu1-26"
+  "id": "eu1-11"
  },
  {
-  "q": "five 是数字几？",
-  "a": "5",
+  "q": "ruler 的意思是？",
+  "a": "直尺",
   "options": [
-   "4",
-   "6"
-  ],
-  "wrongReasons": [
-   "five = 5",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·数一数",
-  "unit": "第七单元 数一数",
-  "speak": "five 是数字几",
-  "id": "eu1-27"
- },
- {
-  "q": "apple 是？",
-  "a": "苹果",
-  "options": [
-   "梨",
-   "桃子"
-  ],
-  "wrongReasons": [
-   "apple 苹果，pear 梨，peach 桃子",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·买水果",
-  "unit": "第八单元 买水果",
-  "speak": "apple 是",
-  "id": "eu1-28"
- },
- {
-  "q": "买水果时「请给我苹果。」说？",
-  "a": "Apples, please.",
-  "options": [
-   "Pears, please.",
-   "Apples, goodbye."
-  ],
-  "wrongReasons": [
-   "名词 + please 礼貌请求",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·买水果",
-  "unit": "第八单元 买水果",
-  "speak": "买水果时「请给我苹果。」说",
-  "id": "eu1-29"
- },
- {
-  "q": "peach 的意思是？",
-  "a": "桃子",
-  "options": [
-   "桔子",
-   "苹果"
-  ],
-  "wrongReasons": [
-   "peach = 桃子",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·买水果",
-  "unit": "第八单元 买水果",
-  "speak": "peach 的意思是",
-  "id": "eu1-30"
- },
- {
-  "q": "supermarket 是？",
-  "a": "超市",
-  "options": [
-   "学校",
-   "公园"
-  ],
-  "wrongReasons": [
-   "supermarket = 超市",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·买水果",
-  "unit": "第八单元 买水果",
-  "speak": "supermarket 是",
-  "id": "eu1-31"
- },
- {
-  "q": "想吃蛋糕时说？",
-  "a": "May I have a cake?",
-  "options": [
-   "May I have a pie?",
-   "I am cake."
-  ],
-  "wrongReasons": [
-   "May I have...? 请求得到某物",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·买食物",
-  "unit": "第九单元 买食物",
-  "speak": "想吃蛋糕时说",
-  "id": "eu1-32"
- },
- {
-  "q": "hamburger 是？",
-  "a": "汉堡包",
-  "options": [
-   "比萨饼",
-   "蛋糕"
-  ],
-  "wrongReasons": [
-   "hamburger 汉堡，pizza 比萨",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·买食物",
-  "unit": "第九单元 买食物",
-  "speak": "hamburger 是",
-  "id": "eu1-33"
- },
- {
-  "q": "pizza 的意思是？",
-  "a": "比萨饼",
-  "options": [
-   "汉堡包",
-   "点心"
-  ],
-  "wrongReasons": [
-   "pizza = 比萨饼",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·买食物",
-  "unit": "第九单元 买食物",
-  "speak": "pizza 的意思是",
-  "id": "eu1-34"
- },
- {
-  "q": "snack 是？",
-  "a": "点心",
-  "options": [
-   "尺子",
+   "铅笔盒",
    "橡皮"
   ],
   "wrongReasons": [
-   "snack = 小吃点心",
+   "ruler = 直尺",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·买食物",
-  "unit": "第九单元 买食物",
-  "speak": "snack 是",
-  "id": "eu1-35"
+  "tag": "单元·数字与文具",
+  "unit": "第三单元 数字与文具",
+  "speak": "ruler 的意思是",
+  "id": "eu1-12"
  },
  {
-  "q": "cow 是？",
-  "a": "奶牛",
+  "q": "pencil case 是？",
+  "a": "铅笔盒",
   "options": [
-   "鸭子",
-   "小鸡"
+   "书包",
+   "玩具店"
   ],
   "wrongReasons": [
-   "cow 奶牛，duck 鸭子，chick 小鸡",
+   "pencil 铅笔 + case 盒",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·农场动物",
-  "unit": "第十单元 农场动物",
-  "speak": "cow 是",
-  "id": "eu1-36"
+  "tag": "单元·数字与文具",
+  "unit": "第三单元 数字与文具",
+  "speak": "pencil case 是",
+  "id": "eu1-13"
  },
  {
-  "q": "pig 的意思是？",
-  "a": "猪",
+  "q": "「我会跳舞。」说？",
+  "a": "I can dance.",
   "options": [
-   "牛",
-   "鸡"
+   "I can draw.",
+   "I am dance."
   ],
   "wrongReasons": [
-   "pig = 猪",
+   "can + 动词原形",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·农场动物",
-  "unit": "第十单元 农场动物",
-  "speak": "pig 的意思是",
-  "id": "eu1-37"
+  "tag": "单元·动作",
+  "unit": "第四单元 动作",
+  "speak": "「我会跳舞。」说",
+  "id": "eu1-14"
  },
  {
-  "q": "chick 是？",
-  "a": "小鸡",
+  "q": "read 是做什么？",
+  "a": "阅读；读",
   "options": [
-   "鸭子",
-   "猪"
+   "画画",
+   "写字"
   ],
   "wrongReasons": [
-   "chick = 小鸡",
+   "read 读，draw 画，write 写",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·农场动物",
-  "unit": "第十单元 农场动物",
-  "speak": "chick 是",
-  "id": "eu1-38"
+  "tag": "单元·动作",
+  "unit": "第四单元 动作",
+  "speak": "read 是做什么",
+  "id": "eu1-15"
  },
  {
-  "q": "duck 是？",
-  "a": "鸭子",
+  "q": "sing 的意思是？",
+  "a": "唱歌",
   "options": [
-   "奶牛",
-   "小鸡"
+   "跳舞",
+   "画画"
   ],
   "wrongReasons": [
-   "duck = 鸭子",
+   "sing 唱歌，dance 跳舞",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·农场动物",
-  "unit": "第十单元 农场动物",
-  "speak": "duck 是",
-  "id": "eu1-39"
+  "tag": "单元·动作",
+  "unit": "第四单元 动作",
+  "speak": "sing 的意思是",
+  "id": "eu1-16"
  },
  {
-  "q": "monkey 是？",
-  "a": "猴子",
+  "q": "write 是？",
+  "a": "写；书写",
   "options": [
-   "熊猫",
-   "老虎"
+   "阅读",
+   "唱歌"
   ],
   "wrongReasons": [
-   "monkey 猴子，panda 熊猫，tiger 老虎",
+   "write = 写字",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·动物园",
-  "unit": "第十一单元 动物园",
-  "speak": "monkey 是",
-  "id": "eu1-40"
+  "tag": "单元·动作",
+  "unit": "第四单元 动作",
+  "speak": "write 是",
+  "id": "eu1-17"
  },
  {
-  "q": "panda 的意思是？",
-  "a": "熊猫",
+  "q": "hamster 是？",
+  "a": "仓鼠",
   "options": [
-   "熊",
-   "老虎"
+   "乌龟",
+   "猫"
   ],
   "wrongReasons": [
-   "panda 是我们的国宝",
+   "hamster 是圆圆的小宠物",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·动物园",
-  "unit": "第十一单元 动物园",
-  "speak": "panda 的意思是",
-  "id": "eu1-41"
+  "tag": "单元·宠物",
+  "unit": "第五单元 宠物",
+  "speak": "hamster 是",
+  "id": "eu1-18"
  },
  {
-  "q": "tiger 是？",
-  "a": "老虎",
+  "q": "tortoise 的意思是？",
+  "a": "乌龟",
   "options": [
-   "熊",
-   "猴子"
+   "鸟",
+   "鱼"
   ],
   "wrongReasons": [
-   "tiger = 老虎",
+   "tortoise = 乌龟",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·动物园",
-  "unit": "第十一单元 动物园",
-  "speak": "tiger 是",
-  "id": "eu1-42"
+  "tag": "单元·宠物",
+  "unit": "第五单元 宠物",
+  "speak": "tortoise 的意思是",
+  "id": "eu1-19"
  },
  {
-  "q": "bear 的意思是？",
-  "a": "熊",
+  "q": "dog 和 cat 分别是？",
+  "a": "狗和猫",
   "options": [
-   "熊猫",
-   "老虎"
+   "猫和狗",
+   "鸟和鱼"
   ],
   "wrongReasons": [
-   "bear = 熊",
+   "dog 狗，cat 猫",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·动物园",
-  "unit": "第十一单元 动物园",
-  "speak": "bear 的意思是",
-  "id": "eu1-43"
+  "tag": "单元·宠物",
+  "unit": "第五单元 宠物",
+  "speak": "dog 和 cat 分别是",
+  "id": "eu1-20"
+ },
+ {
+  "q": "「鱼」的英文是？",
+  "a": "fish",
+  "options": [
+   "bird",
+   "cat"
+  ],
+  "wrongReasons": [
+   "fish 鱼，bird 鸟",
+   "再想想这个单元的单词和句型"
+  ],
+  "grade": 1,
+  "level": 0,
+  "tag": "单元·宠物",
+  "unit": "第五单元 宠物",
+  "speak": "「鱼」的英文是",
+  "id": "eu1-21"
  },
  {
   "q": "red 是？",
@@ -804,413 +408,215 @@
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·公园与颜色",
-  "unit": "第十二单元 公园与颜色",
+  "tag": "单元·颜色",
+  "unit": "第六单元 颜色",
   "speak": "red 是",
-  "id": "eu1-44"
+  "id": "eu1-22"
  },
  {
-  "q": "yellow 的意思是？",
-  "a": "黄色",
+  "q": "black 的意思是？",
+  "a": "黑色",
   "options": [
-   "红色",
-   "蓝色"
-  ],
-  "wrongReasons": [
-   "yellow = 黄色",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 1,
-  "level": 0,
-  "tag": "单元·公园与颜色",
-  "unit": "第十二单元 公园与颜色",
-  "speak": "yellow 的意思是",
-  "id": "eu1-45"
- },
- {
-  "q": "blue 是？",
-  "a": "蓝色",
-  "options": [
-   "绿色",
+   "白色",
    "黄色"
   ],
   "wrongReasons": [
-   "blue = 蓝色",
+   "black 黑，white 白",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·公园与颜色",
-  "unit": "第十二单元 公园与颜色",
-  "speak": "blue 是",
-  "id": "eu1-46"
+  "tag": "单元·颜色",
+  "unit": "第六单元 颜色",
+  "speak": "black 的意思是",
+  "id": "eu1-23"
  },
  {
-  "q": "big 的反义词是？",
-  "a": "small",
+  "q": "香蕉通常是？",
+  "a": "yellow（黄色）",
   "options": [
-   "tall",
-   "long"
+   "blue（蓝色）",
+   "black（黑色）"
   ],
   "wrongReasons": [
-   "big 大 ↔ small 小",
+   "香蕉是黄色的",
    "再想想这个单元的单词和句型"
   ],
   "grade": 1,
   "level": 0,
-  "tag": "单元·公园与颜色",
-  "unit": "第十二单元 公园与颜色",
-  "speak": "big 的反义词是",
-  "id": "eu1-47"
+  "tag": "单元·颜色",
+  "unit": "第六单元 颜色",
+  "speak": "香蕉通常是",
+  "id": "eu1-24"
  },
  {
-  "q": "晚上见面问好说？",
-  "a": "Good evening!",
+  "q": "小草是？",
+  "a": "green（绿色）",
   "options": [
-   "Good morning!",
-   "Good night!"
+   "red（红色）",
+   "white（白色）"
   ],
   "wrongReasons": [
-   "evening = 晚上",
+   "小草是绿色的",
+   "再想想这个单元的单词和句型"
+  ],
+  "grade": 1,
+  "level": 0,
+  "tag": "单元·颜色",
+  "unit": "第六单元 颜色",
+  "speak": "小草是",
+  "id": "eu1-25"
+ },
+ {
+  "q": "用眼睛看，英文是？",
+  "a": "see",
+  "options": [
+   "hear",
+   "smell"
+  ],
+  "wrongReasons": [
+   "see = 看见",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·日常问候",
-  "unit": "第一单元 日常问候",
-  "speak": "晚上见面问好说",
-  "id": "eu2-48"
+  "tag": "单元·五感",
+  "unit": "第一单元 五感",
+  "speak": "用眼睛看，英文是",
+  "id": "eu2-26"
  },
  {
-  "q": "睡觉前说？",
-  "a": "Good night!",
+  "q": "hear 的意思是？",
+  "a": "听见",
   "options": [
-   "Good afternoon!",
-   "Good morning!"
+   "闻到",
+   "尝一尝"
   ],
   "wrongReasons": [
-   "睡前固定用语 Good night",
+   "hear = 听见",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·日常问候",
-  "unit": "第一单元 日常问候",
-  "speak": "睡觉前说",
-  "id": "eu2-49"
+  "tag": "单元·五感",
+  "unit": "第一单元 五感",
+  "speak": "hear 的意思是",
+  "id": "eu2-27"
  },
  {
-  "q": "today 的意思是？",
-  "a": "今天",
+  "q": "「闻一闻」用英语说？",
+  "a": "smell",
   "options": [
-   "明天",
-   "昨天"
+   "taste",
+   "feel"
   ],
   "wrongReasons": [
-   "today = 今天",
+   "smell = 闻到",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·日常问候",
-  "unit": "第一单元 日常问候",
-  "speak": "today 的意思是",
-  "id": "eu2-50"
+  "tag": "单元·五感",
+  "unit": "第一单元 五感",
+  "speak": "「闻一闻」用英语说",
+  "id": "eu2-28"
  },
  {
-  "q": "回答 How are you? 可以说？",
-  "a": "Very well, thank you.",
+  "q": "taste 是？",
+  "a": "尝一尝",
   "options": [
-   "How are you?",
-   "Good night."
+   "看一看",
+   "听一听"
   ],
   "wrongReasons": [
-   "very well = 很好",
+   "taste = 尝",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·日常问候",
-  "unit": "第一单元 日常问候",
-  "speak": "回答 How are you? 可以说",
-  "id": "eu2-51"
+  "tag": "单元·五感",
+  "unit": "第一单元 五感",
+  "speak": "taste 是",
+  "id": "eu2-29"
  },
  {
-  "q": "介绍自己名字说？",
-  "a": "I'm Danny.",
+  "q": "feel 的意思是？",
+  "a": "感觉到",
   "options": [
-   "You are Danny.",
-   "He is Danny."
+   "看见",
+   "听见"
   ],
   "wrongReasons": [
-   "I'm = I am 我是",
+   "feel = 感觉到",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·自我介绍",
-  "unit": "第二单元 自我介绍",
-  "speak": "介绍自己名字说",
-  "id": "eu2-52"
+  "tag": "单元·五感",
+  "unit": "第一单元 五感",
+  "speak": "feel 的意思是",
+  "id": "eu2-30"
  },
  {
-  "q": "boy 是？",
-  "a": "男孩",
+  "q": "uncle 是？",
+  "a": "叔叔；舅舅",
   "options": [
-   "女孩",
-   "妈妈"
+   "阿姨；姑姑",
+   "堂（表）兄弟姐妹"
   ],
   "wrongReasons": [
-   "boy 男孩，girl 女孩",
+   "uncle 是长辈男性",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·自我介绍",
-  "unit": "第二单元 自我介绍",
-  "speak": "boy 是",
-  "id": "eu2-53"
+  "tag": "单元·亲属",
+  "unit": "第二单元 亲属",
+  "speak": "uncle 是",
+  "id": "eu2-31"
  },
  {
-  "q": "name 的意思是？",
-  "a": "名字",
+  "q": "aunt 的意思是？",
+  "a": "阿姨；姑姑",
   "options": [
-   "年龄",
-   "班级"
+   "叔叔；舅舅",
+   "奶奶；外婆"
   ],
   "wrongReasons": [
-   "name = 名字",
+   "aunt 是长辈女性",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·自我介绍",
-  "unit": "第二单元 自我介绍",
-  "speak": "name 的意思是",
-  "id": "eu2-54"
+  "tag": "单元·亲属",
+  "unit": "第二单元 亲属",
+  "speak": "aunt 的意思是",
+  "id": "eu2-32"
  },
  {
-  "q": "big 的反义词是？",
-  "a": "small",
+  "q": "cousin 是？",
+  "a": "堂（表）兄弟姐妹",
   "options": [
-   "long",
-   "tall"
+   "爸爸",
+   "爷爷"
   ],
   "wrongReasons": [
-   "big 大 ↔ small 小",
+   "cousin 是同辈亲戚",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·自我介绍",
-  "unit": "第二单元 自我介绍",
-  "speak": "big 的反义词是",
-  "id": "eu2-55"
- },
- {
-  "q": "Are you Alice? 肯定回答是？",
-  "a": "Yes, I am.",
-  "options": [
-   "Yes, I is.",
-   "No, I am."
-  ],
-  "wrongReasons": [
-   "Are you...? 用 Yes, I am 回答",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·你是谁",
-  "unit": "第三单元 你是谁",
-  "speak": "Are you Alice? 肯定回答是",
-  "id": "eu2-56"
- },
- {
-  "q": "seven 是数字几？",
-  "a": "7",
-  "options": [
-   "8",
-   "9"
-  ],
-  "wrongReasons": [
-   "seven 7，eight 8，nine 9，ten 10",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·你是谁",
-  "unit": "第三单元 你是谁",
-  "speak": "seven 是数字几",
-  "id": "eu2-57"
- },
- {
-  "q": "ten 的意思是？",
-  "a": "十",
-  "options": [
-   "九",
-   "八"
-  ],
-  "wrongReasons": [
-   "ten = 10",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·你是谁",
-  "unit": "第三单元 你是谁",
-  "speak": "ten 的意思是",
-  "id": "eu2-58"
- },
- {
-  "q": "做错事时说？",
-  "a": "Sorry.",
-  "options": [
-   "Thank you.",
-   "Hello."
-  ],
-  "wrongReasons": [
-   "道歉说 Sorry",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·你是谁",
-  "unit": "第三单元 你是谁",
-  "speak": "做错事时说",
-  "id": "eu2-59"
- },
- {
-  "q": "「你会游泳吗？」怎么问？",
-  "a": "Can you swim?",
-  "options": [
-   "Are you swim?",
-   "You can swim?"
-  ],
-  "wrongReasons": [
-   "Can you + 动词",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·我会运动",
-  "unit": "第四单元 我会运动",
-  "speak": "「你会游泳吗」怎么问",
-  "id": "eu2-60"
- },
- {
-  "q": "run 是？",
-  "a": "跑",
-  "options": [
-   "飞",
-   "写"
-  ],
-  "wrongReasons": [
-   "run 跑，fly 飞，write 写",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·我会运动",
-  "unit": "第四单元 我会运动",
-  "speak": "run 是",
-  "id": "eu2-61"
- },
- {
-  "q": "ride a bicycle 是？",
-  "a": "骑自行车",
-  "options": [
-   "开小汽车",
-   "滑滑梯"
-  ],
-  "wrongReasons": [
-   "bicycle 自行车",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·我会运动",
-  "unit": "第四单元 我会运动",
-  "speak": "ride a bicycle 是",
-  "id": "eu2-62"
- },
- {
-  "q": "can't 的意思是？",
-  "a": "不能；不会",
-  "options": [
-   "能；会",
-   "想要"
-  ],
-  "wrongReasons": [
-   "can't = cannot",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·我会运动",
-  "unit": "第四单元 我会运动",
-  "speak": "can't 的意思是",
-  "id": "eu2-63"
- },
- {
-  "q": "That's my family. 是什么意思？",
-  "a": "那是我的家庭",
-  "options": [
-   "这是我的朋友",
-   "那是我的学校"
-  ],
-  "wrongReasons": [
-   "That's = That is",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·我的家庭",
-  "unit": "第五单元 我的家庭",
-  "speak": "That's my family. 是什么意思",
-  "id": "eu2-64"
- },
- {
-  "q": "brother 是？",
-  "a": "弟弟；兄弟",
-  "options": [
-   "姐姐；妹妹",
-   "妈妈"
-  ],
-  "wrongReasons": [
-   "brother 兄弟，sister 姐妹",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·我的家庭",
-  "unit": "第五单元 我的家庭",
-  "speak": "brother 是",
-  "id": "eu2-65"
- },
- {
-  "q": "sister 的意思是？",
-  "a": "姐姐；妹妹",
-  "options": [
-   "弟弟",
-   "爸爸"
-  ],
-  "wrongReasons": [
-   "sister = 姐妹",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·我的家庭",
-  "unit": "第五单元 我的家庭",
-  "speak": "sister 的意思是",
-  "id": "eu2-66"
+  "tag": "单元·亲属",
+  "unit": "第二单元 亲属",
+  "speak": "cousin 是",
+  "id": "eu2-33"
  },
  {
   "q": "young 的反义词是？",
   "a": "old",
   "options": [
-   "small",
-   "short"
+   "cute",
+   "small"
   ],
   "wrongReasons": [
    "young 年轻 ↔ old 年老",
@@ -1218,514 +624,298 @@
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·我的家庭",
-  "unit": "第五单元 我的家庭",
+  "tag": "单元·亲属",
+  "unit": "第二单元 亲属",
   "speak": "young 的反义词是",
-  "id": "eu2-67"
+  "id": "eu2-34"
  },
  {
-  "q": "「我的头发长。」说？",
-  "a": "My hair is long.",
+  "q": "robot 是？",
+  "a": "机器人",
   "options": [
-   "My hair is short.",
-   "My head is long."
+   "洋娃娃",
+   "拼图"
   ],
   "wrongReasons": [
-   "hair 头发，long 长",
+   "robot = 机器人",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·外貌特征",
-  "unit": "第六单元 外貌特征",
-  "speak": "「我的头发长。」说",
-  "id": "eu2-68"
+  "tag": "单元·玩具",
+  "unit": "第三单元 玩具",
+  "speak": "robot 是",
+  "id": "eu2-35"
  },
  {
-  "q": "hair 是？",
-  "a": "头发",
+  "q": "jigsaw puzzle 的意思是？",
+  "a": "拼图",
   "options": [
-   "头",
-   "手"
+   "玩具飞机",
+   "玩具熊"
   ],
   "wrongReasons": [
-   "hair 头发，head 头",
+   "puzzle = 拼图",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·外貌特征",
-  "unit": "第六单元 外貌特征",
-  "speak": "hair 是",
-  "id": "eu2-69"
+  "tag": "单元·玩具",
+  "unit": "第三单元 玩具",
+  "speak": "jigsaw puzzle 的意思是",
+  "id": "eu2-36"
  },
  {
-  "q": "head 的意思是？",
-  "a": "头",
+  "q": "doll 是？",
+  "a": "洋娃娃",
   "options": [
-   "头发",
-   "脸"
+   "球",
+   "机器人"
   ],
   "wrongReasons": [
-   "head = 头",
+   "doll = 洋娃娃",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·外貌特征",
-  "unit": "第六单元 外貌特征",
-  "speak": "head 的意思是",
-  "id": "eu2-70"
+  "tag": "单元·玩具",
+  "unit": "第三单元 玩具",
+  "speak": "doll 是",
+  "id": "eu2-37"
  },
  {
-  "q": "long 的反义词是？",
-  "a": "short",
+  "q": "toy bear 是？",
+  "a": "玩具熊",
   "options": [
-   "big",
-   "old"
+   "玩具飞机",
+   "玩具店"
   ],
   "wrongReasons": [
-   "long 长 ↔ short 短",
+   "toy 玩具 + bear 熊",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·外貌特征",
-  "unit": "第六单元 外貌特征",
-  "speak": "long 的反义词是",
-  "id": "eu2-71"
+  "tag": "单元·玩具",
+  "unit": "第三单元 玩具",
+  "speak": "toy bear 是",
+  "id": "eu2-38"
  },
  {
-  "q": "slide 是？",
-  "a": "滑梯",
+  "q": "看电影去哪里？",
+  "a": "cinema（电影院）",
   "options": [
-   "秋千",
-   "跷跷板"
+   "zoo（动物园）",
+   "park（公园）"
   ],
   "wrongReasons": [
-   "slide 滑梯，swing 秋千，seesaw 跷跷板",
+   "cinema = 电影院",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·游乐场",
-  "unit": "第七单元 游乐场",
-  "speak": "slide 是",
-  "id": "eu2-72"
+  "tag": "单元·场所",
+  "unit": "第四单元 场所",
+  "speak": "看电影去哪里",
+  "id": "eu2-39"
  },
  {
-  "q": "swing 的意思是？",
-  "a": "秋千",
+  "q": "看动物去？",
+  "a": "zoo（动物园）",
   "options": [
-   "滑梯",
-   "操场"
+   "fruit shop（水果店）",
+   "cinema（电影院）"
   ],
   "wrongReasons": [
-   "swing = 秋千",
+   "zoo = 动物园",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·游乐场",
-  "unit": "第七单元 游乐场",
-  "speak": "swing 的意思是",
-  "id": "eu2-73"
+  "tag": "单元·场所",
+  "unit": "第四单元 场所",
+  "speak": "看动物去",
+  "id": "eu2-40"
  },
  {
-  "q": "seesaw 是？",
-  "a": "跷跷板",
+  "q": "pet shop 是？",
+  "a": "宠物店",
   "options": [
-   "秋千",
-   "滑梯"
+   "玩具店",
+   "水果店"
   ],
   "wrongReasons": [
-   "seesaw = 跷跷板",
+   "pet 宠物 + shop 商店",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·游乐场",
-  "unit": "第七单元 游乐场",
-  "speak": "seesaw 是",
-  "id": "eu2-74"
+  "tag": "单元·场所",
+  "unit": "第四单元 场所",
+  "speak": "pet shop 是",
+  "id": "eu2-41"
  },
  {
-  "q": "playground 是？",
-  "a": "操场",
+  "q": "park 的意思是？",
+  "a": "公园",
   "options": [
-   "房间",
-   "大街"
+   "电影院",
+   "宠物店"
   ],
   "wrongReasons": [
-   "play 玩 + ground 场地",
+   "park = 公园",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·游乐场",
-  "unit": "第七单元 游乐场",
-  "speak": "playground 是",
-  "id": "eu2-75"
+  "tag": "单元·场所",
+  "unit": "第四单元 场所",
+  "speak": "park 的意思是",
+  "id": "eu2-42"
  },
  {
-  "q": "Put the book in the bag. 是让你做什么？",
-  "a": "把书放进书包里",
+  "q": "cow 是？",
+  "a": "奶牛",
   "options": [
-   "把书放在椅子上",
-   "把书扔掉"
+   "鸭子",
+   "小鸡"
   ],
   "wrongReasons": [
-   "put 放，in 里面",
+   "cow = 奶牛",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·我的房间",
-  "unit": "第八单元 我的房间",
-  "speak": "Put the book in the bag. 是让你做什么",
-  "id": "eu2-76"
+  "tag": "单元·农场动物",
+  "unit": "第五单元 农场动物",
+  "speak": "cow 是",
+  "id": "eu2-43"
  },
  {
-  "q": "chair 是？",
-  "a": "椅子",
+  "q": "sheep 的意思是？",
+  "a": "羊",
   "options": [
-   "书桌",
-   "床"
+   "猪",
+   "奶牛"
   ],
   "wrongReasons": [
-   "chair 椅子，desk 书桌",
+   "sheep = 羊",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·我的房间",
-  "unit": "第八单元 我的房间",
-  "speak": "chair 是",
-  "id": "eu2-77"
+  "tag": "单元·农场动物",
+  "unit": "第五单元 农场动物",
+  "speak": "sheep 的意思是",
+  "id": "eu2-44"
  },
  {
-  "q": "desk 的意思是？",
-  "a": "书桌",
+  "q": "chick 是？",
+  "a": "小鸡",
   "options": [
-   "椅子",
-   "箱子"
-  ],
-  "wrongReasons": [
-   "desk = 书桌",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·我的房间",
-  "unit": "第八单元 我的房间",
-  "speak": "desk 的意思是",
-  "id": "eu2-78"
- },
- {
-  "q": "pencil case 是？",
-  "a": "铅笔盒",
-  "options": [
-   "书包",
-   "书桌"
-  ],
-  "wrongReasons": [
-   "pencil 铅笔 + case 盒",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·我的房间",
-  "unit": "第八单元 我的房间",
-  "speak": "pencil case 是",
-  "id": "eu2-79"
- },
- {
-  "q": "Dinner is ready. 是什么意思？",
-  "a": "晚饭准备好了",
-  "options": [
-   "该睡觉了",
-   "该上学了"
-  ],
-  "wrongReasons": [
-   "dinner 晚饭，ready 准备好",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·晚餐",
-  "unit": "第九单元 晚餐",
-  "speak": "Dinner is ready. 是什么意思",
-  "id": "eu2-80"
- },
- {
-  "q": "chopsticks 是？",
-  "a": "筷子",
-  "options": [
-   "勺子",
-   "碗"
-  ],
-  "wrongReasons": [
-   "chopsticks 常用复数",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·晚餐",
-  "unit": "第九单元 晚餐",
-  "speak": "chopsticks 是",
-  "id": "eu2-81"
- },
- {
-  "q": "bowl 的意思是？",
-  "a": "碗",
-  "options": [
-   "盘子",
-   "勺子"
-  ],
-  "wrongReasons": [
-   "bowl = 碗",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·晚餐",
-  "unit": "第九单元 晚餐",
-  "speak": "bowl 的意思是",
-  "id": "eu2-82"
- },
- {
-  "q": "spoon 是？",
-  "a": "勺子",
-  "options": [
-   "筷子",
-   "盘子"
-  ],
-  "wrongReasons": [
-   "spoon = 勺子",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·晚餐",
-  "unit": "第九单元 晚餐",
-  "speak": "spoon 是",
-  "id": "eu2-83"
- },
- {
-  "q": "sky 是？",
-  "a": "天空",
-  "options": [
-   "大海",
-   "森林"
-  ],
-  "wrongReasons": [
-   "sky = 天空",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·天空",
-  "unit": "第十单元 天空",
-  "speak": "sky 是",
-  "id": "eu2-84"
- },
- {
-  "q": "moon 的意思是？",
-  "a": "月亮",
-  "options": [
-   "太阳",
-   "星星"
-  ],
-  "wrongReasons": [
-   "moon 月亮，sun 太阳，star 星星",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·天空",
-  "unit": "第十单元 天空",
-  "speak": "moon 的意思是",
-  "id": "eu2-85"
- },
- {
-  "q": "sun 是？",
-  "a": "太阳",
-  "options": [
-   "月亮",
-   "天空"
-  ],
-  "wrongReasons": [
-   "sun = 太阳",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·天空",
-  "unit": "第十单元 天空",
-  "speak": "sun 是",
-  "id": "eu2-86"
- },
- {
-  "q": "star 的意思是？",
-  "a": "星星",
-  "options": [
-   "月亮",
-   "太阳"
-  ],
-  "wrongReasons": [
-   "star = 星星",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·天空",
-  "unit": "第十单元 天空",
-  "speak": "star 的意思是",
-  "id": "eu2-87"
- },
- {
-  "q": "forest 是？",
-  "a": "森林",
-  "options": [
-   "大街",
-   "操场"
-  ],
-  "wrongReasons": [
-   "forest = 森林",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·森林动物",
-  "unit": "第十一单元 森林动物",
-  "speak": "forest 是",
-  "id": "eu2-88"
- },
- {
-  "q": "fox 是？",
-  "a": "狐狸",
-  "options": [
-   "河马",
-   "天鹅"
-  ],
-  "wrongReasons": [
-   "fox 狐狸，hippo 河马",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·森林动物",
-  "unit": "第十一单元 森林动物",
-  "speak": "fox 是",
-  "id": "eu2-89"
- },
- {
-  "q": "hippo 的意思是？",
-  "a": "河马",
-  "options": [
-   "狐狸",
-   "鸽子"
-  ],
-  "wrongReasons": [
-   "hippo = 河马",
-   "再想想这个单元的单词和句型"
-  ],
-  "grade": 2,
-  "level": 0,
-  "tag": "单元·森林动物",
-  "unit": "第十一单元 森林动物",
-  "speak": "hippo 的意思是",
-  "id": "eu2-90"
- },
- {
-  "q": "swan 是？",
-  "a": "天鹅",
-  "options": [
-   "鸽子",
+   "鸡",
    "鸭子"
   ],
   "wrongReasons": [
-   "swan 天鹅，dove 鸽子",
+   "chick 小鸡，chicken 鸡",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·森林动物",
-  "unit": "第十一单元 森林动物",
-  "speak": "swan 是",
-  "id": "eu2-91"
+  "tag": "单元·农场动物",
+  "unit": "第五单元 农场动物",
+  "speak": "chick 是",
+  "id": "eu2-45"
  },
  {
-  "q": "Don't pick the flowers. 是什么意思？",
-  "a": "不要摘花",
+  "q": "pig 是？",
+  "a": "猪",
   "options": [
-   "不要种树",
-   "快去摘花"
+   "奶牛",
+   "羊"
   ],
   "wrongReasons": [
-   "don't + 动词 表示不要做",
+   "pig = 猪",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·爱护花草",
-  "unit": "第十二单元 爱护花草",
-  "speak": "Don't pick the flowers. 是什么意思",
-  "id": "eu2-92"
+  "tag": "单元·农场动物",
+  "unit": "第五单元 农场动物",
+  "speak": "pig 是",
+  "id": "eu2-46"
  },
  {
-  "q": "flower 是？",
-  "a": "花",
+  "q": "中秋节我们吃？",
+  "a": "mooncakes（月饼）",
   "options": [
-   "树",
-   "草"
+   "dumplings（饺子）",
+   "zongzi（粽子）"
   ],
   "wrongReasons": [
-   "flower 花，tree 树，grass 草",
+   "中秋吃月饼",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·爱护花草",
-  "unit": "第十二单元 爱护花草",
-  "speak": "flower 是",
-  "id": "eu2-93"
+  "tag": "单元·节日",
+  "unit": "第六单元 节日",
+  "speak": "中秋节我们吃",
+  "id": "eu2-47"
  },
  {
-  "q": "climb the tree 是？",
-  "a": "爬树",
+  "q": "play with lanterns 是？",
+  "a": "玩灯笼",
   "options": [
-   "砍树",
-   "种树"
+   "看月亮",
+   "猜谜语"
   ],
   "wrongReasons": [
-   "climb = 爬",
+   "lantern 灯笼",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·爱护花草",
-  "unit": "第十二单元 爱护花草",
-  "speak": "climb the tree 是",
-  "id": "eu2-94"
+  "tag": "单元·节日",
+  "unit": "第六单元 节日",
+  "speak": "play with lanterns 是",
+  "id": "eu2-48"
  },
  {
-  "q": "beautiful 的意思是？",
-  "a": "美丽的",
+  "q": "solve riddles 的意思是？",
+  "a": "猜谜语",
   "options": [
-   "可爱的",
-   "野生的"
+   "看月亮",
+   "吃月饼"
   ],
   "wrongReasons": [
-   "beautiful = 美丽",
+   "riddle 谜语",
    "再想想这个单元的单词和句型"
   ],
   "grade": 2,
   "level": 0,
-  "tag": "单元·爱护花草",
-  "unit": "第十二单元 爱护花草",
-  "speak": "beautiful 的意思是",
-  "id": "eu2-95"
+  "tag": "单元·节日",
+  "unit": "第六单元 节日",
+  "speak": "solve riddles 的意思是",
+  "id": "eu2-49"
+ },
+ {
+  "q": "look at the moon 是？",
+  "a": "看月亮",
+  "options": [
+   "玩灯笼",
+   "猜谜语"
+  ],
+  "wrongReasons": [
+   "moon 月亮",
+   "再想想这个单元的单词和句型"
+  ],
+  "grade": 2,
+  "level": 0,
+  "tag": "单元·节日",
+  "unit": "第六单元 节日",
+  "speak": "look at the moon 是",
+  "id": "eu2-50"
  },
  {
   "q": "happy 的意思是？",
@@ -1743,7 +933,7 @@
   "tag": "单元·感受与情绪",
   "unit": "第一单元 感受与情绪",
   "speak": "happy 的意思是",
-  "id": "eu3-96"
+  "id": "eu3-51"
  },
  {
   "q": "How do we feel? 在问什么？",
@@ -1761,7 +951,7 @@
   "tag": "单元·感受与情绪",
   "unit": "第一单元 感受与情绪",
   "speak": "How do we feel? 在问什么",
-  "id": "eu3-97"
+  "id": "eu3-52"
  },
  {
   "q": "「我很开心」用英语说？",
@@ -1779,7 +969,7 @@
   "tag": "单元·感受与情绪",
   "unit": "第一单元 感受与情绪",
   "speak": "「我很开心」用英语说",
-  "id": "eu3-98"
+  "id": "eu3-53"
  },
  {
   "q": "tired 是什么感觉？",
@@ -1797,7 +987,7 @@
   "tag": "单元·感受与情绪",
   "unit": "第一单元 感受与情绪",
   "speak": "tired 是什么感觉",
-  "id": "eu3-99"
+  "id": "eu3-54"
  },
  {
   "q": "别人问你 How are you? 可以回答？",
@@ -1815,7 +1005,7 @@
   "tag": "单元·感受与情绪",
   "unit": "第一单元 感受与情绪",
   "speak": "别人问你 How are you? 可以回答",
-  "id": "eu3-100"
+  "id": "eu3-55"
  },
  {
   "q": "family 的意思是？",
@@ -1833,7 +1023,7 @@
   "tag": "单元·家庭",
   "unit": "第二单元 家庭",
   "speak": "family 的意思是",
-  "id": "eu3-101"
+  "id": "eu3-56"
  },
  {
   "q": "介绍「这是我妈妈」说？",
@@ -1851,7 +1041,7 @@
   "tag": "单元·家庭",
   "unit": "第二单元 家庭",
   "speak": "介绍「这是我妈妈」说",
-  "id": "eu3-102"
+  "id": "eu3-57"
  },
  {
   "q": "father 和 mother 分别是？",
@@ -1869,7 +1059,7 @@
   "tag": "单元·家庭",
   "unit": "第二单元 家庭",
   "speak": "father 和 mother 分别是",
-  "id": "eu3-103"
+  "id": "eu3-58"
  },
  {
   "q": "brother 是指？",
@@ -1887,7 +1077,7 @@
   "tag": "单元·家庭",
   "unit": "第二单元 家庭",
   "speak": "brother 是指",
-  "id": "eu3-104"
+  "id": "eu3-59"
  },
  {
   "q": "How many people are in your family? 在问？",
@@ -1905,7 +1095,7 @@
   "tag": "单元·家庭",
   "unit": "第二单元 家庭",
   "speak": "How many people are in your family? 在问",
-  "id": "eu3-105"
+  "id": "eu3-60"
  },
  {
   "q": "tall 的反义词是？",
@@ -1923,7 +1113,7 @@
   "tag": "单元·外貌",
   "unit": "第三单元 外貌",
   "speak": "tall 的反义词是",
-  "id": "eu3-106"
+  "id": "eu3-61"
  },
  {
   "q": "描述「他个子高」说？",
@@ -1941,7 +1131,7 @@
   "tag": "单元·外貌",
   "unit": "第三单元 外貌",
   "speak": "描述「他个子高」说",
-  "id": "eu3-107"
+  "id": "eu3-62"
  },
  {
   "q": "long hair 是？",
@@ -1959,7 +1149,7 @@
   "tag": "单元·外貌",
   "unit": "第三单元 外貌",
   "speak": "long hair 是",
-  "id": "eu3-108"
+  "id": "eu3-63"
  },
  {
   "q": "What do you look like? 在问？",
@@ -1977,7 +1167,7 @@
   "tag": "单元·外貌",
   "unit": "第三单元 外貌",
   "speak": "What do you look like? 在问",
-  "id": "eu3-109"
+  "id": "eu3-64"
  },
  {
   "q": "big eyes 是？",
@@ -1995,7 +1185,7 @@
   "tag": "单元·外貌",
   "unit": "第三单元 外貌",
   "speak": "big eyes 是",
-  "id": "eu3-110"
+  "id": "eu3-65"
  },
  {
   "q": "play 的意思是？",
@@ -2013,7 +1203,7 @@
   "tag": "单元·玩乐",
   "unit": "第四单元 玩乐",
   "speak": "play 的意思是",
-  "id": "eu3-111"
+  "id": "eu3-66"
  },
  {
   "q": "「唱歌」用英语说？",
@@ -2031,7 +1221,7 @@
   "tag": "单元·玩乐",
   "unit": "第四单元 玩乐",
   "speak": "「唱歌」用英语说",
-  "id": "eu3-112"
+  "id": "eu3-67"
  },
  {
   "q": "dance 是？",
@@ -2049,7 +1239,7 @@
   "tag": "单元·玩乐",
   "unit": "第四单元 玩乐",
   "speak": "dance 是",
-  "id": "eu3-113"
+  "id": "eu3-68"
  },
  {
   "q": "提议一起玩说？",
@@ -2067,7 +1257,7 @@
   "tag": "单元·玩乐",
   "unit": "第四单元 玩乐",
   "speak": "提议一起玩说",
-  "id": "eu3-114"
+  "id": "eu3-69"
  },
  {
   "q": "swim 是？",
@@ -2085,7 +1275,7 @@
   "tag": "单元·玩乐",
   "unit": "第四单元 玩乐",
   "speak": "swim 是",
-  "id": "eu3-115"
+  "id": "eu3-70"
  },
  {
   "q": "rice 的意思是？",
@@ -2103,7 +1293,7 @@
   "tag": "单元·食物",
   "unit": "第五单元 食物",
   "speak": "rice 的意思是",
-  "id": "eu3-116"
+  "id": "eu3-71"
  },
  {
   "q": "noodles 是？",
@@ -2121,7 +1311,7 @@
   "tag": "单元·食物",
   "unit": "第五单元 食物",
   "speak": "noodles 是",
-  "id": "eu3-117"
+  "id": "eu3-72"
  },
  {
   "q": "问对方喜欢吃什么说？",
@@ -2139,7 +1329,7 @@
   "tag": "单元·食物",
   "unit": "第五单元 食物",
   "speak": "问对方喜欢吃什么说",
-  "id": "eu3-118"
+  "id": "eu3-73"
  },
  {
   "q": "fruit 是？",
@@ -2157,7 +1347,7 @@
   "tag": "单元·食物",
   "unit": "第五单元 食物",
   "speak": "fruit 是",
-  "id": "eu3-119"
+  "id": "eu3-74"
  },
  {
   "q": "「我喜欢苹果」说？",
@@ -2175,7 +1365,7 @@
   "tag": "单元·食物",
   "unit": "第五单元 食物",
   "speak": "「我喜欢苹果」说",
-  "id": "eu3-120"
+  "id": "eu3-75"
  },
  {
   "q": "rabbit 是？",
@@ -2193,7 +1383,7 @@
   "tag": "单元·小动物",
   "unit": "第六单元 小动物",
   "speak": "rabbit 是",
-  "id": "eu3-121"
+  "id": "eu3-76"
  },
  {
   "q": "问「你喜欢猫吗」说？",
@@ -2211,7 +1401,7 @@
   "tag": "单元·小动物",
   "unit": "第六单元 小动物",
   "speak": "问「你喜欢猫吗」说",
-  "id": "eu3-122"
+  "id": "eu3-77"
  },
  {
   "q": "喜欢时回答？",
@@ -2229,7 +1419,7 @@
   "tag": "单元·小动物",
   "unit": "第六单元 小动物",
   "speak": "喜欢时回答",
-  "id": "eu3-123"
+  "id": "eu3-78"
  },
  {
   "q": "「小鸟」的英文是？",
@@ -2247,7 +1437,7 @@
   "tag": "单元·小动物",
   "unit": "第六单元 小动物",
   "speak": "「小鸟」的英文是",
-  "id": "eu3-124"
+  "id": "eu3-79"
  },
  {
   "q": "small 的反义词是？",
@@ -2265,7 +1455,7 @@
   "tag": "单元·小动物",
   "unit": "第六单元 小动物",
   "speak": "small 的反义词是",
-  "id": "eu3-125"
+  "id": "eu3-80"
  },
  {
   "q": "sunny 的意思是？",
@@ -2283,7 +1473,7 @@
   "tag": "单元·天气",
   "unit": "第七单元 天气",
   "speak": "sunny 的意思是",
-  "id": "eu3-126"
+  "id": "eu3-81"
  },
  {
   "q": "问天气说？",
@@ -2301,7 +1491,7 @@
   "tag": "单元·天气",
   "unit": "第七单元 天气",
   "speak": "问天气说",
-  "id": "eu3-127"
+  "id": "eu3-82"
  },
  {
   "q": "rainy 是？",
@@ -2319,7 +1509,7 @@
   "tag": "单元·天气",
   "unit": "第七单元 天气",
   "speak": "rainy 是",
-  "id": "eu3-128"
+  "id": "eu3-83"
  },
  {
   "q": "snowy 是？",
@@ -2337,7 +1527,7 @@
   "tag": "单元·天气",
   "unit": "第七单元 天气",
   "speak": "snowy 是",
-  "id": "eu3-129"
+  "id": "eu3-84"
  },
  {
   "q": "windy 是？",
@@ -2355,7 +1545,7 @@
   "tag": "单元·天气",
   "unit": "第七单元 天气",
   "speak": "windy 是",
-  "id": "eu3-130"
+  "id": "eu3-85"
  },
  {
   "q": "「生日快乐」说？",
@@ -2373,7 +1563,7 @@
   "tag": "单元·生日",
   "unit": "第八单元 生日",
   "speak": "「生日快乐」说",
-  "id": "eu3-131"
+  "id": "eu3-86"
  },
  {
   "q": "present 是？",
@@ -2391,7 +1581,7 @@
   "tag": "单元·生日",
   "unit": "第八单元 生日",
   "speak": "present 是",
-  "id": "eu3-132"
+  "id": "eu3-87"
  },
  {
   "q": "candle 是？",
@@ -2409,7 +1599,7 @@
   "tag": "单元·生日",
   "unit": "第八单元 生日",
   "speak": "candle 是",
-  "id": "eu3-133"
+  "id": "eu3-88"
  },
  {
   "q": "party 是？",
@@ -2427,7 +1617,7 @@
   "tag": "单元·生日",
   "unit": "第八单元 生日",
   "speak": "party 是",
-  "id": "eu3-134"
+  "id": "eu3-89"
  },
  {
   "q": "「你几岁了？」用英语问？",
@@ -2445,7 +1635,7 @@
   "tag": "单元·生日",
   "unit": "第八单元 生日",
   "speak": "「你几岁了」用英语问",
-  "id": "eu3-135"
+  "id": "eu3-90"
  },
  {
   "q": "Unit 1 标题 Where do people live? 在问什么？",
@@ -2463,7 +1653,7 @@
   "tag": "单元·住所",
   "unit": "第一单元 住所",
   "speak": "Unit 1 标题 Where do people live? 在问什么",
-  "id": "eu4-136"
+  "id": "eu4-91"
  },
  {
   "q": "live 的意思是？",
@@ -2481,7 +1671,7 @@
   "tag": "单元·住所",
   "unit": "第一单元 住所",
   "speak": "live 的意思是",
-  "id": "eu4-137"
+  "id": "eu4-92"
  },
  {
   "q": "问对方住在哪里说？",
@@ -2499,7 +1689,7 @@
   "tag": "单元·住所",
   "unit": "第一单元 住所",
   "speak": "问对方住在哪里说",
-  "id": "eu4-138"
+  "id": "eu4-93"
  },
  {
   "q": "回答「我住在深圳」说？",
@@ -2517,7 +1707,7 @@
   "tag": "单元·住所",
   "unit": "第一单元 住所",
   "speak": "回答「我住在深圳」说",
-  "id": "eu4-139"
+  "id": "eu4-94"
  },
  {
   "q": "city 的意思是？",
@@ -2535,7 +1725,7 @@
   "tag": "单元·住所",
   "unit": "第一单元 住所",
   "speak": "city 的意思是",
-  "id": "eu4-140"
+  "id": "eu4-95"
  },
  {
   "q": "Where do animals live? 在问什么？",
@@ -2553,7 +1743,7 @@
   "tag": "单元·动物栖息地",
   "unit": "第二单元 动物栖息地",
   "speak": "Where do animals live? 在问什么",
-  "id": "eu4-141"
+  "id": "eu4-96"
  },
  {
   "q": "forest 是？",
@@ -2571,7 +1761,7 @@
   "tag": "单元·动物栖息地",
   "unit": "第二单元 动物栖息地",
   "speak": "forest 是",
-  "id": "eu4-142"
+  "id": "eu4-97"
  },
  {
   "q": "鱼（fish）生活在哪里？",
@@ -2589,7 +1779,7 @@
   "tag": "单元·动物栖息地",
   "unit": "第二单元 动物栖息地",
   "speak": "鱼（fish）生活在哪里",
-  "id": "eu4-143"
+  "id": "eu4-98"
  },
  {
   "q": "monkey、tiger、elephant 属于哪一类？",
@@ -2607,7 +1797,7 @@
   "tag": "单元·动物栖息地",
   "unit": "第二单元 动物栖息地",
   "speak": "monkey、tiger、elephant 属于哪一类",
-  "id": "eu4-144"
+  "id": "eu4-99"
  },
  {
   "q": "mountain 是？",
@@ -2625,7 +1815,7 @@
   "tag": "单元·动物栖息地",
   "unit": "第二单元 动物栖息地",
   "speak": "mountain 是",
-  "id": "eu4-145"
+  "id": "eu4-100"
  },
  {
   "q": "How do we use numbers? 在问什么？",
@@ -2643,7 +1833,7 @@
   "tag": "单元·数字",
   "unit": "第三单元 数字",
   "speak": "How do we use numbers? 在问什么",
-  "id": "eu4-146"
+  "id": "eu4-101"
  },
  {
   "q": "one hundred 是多少？",
@@ -2661,7 +1851,7 @@
   "tag": "单元·数字",
   "unit": "第三单元 数字",
   "speak": "one hundred 是多少",
-  "id": "eu4-147"
+  "id": "eu4-102"
  },
  {
   "q": "one thousand 是多少？",
@@ -2679,7 +1869,7 @@
   "tag": "单元·数字",
   "unit": "第三单元 数字",
   "speak": "one thousand 是多少",
-  "id": "eu4-148"
+  "id": "eu4-103"
  },
  {
   "q": "zero 是？",
@@ -2697,7 +1887,7 @@
   "tag": "单元·数字",
   "unit": "第三单元 数字",
   "speak": "zero 是",
-  "id": "eu4-149"
+  "id": "eu4-104"
  },
  {
   "q": "电话号码 110 读作？",
@@ -2715,7 +1905,7 @@
   "tag": "单元·数字",
   "unit": "第三单元 数字",
   "speak": "电话号码 110 读作",
-  "id": "eu4-150"
+  "id": "eu4-105"
  },
  {
   "q": "What do we buy? 在问什么？",
@@ -2733,7 +1923,7 @@
   "tag": "单元·购物",
   "unit": "第四单元 购物",
   "speak": "What do we buy? 在问什么",
-  "id": "eu4-151"
+  "id": "eu4-106"
  },
  {
   "q": "问价格说？",
@@ -2751,7 +1941,7 @@
   "tag": "单元·购物",
   "unit": "第四单元 购物",
   "speak": "问价格说",
-  "id": "eu4-152"
+  "id": "eu4-107"
  },
  {
   "q": "expensive 的意思是？",
@@ -2769,7 +1959,7 @@
   "tag": "单元·购物",
   "unit": "第四单元 购物",
   "speak": "expensive 的意思是",
-  "id": "eu4-153"
+  "id": "eu4-108"
  },
  {
   "q": "付钱时说？",
@@ -2787,7 +1977,7 @@
   "tag": "单元·购物",
   "unit": "第四单元 购物",
   "speak": "付钱时说",
-  "id": "eu4-154"
+  "id": "eu4-109"
  },
  {
   "q": "shop 的意思是？",
@@ -2805,7 +1995,7 @@
   "tag": "单元·购物",
   "unit": "第四单元 购物",
   "speak": "shop 的意思是",
-  "id": "eu4-155"
+  "id": "eu4-110"
  },
  {
   "q": "How are the seasons different? 在问什么？",
@@ -2823,7 +2013,7 @@
   "tag": "单元·季节",
   "unit": "第五单元 季节",
   "speak": "How are the seasons different? 在问什么",
-  "id": "eu4-156"
+  "id": "eu4-111"
  },
  {
   "q": "spring 是？",
@@ -2841,7 +2031,7 @@
   "tag": "单元·季节",
   "unit": "第五单元 季节",
   "speak": "spring 是",
-  "id": "eu4-157"
+  "id": "eu4-112"
  },
  {
   "q": "「冬天」的英文是？",
@@ -2859,7 +2049,7 @@
   "tag": "单元·季节",
   "unit": "第五单元 季节",
   "speak": "「冬天」的英文是",
-  "id": "eu4-158"
+  "id": "eu4-113"
  },
  {
   "q": "warm 是？",
@@ -2877,7 +2067,7 @@
   "tag": "单元·季节",
   "unit": "第五单元 季节",
   "speak": "warm 是",
-  "id": "eu4-159"
+  "id": "eu4-114"
  },
  {
   "q": "一年有几个季节？",
@@ -2895,7 +2085,7 @@
   "tag": "单元·季节",
   "unit": "第五单元 季节",
   "speak": "一年有几个季节",
-  "id": "eu4-160"
+  "id": "eu4-115"
  },
  {
   "q": "What's amazing about plants? 在问什么？",
@@ -2913,7 +2103,7 @@
   "tag": "单元·植物",
   "unit": "第六单元 植物",
   "speak": "What's amazing about plants? 在问什么",
-  "id": "eu4-161"
+  "id": "eu4-116"
  },
  {
   "q": "leaf 的意思是？",
@@ -2931,7 +2121,7 @@
   "tag": "单元·植物",
   "unit": "第六单元 植物",
   "speak": "leaf 的意思是",
-  "id": "eu4-162"
+  "id": "eu4-117"
  },
  {
   "q": "seed 是？",
@@ -2949,7 +2139,7 @@
   "tag": "单元·植物",
   "unit": "第六单元 植物",
   "speak": "seed 是",
-  "id": "eu4-163"
+  "id": "eu4-118"
  },
  {
   "q": "植物生长需要什么？",
@@ -2967,7 +2157,7 @@
   "tag": "单元·植物",
   "unit": "第六单元 植物",
   "speak": "植物生长需要什么",
-  "id": "eu4-164"
+  "id": "eu4-119"
  },
  {
   "q": "grow 的意思是？",
@@ -2985,7 +2175,7 @@
   "tag": "单元·植物",
   "unit": "第六单元 植物",
   "speak": "grow 的意思是",
-  "id": "eu4-165"
+  "id": "eu4-120"
  },
  {
   "q": "How do we keep safe on the road? 在问什么？",
@@ -3003,7 +2193,7 @@
   "tag": "单元·道路安全",
   "unit": "第七单元 道路安全",
   "speak": "How do we keep safe on the road? 在问什么",
-  "id": "eu4-166"
+  "id": "eu4-121"
  },
  {
   "q": "红灯亮了应该？",
@@ -3021,7 +2211,7 @@
   "tag": "单元·道路安全",
   "unit": "第七单元 道路安全",
   "speak": "红灯亮了应该",
-  "id": "eu4-167"
+  "id": "eu4-122"
  },
  {
   "q": "过马路应该走哪里？",
@@ -3039,7 +2229,7 @@
   "tag": "单元·道路安全",
   "unit": "第七单元 道路安全",
   "speak": "过马路应该走哪里",
-  "id": "eu4-168"
+  "id": "eu4-123"
  },
  {
   "q": "careful 的意思是？",
@@ -3057,7 +2247,7 @@
   "tag": "单元·道路安全",
   "unit": "第七单元 道路安全",
   "speak": "careful 的意思是",
-  "id": "eu4-169"
+  "id": "eu4-124"
  },
  {
   "q": "traffic 是？",
@@ -3075,7 +2265,7 @@
   "tag": "单元·道路安全",
   "unit": "第七单元 道路安全",
   "speak": "traffic 是",
-  "id": "eu4-170"
+  "id": "eu4-125"
  },
  {
   "q": "What do our grandparents do? 在问什么？",
@@ -3093,7 +2283,7 @@
   "tag": "单元·祖辈与职业",
   "unit": "第八单元 祖辈与职业",
   "speak": "What do our grandparents do? 在问什么",
-  "id": "eu4-171"
+  "id": "eu4-126"
  },
  {
   "q": "grandfather 是？",
@@ -3111,7 +2301,7 @@
   "tag": "单元·祖辈与职业",
   "unit": "第八单元 祖辈与职业",
   "speak": "grandfather 是",
-  "id": "eu4-172"
+  "id": "eu4-127"
  },
  {
   "q": "doctor 是？",
@@ -3129,7 +2319,7 @@
   "tag": "单元·祖辈与职业",
   "unit": "第八单元 祖辈与职业",
   "speak": "doctor 是",
-  "id": "eu4-173"
+  "id": "eu4-128"
  },
  {
   "q": "cook 表示职业时是？",
@@ -3147,7 +2337,7 @@
   "tag": "单元·祖辈与职业",
   "unit": "第八单元 祖辈与职业",
   "speak": "cook 表示职业时是",
-  "id": "eu4-174"
+  "id": "eu4-129"
  },
  {
   "q": "driver 是？",
@@ -3165,7 +2355,7 @@
   "tag": "单元·祖辈与职业",
   "unit": "第八单元 祖辈与职业",
   "speak": "driver 是",
-  "id": "eu4-175"
+  "id": "eu4-130"
  },
  {
   "q": "What do we do at the weekend? 在问什么？",
@@ -3183,7 +2373,7 @@
   "tag": "单元·周末活动",
   "unit": "第一单元 周末活动",
   "speak": "What do we do at the weekend? 在问什么",
-  "id": "eu5-176"
+  "id": "eu5-131"
  },
  {
   "q": "weekend 是？",
@@ -3201,7 +2391,7 @@
   "tag": "单元·周末活动",
   "unit": "第一单元 周末活动",
   "speak": "weekend 是",
-  "id": "eu5-177"
+  "id": "eu5-132"
  },
  {
   "q": "often 的意思是？",
@@ -3219,7 +2409,7 @@
   "tag": "单元·周末活动",
   "unit": "第一单元 周末活动",
   "speak": "often 的意思是",
-  "id": "eu5-178"
+  "id": "eu5-133"
  },
  {
   "q": "「我周末常踢足球」说？",
@@ -3237,7 +2427,7 @@
   "tag": "单元·周末活动",
   "unit": "第一单元 周末活动",
   "speak": "「我周末常踢足球」说",
-  "id": "eu5-179"
+  "id": "eu5-134"
  },
  {
   "q": "Saturday 和 Sunday 是？",
@@ -3255,7 +2445,7 @@
   "tag": "单元·周末活动",
   "unit": "第一单元 周末活动",
   "speak": "Saturday 和 Sunday 是",
-  "id": "eu5-180"
+  "id": "eu5-135"
  },
  {
   "q": "How do we stay healthy? 在问什么？",
@@ -3273,7 +2463,7 @@
   "tag": "单元·保持健康",
   "unit": "第二单元 保持健康",
   "speak": "How do we stay healthy? 在问什么",
-  "id": "eu5-181"
+  "id": "eu5-136"
  },
  {
   "q": "healthy 是？",
@@ -3291,7 +2481,7 @@
   "tag": "单元·保持健康",
   "unit": "第二单元 保持健康",
   "speak": "healthy 是",
-  "id": "eu5-182"
+  "id": "eu5-137"
  },
  {
   "q": "exercise 的意思是？",
@@ -3309,7 +2499,7 @@
   "tag": "单元·保持健康",
   "unit": "第二单元 保持健康",
   "speak": "exercise 的意思是",
-  "id": "eu5-183"
+  "id": "eu5-138"
  },
  {
   "q": "多吃蔬菜水果会让我们？",
@@ -3327,7 +2517,7 @@
   "tag": "单元·保持健康",
   "unit": "第二单元 保持健康",
   "speak": "多吃蔬菜水果会让我们",
-  "id": "eu5-184"
+  "id": "eu5-139"
  },
  {
   "q": "早睡早起是好习惯吗？",
@@ -3345,7 +2535,7 @@
   "tag": "单元·保持健康",
   "unit": "第二单元 保持健康",
   "speak": "早睡早起是好习惯吗",
-  "id": "eu5-185"
+  "id": "eu5-140"
  },
  {
   "q": "What do you know about different countries? 在问什么？",
@@ -3363,7 +2553,7 @@
   "tag": "单元·不同的国家",
   "unit": "第三单元 不同的国家",
   "speak": "What do you know about different countries? 在问什么",
-  "id": "eu5-186"
+  "id": "eu5-141"
  },
  {
   "q": "country 的复数是？",
@@ -3381,7 +2571,7 @@
   "tag": "单元·不同的国家",
   "unit": "第三单元 不同的国家",
   "speak": "country 的复数是",
-  "id": "eu5-187"
+  "id": "eu5-142"
  },
  {
   "q": "China 是？",
@@ -3399,7 +2589,7 @@
   "tag": "单元·不同的国家",
   "unit": "第三单元 不同的国家",
   "speak": "China 是",
-  "id": "eu5-188"
+  "id": "eu5-143"
  },
  {
   "q": "different 的意思是？",
@@ -3417,7 +2607,7 @@
   "tag": "单元·不同的国家",
   "unit": "第三单元 不同的国家",
   "speak": "different 的意思是",
-  "id": "eu5-189"
+  "id": "eu5-144"
  },
  {
   "q": "说汉语的国家人被称为？",
@@ -3435,7 +2625,7 @@
   "tag": "单元·不同的国家",
   "unit": "第三单元 不同的国家",
   "speak": "说汉语的国家人被称为",
-  "id": "eu5-190"
+  "id": "eu5-145"
  },
  {
   "q": "What's interesting about holidays? 在问什么？",
@@ -3453,7 +2643,7 @@
   "tag": "单元·有趣的假日",
   "unit": "第四单元 有趣的假日",
   "speak": "What's interesting about holidays? 在问什么",
-  "id": "eu5-191"
+  "id": "eu5-146"
  },
  {
   "q": "holiday 是？",
@@ -3471,7 +2661,7 @@
   "tag": "单元·有趣的假日",
   "unit": "第四单元 有趣的假日",
   "speak": "holiday 是",
-  "id": "eu5-192"
+  "id": "eu5-147"
  },
  {
   "q": "travel 的意思是？",
@@ -3489,7 +2679,7 @@
   "tag": "单元·有趣的假日",
   "unit": "第四单元 有趣的假日",
   "speak": "travel 的意思是",
-  "id": "eu5-193"
+  "id": "eu5-148"
  },
  {
   "q": "beach 是？",
@@ -3507,7 +2697,7 @@
   "tag": "单元·有趣的假日",
   "unit": "第四单元 有趣的假日",
   "speak": "beach 是",
-  "id": "eu5-194"
+  "id": "eu5-149"
  },
  {
   "q": "summer holiday 是？",
@@ -3525,7 +2715,7 @@
   "tag": "单元·有趣的假日",
   "unit": "第四单元 有趣的假日",
   "speak": "summer holiday 是",
-  "id": "eu5-195"
+  "id": "eu5-150"
  },
  {
   "q": "What are living things? 在问什么？",
@@ -3543,7 +2733,7 @@
   "tag": "单元·生物",
   "unit": "第五单元 生物",
   "speak": "What are living things? 在问什么",
-  "id": "eu5-196"
+  "id": "eu5-151"
  },
  {
   "q": "living things 是？",
@@ -3561,7 +2751,7 @@
   "tag": "单元·生物",
   "unit": "第五单元 生物",
   "speak": "living things 是",
-  "id": "eu5-197"
+  "id": "eu5-152"
  },
  {
   "q": "植物和动物都属于？",
@@ -3579,7 +2769,7 @@
   "tag": "单元·生物",
   "unit": "第五单元 生物",
   "speak": "植物和动物都属于",
-  "id": "eu5-198"
+  "id": "eu5-153"
  },
  {
   "q": "石头（stone）是生物吗？",
@@ -3597,7 +2787,7 @@
   "tag": "单元·生物",
   "unit": "第五单元 生物",
   "speak": "石头（stone）是生物吗",
-  "id": "eu5-199"
+  "id": "eu5-154"
  },
  {
   "q": "生物的共同特征是会？",
@@ -3615,7 +2805,7 @@
   "tag": "单元·生物",
   "unit": "第五单元 生物",
   "speak": "生物的共同特征是会",
-  "id": "eu5-200"
+  "id": "eu5-155"
  },
  {
   "q": "Why should we take care of the Earth? 在问什么？",
@@ -3633,7 +2823,7 @@
   "tag": "单元·爱护地球",
   "unit": "第六单元 爱护地球",
   "speak": "Why should we take care of the Earth? 在问什么",
-  "id": "eu5-201"
+  "id": "eu5-156"
  },
  {
   "q": "Earth 是？",
@@ -3651,7 +2841,7 @@
   "tag": "单元·爱护地球",
   "unit": "第六单元 爱护地球",
   "speak": "Earth 是",
-  "id": "eu5-202"
+  "id": "eu5-157"
  },
  {
   "q": "take care of 的意思是？",
@@ -3669,7 +2859,7 @@
   "tag": "单元·爱护地球",
   "unit": "第六单元 爱护地球",
   "speak": "take care of 的意思是",
-  "id": "eu5-203"
+  "id": "eu5-158"
  },
  {
   "q": "节约用水的英语是？",
@@ -3687,7 +2877,7 @@
   "tag": "单元·爱护地球",
   "unit": "第六单元 爱护地球",
   "speak": "节约用水的英语是",
-  "id": "eu5-204"
+  "id": "eu5-159"
  },
  {
   "q": "water 是？",
@@ -3705,7 +2895,7 @@
   "tag": "单元·爱护地球",
   "unit": "第六单元 爱护地球",
   "speak": "water 是",
-  "id": "eu5-205"
+  "id": "eu5-160"
  },
  {
   "q": "How do we celebrate festivals? 在问什么？",
@@ -3723,7 +2913,7 @@
   "tag": "单元·庆祝节日",
   "unit": "第七单元 庆祝节日",
   "speak": "How do we celebrate festivals? 在问什么",
-  "id": "eu5-206"
+  "id": "eu5-161"
  },
  {
   "q": "festival 是？",
@@ -3741,7 +2931,7 @@
   "tag": "单元·庆祝节日",
   "unit": "第七单元 庆祝节日",
   "speak": "festival 是",
-  "id": "eu5-207"
+  "id": "eu5-162"
  },
  {
   "q": "Spring Festival 是？",
@@ -3759,7 +2949,7 @@
   "tag": "单元·庆祝节日",
   "unit": "第七单元 庆祝节日",
   "speak": "Spring Festival 是",
-  "id": "eu5-208"
+  "id": "eu5-163"
  },
  {
   "q": "celebrate 的意思是？",
@@ -3777,7 +2967,7 @@
   "tag": "单元·庆祝节日",
   "unit": "第七单元 庆祝节日",
   "speak": "celebrate 的意思是",
-  "id": "eu5-209"
+  "id": "eu5-164"
  },
  {
   "q": "Mid-Autumn Festival 我们吃？",
@@ -3795,7 +2985,7 @@
   "tag": "单元·庆祝节日",
   "unit": "第七单元 庆祝节日",
   "speak": "Mid-Autumn Festival 我们吃",
-  "id": "eu5-210"
+  "id": "eu5-165"
  },
  {
   "q": "How does music make us feel? 在问什么？",
@@ -3813,7 +3003,7 @@
   "tag": "单元·音乐与感受",
   "unit": "第八单元 音乐与感受",
   "speak": "How does music make us feel? 在问什么",
-  "id": "eu5-211"
+  "id": "eu5-166"
  },
  {
   "q": "music 是？",
@@ -3831,7 +3021,7 @@
   "tag": "单元·音乐与感受",
   "unit": "第八单元 音乐与感受",
   "speak": "music 是",
-  "id": "eu5-212"
+  "id": "eu5-167"
  },
  {
   "q": "sing a song 是？",
@@ -3849,7 +3039,7 @@
   "tag": "单元·音乐与感受",
   "unit": "第八单元 音乐与感受",
   "speak": "sing a song 是",
-  "id": "eu5-213"
+  "id": "eu5-168"
  },
  {
   "q": "piano 是？",
@@ -3867,7 +3057,7 @@
   "tag": "单元·音乐与感受",
   "unit": "第八单元 音乐与感受",
   "speak": "piano 是",
-  "id": "eu5-214"
+  "id": "eu5-169"
  },
  {
   "q": "好听的音乐让人？",
@@ -3885,7 +3075,7 @@
   "tag": "单元·音乐与感受",
   "unit": "第八单元 音乐与感受",
   "speak": "好听的音乐让人",
-  "id": "eu5-215"
+  "id": "eu5-170"
  },
  {
   "q": "Why do people move to new places? 在问什么？",
@@ -3903,7 +3093,7 @@
   "tag": "单元·搬到新地方",
   "unit": "第一单元 搬到新地方",
   "speak": "Why do people move to new places? 在问什么",
-  "id": "eu6-216"
+  "id": "eu6-171"
  },
  {
   "q": "move 的意思是？",
@@ -3921,7 +3111,7 @@
   "tag": "单元·搬到新地方",
   "unit": "第一单元 搬到新地方",
   "speak": "move 的意思是",
-  "id": "eu6-217"
+  "id": "eu6-172"
  },
  {
   "q": "new 的反义词是？",
@@ -3939,7 +3129,7 @@
   "tag": "单元·搬到新地方",
   "unit": "第一单元 搬到新地方",
   "speak": "new 的反义词是",
-  "id": "eu6-218"
+  "id": "eu6-173"
  },
  {
   "q": "city 和 village 哪个通常更大？",
@@ -3957,7 +3147,7 @@
   "tag": "单元·搬到新地方",
   "unit": "第一单元 搬到新地方",
   "speak": "city 和 village 哪个通常更大",
-  "id": "eu6-219"
+  "id": "eu6-174"
  },
  {
   "q": "move to a new school 是？",
@@ -3975,7 +3165,7 @@
   "tag": "单元·搬到新地方",
   "unit": "第一单元 搬到新地方",
   "speak": "move to a new school 是",
-  "id": "eu6-220"
+  "id": "eu6-175"
  },
  {
   "q": "Why do we make art? 在问什么？",
@@ -3993,7 +3183,7 @@
   "tag": "单元·艺术创作",
   "unit": "第二单元 艺术创作",
   "speak": "Why do we make art? 在问什么",
-  "id": "eu6-221"
+  "id": "eu6-176"
  },
  {
   "q": "art 是？",
@@ -4011,7 +3201,7 @@
   "tag": "单元·艺术创作",
   "unit": "第二单元 艺术创作",
   "speak": "art 是",
-  "id": "eu6-222"
+  "id": "eu6-177"
  },
  {
   "q": "「画画」用英语说？",
@@ -4029,7 +3219,7 @@
   "tag": "单元·艺术创作",
   "unit": "第二单元 艺术创作",
   "speak": "「画画」用英语说",
-  "id": "eu6-223"
+  "id": "eu6-178"
  },
  {
   "q": "picture 是？",
@@ -4047,7 +3237,7 @@
   "tag": "单元·艺术创作",
   "unit": "第二单元 艺术创作",
   "speak": "picture 是",
-  "id": "eu6-224"
+  "id": "eu6-179"
  },
  {
   "q": "红色 的英文是？",
@@ -4065,7 +3255,7 @@
   "tag": "单元·艺术创作",
   "unit": "第二单元 艺术创作",
   "speak": "红色 的英文是",
-  "id": "eu6-225"
+  "id": "eu6-180"
  },
  {
   "q": "How should we protect ourselves? 在问什么？",
@@ -4083,7 +3273,7 @@
   "tag": "单元·保护自己",
   "unit": "第三单元 保护自己",
   "speak": "How should we protect ourselves? 在问什么",
-  "id": "eu6-226"
+  "id": "eu6-181"
  },
  {
   "q": "protect 的意思是？",
@@ -4101,7 +3291,7 @@
   "tag": "单元·保护自己",
   "unit": "第三单元 保护自己",
   "speak": "protect 的意思是",
-  "id": "eu6-227"
+  "id": "eu6-182"
  },
  {
   "q": "danger 是？",
@@ -4119,7 +3309,7 @@
   "tag": "单元·保护自己",
   "unit": "第三单元 保护自己",
   "speak": "danger 是",
-  "id": "eu6-228"
+  "id": "eu6-183"
  },
  {
   "q": "遇到危险应该？",
@@ -4137,7 +3327,7 @@
   "tag": "单元·保护自己",
   "unit": "第三单元 保护自己",
   "speak": "遇到危险应该",
-  "id": "eu6-229"
+  "id": "eu6-184"
  },
  {
   "q": "safe 的反义词是？",
@@ -4155,7 +3345,7 @@
   "tag": "单元·保护自己",
   "unit": "第三单元 保护自己",
   "speak": "safe 的反义词是",
-  "id": "eu6-230"
+  "id": "eu6-185"
  },
  {
   "q": "What makes things move? 在问什么？",
@@ -4173,7 +3363,7 @@
   "tag": "单元·物体的运动",
   "unit": "第四单元 物体的运动",
   "speak": "What makes things move? 在问什么",
-  "id": "eu6-231"
+  "id": "eu6-186"
  },
  {
   "q": "move 是？",
@@ -4191,7 +3381,7 @@
   "tag": "单元·物体的运动",
   "unit": "第四单元 物体的运动",
   "speak": "move 是",
-  "id": "eu6-232"
+  "id": "eu6-187"
  },
  {
   "q": "风（wind）能让什么动起来？",
@@ -4209,7 +3399,7 @@
   "tag": "单元·物体的运动",
   "unit": "第四单元 物体的运动",
   "speak": "风（wind）能让什么动起来",
-  "id": "eu6-233"
+  "id": "eu6-188"
  },
  {
   "q": "push 和 pull 分别是？",
@@ -4227,7 +3417,7 @@
   "tag": "单元·物体的运动",
   "unit": "第四单元 物体的运动",
   "speak": "push 和 pull 分别是",
-  "id": "eu6-234"
+  "id": "eu6-189"
  },
  {
   "q": "ball（球）放在斜坡上会？",
@@ -4245,7 +3435,7 @@
   "tag": "单元·物体的运动",
   "unit": "第四单元 物体的运动",
   "speak": "ball（球）放在斜坡上会",
-  "id": "eu6-235"
+  "id": "eu6-190"
  },
  {
   "q": "How do inventions change our lives? 在问什么？",
@@ -4263,7 +3453,7 @@
   "tag": "单元·发明改变生活",
   "unit": "第五单元 发明改变生活",
   "speak": "How do inventions change our lives? 在问什么",
-  "id": "eu6-236"
+  "id": "eu6-191"
  },
  {
   "q": "invention 是？",
@@ -4281,7 +3471,7 @@
   "tag": "单元·发明改变生活",
   "unit": "第五单元 发明改变生活",
   "speak": "invention 是",
-  "id": "eu6-237"
+  "id": "eu6-192"
  },
  {
   "q": "电话和汽车都属于？",
@@ -4299,7 +3489,7 @@
   "tag": "单元·发明改变生活",
   "unit": "第五单元 发明改变生活",
   "speak": "电话和汽车都属于",
-  "id": "eu6-238"
+  "id": "eu6-193"
  },
  {
   "q": "发明让我们的生活？",
@@ -4317,7 +3507,7 @@
   "tag": "单元·发明改变生活",
   "unit": "第五单元 发明改变生活",
   "speak": "发明让我们的生活",
-  "id": "eu6-239"
+  "id": "eu6-194"
  },
  {
   "q": "computer 是？",
@@ -4335,7 +3525,7 @@
   "tag": "单元·发明改变生活",
   "unit": "第五单元 发明改变生活",
   "speak": "computer 是",
-  "id": "eu6-240"
+  "id": "eu6-195"
  },
  {
   "q": "What is a city? 在问什么？",
@@ -4353,7 +3543,7 @@
   "tag": "单元·城市",
   "unit": "第六单元 城市",
   "speak": "What is a city? 在问什么",
-  "id": "eu6-241"
+  "id": "eu6-196"
  },
  {
   "q": "城市里通常有什么？",
@@ -4371,7 +3561,7 @@
   "tag": "单元·城市",
   "unit": "第六单元 城市",
   "speak": "城市里通常有什么",
-  "id": "eu6-242"
+  "id": "eu6-197"
  },
  {
   "q": "street 是？",
@@ -4389,7 +3579,7 @@
   "tag": "单元·城市",
   "unit": "第六单元 城市",
   "speak": "street 是",
-  "id": "eu6-243"
+  "id": "eu6-198"
  },
  {
   "q": "和村庄相比，城市？",
@@ -4407,7 +3597,7 @@
   "tag": "单元·城市",
   "unit": "第六单元 城市",
   "speak": "和村庄相比，城市",
-  "id": "eu6-244"
+  "id": "eu6-199"
  },
  {
   "q": "building 是？",
@@ -4425,6 +3615,6 @@
   "tag": "单元·城市",
   "unit": "第六单元 城市",
   "speak": "building 是",
-  "id": "eu6-245"
+  "id": "eu6-200"
  }
 ]
