@@ -481,9 +481,25 @@
         clearInterval(restTimer);
         stopQTimer();
         let gotU = 0;
+        // v3.14 单元闯关金币：及格（≥60%）以上才有——答对 1 题 1 币、全对 +3、
+        // 该单元首次通关 +5；每单元每日前 3 关产币（防无限刷）
+        const pass = r.total > 0 && r.correct / r.total >= 0.6;
         Store.updateCurrent(s => {
           s.stars = (s.stars || 0) + r.correct;
           gotU = Store.taskDone(s, 'round');
+          if (pass) {
+            const day = Math.floor(Date.now() / 864e5);
+            s.unitCoins = s.unitCoins || {};
+            const key = curSubject + '|' + name;
+            const uc = s.unitCoins[key] || (s.unitCoins[key] = { d: day, n: 0, c: 0 });
+            if (uc.d !== day) { uc.d = day; uc.n = 0; }
+            if (uc.n < 3) {
+              uc.n++;
+              gotU += r.correct;
+              if (r.correct === r.total) gotU += 3;
+              if (!uc.c) { uc.c = 1; gotU += 5; }
+            }
+          }
           s.coins = (s.coins || 0) + gotU;
         });
         coinFlash(gotU);

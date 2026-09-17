@@ -676,3 +676,91 @@ def test_v11():
         browser.close()
 
 test_v11()
+
+def test_unit_coins():
+    """v3.14 单元闯关金币：及格（≥60%）才有；答对1题1币、全对+3、首次通关+5、每单元每日前3关产币"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        errs = []
+        page.on('pageerror', lambda e: errs.append('PAGEERROR: ' + str(e)))
+        page.on('console', lambda m: errs.append('CONSOLE: ' + m.text) if m.type == 'error' else None)
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        # 新学生（四年级，数学 g4 有「第五单元 运算律」）
+        page.click('#btn-add-student')
+        page.fill('#inp-name', '金币娃')
+        page.click('.grade-btn[data-g="4"]')
+        page.click('#btn-create')
+        page.wait_for_timeout(500)
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          d.students[d.current].coins = 20;
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+
+        def enter_unit_round():
+            page.goto(BASE); page.wait_for_load_state('networkidle')
+            page.locator('.subject-card').first.click(); page.wait_for_timeout(400)
+            page.click('#btn-units'); page.wait_for_timeout(300)
+            page.locator('#unit-list button', has_text='第五单元 运算律').click()
+            page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+
+        def coins_and_uc():
+            return page.evaluate("""() => {
+              const s = JSON.parse(localStorage.getItem('smallclass.v1')).students[0];
+              const uc = s.unitCoins && s.unitCoins['math|第五单元 运算律'];
+              return [s.coins, uc ? (uc.n + ',' + uc.c) : 'none'];
+            }""")
+
+        def answer_correct():
+            page.evaluate("""() => {
+              const q = Quiz.current;
+              const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
+              b.click();
+            }""")
+            page.wait_for_timeout(1100)   # 答对 900ms 后自动进入下一题
+
+        def answer_wrong():
+            page.evaluate("""() => {
+              const q = Quiz.current;
+              const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent !== String(q.a));
+              b.click();
+            }""")
+            page.wait_for_timeout(300)
+            page.click('#btn-wrong-ok')
+            page.wait_for_timeout(300)
+
+        # ---- 第 1 轮：5/5 全对 → 5题×1币 + 全对3 + 首通5 + 每日任务(round)5 = 18 ----
+        enter_unit_round()
+        for _ in range(5): answer_correct()
+        page.wait_for_selector('#result-title'); page.wait_for_timeout(400)
+        c1, u1 = coins_and_uc()
+        print('round1 (5/5) coins:', c1, 'unitCoins(n,c):', u1)
+        assert c1 - 20 >= 18, 'round1 expected >= 38, got %d' % c1
+        assert u1 == '1,1', u1
+
+        # ---- 第 2 轮：再全对 → 5+3（首通已领；当天第10次答对触发 correct10 +5）----
+        enter_unit_round()
+        for _ in range(5): answer_correct()
+        page.wait_for_selector('#result-title'); page.wait_for_timeout(400)
+        c2, u2 = coins_and_uc()
+        print('round2 (5/5) coins:', c2, 'unitCoins(n,c):', u2)
+        assert c2 - c1 >= 8, 'round2 expected +>=8, got +%d' % (c2 - c1)
+        assert u2 == '2,1', u2
+
+        # ---- 第 3 轮：每题先错后对 → 5/10 = 50% 不及格 → 0 币，n 不再增长 ----
+        enter_unit_round()
+        for _ in range(5): answer_wrong()      # 单元模式答错会排到队尾重问
+        for _ in range(5): answer_correct()
+        page.wait_for_selector('#result-title'); page.wait_for_timeout(400)
+        c3, u3 = coins_and_uc()
+        print('round3 (5/10 fail-gate) coins:', c3, 'unitCoins(n,c):', u3)
+        assert c3 == c2, 'round3 should earn 0 coins, +%d' % (c3 - c2)
+        assert u3 == '2,1', u3
+
+        page.screenshot(path='shots/28-unit-coins.png')
+        print('v3.14 unit-coin errors:', errs if errs else 'none')
+        assert not errs, errs
+        browser.close()
+
+test_unit_coins()

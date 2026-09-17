@@ -114,7 +114,12 @@
     }
     // 单元巩固模式：只按单元过滤，不分段位
     if (unitName) {
-      const pool = bank().filter(q => q.unit === unitName);
+      // v3.14 防重复：优先抽最近没做过的题，池子不够时回退全池
+      const p = Store.subj(stu, subject);
+      const recent = p.recentQs || [];
+      const all = bank().filter(q => q.unit === unitName);
+      let pool = all.filter(q => recent.indexOf(q.id) < 0);
+      if (pool.length < n) pool = all;
       const qs = pool.slice();
       for (let i = qs.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
