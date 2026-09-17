@@ -209,8 +209,8 @@ def test_v11():
         page.click('#btn-units')
         page.wait_for_timeout(200)
         n_units = page.locator('#unit-list button').count()
-        print('unit list (expect 12 = 10单元+2专题, 2026新版):', n_units)
-        assert n_units == 12
+        print('unit list (expect 13 = 11单元+2专题, 2026新版+综合实践导航):', n_units)
+        assert n_units == 13
         page.screenshot(path='shots/14-units.png')
         # v3.2 专题训练：点「🎯 解决问题」（按钮文本带 emoji，去掉“专题·”前缀）
         page.locator('#unit-list button', has_text='🎯 解决问题').click()
@@ -274,8 +274,8 @@ def test_v11():
         assert page.locator('#btn-units').is_visible(), 'units btn hidden (grade1)'
         page.click('#btn-units'); page.wait_for_timeout(200)
         n1 = page.locator('#unit-list button').count()
-        print('grade1 unit list (expect 7, 2024新版):', n1)
-        assert n1 == 7
+        print('grade1 unit list (expect 8, 2024新版+数学好玩):', n1)
+        assert n1 == 8
         page.locator('#unit-list button', has_text='记录我的一天').click()
         page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
         assert '综合实践' in page.locator('#quiz-level').inner_text()
@@ -427,8 +427,8 @@ def test_v11():
         page.wait_for_timeout(300)
         assert page.locator('#screen-paper').is_visible(), 'paper screen not shown'
         n_scopes = page.locator('#paper-scope option').count()
-        print('paper scopes (expect 2+10=12, 四上2026新版):', n_scopes)
-        assert n_scopes == 12
+        print('paper scopes (expect 2+11=13, 四上2026新版+综合实践导航):', n_scopes)
+        assert n_scopes == 13
         page.click('#btn-paper-gen')
         page.wait_for_timeout(500)
         nq = page.locator('.paper-questions li').count()
