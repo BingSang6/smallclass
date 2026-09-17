@@ -764,3 +764,120 @@ def test_unit_coins():
         browser.close()
 
 test_unit_coins()
+
+def test_v315():
+    """v3.15：英语单元扩容（g1/g4 每单元≥12题）+ 微自适应（连对3升/连错2降）+ 错题变式重现"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        errs = []
+        page.on('pageerror', lambda e: errs.append('PAGEERROR: ' + str(e)))
+        page.on('console', lambda m: errs.append('CONSOLE: ' + m.text) if m.type == 'error' else None)
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+
+        # ---- ① 英语单元银行：g1 6 单元 / g4 8 单元，每单元 ≥12 题 ----
+        en = page.evaluate("""() => fetch('data/banks/english-units.json').then(r => r.json())""")
+        cnt = {}
+        for q in en:
+            if q['grade'] in (1, 4):
+                cnt[(q['grade'], q['unit'])] = cnt.get((q['grade'], q['unit']), 0) + 1
+        print('english units g1:', sum(1 for k in cnt if k[0] == 1), '/ g4:', sum(1 for k in cnt if k[0] == 4))
+        assert sum(1 for k in cnt if k[0] == 1) == 6 and sum(1 for k in cnt if k[0] == 4) == 8
+        for k, n in cnt.items():
+            assert n >= 12, ('english unit <12', k, n)
+        print('english per-unit counts all >=12:', sum(cnt.values()), 'questions in g1+g4')
+
+        # ---- ② 微自适应：连对 3 题升层、连错 2 题降层 ----
+        page.click('#btn-add-student')
+        page.fill('#inp-name', '自适应娃')
+        page.click('.grade-btn[data-g="4"]')
+        page.click('#btn-create')
+        page.wait_for_timeout(500)
+
+        def enter_unit(name):
+            page.goto(BASE); page.wait_for_load_state('networkidle')
+            page.locator('.subject-card').first.click(); page.wait_for_timeout(400)
+            page.click('#btn-units'); page.wait_for_timeout(300)
+            page.locator('#unit-list button', has_text=name).click()
+            page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+
+        def click_ok():
+            page.evaluate("""() => {
+              const q = Quiz.current;
+              const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
+              b.click();
+            }""")
+            page.wait_for_timeout(1100)
+
+        def click_wrong():
+            page.evaluate("""() => {
+              const q = Quiz.current;
+              const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent !== String(q.a));
+              b.click();
+            }""")
+            page.wait_for_timeout(300)
+            page.click('#btn-wrong-ok')
+            page.wait_for_timeout(300)
+
+        enter_unit('第五单元 运算律')
+        assert page.evaluate('() => Quiz.difLevel') == 2, 'start dif should be 2'
+        click_ok(); click_ok()
+        assert page.evaluate('() => Quiz.difLevel') == 2
+        click_ok()
+        assert page.evaluate('() => Quiz.difLevel') == 3, '3 连对应升到 3 层'
+        click_ok(); click_ok()   # 打完第 1 关（5/5）
+        page.wait_for_selector('#result-title'); page.wait_for_timeout(300)
+
+        # 第 2 关应优先抽 3 层（挑战）题
+        enter_unit('第五单元 运算律')
+        d = page.evaluate('() => (Quiz.current && Quiz.current.dif) || 2')
+        print('round2 first question dif (expect 3):', d)
+        assert d == 3, 'round2 should pick dif-3 questions'
+        # 连错 2 题 → 降到 1 层
+        click_wrong()
+        assert page.evaluate('() => Quiz.difLevel') == 3
+        click_wrong()
+        assert page.evaluate('() => Quiz.difLevel') == 2, '2 连错应降一层'
+        # 收尾打完这一关
+        for _ in range(8):
+            if page.locator('#result-title').is_visible():
+                break
+            click_ok()
+        page.wait_for_timeout(300)
+
+        # ---- ③ 错题变式重现：答错 vt 题后，同模板不同题号再现 ----
+        page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          const s = d.students[d.current];
+          s.sub.math.recentQs = [];   // 清近期记录，避免干扰
+          localStorage.setItem('smallclass.v1', JSON.stringify(d));
+        }""")
+        mbank = page.evaluate("""() => fetch('data/banks/math-units.json').then(r => r.json())""")
+        enter_unit('第三单元 整数乘法（二）')
+        wrong_vt = wrong_id = None
+        for _ in range(8):
+            info = page.evaluate("""() => Quiz.current && {id: Quiz.current.id, vt: Quiz.current.vt || null}""")
+            if info and info['vt'] and sum(1 for x in mbank if x.get('vt') == info['vt']) >= 2:
+                wrong_vt, wrong_id = info['vt'], info['id']
+                click_wrong()
+                break
+            click_ok()
+        assert wrong_vt, 'no vt question encountered'
+        seen = []
+        for _ in range(12):
+            if page.locator('#result-title').is_visible():
+                break
+            info = page.evaluate("""() => Quiz.current && {id: Quiz.current.id, vt: Quiz.current.vt || null}""")
+            if info:
+                seen.append(info)
+            click_ok()
+        hits = [s for s in seen if s['vt'] == wrong_vt and s['id'] != wrong_id]
+        print('variant requeue: wronged %s (%s), later same-vt questions: %d' % (wrong_id, wrong_vt, len(hits)))
+        assert hits, 'variant of wronged question should reappear'
+
+        page.screenshot(path='shots/29-v315-adaptive.png')
+        print('v3.15 errors:', errs if errs else 'none')
+        assert not errs, errs
+        browser.close()
+
+test_v315()

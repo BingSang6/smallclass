@@ -13,6 +13,8 @@
   let queueTotal = 0;    // 复习模式总题数（用于进度条）
   let cur = null;        // 当前题
   let streak = 0;        // 连对数
+  let curDif = null;     // v3.15 微自适应：单元模式当前难度层（1~4，null=不过滤）
+  let wrongStreak = 0;   // v3.15 连错数
   let correct = 0, total = 0;
   let onEnd = null, onUI = null;   // 回调
 
@@ -114,13 +116,20 @@
     }
     // 单元巩固模式：只按单元过滤，不分段位
     if (unitName) {
-      // v3.14 防重复：优先抽最近没做过的题，池子不够时回退全池
+      // v3.14 防重复：优先抽最近没做过的题（recentQs 保留最近 25 题），池子不够时回退全池
+      // v3.15 微自适应：优先抽当前难度层（dif）的题，该层够 5 题才用，否则回退
       const p = Store.subj(stu, subject);
       const recent = p.recentQs || [];
       const all = bank().filter(q => q.unit === unitName);
-      let pool = all.filter(q => recent.indexOf(q.id) < 0);
-      if (pool.length < n) pool = all;
-      const qs = pool.slice();
+      const fresh = q => recent.indexOf(q.id) < 0;
+      let pool = all;
+      if (curDif != null) {
+        const lv = all.filter(q => (q.dif || 2) === curDif && fresh(q));
+        if (lv.length >= n) pool = lv;
+      }
+      let pool2 = pool.filter(fresh);
+      if (pool2.length < n) pool2 = all;
+      const qs = pool2.slice();
       for (let i = qs.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [qs[i], qs[j]] = [qs[j], qs[i]];
@@ -221,6 +230,12 @@
                                        q.tag === tag && p.wrongPool.indexOf(q.id) >= 0);
     if (ok) {
       correct++; streak++;
+      wrongStreak = 0;
+      // v3.15 微自适应（单元模式）：连对 3 题 → 难度层 +1（最高 4 层「挑战易错」）
+      if (unitName && streak >= 3) {
+        curDif = Math.min(4, (curDif || 2) + 1); streak = 0;
+        Store.updateCurrent(s => { Store.subj(s, subject).unitDif = curDif; });
+      }
       TTS.praise();
       Store.updateCurrent(s => {
         const got = Store.taskDone(s, 'correct');
@@ -243,10 +258,24 @@
       }
     } else {
       streak = 0;
+      // v3.15 微自适应（单元模式）：连错 2 题 → 难度层 -1（最低 1 层「基础认读」）
+      if (unitName) {
+        wrongStreak++;
+        if (wrongStreak >= 2) {
+          curDif = Math.max(1, (curDif || 2) - 1); wrongStreak = 0;
+          Store.updateCurrent(s => { Store.subj(s, subject).unitDif = curDif; });
+        }
+      }
       TTS.speak('再想一想。' + (cur.wrongReasons && cur.wrongReasons[0] ? cur.wrongReasons[0] : ''));
       // 错题当场重现：单元题重问本题，口算换同 tag 数字再练（PK 模式不重现，继续下一题）
       if (unitName) {
-        queue.push(cur);
+        // v3.15 错题变式：同模板（vt）优先换一题重练（换数字/情境），没有变式才重问原题
+        let reQ = cur;
+        if (cur.vt) {
+          const alt = bank().filter(q => q.vt === cur.vt && q.id !== cur.id);
+          if (alt.length) reQ = alt[Math.floor(Math.random() * alt.length)];
+        }
+        queue.push(reQ);
       } else if (!pkFlag) {
         const pool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && q.level === p.level + 1 && q.tag === tag && q.id !== cur.id);
         if (pool.length) queue.push(pool[Math.floor(Math.random() * pool.length)]);
@@ -298,7 +327,7 @@
     reset();
   }
 
-  function reset() { queue = []; cur = null; streak = 0; correct = 0; total = 0; queueTotal = 0; }
+  function reset() { queue = []; cur = null; streak = 0; correct = 0; total = 0; queueTotal = 0; curDif = null; wrongStreak = 0; }
 
   const Quiz = {
     start(stu, subjName, ui, end, opts) {
@@ -309,6 +338,8 @@
       loadBank(() => {
         reset();
         onUI = ui; onEnd = end;
+        // v3.15 微自适应：单元模式从上次难度层继续（首次 2 理解层），存学生档案
+        if (unitName) curDif = Store.subj(stu, subjName).unitDif || 2;
         queue = pickQuestions(stu, PER_ROUND);
         // recentQs 记录（保留最近 25 题，避免连续几轮重复出题）
         Store.updateCurrent(s => {
@@ -361,6 +392,7 @@
     get PER_ROUND() { return PER_ROUND; },
     get TOTAL() { return (mode === 'review' || mode === 'mixed') ? queueTotal : PER_ROUND; },
     get mode() { return mode; },
+    get difLevel() { return curDif; },   // v3.15 微自适应当前难度层（测试/调试用）
     reset() { reset(); }
   };
 

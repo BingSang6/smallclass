@@ -651,8 +651,15 @@ def _g_nav():
             _pick2(['%d 小时' % (t + 1), '%d 小时' % (t + 2), '%d 小时' % (v - t)], t),
             '时间 = 路程÷速度：%d ÷ %d = %d' % (s, v, t), 3)
 
-def _many(fn, k):
-    return _uniq([fn() for _ in range(k)])
+def _many(fn, k, vt=None):
+    vt = vt or fn.__name__.replace('_g_', 'v-')
+    return [t + (vt,) for t in _uniq([fn() for _ in range(k)])]
+
+# 手工题族按题面前缀归入变式模板（同族换数字即可变式重现）
+_VT_PREFIX = [
+    ('凑 10 游戏：你出', 'v-c10game'),
+    ('一条线段上有 ', 'v-segpts'),
+]
 
 # 手工增补（dif：1 基础 / 2 理解 / 3 应用 / 4 挑战易错）+ 参数化变式
 EXTRA = {
@@ -663,9 +670,9 @@ EXTRA = {
     ('0、3、8 中最小的数是？', '0', ['3', '8'], '0 比 1 还小，是最小的数', 2),
     ('和 5 相邻的两个数是？', '4 和 6', ['3 和 5', '5 和 7'], '顺着数 …4、5、6…，5 的邻居是 4 和 6', 2),
     ('从 0 数到 10，一共数了几个数？', '11 个', ['10 个', '9 个'], '0 也要数上：0 到 10 一共 11 个数', 4),
-  ] + _many(lambda: _g_max3(0, 10), 3)[:2] + _many(lambda: _g_next(2, 8), 2)[:1] + _many(lambda: _g_prev(2, 8), 2)[:1],
-  '第二单元 5以内数加与减': _many(lambda: _g_add(5), 5)[:3] + _many(lambda: _g_sub(5), 5)[:3]
-    + _many(lambda: _g_fill(5), 3)[:2] + _many(_g_word_add5, 3)[:2] + _many(_g_word_sub5, 3)[:2],
+  ] + _many(lambda: _g_max3(0, 10), 3, 'v-max3')[:2] + _many(lambda: _g_next(2, 8), 2, 'v-next')[:1] + _many(lambda: _g_prev(2, 8), 2, 'v-prev')[:1],
+  '第二单元 5以内数加与减': _many(lambda: _g_add(5), 5, 'v-add5')[:3] + _many(lambda: _g_sub(5), 5, 'v-sub5')[:3]
+    + _many(lambda: _g_fill(5), 3, 'v-fill5')[:2] + _many(_g_word_add5, 3)[:2] + _many(_g_word_sub5, 3)[:2],
   '综合实践 介绍我的教室': [
     ('上课时，同学们的背面朝着？', '教室的后面', ['教室的前面', '天花板'], '身体朝前坐，背就朝后', 2),
     ('向后转以后，原来在你前面的同学，现在在你的？', '后面', ['前面', '上面'], '转个方向，前后正好交换', 4),
@@ -682,8 +689,8 @@ EXTRA = {
     ('整理一堆树叶：圆圆的分一堆、尖尖的分一堆，分类标准是？', '形状', ['颜色', '大小'], '圆叶尖叶是按形状特征分', 2),
     ('分好类以后检查时，要看？', '有没有分错的和漏掉的', ['不用检查', '数一数有几个箱子'], '检查是否有错分和遗漏', 3),
   ],
-  '第四单元 10以内数加与减': _many(_g_make10, 4)[:2] + _many(lambda: _g_add(10), 5)[:3]
-    + _many(lambda: _g_sub(10), 5)[:3] + _many(_g_twostep, 4)[:2] + _many(_g_word10, 4)[:2],
+  '第四单元 10以内数加与减': _many(_g_make10, 4)[:2] + _many(lambda: _g_add(10), 5, 'v-add10')[:3]
+    + _many(lambda: _g_sub(10), 5, 'v-sub10')[:3] + _many(_g_twostep, 4)[:2] + _many(_g_word10, 4)[:2],
   '数学好玩 一起做游戏': [
     ('凑 10 游戏：你出 6，我出几？', '4', ['5', '3'], '6 和 4 合成 10', 2),
     ('凑 10 游戏：你出 9，我出几？', '1', ['2', '0'], '9 和 1 合成 10', 2),
@@ -740,7 +747,7 @@ EXTRA = {
     ('"盲区"指的是？', '被挡住看不见的区域', ['看得最清楚的地方', '最亮的地方'], '视线被障碍物挡住，形成的看不见区域', 2),
     ('想看到讲台后面墙报的底部，可以怎么办？', '站高一点或站远一点', ['贴着讲台蹲下不动', '闭上眼睛'], '改变观察位置，观察范围跟着变化', 3),
   ],
-  '第五单元 运算律': _many(_g_j25, 3)[:1] + _many(_g_j102, 3)[:2] + _many(_g_j99, 3)[:2] + _many(_g_jfac, 3)[:2],
+  '第五单元 运算律': _many(_g_j25, 3)[:2] + _many(_g_j102, 3)[:2] + _many(_g_j99, 3)[:2] + _many(_g_jfac, 3)[:2],
   '数学好玩 数图形的学问': [
     ('一条线段上有 6 个点（含两端），一共有几条线段？', '15 条', ['6 条', '21 条'], '5+4+3+2+1=15，按顺序数', 3),
     ('从一个顶点引出 5 条射线，最多组成几个角？', '10 个', ['5 个', '15 个'], '4+3+2+1=10', 3),
@@ -797,15 +804,23 @@ def main():
             for tup in qs:
                 q, a, wrongs, why = tup[:4]
                 dif = tup[4] if len(tup) > 4 else 2   # v3.14 难度层（旧题默认 2）
+                vt = tup[5] if len(tup) > 5 else None  # v3.15 变式模板（同模板换数字重练）
+                if vt is None:
+                    for _pre, _v in _VT_PREFIX:
+                        if q.startswith(_pre):
+                            vt = _v; break
                 assert len({str(a), str(wrongs[0]), str(wrongs[1])}) == 3, q
-                out.append({
+                item = {
                     'q': q, 'a': a, 'options': wrongs,
                     'wrongReasons': [why, '把这个单元的知识点再想一想'],
                     'grade': grade, 'level': 0, 'tag': '单元·' + uname.split(' ', 1)[1],
                     'unit': uname, 'speak': q.replace('？', '').replace('○', '圆圈').replace('□', '方框'),
                     'dif': dif,
                     'id': 'ua%d-%02d' % (grade, len(out))
-                })
+                }
+                if vt:
+                    item['vt'] = vt
+                out.append(item)
 
     path = os.path.join(os.path.dirname(__file__), '..', 'data', 'banks', 'math-units.json')
     with open(path, 'w', encoding='utf-8') as f:

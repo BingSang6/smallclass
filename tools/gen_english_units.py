@@ -309,6 +309,159 @@ UNITS = {
 ],
 }
 
+# ============================================================================
+# v3.15 英语单元扩容（仅 1、4 年级）：每单元 12 题（原 4~5 题 + 增补 7~8 题）
+# 题型三层：词义双向（词→义 / 义→词）/ 情景应答（问句选答）/ 句型运用（选正确句子）
+# 词汇全部取自 english-words.json 已确认词表，不超纲；其他年级原题不动。
+# ============================================================================
+ADD = {
+ 1: {
+  '第一单元 家庭': [
+    ('family 的意思是？', '家；家庭', ['学校', '公园'], 'family 是一家人'),
+    ('「妈妈」的英文是？', 'mum', ['dad', 'sister'], 'mum 妈妈，dad 爸爸'),
+    ('grandma 是？', '奶奶；外婆', ['爷爷；外公', '哥哥'], 'grandma 是女性祖辈'),
+    ('介绍爸爸怎么说？', 'This is my dad.', ['I am dad.', 'My dad is this.'], '介绍家人用 This is my…'),
+    ('「我有一个家。」说？', 'I have a family.', ['I am family.', 'My family I have.'], 'I have a… 我有一个…'),
+    ('magic 的意思是？', '魔法的', ['面条', '毛线'], 'magic 魔法的 + noodles 面条'),
+    ('爸爸的爸爸是？', 'grandpa（爷爷）', ['grandma', 'brother'], '爷爷／外公都叫 grandpa'),
+  ],
+  '第二单元 感觉': [
+    ('hungry 是？', '饿的', ['饱的', '困的'], 'hungry 是饿'),
+    ('thirsty 是？', '口渴的', ['饿的', '累的'], 'thirsty 是渴'),
+    ('「我很热。」说？', "I'm hot.", ["I'm cold.", 'I hot.'], "I'm + 感觉词"),
+    ('cold 是？', '冷的', ['热的', '暖和的'], 'cold 冷，hot 热'),
+    ('「又饿又渴」用英语说？', 'hungry and thirsty', ['cold and hot', 'hot and warm'], 'and 连接两个感觉词'),
+    ('想吃的东西饿了，noodles 是？', '面条', ['毛线', '家庭'], 'noodles 面条'),
+    ('yarn 可以用来？', '织东西（毛线）', ['吃', '喝'], 'yarn 是毛线'),
+    ('hot 的反义词是？', 'cold', ['hungry', 'magic'], '热和冷正好相反'),
+  ],
+  '第三单元 数字与文具': [
+    ('「二」的英文是？', 'two', ['three', 'one'], 'one two three 依次是 1 2 3'),
+    ('「四」的英文是？', 'four', ['five', 'three'], 'four 是 4'),
+    ('pencil 是？', '铅笔', ['铅笔盒', '直尺'], 'pencil 铅笔，pencil case 铅笔盒'),
+    ('「直尺」的英文是？', 'ruler', ['eraser', 'pencil'], 'ruler 直尺，eraser 橡皮'),
+    ('写字常用的文具是？', 'pencil（铅笔）', ['yarn（毛线）', 'apple（苹果）'], '铅笔用来写字'),
+    ('数一数 1、2、3、4 接着数是？', 'five', ['four', 'six'], '接着数是 5：five'),
+    ('eraser 用来做什么？', '擦掉写错的字', ['削铅笔', '装水喝'], '橡皮擦掉错字'),
+  ],
+  '第四单元 动作': [
+    ('draw 是？', '画', ['唱', '写'], 'draw 是画画'),
+    ('「我会唱歌。」说？', 'I can sing.', ['I am sing.', 'I can singing.'], 'I can + 动词原形'),
+    ('dance 是？', '跳舞', ['读书', '写字'], 'dance 是跳舞'),
+    ('「我会画画。」说？', 'I can draw.', ['I can drawing.', 'I am draw.'], 'can 后面的动词不加 ing'),
+    ('同学问你 Can you dance? 你会，回答？', 'Yes, I can.', ['Yes, I am.', 'Yes, I do.'], 'Can 开头的问句用 can 回答'),
+    ('「我们唱歌跳舞吧。」说？', "Let's sing and dance.", ['Let sing dance.', 'Let we sing.'], "Let's = Let us（让我们一起）"),
+    ('「我会唱歌也会画画。」用哪个词连接？', 'and', ['is', 'can'], 'and 表示「和、也」'),
+    ('老师说 Stand up 是？', '起立', ['坐下', '举手'], 'Sit down 坐下，Stand up 起立'),
+  ],
+  '第五单元 宠物': [
+    ('「狗」的英文是？', 'dog', ['cat', 'bird'], 'dog 狗，cat 猫'),
+    ('「猫」的英文是？', 'cat', ['dog', 'fish'], 'cat 是猫'),
+    ('bird 是？', '鸟', ['鱼', '乌龟'], 'bird 是小鸟'),
+    ('「我有一只猫。」说？', 'I have a cat.', ['I am a cat.', 'I can a cat.'], 'I have a… 我有一只…'),
+    ('fish 是？', '鱼', ['仓鼠', '鸟'], 'fish 是鱼'),
+    ('「我有一只仓鼠。」说？', 'I have a hamster.', ['I am hamster.', 'I can hamster.'], 'I have a + 宠物'),
+    ('「这是什么宠物？」问？', 'What is it?', ['What it is?', 'Is what it?'], 'What is it? 问是什么'),
+    ('小鸟和小鱼，哪个会飞？', 'bird（小鸟）', ['fish', 'cat'], 'bird 有翅膀会飞'),
+  ],
+  '第六单元 颜色': [
+    ('「红色」的英文是？', 'red', ['yellow', 'black'], 'red 红色'),
+    ('「白色」的英文是？', 'white', ['black', 'blue'], 'white 白色'),
+    ('blue 是？', '蓝色', ['绿色', '黄色'], 'blue 蓝色'),
+    ('「黑色」的英文是？', 'black', ['white', 'red'], 'black 黑色'),
+    ('green 是？', '绿色', ['红色', '蓝色'], 'green 绿色'),
+    ('yellow 是？', '黄色', ['红色', '白色'], 'yellow 黄色'),
+    ('「它是什么颜色？」问？', 'What colour is it?', ['What is colour it?', 'How colour is it?'], 'What colour 问颜色'),
+    ('问「苹果是什么颜色」可以说？', 'What colour is the apple?', ['What the apple is colour?', 'Colour what apple?'], 'What colour is + 东西'),
+  ],
+ },
+ 4: {
+  '第一单元 住所': [
+    ('house 是？', '房子', ['城市', '街道'], 'house 是房子'),
+    ('「村庄」的英文是？', 'village', ['city', 'town'], 'village 村庄'),
+    ('street 是？', '街道', ['房子', '家'], 'street 街道'),
+    ('town 是？', '城镇', ['国家', '大海'], 'town 城镇，比 city 小'),
+    ('「我住在一座大城市。」说？', 'I live in a big city.', ['I live on a big city.', 'I am live in city.'], 'live in + 地方'),
+    ('问「你住在城镇还是村庄」说？', 'Do you live in a town or a village?', ['Do you live town village?', 'Are you live in town?'], 'Do you live in…?'),
+    ('home 和 house 的区别是？', 'home 强调「家」，house 指「房子」本身', ['两个完全一样', 'house 才能住人'], 'home 是家的感觉，house 是建筑物'),
+  ],
+  '第二单元 动物栖息地': [
+    ('river 是？', '河流', ['森林', '高山'], 'river 河流'),
+    ('sea 是？', '海洋', ['河流', '森林'], 'sea 大海'),
+    ('elephant 是？', '大象', ['狮子', '猴子'], 'elephant 大象'),
+    ('lion 是？', '狮子', ['大象', '猴子'], 'lion 狮子'),
+    ('monkey 是？', '猴子', ['大象', '狮子'], 'monkey 猴子'),
+    ('「大象住在森林里。」说？', 'Elephants live in the forest.', ['Elephants live on the forest.', 'Elephant live forest.'], 'live in the forest'),
+    ('mountain 是？', '山', ['河流', '海洋'], 'mountain 高山'),
+    ('鱼（fish）的家在哪里？', '在水里', ['在森林里', '在马路上'], '鱼生活在水里'),
+  ],
+  '第三单元 数字': [
+    ('count 是？', '数数', ['计算器', '电话'], 'count 数一数'),
+    ('number 是？', '数字', ['字母', '单词'], 'number 数字'),
+    ('「三百」用英语说？', 'three hundred', ['three hundreds', 'hundred three'], 'hundred 前加数字，hundred 不加 s'),
+    ('电话号码用英语怎么读？', '一个数字一个数字读', ['整十整百读', '倒着读'], '号码要逐位读数字'),
+    ('phone 是？', '电话', ['数字', '电脑'], 'phone 电话'),
+    ('「电话号码」说？', 'phone number', ['number phone', 'phone numbers'], 'phone number 电话号码'),
+    ('How many 问的是？', '多少（数量）', ['在哪里', '什么时候'], 'How many 问数量'),
+  ],
+  '第四单元 购物': [
+    ('buy 是？', '买', ['吃', '看'], 'buy 买东西'),
+    ('cheap 是？', '便宜的', ['昂贵的', '新的'], 'cheap 便宜'),
+    ('expensive 是？', '昂贵的', ['便宜的', '旧的'], 'expensive 贵'),
+    ('「我想买衣服。」说？', 'I want to buy clothes.', ['I want buy clothes.', 'I buying clothes.'], 'want to + 动词原形'),
+    ('money 是？', '钱', ['价格', '商店'], 'money 钱，price 价格'),
+    ('店员问 Can I help you? 你想买支笔，说？', 'Yes, I want a pen.', ['No, I help you.', 'I am pen.'], '想要什么就说 I want…'),
+    ('clothes 是？', '衣服', ['食物', '钱'], 'clothes 衣服'),
+  ],
+  '第五单元 季节': [
+    ('autumn 是？', '秋天', ['春天', '夏天'], 'autumn 秋天'),
+    ('「夏天」的英文是？', 'summer', ['autumn', 'winter'], 'summer 夏天'),
+    ('cool 是？', '凉爽的', ['温暖的', '炎热的'], 'cool 凉爽'),
+    ('「深圳的夏天很热。」说？', 'It is very hot in summer in Shenzhen.', ['It is very cold in summer.', 'Summer is Shenzhen hot.'], '夏天热：hot in summer'),
+    ('「冬天很冷。」说？', 'It is very cold in winter.', ['It is very hot in winter.', 'Winter cold is.'], '冬天冷：cold in winter'),
+    ('hot 的反义词（说天气）是？', 'cold', ['warm', 'cool'], '热和冷相反'),
+    ('四季的正确顺序是？', 'spring → summer → autumn → winter', ['spring → autumn → summer → winter', 'winter → spring → autumn → summer'], '春→夏→秋→冬'),
+  ],
+  '第六单元 植物': [
+    ('plant 是？', '植物', ['动物', '房子'], 'plant 植物'),
+    ('flower 是？', '花', ['叶子', '草'], 'flower 花'),
+    ('grass 是？', '草', ['花', '种子'], 'grass 小草'),
+    ('「花是红色的。」说？', 'The flower is red.', ['The flower are red.', 'The flower red is.'], '单数东西用 is'),
+    ('leaf 的复数是？', 'leaves', ['leafs', 'leafes'], 'f 变 v 再加 es'),
+    ('「树」的英文是？', 'tree', ['three', 'flower'], 'tree 树，别和 three 混淆'),
+    ('「我喜欢花。」说？', 'I like flowers.', ['I like flower.', 'I am like flowers.'], 'like + 复数表示泛指'),
+  ],
+  '第七单元 道路安全': [
+    ('stop 是？', '停', ['跑', '走'], 'stop 停下'),
+    ('safe 是？', '安全的', ['小心的', '交通的'], 'safe 安全'),
+    ('cross 是？', '穿过（马路）', ['停下来', '跑起来'], 'cross 过马路'),
+    ('「绿灯亮了，可以走。」说？', "The light is green. Let's go.", ["The light is red. Let's go.", 'The green light stop.'], '绿灯行，红灯停'),
+    ('「小心！」提醒别人说？', 'Be careful!', ['Be traffic!', 'Be road!'], 'Be careful 是小心'),
+    ('「马路」的英文是？', 'road', ['river', 'room'], 'road 马路'),
+    ('过马路前应该先？', '停下来看看左右（先看车）', ['闭着眼睛冲过去', '低头看手机'], '先观察再过马路'),
+  ],
+  '第八单元 祖辈与职业': [
+    ('grandmother 是？', '奶奶；外婆', ['爷爷；外公', '阿姨'], 'grandmother 是女性祖辈'),
+    ('job 是？', '工作；职业', ['家庭', '学校'], 'job 工作'),
+    ('「我的爷爷是司机。」说？', 'My grandpa is a driver.', ['My grandpa is driver.', 'My grandpa are a driver.'], '职业前要加 a'),
+    ('「她是做什么工作的？」问？', "What's her job?", ["Where's her job?", "Who's her job?"], "What's … job? 问职业"),
+    ('teacher 是？', '老师', ['医生', '司机'], 'teacher 老师'),
+    ('「他是一名厨师。」说？', 'He is a cook.', ['He is cook.', 'He are a cook.'], '职业前加 a，单数用 is'),
+    ('grandfather 和 grandmother 谁是奶奶？', 'grandmother', ['grandfather', '两个都是'], 'grand- 后接 mother 是女性'),
+  ],
+ },
+}
+
+for _g, _mp in ADD.items():
+    for _u in UNITS[_g]:
+        if _u[0] in _mp:
+            _u[1].extend(_mp[_u[0]])
+    # 单元内按题目文本去重（原题优先）
+    _seen = set()
+    for _u in UNITS[_g]:
+        _kept = [t for t in _u[1] if not (t[0] in _seen or _seen.add(t[0]))]
+        _u[1][:] = _kept
+
 def main():
     import json, os
     out = []
