@@ -995,8 +995,9 @@ def test_v316():
 
 test_v316()
 
-def test_v317():
-    """v3.17 课本古诗：g1/g4 古诗只出课内必背 12 首；段位图显示篇目名；其他年级保持通用池"""
+def test_v318():
+    """v3.18 必背古诗全集+难度锁死：g1 13首/g4 28首；段位=题型难度层（青铜禁赏析）；
+    单元巩固入口；判断题 2 选项；题目带 src 教材来源/tp 题型；g2 走通用池不变"""
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
@@ -1005,19 +1006,34 @@ def test_v317():
         page.on('console', lambda m: errs.append('CONSOLE: ' + m.text) if m.type == 'error' else None)
         page.goto(BASE); page.wait_for_load_state('networkidle')
 
-        # ---- ① 题库：课本古诗带年级标，干扰项全课内 ----
+        # ---- ① 题库自检：全集计数 / 难度层分布 / 难度锁死映射 / 判断题 / src+tp ----
         poems = page.evaluate("""() => fetch('data/banks/poems.json').then(r => r.json())""")
         tx = [q for q in poems if str(q['id']).startswith('ptx-')]
         g1 = [q for q in tx if q['grade'] == 1]
         g4 = [q for q in tx if q['grade'] == 4]
         print('textbook poems: g1 %d / g4 %d (bank %d)' % (len(g1), len(g4), len(poems)))
-        assert len(g1) == 38 and len(g4) == 42
-        t1 = set(q['tag'] for q in g1); t4 = set(q['tag'] for q in g4)
-        assert t1 == set('古诗·' + t for t in ['咏鹅', '画', '悯农（其二）', '风', '江南', '古朗月行（节选）']), t1
-        assert t4 == set('古诗·' + t for t in ['暮江吟', '题西林壁', '雪梅', '出塞', '凉州词', '夏日绝句']), t4
-        for g, pool in ((1, g1), (4, g4)):
-            for lv in range(1, 7):
-                assert sum(1 for q in pool if q['level'] == lv) >= 5, (g, lv)
+        assert len(g1) == 138 and len(g4) == 293, (len(g1), len(g4))
+        u1 = set(q['unit'] for q in g1 if q.get('unit'))
+        u4 = set(q['unit'] for q in g4 if q.get('unit'))
+        assert len(u1) == 13 and len(u4) == 28, (len(u1), len(u4))
+        # 难度层题量：L1-L4 严格锁死需池子 ≥20（g4 全达标；g1 L1-L3 达标）
+        for pool, mins in ((g4, [100, 80, 30, 20]), (g1, [60, 30, 20, 5])):
+            for lv, m in enumerate(mins, 1):
+                got = sum(1 for q in pool if q['level'] == lv)
+                assert got >= m, (lv, got, m)
+        # 难度锁死映射：L1-L4 的题 dif===level；L5 对比题 dif=4
+        for q in tx:
+            if 1 <= q['level'] <= 4:
+                assert q['dif'] == q['level'], q
+        for q in tx:
+            assert 1 <= q['dif'] <= 4 and 1 <= q['level'] <= 5
+            assert q.get('src') and q.get('tp'), q['id']
+            # 有且仅有 1 个正确答案（豆包纪律）
+            assert len({str(q['a'])} | set(q['options'])) == len(q['options']) + 1, q['id']
+        judges = [q for q in tx if q['tp'] == '判断']
+        assert judges and all(len(q['options']) == 1 and q['a'] in ('正确', '错误') for q in judges)
+        contrast = [q for q in tx if q['level'] == 5]
+        assert len(contrast) == 15 and all(q['tp'] == '对比' and not q.get('unit') for q in contrast)
 
         def make_student(name, grade):
             page.goto(BASE); page.wait_for_load_state('networkidle')
@@ -1030,20 +1046,20 @@ def test_v317():
             page.click('#btn-create')
             page.wait_for_timeout(500)
 
-        def enter_poem_and_play(grade):
-            """进古诗 tab 打一关（全答对），返回本关全部题 tag / 首题信息"""
+        def enter_poem():
             page.goto(BASE); page.wait_for_load_state('networkidle')
             page.locator('.subject-card').nth(1).click(); page.wait_for_timeout(400)
             page.locator('.tab-btn', has_text='古诗').click(); page.wait_for_timeout(400)
-            names = page.locator('#level-map button').all_text_contents()
+
+        def play_round(record):
+            """打一关（全答对），返回本关全部题信息"""
             page.locator('#level-map button').first.click()
             page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
-            tags = []
-            first = None
             for _ in range(10):
-                info = page.evaluate("""() => Quiz.current && {id: Quiz.current.id, tag: Quiz.current.tag}""")
-                if info and not first: first = info
-                if info: tags.append(info['tag'])
+                info = page.evaluate("""() => Quiz.current && {id: Quiz.current.id, tag: Quiz.current.tag,
+                  tp: Quiz.current.tp || '', dif: Quiz.current.dif || 0,
+                  opts: document.querySelectorAll('.opt-btn').length}""")
+                if info: record.append(info)
                 page.evaluate("""() => {
                   const q = Quiz.current;
                   const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
@@ -1053,37 +1069,74 @@ def test_v317():
                 if page.locator('#result-title').is_visible():
                     break
             page.wait_for_timeout(300)
-            return names, first, tags
 
-        # ---- ② g1：只出课内 6 首，段位图=篇目名 ----
-        make_student('古诗娃娃', 1)
-        names, first, tags = enter_poem_and_play(1)
-        print('g1 poem level map:', names[:6])
-        print('g1 poem round tags:', set(tags))
-        assert any('咏鹅' in n for n in names), names
-        assert str(first['id']).startswith('ptx-'), first
-        allowed = set('古诗·' + t for t in ['咏鹅', '画', '悯农（其二）', '风', '江南', '古朗月行（节选）'])
-        assert set(tags) <= allowed, set(tags) - allowed
-
-        # ---- ③ g4：只出课内 6 首 ----
+        # ---- ② g4 青铜段（L1 背诵默写）：只出接句/识别（难度锁死，挑战题至多 1 道）----
         make_student('古诗哥哥', 4)
-        names, first, tags = enter_poem_and_play(4)
-        print('g4 poem level map:', names[:6])
-        print('g4 poem round tags:', set(tags))
-        assert any('暮江吟' in n for n in names), names
-        assert str(first['id']).startswith('ptx-'), first
-        allowed4 = set('古诗·' + t for t in ['暮江吟', '题西林壁', '雪梅', '出塞', '凉州词', '夏日绝句'])
-        assert set(tags) <= allowed4, set(tags) - allowed4
-        page.screenshot(path='shots/31-v317-poem.png')
+        enter_poem()
+        names = page.locator('#level-map button').all_text_contents()
+        print('g4 poem level map:', names)
+        assert names[0].endswith('背诵默写') and any(n.endswith('大乱斗') for n in names), names
+        rec = []
+        play_round(rec)
+        tps = [r['tp'] for r in rec]
+        n_easy = sum(1 for t in tps if t in ('接句', '识别'))
+        print('g4 L1 round: %d 题, 接句/识别 %d, tps=%s' % (len(rec), n_easy, set(tps)))
+        assert len(rec) >= 5
+        assert len(rec) - n_easy <= 1, tps   # 挑战题至多 1 道跨层
+        assert all(str(r['id']).startswith('ptx-') for r in rec)
+        units4 = set(q['unit'] for q in g4 if q.get('unit'))
+        assert set(r['tag'] for r in rec) <= set('古诗·' + u.split('·', 1)[1] for u in units4)
 
-        # ---- ④ g2：无年级题 → 走通用池（旧逻辑不变） ----
+        # ---- ③ g4 单元巩固：28 个单元入口，点「四上·暮江吟」只出该诗的题 ----
+        enter_poem()
+        page.click('#btn-units'); page.wait_for_timeout(300)
+        ubtns = page.locator('#unit-list button').all_text_contents()
+        print('g4 units: %d' % len(ubtns))
+        assert len(ubtns) == 28, ubtns
+        page.locator('#unit-list button', has_text='暮江吟').click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        for _ in range(10):
+            tag = page.evaluate('() => Quiz.current && Quiz.current.tag')
+            assert tag == '古诗·暮江吟', tag
+            page.evaluate("""() => {
+              const q = Quiz.current;
+              const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
+              b.click();
+            }""")
+            page.wait_for_timeout(1100)
+            if page.locator('#result-title').is_visible():
+                break
+        st = page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          return d.students.filter(s => s.name === '古诗哥哥')[0].unitStats['poem|四上·暮江吟'];
+        }""")
+        print('unitStats 暮江吟:', st)
+        assert st and st['a'] >= 5, st
+        page.screenshot(path='shots/31-v318-poem-units.png')
+
+        # ---- ④ g1：13 个单元 + 青铜锁死 ----
+        make_student('古诗娃娃', 1)
+        enter_poem()
+        rec1 = []
+        play_round(rec1)
+        tps1 = [r['tp'] for r in rec1]
+        n_easy1 = sum(1 for t in tps1 if t in ('接句', '识别'))
+        print('g1 L1 round: %d 题, 接句/识别 %d, tps=%s' % (len(rec1), n_easy1, set(tps1)))
+        assert len(rec1) - n_easy1 <= 1, tps1
+        enter_poem()
+        page.click('#btn-units'); page.wait_for_timeout(300)
+        assert page.locator('#unit-list button').count() == 13
+
+        # ---- ⑤ g2：无年级题 → 走通用池（旧逻辑不变） ----
         make_student('古诗二年级', 2)
-        names, first, tags = enter_poem_and_play(2)
-        print('g2 poem first q:', first, '| level map head:', names[:2])
-        assert str(first['id']).startswith('pt-'), first   # 通用池老题
+        enter_poem()
+        page.locator('#level-map button').first.click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        qid = page.evaluate('() => Quiz.current.id')
+        assert str(qid).startswith('pt-'), qid   # 通用池老题
 
-        print('v3.17 errors:', errs if errs else 'none')
+        print('v3.18 errors:', errs if errs else 'none')
         assert not errs, errs
         browser.close()
 
-test_v317()
+test_v318()
