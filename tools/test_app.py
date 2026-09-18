@@ -398,8 +398,8 @@ def test_v11():
         page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
         pq1 = page.locator('#question-text').inner_text()
         print('grade1 poem question:', pq1)
-        assert '接下句' in pq1 or '接上句' in pq1 or '出自' in pq1 or '作者' in pq1
-        # 连续两轮抽题应很少重复（池 1800+）
+        assert '接下句' in pq1 or '接上句' in pq1 or '出自' in pq1 or '作者' in pq1 or '"' in pq1 or '《' in pq1   # v3.17 课内理解题也算
+        # 连续两轮抽题应很少重复（v3.17 起一年级走课内小池，靠 recentQs 防重）
         ids = [page.evaluate('() => Quiz.current.id')]
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.locator('.subject-card', has_text='语文').first.click(); page.wait_for_timeout(400)
@@ -994,3 +994,96 @@ def test_v316():
         browser.close()
 
 test_v316()
+
+def test_v317():
+    """v3.17 课本古诗：g1/g4 古诗只出课内必背 12 首；段位图显示篇目名；其他年级保持通用池"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        errs = []
+        page.on('pageerror', lambda e: errs.append('PAGEERROR: ' + str(e)))
+        page.on('console', lambda m: errs.append('CONSOLE: ' + m.text) if m.type == 'error' else None)
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+
+        # ---- ① 题库：课本古诗带年级标，干扰项全课内 ----
+        poems = page.evaluate("""() => fetch('data/banks/poems.json').then(r => r.json())""")
+        tx = [q for q in poems if str(q['id']).startswith('ptx-')]
+        g1 = [q for q in tx if q['grade'] == 1]
+        g4 = [q for q in tx if q['grade'] == 4]
+        print('textbook poems: g1 %d / g4 %d (bank %d)' % (len(g1), len(g4), len(poems)))
+        assert len(g1) == 38 and len(g4) == 42
+        t1 = set(q['tag'] for q in g1); t4 = set(q['tag'] for q in g4)
+        assert t1 == set('古诗·' + t for t in ['咏鹅', '画', '悯农（其二）', '风', '江南', '古朗月行（节选）']), t1
+        assert t4 == set('古诗·' + t for t in ['暮江吟', '题西林壁', '雪梅', '出塞', '凉州词', '夏日绝句']), t4
+        for g, pool in ((1, g1), (4, g4)):
+            for lv in range(1, 7):
+                assert sum(1 for q in pool if q['level'] == lv) >= 5, (g, lv)
+
+        def make_student(name, grade):
+            page.goto(BASE); page.wait_for_load_state('networkidle')
+            sw = page.locator('#btn-switch2')
+            if sw.is_visible():
+                sw.click(); page.wait_for_timeout(400)   # 回到选人页才能新建
+            page.click('#btn-add-student')
+            page.fill('#inp-name', name)
+            page.click('.grade-btn[data-g="%d"]' % grade)
+            page.click('#btn-create')
+            page.wait_for_timeout(500)
+
+        def enter_poem_and_play(grade):
+            """进古诗 tab 打一关（全答对），返回本关全部题 tag / 首题信息"""
+            page.goto(BASE); page.wait_for_load_state('networkidle')
+            page.locator('.subject-card').nth(1).click(); page.wait_for_timeout(400)
+            page.locator('.tab-btn', has_text='古诗').click(); page.wait_for_timeout(400)
+            names = page.locator('#level-map button').all_text_contents()
+            page.locator('#level-map button').first.click()
+            page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+            tags = []
+            first = None
+            for _ in range(10):
+                info = page.evaluate("""() => Quiz.current && {id: Quiz.current.id, tag: Quiz.current.tag}""")
+                if info and not first: first = info
+                if info: tags.append(info['tag'])
+                page.evaluate("""() => {
+                  const q = Quiz.current;
+                  const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
+                  b.click();
+                }""")
+                page.wait_for_timeout(1100)
+                if page.locator('#result-title').is_visible():
+                    break
+            page.wait_for_timeout(300)
+            return names, first, tags
+
+        # ---- ② g1：只出课内 6 首，段位图=篇目名 ----
+        make_student('古诗娃娃', 1)
+        names, first, tags = enter_poem_and_play(1)
+        print('g1 poem level map:', names[:6])
+        print('g1 poem round tags:', set(tags))
+        assert any('咏鹅' in n for n in names), names
+        assert str(first['id']).startswith('ptx-'), first
+        allowed = set('古诗·' + t for t in ['咏鹅', '画', '悯农（其二）', '风', '江南', '古朗月行（节选）'])
+        assert set(tags) <= allowed, set(tags) - allowed
+
+        # ---- ③ g4：只出课内 6 首 ----
+        make_student('古诗哥哥', 4)
+        names, first, tags = enter_poem_and_play(4)
+        print('g4 poem level map:', names[:6])
+        print('g4 poem round tags:', set(tags))
+        assert any('暮江吟' in n for n in names), names
+        assert str(first['id']).startswith('ptx-'), first
+        allowed4 = set('古诗·' + t for t in ['暮江吟', '题西林壁', '雪梅', '出塞', '凉州词', '夏日绝句'])
+        assert set(tags) <= allowed4, set(tags) - allowed4
+        page.screenshot(path='shots/31-v317-poem.png')
+
+        # ---- ④ g2：无年级题 → 走通用池（旧逻辑不变） ----
+        make_student('古诗二年级', 2)
+        names, first, tags = enter_poem_and_play(2)
+        print('g2 poem first q:', first, '| level map head:', names[:2])
+        assert str(first['id']).startswith('pt-'), first   # 通用池老题
+
+        print('v3.17 errors:', errs if errs else 'none')
+        assert not errs, errs
+        browser.close()
+
+test_v317()

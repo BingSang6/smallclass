@@ -64,7 +64,11 @@
     Object.keys(quota).forEach(sub => {
       const p = Store.subj(stu, sub);
       const rec = p.recentQs || [];
-      const pool = bank(sub).filter(q => (q.grade === stu.grade || q.grade === 0) && !q.unit && q.level <= p.level + 1
+      // v3.17 课内优先：本年级题源充足时只从本年级抽（g1/g4 古诗不混课外诗）
+      const same = bank(sub).filter(q => q.grade === stu.grade && !q.unit && q.level <= p.level + 1
+        && rec.indexOf(q.id) < 0);
+      const pool = same.length >= 10 ? same
+        : bank(sub).filter(q => (q.grade === stu.grade || q.grade === 0) && !q.unit && q.level <= p.level + 1
         && rec.indexOf(q.id) < 0);
       const shuffled = pool.slice();
       for (let i = shuffled.length - 1; i > 0; i--) {
@@ -138,7 +142,18 @@
     }
     const p = Store.subj(stu, subject);
     const lv = p.level + 1;   // 学生段位 0~5 ↔ 题库 level 1~6
-    let pool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && q.level === lv);
+    // v3.17 课内优先：本年级题源充足（≥30，如课本古诗 g1/g4）时只抽本年级题，
+    // 段位池小先放宽相邻段位、再不够用全年级——绝不混入通用大池（grade=0 的课外题）；
+    // 本年级没题的年级（古诗 2/3/5/6 等）走原逻辑，行为不变
+    const sameGrade = bank().filter(q => q.grade === stu.grade && !q.unit);
+    let pool;
+    if (sameGrade.length >= 30) {
+      pool = sameGrade.filter(q => q.level === lv);
+      if (pool.length < 20) pool = sameGrade.filter(q => q.level >= lv - 1 && q.level <= lv + 1);
+      if (pool.length < 20) pool = sameGrade;
+    } else {
+      pool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && q.level === lv);
+    }
     // v3.4.1 题池太小（如一年级古诗某段位只有 ~10 题）时放宽到相邻段位，减少重复感
     if (pool.length < 20) {
       pool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && !q.unit && q.level >= lv - 1 && q.level <= lv + 1);
@@ -174,8 +189,11 @@
       seen[q.id] = 1; qs.push(q);
     }
     // 1 道下一段位挑战题替换随机一题（答对同样计分，给孩子一点挑战；同样避开最近出过的）
-    const nextPool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && q.level === lv + 1 && !q.unit
-      && (p.recentQs || []).indexOf(q.id) < 0);
+    // v3.17 课内优先：本年级题源充足时挑战题也从本年级出（如 g1/g4 古诗不混课外题）
+    const nextSame = sameGrade.filter(q => q.level === lv + 1 && (p.recentQs || []).indexOf(q.id) < 0);
+    const nextPool = (sameGrade.length >= 30 && nextSame.length) ? nextSame
+      : bank().filter(q => (q.grade === stu.grade || q.grade === 0) && q.level === lv + 1 && !q.unit
+        && (p.recentQs || []).indexOf(q.id) < 0);
     if (nextPool.length && qs.length >= 3) {
       const idx = Math.floor(Math.random() * qs.length);
       const cq = nextPool[Math.floor(Math.random() * nextPool.length)];
