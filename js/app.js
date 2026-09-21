@@ -75,6 +75,18 @@
     document.body.appendChild(d);
     setTimeout(() => d.remove(), 1600);
   };
+  /** 通用提示飘字（v3.20.2：题库未就绪等场景，替代系统 alert） */
+  window.hintToast = function (msg, ms) {
+    const old = document.getElementById('hint-toast');
+    if (old) old.remove();
+    const d = document.createElement('div');
+    d.id = 'hint-toast';
+    d.className = 'coin-toast';
+    d.style.cssText = 'white-space:normal;width:max-content;max-width:80vw;padding:10px 18px;font-size:15px;line-height:1.5';
+    d.textContent = msg;
+    document.body.appendChild(d);
+    setTimeout(() => d.remove(), ms || 2600);
+  };
   function starStr(lvStars) {
     return '★'.repeat(lvStars) + '☆'.repeat(3 - Math.min(3, lvStars));
   }
@@ -418,6 +430,12 @@
       r => {
         clearInterval(restTimer);
         stopQTimer();
+        // v3.20.2：题库还没加载好（网络不稳）——友好提示并回学科主页
+        if (r.total === 0) {
+          hintToast('📶 网络不稳，题库还没加载好，请稍后再点一次试试', 4000);
+          enterSubject(curSubject);
+          return;
+        }
         let got = 0;
         Store.updateCurrent(s => { got = Store.taskDone(s, 'round'); Store.earn(s, got); });
         coinFlash(got);
@@ -493,6 +511,12 @@
       r => {
         clearInterval(restTimer);
         stopQTimer();
+        // v3.20.2：题库还没加载好（网络不稳）——友好提示并回单元列表，不弹系统 alert
+        if (r.total === 0) {
+          hintToast('📶 网络不稳，题库还没加载好，请稍后再点一次试试', 4000);
+          renderUnits();
+          return;
+        }
         let gotU = 0;
         // v3.14 单元闯关金币：及格（≥60%）以上才有——答对 1 题 1 币、全对 +3、
         // 该单元首次通关 +5；每单元每日前 3 关产币（防无限刷）

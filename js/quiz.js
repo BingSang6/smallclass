@@ -20,6 +20,21 @@
 
   function bank(sub) { return banks[sub || subject] || []; }
 
+  /** fetch JSON，失败自动重试 2 次（间隔 400ms/1.2s）——github.io 网络抖动自愈（v3.20.2） */
+  function fetchJSON(url) {
+    const delays = [400, 1200];
+    function attempt(i) {
+      return fetch(url).then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      }).catch(() => {
+        if (i >= delays.length) throw new Error('fetch 失败（已重试）: ' + url);
+        return new Promise(res => setTimeout(res, delays[i])).then(() => attempt(i + 1));
+      });
+    }
+    return attempt(0);
+  }
+
   function loadBankOf(sub, done) {
     const meta = Store.SUBJECTS[sub];
     const merge = j => {
@@ -31,7 +46,7 @@
     };
     const loadUnits = () => {
       if (meta.unitsBank && !banks[sub + '#units']) {
-        fetch(meta.unitsBank).then(r => r.json())
+        fetchJSON(meta.unitsBank)
           .then(j => { banks[sub + '#units'] = 1; merge(j); done(); })
           .catch(() => done());
       } else done();
@@ -39,16 +54,16 @@
     // v3.2 专题训练题库（unit 字段复用单元模式）
     const loadTopics = () => {
       if (meta.topicsBank && !banks[sub + '#topics']) {
-        fetch(meta.topicsBank).then(r => r.json())
+        fetchJSON(meta.topicsBank)
           .then(j => { banks[sub + '#topics'] = 1; merge(j); loadUnits(); })
           .catch(() => loadUnits());
       } else loadUnits();
     };
     if (banks[sub] && banks[sub].length) return loadTopics();
-    fetch(meta.bank)
-      .then(r => r.json())
+    fetchJSON(meta.bank)
       .then(j => { banks[sub] = j; loadTopics(); })
-      .catch(() => { alert('题库加载失败，请刷新页面'); });
+      // v3.20.2：重试 2 次仍失败不再 alert 卡界面——静默降级（题目为 0 时界面有友好提示）
+      .catch(() => { console.warn('[quiz] 题库加载失败（已重试）:', meta.bank); loadTopics(); });
   }
   function loadBank(done) { loadBankOf(subject, done); }
   function loadAll(done) {
