@@ -462,6 +462,18 @@ for _g, _mp in ADD.items():
         _kept = [t for t in _u[1] if not (t[0] in _seen or _seen.add(t[0]))]
         _u[1][:] = _kept
 
+def _dif(q):
+    """v3.20：四层难度（1 词义认读 / 2 拼写辨析 / 3 情景应答 / 4 句型挑战）——关键词规则"""
+    if any(k in q for k in ['为什么', '时态', '语法', '区别', '用法', '对吗', '正确', '选词填空', '句型']):
+        return 4
+    if any(k in q for k in ['是什么意思', '哪个单词', '哪个词', '读一读']):
+        return 1
+    if any(k in q for k in ['说？', '怎么问', '怎么答', '回答', '应答', '在问什么', '打招呼']):
+        return 3
+    if any(k in q for k in ['的英文是', '拼写', '字母']):
+        return 2
+    return 2
+
 def main():
     import json, os
     out = []
@@ -471,7 +483,8 @@ def main():
                 out.append({
                     'q': q, 'a': str(a), 'options': [str(w) for w in wrongs],
                     'wrongReasons': [why, '再想想这个单元的单词和句型'],
-                    'grade': grade, 'level': 0, 'tag': '单元·' + uname.split(' ', 1)[1],
+                    'grade': grade, 'level': 0, 'dif': _dif(q),
+                    'tag': '单元·' + uname.split(' ', 1)[1],
                     'unit': uname,
                     'speak': q.replace('？', '').replace('（　）', ''),
                     'id': 'eu%d-%02d' % (grade, len(out))
@@ -480,9 +493,11 @@ def main():
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     print('生成', len(out), '道英语单元题')
+    import collections
     for g in sorted(UNITS):
         n = sum(len(qs) for u, qs in UNITS[g])
-        print('  %d年级: %d 单元 / %d 题' % (g, len(UNITS[g]), n))
+        dfs = collections.Counter(x['dif'] for x in out if x['grade'] == g)
+        print('  %d年级: %d 单元 / %d 题 / dif%s' % (g, len(UNITS[g]), n, dict(sorted(dfs.items()))))
 
 if __name__ == '__main__':
     main()

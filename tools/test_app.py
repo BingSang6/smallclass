@@ -1297,3 +1297,116 @@ def test_v319():
         browser.close()
 
 test_v319()
+
+
+def test_v320():
+    """v3.20 英语重构：主库段位改难度层（词义→拼写→情景→句型→综合）+ units 补 dif"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        errs = []
+        page.on('pageerror', lambda e: errs.append('PAGEERROR: ' + str(e)))
+        page.on('console', lambda m: errs.append('CONSOLE: ' + m.text) if m.type == 'error' else None)
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+
+        # ---- ① 主库：重分层 + 扩容 + 纪律字段 ----
+        ew = page.evaluate("() => fetch('data/banks/english-words.json').then(r => r.json())")
+        print('english-words bank', len(ew))
+        assert len(ew) == 485, len(ew)
+        for g in (1, 4):
+            for lv in range(1, 6):
+                n = sum(1 for q in ew if q['grade'] == g and q['level'] == lv)
+                assert n >= 20, (g, lv, n)
+            assert sum(1 for q in ew if q['grade'] == g and q['level'] == 6) == 0   # 大乱斗=relax 全池
+        for q in ew:
+            assert 'dif' in q and 'tp' in q and 'src' in q, q['id']
+            assert str(q['a']) not in q['options'], q['id']
+            assert len(set(q['options'])) == len(q['options']), q['id']
+            if q['tp'] == '判断':
+                assert len(q['options']) == 1 and q['a'] in ('正确', '错误'), q['id']
+        # 重分层：g1/g4 旧题 L1=词义题、L2=拼写题；新题 ex- 前缀 126
+        for q in ew:
+            if q['grade'] in (1, 4) and not str(q['id']).startswith('ex'):
+                assert (q['level'] == 1) == q['q'].endswith('是什么意思？'), q['id']
+        ex = [q for q in ew if str(q['id']).startswith('ex')]
+        assert len(ex) == 126, len(ex)
+        for g in (1, 4):
+            for lv in (3, 4, 5):
+                assert any(q['tp'] == '情景' for q in ex if q['grade'] == g)   # 新题型存在
+        # 2/3/5/6 不动：无 ex-、无判断题、tp 只有回填的词义/拼写
+        for q in ew:
+            if q['grade'] not in (1, 4):
+                assert str(q['id']).startswith('e') and not str(q['id']).startswith('ex'), q['id']
+                assert q['tp'] in ('词义', '拼写'), q['id']
+
+        # ---- ② units：全量 dif，情景应答层有题（微自适应生效前提） ----
+        eu = page.evaluate("() => fetch('data/banks/english-units.json').then(r => r.json())")
+        assert len(eu) == 303
+        assert all(1 <= q.get('dif', 0) <= 4 for q in eu)
+        g4_sce = sum(1 for q in eu if q['grade'] == 4 and q['dif'] == 3)
+        g1_sce = sum(1 for q in eu if q['grade'] == 1 and q['dif'] == 3)
+        print('units dif: g1 情景 %d, g4 情景 %d' % (g1_sce, g4_sce))
+        assert g4_sce >= 20 and g1_sce >= 10
+
+        def make_student(name, grade):
+            page.goto(BASE); page.wait_for_load_state('networkidle')
+            sw = page.locator('#btn-switch2')
+            if sw.is_visible():
+                sw.click(); page.wait_for_timeout(400)
+            page.click('#btn-add-student')
+            page.fill('#inp-name', name)
+            page.click('.grade-btn[data-g="%d"]' % grade)
+            page.click('#btn-create')
+            page.wait_for_timeout(500)
+
+        def enter_english():
+            page.goto(BASE); page.wait_for_load_state('networkidle')
+            page.locator('.subject-card', has_text='英语').first.click(); page.wait_for_timeout(400)
+
+        # ---- ③ g4 UI：段位图=难度层 + 青铜只出词义/判断 + 单元 dif 生效 ----
+        make_student('单词哥哥', 4)
+        enter_english()
+        names = page.locator('#level-map button').all_text_contents()
+        print('g4 english level map:', names[:6])
+        assert names[0].endswith('词义认读'), names[0]
+        assert any(n.endswith('大乱斗') for n in names), names
+        page.locator('#level-map button').first.click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        tps, ids = [], []
+        for _ in range(10):
+            info = page.evaluate("""() => Quiz.current && {id: Quiz.current.id, tp: Quiz.current.tp}""")
+            if info:
+                tps.append(info['tp']); ids.append(info['id'])
+                page.evaluate("""() => {
+                  const q = Quiz.current;
+                  const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
+                  b.click();
+                }""")
+                page.wait_for_timeout(1100)
+            if page.locator('#result-title').is_visible():
+                break
+        n_easy = sum(1 for t in tps if t in ('词义', '判断'))
+        print('g4 L1 round tps:', set(tps))
+        assert len(tps) == 5 and len(tps) - n_easy <= 1, tps   # 挑战题外锁死词义层
+        assert all(str(i).startswith(('e4-', 'ex4-')) for i in ids), ids[:3]
+        # 单元巩固照常（题库已带 dif）
+        enter_english()
+        page.click('#btn-units'); page.wait_for_timeout(300)
+        assert page.locator('#unit-list button').count() == 10   # 8 单元 + 2 专题
+        page.screenshot(path='shots/33-v320-english.png')
+
+        # ---- ④ g3：主题段位不动（老结构 e3-） ----
+        make_student('单词三年', 3)
+        enter_english()
+        names3 = page.locator('#level-map button').all_text_contents()
+        assert names3[0].endswith('食物饮品'), names3[0]
+        page.locator('#level-map button').first.click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        qid = page.evaluate('() => Quiz.current.id')
+        assert str(qid).startswith('e3-'), qid
+
+        print('v3.20 errors:', errs if errs else 'none')
+        assert not errs, errs
+        browser.close()
+
+test_v320()
