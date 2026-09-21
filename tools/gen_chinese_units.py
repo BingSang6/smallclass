@@ -533,6 +533,21 @@ def _merge_add():
 
 _merge_add()
 
+def _dif(q):
+    """v3.19：四层难度（1 基础认读 / 2 理解辨析 / 3 情境理解 / 4 挑战易错）——关键词规则"""
+    if any(k in q for k in ['易错', '为什么', '道理', '启示', '告诉了我们', '好处', '作用', '体会']):
+        return 4
+    if any(k in q for k in ['看拼音', '读音', '读一读', '笔顺', '笔画', '数一数', '声母', '韵母',
+                            '整体认读', '标调', '三拼音节', '前鼻', '后鼻', '拼读', '读哪']):
+        return 1
+    if any(k in q for k in ['课文', '理解', '顺序', '内容', '搭配', '选词填空', '填空', '意思',
+                            '默写', '背诵', '上下句', '出自', '比喻', '口语交际', '习作', '日记']):
+        return 3
+    if any(k in q for k in ['形近', '同音', '多音', '选字', '组词', '偏旁', '部首', '结构',
+                            '写法', '错别字', '识字', '字理', '加一加', '减一减', '换一换']):
+        return 2
+    return 2
+
 def main():
     import json, os
     out = []
@@ -542,7 +557,8 @@ def main():
                 out.append({
                     'q': q, 'a': str(a), 'options': [str(w) for w in wrongs],
                     'wrongReasons': [why, '再想想这个单元学过的课文'],
-                    'grade': grade, 'level': 0, 'tag': '单元·' + uname.split(' ', 1)[1],
+                    'grade': grade, 'level': 0, 'dif': _dif(q),
+                    'tag': '单元·' + uname.split(' ', 1)[1],
                     'unit': uname,
                     'speak': q.replace('？', '').replace('（　）', '').replace('《', '').replace('》', ''),
                     'id': 'cu%d-%02d' % (grade, len(out))
@@ -551,9 +567,11 @@ def main():
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(out, f, ensure_ascii=False, indent=1)
     print('生成', len(out), '道语文单元题')
+    import collections
     for g in sorted(UNITS):
         n = sum(len(qs) for u, qs in UNITS[g])
-        print('  %d年级: %d 单元 / %d 题' % (g, len(UNITS[g]), n))
+        dfs = collections.Counter(x['dif'] for x in out if x['grade'] == g)
+        print('  %d年级: %d 单元 / %d 题 / dif%s' % (g, len(UNITS[g]), n, dict(sorted(dfs.items()))))
 
 if __name__ == '__main__':
     main()

@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
-"""gen_guwen.py — 语文·小古文题库生成器
-题源：primary-tutor-skill/knowledge-bases/chinese-primary-curriculum.md 第三部分（小古文 11 篇，公版）
-题型：接下句 / 接上句 / 字词释义（curated）/ 认出处
-产出：data/banks/guwen.json（按年级 3~6，篇内按题序分 6 段位）
+"""gen_guwen.py — v3.19 语文·小古文题库生成器（g4 课内重构版）
+题源：chinese-primary-curriculum（11 篇小古文，公版）
+g3/5/6：保持旧逻辑（句序分 6 段位，w{g}- id），行为不变（先不管年级）。
+g4 课内 4 篇 = v3.18 古诗同款难度分层（豆包纪律）：
+  L1 背诵句意（接句/默写填空） L2 字音常识（字音/出处）
+  L3 字词释义（课下注释/判断） L4 句意道理（翻译/人物品质）
+  L5 对比综合（跨篇）          L6 大乱斗（relax 全池，无专属题）
+出题纪律：释义只用课下注释；每题唯一答案（断言）；干扰项贴古今异义/多音易错；
+src 标到册次不编页码。产出 data/banks/guwen.json（整体重建）。
 """
-import json, os, random, re
+import json, os, io, sys, random, re
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 random.seed(20260821)
 
-# (篇名, 年级, 原文, 释义 [(字词, 正确释义, 干扰1, 干扰2)])
+# ============ 旧版全量语料（g3/5/6 逻辑与随机序列保持不变） ============
 TEXTS = [
     ('司马光', 3, '群儿戏于庭，一儿登瓮，足跌没水中。众皆弃去，光持石击瓮破之，水迸，儿得活。',
      [('庭', '庭院', '厅堂', '院子外'), ('瓮', '口小肚大的陶缸', '水井', '木桶'),
@@ -44,76 +50,253 @@ TEXTS = [
       ('善哉', '好啊', '善良啊', '擅长啊'), ('少选', '一会儿、不久', '少年选择', '很少挑选')]),
 ]
 
-
 def sentences(text):
-    """按标点切成句子（保留句中标点）"""
     parts = re.split(r'(?<=[。？！])', text)
     return [p.strip() for p in parts if p.strip()]
 
-
-out = []
-all_titles = [t[0] for t in TEXTS]
-# 跨篇句子池（干扰项不足时借用其他篇的句子）
-ALL_SENTS = [s for _, _, text, _ in TEXTS for s in sentences(text) if 4 <= len(s) <= 28]
-
-for title, grade, text, notes in TEXTS:
-    qs = []
-    ss = [s for s in sentences(text) if 4 <= len(s) <= 28]
-    # 接下句 / 接上句（相邻句对）
-    for i in range(len(ss) - 1):
-        a, b = ss[i], ss[i + 1]
-        pool = [x for x in ss if x != b and abs(len(x) - len(b)) <= 8]
-        if len(pool) < 2:
-            pool = [x for x in ALL_SENTS if x != b and abs(len(x) - len(b)) <= 8]
-        if len(pool) >= 2:
-            dz = random.sample(pool, 2)
+def legacy_build():
+    """旧逻辑：全 11 篇跑完后只保留 g3/5/6（随机序列与旧版一致）"""
+    out = []
+    all_titles = [t[0] for t in TEXTS]
+    ALL_SENTS = [s for _, _, text, _ in TEXTS for s in sentences(text) if 4 <= len(s) <= 28]
+    for title, grade, text, notes in TEXTS:
+        qs = []
+        ss = [s for s in sentences(text) if 4 <= len(s) <= 28]
+        for i in range(len(ss) - 1):
+            a, b = ss[i], ss[i + 1]
+            pool = [x for x in ss if x != b and abs(len(x) - len(b)) <= 8]
+            if len(pool) < 2:
+                pool = [x for x in ALL_SENTS if x != b and abs(len(x) - len(b)) <= 8]
+            if len(pool) >= 2:
+                dz = random.sample(pool, 2)
+                qs.append({
+                    'q': '《' + title + '》接下句：' + a + '（　）',
+                    'a': b, 'options': dz,
+                    'wrongReasons': ['《' + title + '》原句：' + a + b, '先读懂句意，再顺着故事往下背'],
+                    'tag': '小古文·' + title
+                })
+            pool2 = [x for x in ss if x != a and abs(len(x) - len(a)) <= 8]
+            if len(pool2) < 2:
+                pool2 = [x for x in ALL_SENTS if x != a and abs(len(x) - len(a)) <= 8]
+            if len(pool2) >= 2:
+                dz2 = random.sample(pool2, 2)
+                qs.append({
+                    'q': '《' + title + '》接上句：（　）' + b,
+                    'a': a, 'options': dz2,
+                    'wrongReasons': ['《' + title + '》原句：' + a + b, '倒着背一遍，前后句就都牢了'],
+                    'tag': '小古文·' + title
+                })
+        for w, right, w1, w2 in notes:
             qs.append({
-                'q': '《' + title + '》接下句：' + a + '（　）',
-                'a': b, 'options': dz,
-                'wrongReasons': ['《' + title + '》原句：' + a + b, '先读懂句意，再顺着故事往下背'],
+                'q': '《' + title + '》中「' + w + '」的意思是？',
+                'a': right, 'options': [w1, w2],
+                'wrongReasons': ['「' + w + '」= ' + right, '小古文字词要联系整句话来推'],
                 'tag': '小古文·' + title
             })
-        pool2 = [x for x in ss if x != a and abs(len(x) - len(a)) <= 8]
-        if len(pool2) < 2:
-            pool2 = [x for x in ALL_SENTS if x != a and abs(len(x) - len(a)) <= 8]
-        if len(pool2) >= 2:
-            dz2 = random.sample(pool2, 2)
+        if notes:
+            w, right, _, _ = notes[0]
+            others = [t for t in all_titles if t != title]
             qs.append({
-                'q': '《' + title + '》接上句：（　）' + b,
-                'a': a, 'options': dz2,
-                'wrongReasons': ['《' + title + '》原句：' + a + b, '倒着背一遍，前后句就都牢了'],
+                'q': '小古文里讲到「' + w + '」（' + right + '），出自哪一篇？',
+                'a': '《' + title + '》', 'options': ['《' + x + '》' for x in random.sample(others, 2)],
+                'wrongReasons': ['出自《' + title + '》', '把 11 篇小古文的故事各用一句话概括，就好记了'],
                 'tag': '小古文·' + title
             })
-    # 字词释义
-    for w, right, w1, w2 in notes:
-        qs.append({
-            'q': '《' + title + '》中「' + w + '」的意思是？',
-            'a': right, 'options': [w1, w2],
-            'wrongReasons': ['「' + w + '」= ' + right, '小古文字词要联系整句话来推'],
-            'tag': '小古文·' + title
-        })
-    # 认出处（用释义正确项造句）
-    if notes:
-        w, right, _, _ = notes[0]
-        others = [t for t in all_titles if t != title]
-        qs.append({
-            'q': '小古文里讲到「' + w + '」（' + right + '），出自哪一篇？',
-            'a': '《' + title + '》', 'options': ['《' + x + '》' for x in random.sample(others, 2)],
-            'wrongReasons': ['出自《' + title + '》', '把 11 篇小古文的故事各用一句话概括，就好记了'],
-            'tag': '小古文·' + title
-        })
-    # 篇内按题序分 6 段位
-    n = len(qs)
-    for i, q in enumerate(qs):
-        q['grade'] = grade
-        q['level'] = min(6, 1 + i * 6 // n)
-        q['speak'] = q['q'].replace('（　）', '什么').replace('（）', '什么')
-        q['id'] = 'w%d-%02d' % (grade, len(out))
-        out.append(q)
+        n = len(qs)
+        for i, q in enumerate(qs):
+            q['grade'] = grade
+            q['level'] = min(6, 1 + i * 6 // n)
+            q['speak'] = q['q'].replace('（　）', '什么').replace('（）', '什么')
+            q['id'] = 'w%d-%02d' % (grade, len(out))
+            out.append(q)
+    return [q for q in out if q['grade'] != 4]   # g4 由新版结构接管
 
-path = os.path.join(os.path.dirname(__file__), '..', 'data', 'banks', 'guwen.json')
-with open(path, 'w', encoding='utf-8') as f:
-    json.dump(out, f, ensure_ascii=False, indent=1)
-print('生成', len(out), '道小古文题 →', os.path.normpath(path))
-for g in (3, 4, 5, 6):
-    print('  %d年级: %d 题' % (g, sum(1 for x in out if x['grade'] == g)))
+# ============ v3.19 g4 课内 4 篇（难度分层） ============
+# P(单元, 篇名, src, 原文, 字音, 填空, 出处常识, 释义, 判断, 句意, 道理)
+def P(u, t, src, text, pin=None, fill=None, origin=None, words=None,
+      judge=None, trans=None, moral=None):
+    return dict(u=u, t=t, src=src, text=text, pin=pin or [], fill=fill or [],
+                origin=origin or [], words=words or [], judge=judge or [],
+                trans=trans or [], moral=moral or [])
+
+G4 = [
+  P('四上·精卫填海', '精卫填海', '部编四上',
+    '炎帝之少女，名曰女娃。女娃游于东海，溺而不返，故为精卫，常衔西山之木石，以堙于东海。',
+    pin=[('「故为精卫」的「堙」读？', 'yīn', ['yān', 'yìn'], '堙=填塞，读 yīn'),
+         ('「名曰女娃」的「曰」读？', 'yuē', ['rì', 'yuè'], '曰≠日≠月，读 yuē'),
+         ('「常衔西山之木石」的「衔」读？', 'xián', ['xiàn', 'jīn'], '衔=用嘴叼，读 xián'),
+         ('「溺而不返」的「溺」读？', 'nì', ['ruò', 'ní'], '溺=溺水，读 nì（别看成弱）')],
+    fill=[('填空：炎帝之____，名曰女娃。', '少女', ['女儿', '少妇'], '课下注释：少女=小女儿'),
+          ('填空：常衔西山之木石，以堙于____。', '东海', ['西山', '南海'], '衔木石填东海')],
+    origin=[('《精卫填海》出自哪部古籍？', '《山海经》', ['《世说新语》', '《晋书》'], '选自《山海经·北山经》')],
+    words=[('「炎帝之少女」的「少女」是什么意思？', '小女儿', ['少女', '第一个女儿'], '课下注释'),
+           ('「溺而不返」的「溺」是什么意思？', '溺水、淹没', ['游泳', '口渴'], '课下注释'),
+           ('「故为精卫」的「故」是什么意思？', '因此、所以', ['故意', '缘故'], '课下注释'),
+           ('「以堙于东海」的「堙」是什么意思？', '填塞', ['挖开', '包围'], '课下注释'),
+           ('「溺而不返」的「返」是什么意思？', '返回', ['迟到', '反复'], '返=回来')],
+    judge=[('判断：女娃溺水后再也没有回来，变成了精卫鸟。', '正确', ['错误'], '溺而不返，故为精卫'),
+           ('判断：《精卫填海》出自《列子》。', '错误', ['正确'], '出自《山海经》')],
+    trans=[('「女娃游于东海，溺而不返」的意思是？', '女娃在东海游玩，溺水后再也没回来',
+            ['女娃去东海旅游，玩得很开心', '女娃在东海学游泳，学会了'], '逐字直译'),
+           ('「常衔西山之木石，以堙于东海」的意思是？', '常常衔来西山的树枝和石子，用来填塞东海',
+            ['经常在西山捡木头和石头玩', '把西山的树木和石头搬到东海卖'], '衔+堙连起来理解'),
+           ('「炎帝之少女，名曰女娃」的意思是？', '炎帝的小女儿，名叫女娃',
+            ['炎帝的大女儿，名叫女娃', '炎帝的少女们，都叫女娃'], '少女=小女儿')],
+    moral=[('精卫身上体现的精神是？', '坚持不懈、不畏艰难', ['遇到困难就放弃', '依赖别人帮忙'], '小鸟也要填大海'),
+           ('「精卫填海」常用来形容？', '意志坚定、不畏艰难的行为', ['非常轻松就能完成的事', '没有意义的浪费时间'], '小鸟也要填大海')]),
+
+  P('四上·王戎不取道旁李', '王戎不取道旁李', '部编四上',
+    '王戎七岁，尝与诸小儿游。看道边李树多子折枝，诸儿竞走取之，唯戎不动。人问之，答曰：树在道边而多子，此必苦李。取之，信然。',
+    pin=[('「尝与诸小儿游」的「尝」读？', 'cháng', ['cāng', 'chǎng'], '尝=曾经，读 cháng'),
+         ('「诸儿竞走取之」的「竞」读？', 'jìng', ['jìn', 'jīng'], '竞=争着'),
+         ('「唯戎不动」的「唯」读？', 'wéi', ['wěi', 'wēi'], '唯=只有，读 wéi'),
+         ('「尝与诸小儿游」的「诸」读？', 'zhū', ['zhù', 'zhǔ'], '诸=许多，读 zhū')],
+    fill=[('填空：树在道边而多子，此必____。', '苦李', ['甜李', '李子'], '多子=果实多，必是苦李'),
+          ('填空：尝与诸小儿____。', '游', ['玩', '走'], '文言「游」=游玩')],
+    origin=[('《王戎不取道旁李》出自哪部古籍？', '《世说新语》', ['《山海经》', '《晋书》'], '选自《世说新语》')],
+    words=[('「尝与诸小儿游」的「尝」是什么意思？', '曾经', ['尝试', '品尝'], '课下注释'),
+           ('「诸儿竞走取之」的「竞走」是什么意思？', '争着跑过去', ['比赛跑步', '慢慢走'], '课下注释'),
+           ('「唯戎不动」的「唯」是什么意思？', '只有', ['唯一', '以为'], '课下注释'),
+           ('「取之，信然」的「信然」是什么意思？', '确实这样', ['不太信', '果然错了'], '课下注释'),
+           ('「看道边李树多子折枝」的「折枝」是什么意思？', '压弯了树枝', ['折断树枝', '树枝掉了'], '果实多重得压弯枝')],
+    judge=[('判断：「诸儿竞走取之」的「走」是走路的意思。', '错误', ['正确'], '古今异义：走=跑'),
+           ('判断：王戎不摘李，是因为他判断路边果实多的李树结的必是苦李。', '正确', ['错误'], '唯戎不动+此必苦李')],
+    trans=[('「看道边李树多子折枝」的意思是？', '看见路边的李树果实很多，压弯了树枝',
+            ['路边的李树树枝被人折断了', '李树上的果子掉下来砸断树枝'], '折枝=压弯枝'),
+           ('「树在道边而多子，此必苦李」的意思是？', '树长在路边而果实很多，这一定是苦的李子',
+            ['路边的树长了很多果子，大家快来摘', '李树在路边结果，果子一定很甜'], '此必=这一定是'),
+           ('「诸儿竞走取之，唯戎不动」的意思是？', '孩子们争着跑过去摘李子，只有王戎不动',
+            ['孩子们比赛走路去拿李子，王戎跑得最慢', '孩子们都懒得动，只有王戎去摘李子'], '走=跑，唯=只有')],
+    moral=[('王戎身上突出的品质是？', '善于观察、独立思考', ['胆子小不敢摘', '不爱吃李子'], '七岁就推理出苦李'),
+           ('这个故事告诉我们？', '遇事要动脑思考，不盲目跟从', ['别人做什么就跟着做', '路边的果子都不能吃'], '树在道边而多子')]),
+
+  P('四下·囊萤夜读', '囊萤夜读', '部编四下',
+    '胤恭勤不倦，博学多通。家贫不常得油，夏月则练囊盛数十萤火以照书，以夜继日焉。',
+    pin=[('「家贫不常得油」的「得」读？', 'dé', ['de', 'děi'], '得=得到，读 dé'),
+         ('「练囊盛数十萤火」的「盛」读？', 'chéng', ['shèng', 'chěng'], '盛=装，读 chéng'),
+         ('「夏月则练囊盛数十萤火」的「数」读？', 'shù', ['shǔ', 'shú'], '数十=几十，读 shù'),
+         ('「练囊盛数十萤火」的「萤」读？', 'yíng', ['yín', 'yìng'], '萤=萤火虫，读 yíng')],
+    fill=[('填空：夏月则练囊盛数十____以照书。', '萤火', ['灯火', '蜡烛'], '家里穷没油，借萤火光'),
+          ('填空：家贫不常得____。', '油', ['米', '盐'], '不常得油=买不起灯油')],
+    origin=[('《囊萤夜读》出自哪部史书？', '《晋书》', ['《山海经》', '《世说新语》'], '选自《晋书》')],
+    words=[('「胤恭勤不倦」的「恭勤」是什么意思？', '谦逊勤勉', ['恭敬老师', '勤劳致富'], '课下注释'),
+           ('「练囊盛数十萤火」的「练囊」是什么意思？', '白色薄绢做的口袋', ['练习的口袋', '布书包'], '课下注释'),
+           ('「以夜继日焉」的「以夜继日」是什么意思？', '夜晚接着白天（日夜不停）', ['从早到晚玩耍', '白天接着白天'], '课下注释'),
+           ('「练囊盛数十萤火」的「盛」是什么意思？', '装', ['茂盛', '盛开'], '盛 chéng=装'),
+           ('「博学多通」的「通」是什么意思？', '通晓、明白', ['通过', '普通'], '课下注释')],
+    judge=[('判断：车胤用白绢口袋装萤火虫照书，是因为家里穷常常买不起灯油。', '正确', ['错误'], '家贫不常得油'),
+           ('判断：「夏月则练囊盛数十萤火」的「盛」读 shèng、意思是茂盛。', '错误', ['正确'], '盛 chéng=装')],
+    trans=[('「家贫不常得油」的意思是？', '家里穷，经常弄不到点灯的油',
+            ['家里穷得没有米和盐吃', '家里的油经常打翻洒掉'], '油=灯油'),
+           ('「以夜继日焉」的意思是？', '夜晚接着白天，日夜不停地学习',
+            ['白天睡觉，晚上玩耍', '把夜晚变成白天（会魔法）'], '形容勤奋'),
+           ('「胤恭勤不倦，博学多通」的意思是？', '车胤谦逊勤勉不知疲倦，学问广博通晓事理',
+            ['车胤很恭敬但不爱学习，什么都懂', '车胤身体疲倦，学问一般'], '恭勤+博学')],
+    moral=[('车胤身上体现的品质是？', '勤奋好学、想办法克服困难', ['聪明但不用功', '等别人来帮助'], '没油就借萤火光'),
+           ('这个故事告诉我们？', '条件再难，想办法也能坚持学习', ['学习必须要有明亮的灯', '家里穷就不用学习了'], '借萤火光也要读书')]),
+
+  P('四下·铁杵成针', '铁杵成针', '部编四下',
+    '磨针溪，在象耳山下。世传李太白读书山中，未成，弃去。过是溪，逢老媪方磨铁杵。问之，曰：欲作针。太白感其意，还卒业。',
+    pin=[('「逢老媪方磨铁杵」的「媪」读？', 'ǎo', ['wēn', 'ào'], '老媪=老妇人，读 ǎo'),
+         ('「逢老媪方磨铁杵」的「杵」读？', 'chǔ', ['chù', 'zhù'], '铁杵=铁棒，读 chǔ'),
+         ('「世传李太白读书山中」的「传」读？', 'chuán', ['zhuàn', 'chuān'], '世传=世人传说，读 chuán'),
+         ('「还卒业」的「卒」读？', 'zú', ['cù', 'zū'], '卒业=完成学业，读 zú')],
+    fill=[('填空：逢老媪方磨____。', '铁杵', ['铁棒', '铁针'], '正要把杵磨成针'),
+          ('填空：太白感其意，还____。', '卒业', ['作业', '毕业'], '课下注释：卒业=完成学业')],
+    origin=[('《铁杵成针》出自哪部古籍？', '《方舆胜览》', ['《山海经》', '《晋书》'], '选自《方舆胜览》')],
+    words=[('「逢老媪方磨铁杵」的「方」是什么意思？', '正在', ['方法', '方向'], '课下注释'),
+           ('「太白感其意」的「感其意」是什么意思？', '被她的意志感动', ['感谢她的心意', '感觉有意思'], '课下注释'),
+           ('「还卒业」的「卒业」是什么意思？', '完成学业', ['毕业了', '军队作业'], '课下注释'),
+           ('「未成，弃去」的「未成」是什么意思？', '没有完成学业', ['没有成功', '没有长成'], '课下注释'),
+           ('「过是溪」的「是」是什么意思？', '这（这条溪）', ['对、正确', '于是'], '古今异义：是=这')],
+    judge=[('判断：「未成，弃去」是说李白没有完成学业，就放弃离开了。', '正确', ['错误'], '弃去=放弃学业离开'),
+           ('判断：老媪已经把铁杵磨成针了。', '错误', ['正确'], '方磨铁杵=正在磨')],
+    trans=[('「世传李太白读书山中，未成，弃去」的意思是？', '世人传说李白在山中读书，学业没完成，就放弃离开',
+            ['李白在山里读书读完了很高兴', '李白的书本丢在山里找不到了'], '未成+弃去'),
+           ('「过是溪，逢老媪方磨铁杵」的意思是？', '经过这条溪，遇见老妇人正在磨铁杵',
+            ['过河的时候看到老妇人在洗铁棒', '老妇人把铁杵掉进了溪水里'], '过是溪=经过这溪'),
+           ('「太白感其意，还卒业」的意思是？', '李白被老妇人的意志感动，回去完成了学业',
+            ['李白感谢老妇人的心意，送她一根针', '李白觉得有意思，就留在山里玩'], '感其意+卒业')],
+    moral=[('《铁杵成针》给我们的启示是？', '只要坚持，再难的事也能做成', ['铁杵本来就容易做成针', '读书太苦不如早点放弃'], '只要功夫深'),
+           ('「只要功夫深，铁杵磨成针」的意思是？', '功夫下得深，难事也能做成', ['磨针要用很大力气', '铁杵比针更值钱'], '恒心最重要')]),
+]
+
+# 跨篇对比（L5）
+CONTRAST_G4 = [
+  ('哪一篇出自《山海经》？', '精卫填海', ['王戎不取道旁李', '囊萤夜读'], '精卫填海选自《山海经》'),
+  ('哪一篇的主人公善于观察、判断出路边的李是苦的？', '王戎不取道旁李', ['精卫填海', '铁杵成针'], '七岁王戎'),
+  ('精卫和车胤的共同点是？', '坚持不懈', ['半途而废', '害怕困难'], '填海/夜读都不放弃'),
+  ('「以夜继日」形容的是谁？', '车胤', ['王戎', '精卫'], '囊萤夜读'),
+  ('哪一句表达做事有恒心？', '常衔西山之木石，以堙于东海', ['未成，弃去', '诸儿竞走取之'], '精卫填海有恒心'),
+  ('老媪磨铁杵和精卫填海的共同启示是？', '认定目标就不放弃', ['做事要挑简单的', '不用坚持也能成功'], '恒心'),
+  ('「还卒业」和「以夜继日」都体现了？', '勤奋向学的态度', ['贪玩偷懒的习惯', '害怕困难的情绪'], '完成学业/日夜不停'),
+  ('四篇中不属于「勤学故事」的是？', '精卫填海', ['囊萤夜读', '铁杵成针'], '精卫是填海的意志故事'),
+]
+
+def g4_build():
+    out = []  # (q, a, wrongs, why, dif, lv, unit, title, src, tp)
+    all_sents = [(p['t'], s) for p in G4 for s in sentences(p['text']) if 4 <= len(s) <= 28]
+    for pm in G4:
+        u, t, src = pm['u'], pm['t'], pm['src']
+        others = [(tt, s) for tt, s in all_sents if tt != t]
+        ss = [s for s in sentences(pm['text']) if 4 <= len(s) <= 28]
+        # L1 接句（相邻句对，干扰=其他篇长度相近句）
+        for i in range(len(ss) - 1):
+            a, b = ss[i], ss[i + 1]
+            pool = [s for _, s in others if abs(len(s) - len(b)) <= 8]
+            if len(pool) >= 2:
+                dz = random.sample(pool, 2)
+                out.append(('《%s》接下句：%s（　）' % (t, a), b, dz,
+                            '背一背《%s》原文' % t, 1, 1, u, t, src, '接句'))
+            pool2 = [s for _, s in others if abs(len(s) - len(a)) <= 8]
+            if len(pool2) >= 2:
+                out.append(('《%s》接上句：（　）%s' % (t, b), a, random.sample(pool2, 2),
+                            '倒着背一遍《%s》' % t, 1, 1, u, t, src, '接句'))
+        for (q, a, ws, why) in pm['fill']:
+            out.append((q, a, ws, why, 1, 1, u, t, src, '填空'))
+        for (q, a, ws, why) in pm['pin']:
+            out.append((q, a, ws, why, 2, 2, u, t, src, '字音'))
+        for (q, a, ws, why) in pm['origin']:
+            out.append((q, a, ws, why, 2, 2, u, t, src, '出处'))
+        for (q, a, ws, why) in pm['words']:
+            out.append((q, a, ws, why, 3, 3, u, t, src, '释义'))
+        for (q, a, ws, why) in pm['judge']:
+            out.append((q, a, ws, why, 3, 3, u, t, src, '判断'))
+        for (q, a, ws, why) in pm['trans']:
+            out.append((q, a, ws, why, 4, 4, u, t, src, '句意'))
+        for (q, a, ws, why) in pm['moral']:
+            out.append((q, a, ws, why, 4, 4, u, t, src, '道理'))
+    for (q, a, ws, why) in CONTRAST_G4:
+        out.append((q, a, ws, why, 4, 5, None, '综合', '课内综合', '对比'))
+    return out
+
+def main():
+    bank = legacy_build()
+    assert all(q['id'].startswith(('w3', 'w5', 'w6')) for q in bank)
+    added = g4_build()
+    for i, (q, a, wrongs, why, dif, lv, unit, title, src, tp) in enumerate(added):
+        # —— 自检（出题纪律）——
+        assert wrongs, '至少 1 个干扰项：%s' % q
+        assert len({str(a)} | {str(w) for w in wrongs}) == len(wrongs) + 1, '选项重复/歧义：%s' % q
+        assert tp == '判断' or len(wrongs) == 2, '判断题外须 2 个干扰项：%s' % q
+        item = {
+            'q': q, 'a': str(a), 'options': [str(w) for w in wrongs],
+            'wrongReasons': [why, '再读一读这篇小古文'],
+            'grade': 4, 'level': lv, 'dif': dif,
+            'tag': '小古文·' + title, 'src': src, 'tp': tp,
+            'speak': q.replace('（　）', '什么').replace('？', ''),
+            'id': 'gw4-%d' % i
+        }
+        if unit: item['unit'] = unit
+        bank.append(item)
+    bank.sort(key=lambda q: (q['grade'], q['id']))
+    path = os.path.join(os.path.dirname(__file__), '..', 'data', 'banks', 'guwen.json')
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(bank, f, ensure_ascii=False, indent=1)
+    print('小古文全库 %d 题（g4 新结构 %d）' % (len(bank), len(added)))
+    for lv in range(1, 6):
+        print('  g4 L%d: %d 题' % (lv, sum(1 for x in added if x[5] == lv)))
+    print('  g4 units:', sorted(set(x[6] for x in added if x[6])))
+
+if __name__ == '__main__':
+    main()

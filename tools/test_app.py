@@ -398,7 +398,7 @@ def test_v11():
         page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
         pq1 = page.locator('#question-text').inner_text()
         print('grade1 poem question:', pq1)
-        assert '接下句' in pq1 or '接上句' in pq1 or '出自' in pq1 or '作者' in pq1 or '"' in pq1 or '《' in pq1   # v3.17 课内理解题也算
+        assert '接下句' in pq1 or '接上句' in pq1 or '出自' in pq1 or '作者' in pq1 or '"' in pq1 or '《' in pq1 or '读' in pq1   # v3.17 课内理解题、v3.18 字音题也算
         # 连续两轮抽题应很少重复（v3.17 起一年级走课内小池，靠 recentQs 防重）
         ids = [page.evaluate('() => Quiz.current.id')]
         page.goto(BASE); page.wait_for_load_state('networkidle')
@@ -1140,3 +1140,160 @@ def test_v318():
         browser.close()
 
 test_v318()
+
+
+def test_v319():
+    """v3.19 语文模块重构：小古文 g4 课内分层（同 v3.18 古诗）+ 字词扩容/纪律字段 + 语文单元 dif"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        errs = []
+        page.on('pageerror', lambda e: errs.append('PAGEERROR: ' + str(e)))
+        page.on('console', lambda m: errs.append('CONSOLE: ' + m.text) if m.type == 'error' else None)
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+
+        # ---- ① 小古文题库：g4 新结构分层锁死 + 纪律字段；g3/5/6 原样 ----
+        gw = page.evaluate("() => fetch('data/banks/guwen.json').then(r => r.json())")
+        g4 = [q for q in gw if q['grade'] == 4]
+        print('guwen bank %d, g4 %d' % (len(gw), len(g4)))
+        assert len(g4) == 100, len(g4)
+        for lv, need in ((1, 20), (2, 20), (3, 20), (4, 20), (5, 8)):
+            n = sum(1 for q in g4 if q['level'] == lv)
+            assert n >= need, (lv, n)
+        assert all(q['dif'] == q['level'] for q in g4 if q['level'] <= 4)
+        assert all('tp' in q and 'src' in q and 'dif' in q for q in g4)
+        for q in g4:   # 唯一答案 + 判断题 2 选项
+            assert str(q['a']) not in q['options'], q['id']
+            assert len(set(q['options'])) == len(q['options']), q['id']
+            if q['tp'] == '判断':
+                assert len(q['options']) == 1 and q['a'] in ('正确', '错误'), q['id']
+            else:
+                assert len(q['options']) == 2, q['id']
+        assert sum(1 for q in g4 if not q.get('unit')) == 8   # 跨篇对比不带 unit
+        units_bank = sorted(set(q['unit'] for q in g4 if q.get('unit')))
+        assert units_bank == ['四上·王戎不取道旁李', '四上·精卫填海', '四下·囊萤夜读', '四下·铁杵成针']
+        old_g = [q for q in gw if q['grade'] != 4]
+        assert (len(old_g) == 67 and
+                sum(1 for q in old_g if q['grade'] == 3) == 20 and
+                sum(1 for q in old_g if q['grade'] == 5) == 24 and
+                sum(1 for q in old_g if q['grade'] == 6) == 23)
+        assert all(str(q['id']).startswith(('w3-', 'w5-', 'w6-')) for q in old_g)
+
+        # ---- ② 字词题库：g1/g4 每层≥20 + 判断题 + 纪律字段 + 同音碰撞已修 ----
+        cw = page.evaluate("() => fetch('data/banks/chinese-words.json').then(r => r.json())")
+        print('chinese-words bank', len(cw))
+        assert len(cw) == 522, len(cw)
+        for g in (1, 4):
+            for lv in range(1, 7):
+                assert sum(1 for q in cw if q['grade'] == g and q['level'] == lv) >= 20, (g, lv)
+            assert any(q['tp'] == '判断' for q in cw if q['grade'] == g)
+        for q in cw:
+            assert 'dif' in q and 'tp' in q and 'src' in q, q['id']
+            assert str(q['a']) not in q['options'], q['id']
+            assert len(set(q['options'])) == len(q['options']), q['id']
+        # 同音碰撞修复抽查：坐/优 的 L1 已语境化（不再是裸拼音题）
+        fix1 = [q for q in cw if q['grade'] == 1 and q['a'] == '坐' and q['level'] == 1][0]
+        fix4 = [q for q in cw if q['grade'] == 4 and q['a'] == '优' and q['level'] == 1][0]
+        assert fix1['q'].startswith('选字填空'), fix1['q']
+        assert fix4['q'].startswith('选字填空'), fix4['q']
+        cx = [q for q in cw if str(q['id']).startswith('cx')]
+        assert len(cx) == 96, len(cx)
+
+        # ---- ③ 语文单元题库：全量 dif（微自适应生效前提） ----
+        cu = page.evaluate("() => fetch('data/banks/chinese-units.json').then(r => r.json())")
+        assert len(cu) == 360
+        assert all(1 <= q.get('dif', 0) <= 4 for q in cu)
+        g1_dif1 = sum(1 for q in cu if q['grade'] == 1 and q['dif'] == 1)
+        g4_dif3 = sum(1 for q in cu if q['grade'] == 4 and q['dif'] == 3)
+        print('units dif: g1 基础认读 %d, g4 情境理解 %d' % (g1_dif1, g4_dif3))
+        assert g1_dif1 >= 20 and g4_dif3 >= 10
+
+        def make_student(name, grade):
+            page.goto(BASE); page.wait_for_load_state('networkidle')
+            sw = page.locator('#btn-switch2')
+            if sw.is_visible():
+                sw.click(); page.wait_for_timeout(400)
+            page.click('#btn-add-student')
+            page.fill('#inp-name', name)
+            page.click('.grade-btn[data-g="%d"]' % grade)
+            page.click('#btn-create')
+            page.wait_for_timeout(500)
+
+        def enter_guwen():
+            page.goto(BASE); page.wait_for_load_state('networkidle')
+            page.locator('.subject-card').nth(1).click(); page.wait_for_timeout(400)
+            page.locator('.tab-btn', has_text='小古文').click(); page.wait_for_timeout(400)
+
+        def play_round(record):
+            page.locator('#level-map button').first.click()
+            page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+            for _ in range(10):
+                info = page.evaluate("""() => Quiz.current && {id: Quiz.current.id, tag: Quiz.current.tag, tp: Quiz.current.tp, dif: Quiz.current.dif}""")
+                if info: record.append(info)
+                page.evaluate("""() => {
+                  const q = Quiz.current;
+                  const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
+                  b.click();
+                }""")
+                page.wait_for_timeout(1100)
+                if page.locator('#result-title').is_visible():
+                    break
+            page.wait_for_timeout(300)
+
+        # ---- ④ g4 小古文 UI：段位=难度层 + 青铜锁死 + 单元巩固 ----
+        make_student('古文哥哥', 4)
+        enter_guwen()
+        names = page.locator('#level-map button').all_text_contents()
+        print('g4 guwen level map:', names[:6])
+        assert names[0].endswith('背诵句意'), names[0]
+        assert any(n.endswith('大乱斗') for n in names), names
+        rec = []
+        play_round(rec)
+        tps = [r['tp'] for r in rec]
+        n_easy = sum(1 for t in tps if t in ('接句', '填空'))
+        print('g4 L1 round: %d 题, 接句/填空 %d, tps=%s' % (len(rec), n_easy, set(tps)))
+        assert len(rec) == 5, len(rec)
+        assert len(rec) - n_easy <= 1, tps   # 挑战题外只出背诵层
+        assert all(str(r['id']).startswith('gw4-') for r in rec)
+        # 单元巩固：4 个入口，点精卫填海只出该篇
+        enter_guwen()
+        page.click('#btn-units'); page.wait_for_timeout(300)
+        ubtns = page.locator('#unit-list button').all_text_contents()
+        print('g4 guwen units:', ubtns)
+        assert len(ubtns) == 4, ubtns
+        page.locator('#unit-list button', has_text='精卫填海').click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        for _ in range(10):
+            tag = page.evaluate('() => Quiz.current && Quiz.current.tag')
+            assert tag == '小古文·精卫填海', tag
+            page.evaluate("""() => {
+              const q = Quiz.current;
+              const b = [...document.querySelectorAll('.opt-btn')].find(x => x.textContent === String(q.a));
+              b.click();
+            }""")
+            page.wait_for_timeout(1100)
+            if page.locator('#result-title').is_visible():
+                break
+        st = page.evaluate("""() => {
+          const d = JSON.parse(localStorage.getItem('smallclass.v1'));
+          return d.students.filter(s => s.name === '古文哥哥')[0].unitStats['guwen|四上·精卫填海'];
+        }""")
+        print('unitStats 精卫填海:', st)
+        assert st and st['a'] >= 5, st
+        page.screenshot(path='shots/32-v319-guwen-units.png')
+
+        # ---- ⑤ g3 小古文：老结构不动（w3- 老题 + 篇目段位） ----
+        make_student('古文三年级', 3)
+        enter_guwen()
+        names3 = page.locator('#level-map button').all_text_contents()
+        assert names3[0].endswith('司马光'), names3[0]
+        page.locator('#level-map button').first.click()
+        page.wait_for_selector('#question-text'); page.wait_for_timeout(300)
+        qid = page.evaluate('() => Quiz.current.id')
+        assert str(qid).startswith('w3-'), qid
+
+        print('v3.19 errors:', errs if errs else 'none')
+        assert not errs, errs
+        browser.close()
+
+test_v319()

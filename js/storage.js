@@ -83,7 +83,7 @@
     },
     poem: {   // 语文·古诗（题源 chinese-primary-curriculum.md，公版诗词）
       name: '古诗·背诵', short: '古诗', icon: '📜', bank: 'data/banks/poems.json', group: '语文',
-      levels: LEVELS, medals: MEDALS,
+      levels: LEVELS, medals: MEDALS, unitInRank: true,   // v3.19：段位抽题允许带 unit 的课内题（quiz.js 读此开关）
       // v3.18 必背古诗全集单元巩固（g1 13 首 / g4 28 首，题目带 unit 字段，见 gen_poems_textbook.py）
       units: {
         1: ['一上·咏鹅', '一上·画', '一上·悯农（其二）', '一上·风', '一上·江南', '一上·古朗月行（节选）',
@@ -106,12 +106,15 @@
     },
     guwen: {   // 语文·小古文（题源 chinese-primary-curriculum.md 第三部分，11 篇公版小古文）
       name: '小古文', short: '小古文', icon: '🧧', bank: 'data/banks/guwen.json', group: '语文',
-      levels: LEVELS, medals: MEDALS,
+      levels: LEVELS, medals: MEDALS, unitInRank: true,
+      // v3.19 单元巩固：g4 课内 4 篇（题目带 unit 字段，见 gen_guwen.py）
+      units: { 4: ['四上·精卫填海', '四上·王戎不取道旁李', '四下·囊萤夜读', '四下·铁杵成针'] },
       levelDesc: {
         1: ['句意衔接', '字词释义', '认出处', '句意衔接', '字词释义', '综合'],
         2: ['句意衔接', '字词释义', '认出处', '句意衔接', '字词释义', '综合'],
         3: ['司马光', '守株待兔', '字词释义', '句意衔接', '认出处', '综合'],
-        4: ['精卫填海', '王戎识李', '囊萤夜读', '铁杵成针', '字词释义', '综合'],
+        // v3.19 g4 段位 = 题型难度层（同古诗 v3.18：青铜背诵→白银字音常识→黄金字词释义→钻石句意道理→星耀对比综合→王者大乱斗）
+        4: ['背诵句意', '字音常识', '字词释义', '句意道理', '对比综合', '大乱斗'],
         5: ['自相矛盾', '杨氏之子', '字词释义', '句意衔接', '认出处', '综合'],
         6: ['学弈', '两小儿辩日', '伯牙鼓琴', '字词释义', '句意衔接', '综合']
       }

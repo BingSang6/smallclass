@@ -65,11 +65,12 @@
       const p = Store.subj(stu, sub);
       const rec = p.recentQs || [];
       // v3.17 课内优先：本年级题源充足时只从本年级抽（g1/g4 古诗不混课外诗）
-      // v3.18 古诗课内题带 unit，混合挑战同样放行
-      const same = bank(sub).filter(q => q.grade === stu.grade && (sub === 'poem' || !q.unit) && q.level <= p.level + 1
+      // v3.18 课内题带 unit 的学科（v3.19 起读配置 unitInRank：古诗/小古文）混合挑战同样放行
+      const inRank = Store.SUBJECTS[sub].unitInRank;
+      const same = bank(sub).filter(q => q.grade === stu.grade && (inRank || !q.unit) && q.level <= p.level + 1
         && rec.indexOf(q.id) < 0);
       const pool = same.length >= 10 ? same
-        : bank(sub).filter(q => (q.grade === stu.grade || q.grade === 0) && (sub === 'poem' || !q.unit) && q.level <= p.level + 1
+        : bank(sub).filter(q => (q.grade === stu.grade || q.grade === 0) && (inRank || !q.unit) && q.level <= p.level + 1
         && rec.indexOf(q.id) < 0);
       const shuffled = pool.slice();
       for (let i = shuffled.length - 1; i > 0; i--) {
@@ -146,8 +147,10 @@
     // v3.17 课内优先：本年级题源充足（≥30，如课本古诗 g1/g4）时只抽本年级题，
     // 段位池小先放宽相邻段位、再不够用全年级——绝不混入通用大池（grade=0 的课外题）；
     // 本年级没题的年级（古诗 2/3/5/6 等）走原逻辑，行为不变
-    // v3.18 古诗课内题带 unit（供单元巩固入口），段位池对其放行，难度锁死靠 level 字段
-    const sameGrade = bank().filter(q => q.grade === stu.grade && (subject === 'poem' || !q.unit));
+    // v3.18 课内题带 unit（供单元巩固入口）的学科读配置 unitInRank（v3.19：古诗/小古文），
+    // 段位池对其放行，难度锁死靠 level 字段
+    const inRank = Store.SUBJECTS[subject].unitInRank;
+    const sameGrade = bank().filter(q => q.grade === stu.grade && (inRank || !q.unit));
     let pool;
     if (sameGrade.length >= 30) {
       pool = sameGrade.filter(q => q.level === lv);
@@ -158,7 +161,7 @@
     }
     // v3.4.1 题池太小（如一年级古诗某段位只有 ~10 题）时放宽到相邻段位，减少重复感
     if (pool.length < 20) {
-      pool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && (subject === 'poem' || !q.unit) && q.level >= lv - 1 && q.level <= lv + 1);
+      pool = bank().filter(q => (q.grade === stu.grade || q.grade === 0) && (inRank || !q.unit) && q.level >= lv - 1 && q.level <= lv + 1);
     }
     const wrongIds = p.wrongPool || [];
     // 错题 tag 出题权重 ×2（自适应：薄弱点更多练）
