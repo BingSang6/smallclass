@@ -10,6 +10,7 @@
   function go(name) {
     document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
     $('screen-' + name).classList.remove('hidden');
+    if (window.__clearBootWatch) window.__clearBootWatch();   // 渲染成功，撤掉启动防呆提示（v3.20.1）
   }
 
   /* ---------- 屏：欢迎/选学生 ---------- */

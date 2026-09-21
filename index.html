@@ -213,7 +213,7 @@
       </div>
     </div>
 
-    <div id="ver-badge" style="position:fixed;right:8px;bottom:8px;font-size:11px;color:#b0a99f;z-index:50;pointer-events:none">v3.20</div>
+    <div id="ver-badge" style="position:fixed;right:8px;bottom:8px;font-size:11px;color:#b0a99f;z-index:50;pointer-events:none">v3.20.1</div>
   </div>
 <script src="js/storage.js"></script>
 <script src="js/tts.js"></script>
@@ -221,7 +221,8 @@
 <script src="js/app.js"></script>
 <script src="js/sw-register.js"></script>
 <script>
-// 防呆：8 秒后若 App 未渲染成功（JS 挂了/坏缓存），提示硬刷新
+// 防呆：8 秒后若 App 未渲染成功（JS 挂了/缓存半更新），提示重试。
+// 注意：绝不引导「清除网站数据」——那会连 localStorage 里的学习进度一起清掉！（v3.20.1 修复）
 setTimeout(function () {
   var hub = document.getElementById('screen-hub');
   var setup = document.getElementById('screen-setup');
@@ -229,9 +230,17 @@ setTimeout(function () {
   if (hub && setup) ok = !hub.classList.contains('hidden') || !setup.classList.contains('hidden');
   if (!ok) {
     var d = document.createElement('div');
+    d.id = 'boot-watch';
     d.style.cssText = 'position:fixed;left:0;right:0;top:40%;text-align:center;padding:16px;background:#fff3e0;color:#c62828;font-size:14px;z-index:9999';
-    d.innerHTML = '⚠️ 页面加载异常（可能是旧缓存）。<br>请到浏览器「设置→网站设置→清除该网站数据」后重新打开';
+    d.innerHTML = '页面还在加载或缓存更新中，点下面的按钮再试一次～' +
+      '<br><b style="color:#ef6c00">请勿清除网站数据（会丢失学习进度！）</b>';
+    var btn = document.createElement('button');
+    btn.textContent = '🔄 再试一次';
+    btn.style.cssText = 'display:block;margin:10px auto 0;padding:8px 24px;font-size:15px;border:none;border-radius:20px;background:#ef6c00;color:#fff';
+    btn.onclick = function () { location.reload(); };
+    d.appendChild(btn);
     document.body.appendChild(d);
+    window.__clearBootWatch = function () { d.remove(); };
   }
 }, 8000);
 </script>
