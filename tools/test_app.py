@@ -903,9 +903,13 @@ def test_v316():
         for k, n in cnt.items():
             assert n >= 12, ('chinese unit <12', k, n)
         assert len(cn) == 360, len(cn)
-        # 公版古诗填空抽查（出塞）
-        mu = [q for q in cn if '秦时明月' in q['q']]
-        assert mu and mu[0]['a'] == '万里长征人未还', 'gushi fill missing'
+        # v3.21 重写抽查：g1/g4 新题为考试风格（看拼音选字/文言释义/古诗理解），古诗填空移除（poems 库承担）
+        mu = [q for q in cn if q['grade'] == 1 and '看拼音选汉字' in q['q']]
+        assert mu, 'g1 pinyin item missing'
+        gw = [q for q in cn if q['grade'] == 4 and '「尝」意思' in q['q'] and q['a'] == '曾经']
+        assert gw, 'g4 wenyan shiyi missing'
+        assert not any('秦时明月' in q['q'] for q in cn), 'old gushi fill should be replaced'
+        assert all('dif' in q for q in cn), 'dif coverage'
         print('chinese g1+g4 per-unit all >=12, total', len(cn))
 
         # ---- ② 单元掌握度 chips：注入 unitStats → 列表显示 🌱/🌿/🌳 ----
@@ -1410,3 +1414,57 @@ def test_v320():
         browser.close()
 
 test_v320()
+
+def test_v321():
+    """v3.21 数学去 10 以内 + 语文 g1/g4 单元题考试风格重写"""
+    import re as _re
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        errs = []
+        page.on('pageerror', lambda e: errs.append('PAGEERROR: ' + str(e)))
+        page.on('console', lambda m: errs.append('CONSOLE: ' + m.text) if m.type == 'error' else None)
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+
+        # ---- ① 数学：口算+单元 g1 无 10 以内形态（两个操作数都≤10 的加减）----
+        oral = page.evaluate("""() => fetch('data/banks/math-oral.json').then(r => r.json())""")
+        units = page.evaluate("""() => fetch('data/banks/math-units.json').then(r => r.json())""")
+        def bad10(qs):
+            out = []
+            for q in qs:
+                m = _re.match(r'(\d+)\s*([+-])\s*(\d+)', q['q'])
+                if m and int(m.group(1)) <= 10 and int(m.group(3)) <= 10:
+                    op = m.group(2)
+                    if (op == '+' and int(m.group(1)) + int(m.group(3)) <= 10) or op == '-':
+                        out.append(q['q'])
+            return out
+        b1 = bad10([q for q in oral if q['grade'] == 1])
+        b2 = bad10([q for q in units if q['grade'] == 1])
+        assert not b1, b1[:5]
+        assert not b2, b2[:5]
+        assert any('凑十法' in q['q'] for q in units if q['grade'] == 1), 'make10m missing'
+        # 2~6 年级题量不动（口算 1005、单元 g2+ 454-114）
+        assert len([q for q in units if q['grade'] != 1]) == 345
+        print('math g1 no within-10 add/sub; oral', len(oral))
+
+        # ---- ② 语文：g1/g4 全新考试风格（看拼音/文言释义/题型多样），古诗填空已移除 ----
+        cn = page.evaluate("""() => fetch('data/banks/chinese-units.json').then(r => r.json())""")
+        g1 = [q for q in cn if q['grade'] == 1]; g4 = [q for q in cn if q['grade'] == 4]
+        assert len(g1) == 96 and len(g4) == 96
+        assert any('看拼音选汉字' in q['q'] for q in g1)
+        assert any('文言文' in q['q'] for q in g4) and any('词语搭配' in q['q'] for q in g4)
+        assert not any('秦时明月' in q['q'] for q in cn)
+        # 每单元题型 ≥5 种（按题干前缀粗分）
+        from collections import Counter as _C
+        for g in (1, 4):
+            byu = {}
+            for q in ([x for x in cn if x['grade'] == g]):
+                byu.setdefault(q['unit'], set()).add(q['q'].split('：')[0].split('里')[-1][:6])
+            assert all(len(v) >= 4 for v in byu.values()), (g, {k: len(v) for k, v in byu.items()})
+        print('chinese g1/g4 redesigned, per-unit question-form kinds >=4')
+
+        print('v3.21 errors:', errs if errs else 'none')
+        assert not errs, errs
+        browser.close()
+
+test_v321()

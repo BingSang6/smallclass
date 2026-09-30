@@ -147,6 +147,8 @@ def gen_cell(grade, level):
             tries += 1
             a = random.randint(rng[0], rng[1]); b = random.randint(rng[2], rng[3])
             if a <= b: continue
+            # v3.21：被减数必须 >10（10-7 属 10 以内形态，一年级最浅也是 20 以内退位）
+            if grade == 1 and a <= 10: continue
             if need and not borrow(a, b): continue
             add(f"{a} - {b}", a - b, "sub", "减法"); n += 1
 
