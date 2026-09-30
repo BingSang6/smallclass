@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <title>口算闯关 · 小课堂</title>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=3212">
 </head>
 <body>
   <div id="app">
@@ -213,36 +213,46 @@
       </div>
     </div>
 
-    <div id="ver-badge" style="position:fixed;right:8px;bottom:8px;font-size:11px;color:#b0a99f;z-index:50;pointer-events:none">v3.21.1</div>
+    <div id="ver-badge" style="position:fixed;right:8px;bottom:8px;font-size:11px;color:#b0a99f;z-index:50;pointer-events:none">v3.21.2</div>
   </div>
-<script src="js/storage.js"></script>
-<script src="js/tts.js"></script>
-<script src="js/quiz.js"></script>
-<script src="js/app.js"></script>
-<script src="js/sw-register.js"></script>
+<script src="js/storage.js?v=3212"></script>
+<script src="js/tts.js?v=3212"></script>
+<script src="js/quiz.js?v=3212"></script>
+<script src="js/app.js?v=3212"></script>
+<script src="js/sw-register.js?v=3212"></script>
 <script>
-// 防呆：8 秒后若 App 未渲染成功（JS 挂了/缓存半更新），提示重试。
-// 注意：绝不引导「清除网站数据」——那会连 localStorage 里的学习进度一起清掉！（v3.20.1 修复）
-setTimeout(function () {
-  var hub = document.getElementById('screen-hub');
-  var setup = document.getElementById('screen-setup');
-  var ok = false;
-  if (hub && setup) ok = !hub.classList.contains('hidden') || !setup.classList.contains('hidden');
-  if (!ok) {
+// 防呆（v3.21.2 强化）：版本错配（新 HTML+旧缓存 JS）自动换新重载一次；
+// 提示条只在 App 真没起来时出现，App 一渲染立即自动消失，不打扰使用。
+// 注意：绝不引导「清除网站数据」——那会连 localStorage 里的学习进度一起清掉！
+(function () {
+  function healed() {
+    var hub = document.getElementById('screen-hub');
+    var setup = document.getElementById('screen-setup');
+    return hub && setup && (!hub.classList.contains('hidden') || !setup.classList.contains('hidden'));
+  }
+  // ① 新 HTML 配到旧缓存 JS（APP_VERSION 对不上）→ 4s 后带 ?v= 强制绕过旧缓存重载一次
+  setTimeout(function () {
+    if (window.APP_VERSION && window.APP_VERSION !== 'v3.21.2' && !sessionStorage.getItem('sc_healed')) {
+      sessionStorage.setItem('sc_healed', '1');
+      location.replace(location.pathname + '?v=3.21.2');
+      return;
+    }
+  }, 4000);
+  // ② App 一直没起来才提示；期间每 2s 复查，一旦起来自动撤掉提示
+  setTimeout(function () {
+    if (healed()) return;
     var d = document.createElement('div');
     d.id = 'boot-watch';
     d.style.cssText = 'position:fixed;left:0;right:0;top:40%;text-align:center;padding:16px;background:#fff3e0;color:#c62828;font-size:14px;z-index:9999';
-    d.innerHTML = '页面还在加载或缓存更新中，点下面的按钮再试一次～' +
-      '<br><b style="color:#ef6c00">请勿清除网站数据（会丢失学习进度！）</b>';
-    var btn = document.createElement('button');
-    btn.textContent = '🔄 再试一次';
-    btn.style.cssText = 'display:block;margin:10px auto 0;padding:8px 24px;font-size:15px;border:none;border-radius:20px;background:#ef6c00;color:#fff';
-    btn.onclick = function () { location.reload(); };
-    d.appendChild(btn);
+    d.innerHTML = '页面还在加载或缓存更新中，马上就好～（正在自动更新，无需操作）';
     document.body.appendChild(d);
     window.__clearBootWatch = function () { d.remove(); };
-  }
-}, 8000);
+    var n = 0;
+    var t = setInterval(function () {
+      if (healed() || ++n > 30) { clearInterval(t); d.remove(); }
+    }, 2000);
+  }, 9000);
+})();
 </script>
 </body>
 </html>

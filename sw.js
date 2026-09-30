@@ -1,5 +1,5 @@
 /* sw.js — 离线缓存（cache-first，版本号升级时更新） */
-const CACHE = 'smallclass-v45';
+const CACHE = 'smallclass-v46';
 const ASSETS = [
   './', './index.html', './manifest.webmanifest',
   './css/style.css',
@@ -42,9 +42,10 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET') return;
   // cache-first，只查本版缓存（全局 caches.match 按创建时间搜，旧缓存会遮蔽新版资源！）
+  // ignoreSearch：index.html 的 js/css 带 ?v= 版本参数，匹配时忽略它（v3.21.2）
   // 本版 miss → 走网络；网络失败 → 兜底翻所有版本缓存副本，避免半更新/离线白屏
   e.respondWith(
-    caches.open(CACHE).then(c => c.match(e.request)).then(r =>
+    caches.open(CACHE).then(c => c.match(e.request, { ignoreSearch: true })).then(r =>
       r || fetch(e.request).catch(() =>
-        caches.match(e.request).then(m => m || Response.error()))));
+        caches.match(e.request, { ignoreSearch: true }).then(m => m || Response.error()))));
 });

@@ -5,9 +5,17 @@
 
 ## 当前状态
 
-**版本：v3.21.1（已上线）** —— SW 更新可靠性修复：install 由 addAll（一个文件失败整体失败）改为逐文件下载+每文件重试 3 次+绕过 HTTP 缓存（cache:'reload'）；sw-register 注册 updateViaCache:'none'+每小时主动查更新+controllerchange 自动刷新（用户零操作，版本更新自动生效）；SW v45。修复用户设备一直卡 v3.20、反复刷新无效的根因（github.io 网络不稳导致 SW 安装反复整体失败，新代码永远到不了设备）
+**版本：v3.21.2（已上线）** —— 过渡期「新 HTML+旧缓存 JS」错配修复：index.html 全部 js/css 加 ?v= 版本参数（旧 SW 缓存必然 miss→走网络拿新文件）；app.js 顶部声明 APP_VERSION，错配时 4s 后自动带 ?v= 重载一次自愈（sessionStorage 防循环）；防呆提示改为自动消散式（App 一渲染即撤、每 2s 复查、文案改为「正在自动更新无需操作」）；SW fetch 匹配 ignoreSearch；SW v46
 
 ## 版本历史
+
+### ✅ v3.21.2（已上线）过渡期新旧错配自愈
+背景：家长反馈「刷新后角标已是 v3.21.1，但还会弹缓存提示」。根因：新 HTML 已到设备，但旧 Service Worker 仍从旧缓存发旧 app.js——新旧混搭 JS 起不来，8s 防呆误报。用户设备处于 v3.20 SW → v3.21.x 的过渡窗口期。
+- **index.html**：6 个本地 js/css 引用全部加 `?v=3212`——新 HTML 引用带参 URL，旧 SW 缓存必然 miss → 走网络拿新文件，一步切断错配
+- **js/app.js**：首行 `window.APP_VERSION='v3.21.2'`；index 内建检测：APP_VERSION 与 HTML 版本不符（说明拿到旧 JS）→ 4s 后 `location.replace('?v=3.21.2')` 绕缓存重载一次（sessionStorage `sc_healed` 防循环）
+- **防呆提示重构**：App 渲染成功即自动撤掉；出现后每 2s 复查、恢复了自动消失；文案改为「正在自动更新，无需操作」去掉按钮
+- **sw.js（v46）**：fetch 匹配加 `ignoreSearch:true`（否则带 ?v= 的请求绕过缓存、离线失效）
+- 验证：干净安装+离线重载 OK；路由劫持注入旧 app.js → 错配检测触发自动重载（sc_healed=1）；全量回归通过
 
 ### ✅ v3.21.1（已上线）SW 更新可靠性 + 版本更新自动刷新
 背景：家长反馈「一直刷新右下角还是 v3.20；点单元测试还是弹缓存提示。能不能版本更新自动刷新，不用一直重复刷新」。
