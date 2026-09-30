@@ -1,4 +1,4 @@
-window.APP_VERSION = 'v3.21.2';
+window.APP_VERSION = 'v3.21.3';
 /* app.js — 界面路由与交互（学科大厅 → 学科主页 → 闯关） */
 (function () {
   'use strict';

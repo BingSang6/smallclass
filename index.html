@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <title>口算闯关 · 小课堂</title>
-<link rel="stylesheet" href="css/style.css?v=3212">
+<link rel="stylesheet" href="css/style.css?v=3213">
 </head>
 <body>
   <div id="app">
@@ -213,45 +213,46 @@
       </div>
     </div>
 
-    <div id="ver-badge" style="position:fixed;right:8px;bottom:8px;font-size:11px;color:#b0a99f;z-index:50;pointer-events:none">v3.21.2</div>
+    <div id="ver-badge" style="position:fixed;right:8px;bottom:8px;font-size:11px;color:#b0a99f;z-index:50;pointer-events:none">v3.21.3</div>
   </div>
-<script src="js/storage.js?v=3212"></script>
-<script src="js/tts.js?v=3212"></script>
-<script src="js/quiz.js?v=3212"></script>
-<script src="js/app.js?v=3212"></script>
-<script src="js/sw-register.js?v=3212"></script>
+<script src="js/storage.js?v=3213"></script>
+<script src="js/tts.js?v=3213"></script>
+<script src="js/quiz.js?v=3213"></script>
+<script src="js/app.js?v=3213"></script>
+<script src="js/sw-register.js?v=3213"></script>
 <script>
-// 防呆（v3.21.2 强化）：版本错配（新 HTML+旧缓存 JS）自动换新重载一次；
-// 提示条只在 App 真没起来时出现，App 一渲染立即自动消失，不打扰使用。
+// 防呆（v3.21.3：多轮自动重试）。版本错配（新 HTML+旧缓存 JS）或 JS 没加载成功时，
+// 自动带 ?v= 绕过旧缓存重试（5s/18s/40s…最多 10 轮），网络一通立即自动完成，全程无需人工操作。
 // 注意：绝不引导「清除网站数据」——那会连 localStorage 里的学习进度一起清掉！
 (function () {
+  var VER = 'v3.21.3';
+  var MAX = 10;
   function healed() {
     var hub = document.getElementById('screen-hub');
     var setup = document.getElementById('screen-setup');
     return hub && setup && (!hub.classList.contains('hidden') || !setup.classList.contains('hidden'));
   }
-  // ① 新 HTML 配到旧缓存 JS（APP_VERSION 对不上）→ 4s 后带 ?v= 强制绕过旧缓存重载一次
+  var tries = +(sessionStorage.getItem('sc_tries') || 0);
   setTimeout(function () {
-    if (window.APP_VERSION && window.APP_VERSION !== 'v3.21.2' && !sessionStorage.getItem('sc_healed')) {
-      sessionStorage.setItem('sc_healed', '1');
-      location.replace(location.pathname + '?v=3.21.2');
-      return;
-    }
-  }, 4000);
-  // ② App 一直没起来才提示；期间每 2s 复查，一旦起来自动撤掉提示
+    if (window.APP_VERSION === VER || tries >= MAX) return;
+    sessionStorage.setItem('sc_tries', tries + 1);
+    location.replace(location.pathname + '?r=' + (tries + 1));
+  }, 5000);
   setTimeout(function () {
     if (healed()) return;
     var d = document.createElement('div');
     d.id = 'boot-watch';
     d.style.cssText = 'position:fixed;left:0;right:0;top:40%;text-align:center;padding:16px;background:#fff3e0;color:#c62828;font-size:14px;z-index:9999';
-    d.innerHTML = '页面还在加载或缓存更新中，马上就好～（正在自动更新，无需操作）';
+    d.innerHTML = tries >= MAX
+      ? '当前网络不太通畅，等一会儿关掉再打开就能自动完成更新～<br><b style="color:#ef6c00">学习进度都在，请勿清除网站数据！</b>'
+      : '正在自动更新，网络通畅后马上就好（无需操作）';
     document.body.appendChild(d);
     window.__clearBootWatch = function () { d.remove(); };
     var n = 0;
     var t = setInterval(function () {
       if (healed() || ++n > 30) { clearInterval(t); d.remove(); }
     }, 2000);
-  }, 9000);
+  }, 12000);
 })();
 </script>
 </body>
