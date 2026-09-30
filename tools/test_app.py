@@ -1468,3 +1468,62 @@ def test_v321():
         browser.close()
 
 test_v321()
+
+def test_v322():
+    """v3.22 g1 题干低龄化（对标都都数学/洪恩识字：≤18字短句+emoji图形化+speak完整读题）
+    + boot-watch 提示条彻底删除（家长反馈提示比问题更烦人）"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        errs = []
+        page.on('pageerror', lambda e: errs.append('PAGEERROR: ' + str(e)))
+        page.on('console', lambda m: errs.append('CONSOLE: ' + m.text) if m.type == 'error' else None)
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+
+        # ---- ① g1 三科题干纪律：≤18 字、emoji 图形化、长题配完整 speak ----
+        emo = 0
+        for bank in ['math-units', 'chinese-units', 'english-units']:
+            qs = page.evaluate("u => fetch(u).then(r => r.json())", 'data/banks/%s.json' % bank)
+            for q in qs:
+                if q.get('grade') != 1: continue
+                assert len(q['q']) <= 18, (bank, q['id'], q['q'])
+                assert str(q['a']) not in [str(o) for o in q['options']], (bank, q['id'])
+                if any(c > '\U0001f300' for c in q['q']): emo += 1
+        assert emo >= 30, 'emoji 图形化题数量不足: %d' % emo
+        print('g1 stems all <=18 chars, emoji stems:', emo)
+
+        # ---- ② 改写抽查 ----
+        mu = page.evaluate("() => fetch('data/banks/math-units.json').then(r => r.json())")
+        assert any(q['id'] == 'ua1-77' and '🚌' in q['q'] and '现在车上有几人' in q['speak'] for q in mu)
+        cu = page.evaluate("() => fetch('data/banks/chinese-units.json').then(r => r.json())")
+        assert any(q['id'] == 'cu1-62' and q['q'] == '日＋月＝？' and '合起来' in q['speak'] for q in cu)
+        eu = page.evaluate("() => fetch('data/banks/english-units.json').then(r => r.json())")
+        assert any(q['id'] == 'eu1-03' and q['q'] == '👧 sister 是？' and q['a'] == '姐妹' for q in eu)
+        print('rewrite spot-checks ok (🚌/日＋月/sister)')
+
+        # ---- ③ boot-watch 提示条删除：页面源码无创建逻辑；静默自愈仍在 ----
+        src = page.evaluate("() => document.documentElement.innerHTML")
+        assert 'boot-watch' not in src and '请勿清除网站数据' not in src
+        html = page.evaluate("() => fetch('index.html').then(r => r.text())")
+        assert 'boot-watch' not in html and 'sc_tries' in html, '静默自愈重试必须保留'
+        print('no boot-watch overlay; silent auto-retry kept')
+
+        # ---- ④ g1 单元闯关实际出题走通（短题干渲染 + 无报错） ----
+        page.click('#btn-add-student')
+        page.fill('#inp-name', '一年娃')
+        page.click('.grade-btn[data-g="1"]')
+        page.click('#btn-create')
+        page.wait_for_timeout(500)
+        page.locator('.subject-card').nth(0).click(); page.wait_for_timeout(400)
+        page.click('#btn-units'); page.wait_for_timeout(300)
+        page.locator('#unit-list button').first.click()
+        page.wait_for_selector('#question-text', timeout=8000)
+        qtxt = page.eval_on_selector('#question-text', 'el => el.textContent')
+        print('g1 unit question:', qtxt[:30])
+        page.screenshot(path='shots/31-v322-g1-unit.png')
+
+        print('v3.22 errors:', errs if errs else 'none')
+        assert not errs, errs
+        browser.close()
+
+test_v322()
