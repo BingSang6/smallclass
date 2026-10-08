@@ -475,9 +475,9 @@ def test_v11():
         }""")
         page.goto(BASE); page.wait_for_load_state('networkidle')
         page.click('#btn-pet'); page.wait_for_timeout(300)
-        n_deco = page.locator('.deco-item').count()
-        print('deco items (expect 6):', n_deco)
-        assert n_deco == 9   # v3.16：6 常规 + 3 里程碑装扮
+        n_deco = page.locator('#deco-grid .deco-item').count()   # v3.23：15 装扮 + 5 背景（bg-grid）
+        print('deco items (expect 15):', n_deco)
+        assert n_deco == 15  # v3.23：10 常规 + 5 里程碑装扮
         page.screenshot(path='shots/26-deco-shop.png')
         # 买 20 币的礼帽
         page.locator('.deco-item', has_text='小礼帽').locator('button').click()
@@ -1527,3 +1527,90 @@ def test_v322():
         browser.close()
 
 test_v322()
+
+def test_v323():
+    """v3.23 金币消费体系（盲盒机50币/装扮扩容80-200档+1000·2000里程碑/小屋背景200-300币）
+    + 每日计算20题（段位内出题、连击天数、完成状态）"""
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        page = browser.new_page()
+        errs = []
+        page.on('pageerror', lambda e: errs.append('PAGEERROR: ' + str(e)))
+        page.on('console', lambda m: errs.append('CONSOLE: ' + m.text) if m.type == 'error' else None)
+        page.goto(BASE); page.wait_for_load_state('networkidle')
+        page.click('#btn-add-student')
+        page.fill('#inp-name', '金币娃')
+        page.click('.grade-btn[data-g="1"]')
+        page.click('#btn-create')
+        page.wait_for_timeout(500)
+        page.evaluate("() => { const d = JSON.parse(localStorage.getItem('smallclass.v1')); const s = d.students[d.current]; s.coins = 500; s.coinsEarned = 800; localStorage.setItem('smallclass.v1', JSON.stringify(d)); }")
+        page.goto(BASE); page.wait_for_load_state('networkidle'); page.wait_for_timeout(500)
+
+        # ---- ① 每日计算：20 题、段位内（一年级不会出 155-46）----
+        page.click('#btn-daily-calc')
+        page.wait_for_selector('.opt-btn', timeout=8000)
+        assert page.evaluate("() => Quiz.TOTAL") == 20
+        assert page.evaluate("() => Quiz.mode") == 'daily'
+        page.screenshot(path='shots/33-v323-daily.png')
+        answered = 0
+        idle = 0
+        for _ in range(60):
+            a = page.evaluate("() => Quiz.current && String(Quiz.current.a)")
+            if a in (None, 'null', 'undefined'):
+                # 题目切换瞬间 current 会短暂为 null——等待而不是退出
+                if page.eval_on_selector('#screen-result', 'el => !el.classList.contains("hidden")'): break
+                idle += 1
+                if idle > 20: break
+                page.wait_for_timeout(300); continue
+            idle = 0
+            texts = page.eval_on_selector_all('.opt-btn:enabled', 'els => els.map(b => b.textContent)')
+            if not texts:
+                if page.eval_on_selector('#screen-result', 'el => !el.classList.contains("hidden")'): break
+                page.wait_for_timeout(400); continue
+            if a not in texts: print('MISMATCH:', a, texts)
+            page.locator('.opt-btn:enabled').nth(texts.index(a) if a in texts else 0).click()
+            answered += 1
+            page.wait_for_timeout(350)
+            try: page.eval_on_selector('#btn-next:visible', 'el => el.click()')
+            except Exception: pass
+            page.wait_for_timeout(250)
+            if page.eval_on_selector('#screen-result', 'el => !el.classList.contains("hidden")'): break
+        title = page.eval_on_selector('#result-title', 'el => el.textContent')
+        print('daily mid errs:', errs[:6])
+        print('quiz state:', page.evaluate("() => ({m: Quiz.mode, T: Quiz.TOTAL, cur: Quiz.current && Quiz.current.q})"))
+        assert answered == 20 and '每日计算' in title, (answered, title)
+        st = page.evaluate("() => JSON.parse(localStorage.getItem('smallclass.v1')).students[JSON.parse(localStorage.getItem('smallclass.v1')).current].dailyCalc")
+        assert st['streak'] == 1
+        page.click('#btn-home'); page.wait_for_timeout(500)
+        assert '已完成' in page.eval_on_selector('#btn-daily-calc', 'el => el.textContent')
+        print('daily calc: 20/20 done, streak 1, hub state ok')
+
+        # ---- ② 盲盒机：50 币、开出未拥有装扮并自动戴上 ----
+        page.click('#btn-pet'); page.wait_for_timeout(400)
+        c0 = page.evaluate("() => JSON.parse(localStorage.getItem('smallclass.v1')).students[JSON.parse(localStorage.getItem('smallclass.v1')).current].coins")
+        page.click('#btn-gacha'); page.wait_for_timeout(400)
+        msg = page.eval_on_selector('#pet-msg', 'el => el.textContent')
+        c1 = page.evaluate("() => JSON.parse(localStorage.getItem('smallclass.v1')).students[JSON.parse(localStorage.getItem('smallclass.v1')).current].coins")
+        assert '盲盒' in msg or '集齐' in msg, msg
+        assert c1 == c0 - 50 or '集齐' in msg, (c0, c1)
+        print('gacha:', msg, '| coins', c0, '->', c1)
+
+        # ---- ③ 小屋背景：买星空 200 币、场景 emoji 渲染 ----
+        page.locator('#bg-grid .deco-item').nth(1).locator('button').click()
+        page.wait_for_timeout(400)
+        assert page.eval_on_selector('.pet-scene', 'el => el.textContent') == '🌌'
+        c2 = page.evaluate("() => JSON.parse(localStorage.getItem('smallclass.v1')).students[JSON.parse(localStorage.getItem('smallclass.v1')).current].coins")
+        assert c2 == c1 - 200, (c1, c2)
+        print('bg space bought, scene 🌌, coins', c1, '->', c2)
+
+        # ---- ④ 装扮货架扩容 + 里程碑档位 ----
+        decos = page.evaluate("() => Store.DECOS")
+        assert len([d for d in decos if not d.get('mile')]) == 10   # 付费 6+4
+        assert [d['mile'] for d in decos if d.get('mile')] == [100, 300, 600, 1000, 2000]
+        print('DECOS:', len(decos), '(10 paid + 5 milestone)')
+
+        print('v3.23 errors:', errs if errs else 'none')
+        assert not errs, errs
+        browser.close()
+
+test_v323()

@@ -6,7 +6,7 @@
   const REVIEW_MAX = 8;  // 今日复习每次最多 8 题
   const banks = {};      // 各学科题库缓存 {subject: [...]}
   let subject = 'math';  // 当前学科
-  let mode = 'round';    // round=闯关 / review=今日复习 / mixed=混合挑战
+  let mode = 'round';    // round=闯关 / review=今日复习 / mixed=混合挑战 / daily=每日计算
   let unitName = null;   // 单元巩固模式：当前单元名（null=段位闯关）
   let pkFlag = false;    // 人机 PK 模式：10 题竞速
   let queue = [];        // 本关题目队列（错题会追加）
@@ -242,7 +242,7 @@
     const tag = cur.tag;
     const subjKey = mode === 'review' ? cur.subject : subject;
     const p = Store.subj(stu, subjKey);
-    if (mode === 'review' || mode === 'mixed') {
+    if (mode === 'review' || mode === 'mixed' || mode === 'daily') {
       if (ok) {
         correct++; streak++;
         TTS.praise();
@@ -407,6 +407,28 @@
         showQuestion(stu);
       });
     },
+    /** 每日计算 20 题（v3.23 对标「计算小超市」）：本年级口算随机 20 题，不分段位 */
+    startDaily(stu, ui, end) {
+      mode = 'daily';
+      unitName = null; pkFlag = false;
+      subject = 'math';
+      loadBankOf('math', () => {
+        reset();
+        onUI = ui; onEnd = end;
+        // 口算主库：本年级、已解锁段位±1 内乱序抽 20（不越段位，一年级不会出到 155-46）
+        const lv = Store.subj(stu, 'math').level || 1;
+        const pool = (banks['math'] || []).filter(q => !q.unit && q.grade === stu.grade && q.level <= lv + 1);
+        const qs = pool.slice();
+        for (let i = qs.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [qs[i], qs[j]] = [qs[j], qs[i]];
+        }
+        queue = qs.slice(0, 20);
+        queueTotal = queue.length;
+        if (!queueTotal) { if (onEnd) onEnd({ correct: 0, total: 0, passed: true, daily: true }); reset(); return; }
+        showQuestion(stu);
+      });
+    },
     /** 混合挑战（v2.7）：四科混出 10 题，交错练习 */
     startMixed(stu, ui, end) {
       mode = 'mixed';
@@ -429,7 +451,7 @@
     get current() { return cur; },
     get streak() { return streak; },
     get PER_ROUND() { return PER_ROUND; },
-    get TOTAL() { return (mode === 'review' || mode === 'mixed') ? queueTotal : PER_ROUND; },
+    get TOTAL() { return (mode === 'review' || mode === 'mixed' || mode === 'daily') ? queueTotal : PER_ROUND; },
     get mode() { return mode; },
     get difLevel() { return curDif; },   // v3.15 微自适应当前难度层（测试/调试用）
     reset() { reset(); }

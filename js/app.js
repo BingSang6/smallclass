@@ -1,4 +1,4 @@
-window.APP_VERSION = 'v3.22';
+window.APP_VERSION = 'v3.23';
 /* app.js — 界面路由与交互（学科大厅 → 学科主页 → 闯关） */
 (function () {
   'use strict';
@@ -106,6 +106,12 @@ window.APP_VERSION = 'v3.22';
     $('hub-sub').textContent = '⭐ ' + (stu.stars || 0) + ' · 🪙 ' + (stu.coins || 0);
     $('hub-streak').textContent = '🔥 ' + (stu.streak || 0) + ' 天';
     renderTasks(stu);
+    // v3.23 每日计算卡片：今日完成状态 + 连击天数
+    const dc = Store.dailyState(stu);
+    const dcb = $('btn-daily-calc');
+    dcb.classList.toggle('done', dc.done);
+    $('daily-calc-sub').textContent = dc.done ? '✅ 今日已完成 · 🔥 ' + dc.streak + ' 天'
+                                             : (dc.streak ? '🔥 连击 ' + dc.streak + ' 天' : '今日还没练哦');
     // 🌅 今日复习卡片（到期错题 > 0 才显示）
     const rb = $('btn-review');
     Quiz.dueCount(stu, n => {
@@ -218,6 +224,34 @@ window.APP_VERSION = 'v3.22';
       item.appendChild(b);
       grid.appendChild(item);
     });
+    // v3.23 小屋背景：宠物身后淡显场景 emoji
+    const bg = Store.BGS.find(x => x.id === (stu.pet.bg || 'home')) || Store.BGS[0];
+    $('pet-big').innerHTML = '<span class="pet-scene">' + bg.icon + '</span>' + Store.petEmoji(stu);
+    // v3.23 小屋背景商店
+    const bgrid = $('bg-grid');
+    bgrid.innerHTML = '';
+    Store.BGS.forEach(b => {
+      const owned = (stu.pet.bgs || []).indexOf(b.id) >= 0 || !b.price;
+      const using = (stu.pet.bg || 'home') === b.id;
+      const item = document.createElement('div');
+      item.className = 'deco-item' + (owned ? ' owned' : '') + (using ? ' wearing' : '');
+      item.innerHTML = '<div class="deco-icon">' + b.icon + '</div><div class="deco-name">' + b.name + '</div>';
+      const btn = document.createElement('button');
+      btn.className = 'btn tiny';
+      btn.textContent = owned ? (using ? '搬走' : '住进') : (b.price + ' 🪙');
+      btn.onclick = () => {
+        let msg = '';
+        Store.updateCurrent(x => {
+          if (owned) { Store.equipBg(x, b.id); msg = using ? '搬回了温馨小窝 🏠' : '住进了【' + b.name + '】' + b.icon; }
+          else msg = Store.buyBg(x, b.id).msg;
+        });
+        openPet();
+        renderHub(Store.current());
+        $('pet-msg').textContent = msg;
+      };
+      item.appendChild(btn);
+      bgrid.appendChild(item);
+    });
     $('pet-msg').textContent = '';
     go('pet');
   }
@@ -230,6 +264,14 @@ window.APP_VERSION = 'v3.22';
     renderHub(Store.current());
     $('pet-msg').textContent = msg;
     inp.value = '';
+  };
+  // v3.23 盲盒机
+  $('btn-gacha').onclick = () => {
+    let msg = '';
+    Store.updateCurrent(x => { msg = Store.gacha(x).msg; });
+    openPet();
+    renderHub(Store.current());
+    $('pet-msg').textContent = msg;
   };
   $('btn-pet-back').onclick = () => init();
   $('btn-feed').onclick = () => {
@@ -595,6 +637,41 @@ window.APP_VERSION = 'v3.22';
     );
   }
   $('btn-mixed').onclick = startMixed;
+
+  /* ---------- 每日计算 20 题（v3.23 对标计算小超市） ---------- */
+  function startDailyCalc() {
+    lastWasReview = true; lastWasUnit = false; lastWasPK = false;   // 结束回大厅
+    challenge = false;
+    const stu = Store.current();
+    go('quiz');
+    $('quiz-level').textContent = '🧮 每日计算';
+    $('wrong-overlay').classList.add('hidden');
+    startRestTimer();
+    let idx = 0;
+    Quiz.startDaily(stu,
+      (q, opts, result) => { if (opts) idx++; roundUI(idx, q, opts, result); },
+      r => {
+        clearInterval(restTimer);
+        stopQTimer();
+        if (r.total === 0) { init(); return; }
+        let gotD = 0, streak = 0;
+        Store.updateCurrent(s => {
+          s.stars = (s.stars || 0) + r.correct;
+          gotD = 3 + Store.taskDone(s, 'round');
+          Store.earn(s, gotD);
+          streak = Store.markDaily(s);   // 每日计算连击
+        });
+        coinFlash(gotD);
+        const good = r.correct >= r.total - 1;
+        $('result-title').textContent = good ? '🎉 每日计算全对！' : '🧮 每日计算完成！';
+        $('result-detail').textContent = '答对 ' + r.correct + ' / ' + r.total + ' 题，金币 +' + gotD +
+          (streak >= 2 ? '，已连击 ' + streak + ' 天 🔥' : '，明天继续练，连击有火苗哦 🔥');
+        $('result-sticker').textContent = good ? '🏆' : '🧮';
+        go('result');
+      }
+    );
+  }
+  $('btn-daily-calc').onclick = startDailyCalc;
 
   /* ---------- 人机 PK（v2.9：单机竞速） ---------- */
   const PK_ROBOTS = [

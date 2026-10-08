@@ -209,7 +209,7 @@
       if (!s.daily) s.daily = { day: '', review: false, round: false, correct10: false, correctToday: 0, bonus: false };
       if (s.streak === undefined) { s.streak = 0; s.streakDay = ''; }
       if (!s.pet) s.pet = { growth: 0, fedToday: 0, lastFeed: '' };
-      if (!s.pet.decos) s.pet.decos = []; if (s.pet.wearing === undefined) s.pet.wearing = null;
+      if (!s.pet.decos) s.pet.decos = []; if (s.pet.wearing === undefined) s.pet.wearing = null; if (!s.pet.bgs) s.pet.bgs = []; if (!s.pet.bg) s.pet.bg = 'home';
       if (s.pkLevel === undefined) { s.pkLevel = 0; s.pkWins = 0; }
     });
     return d;
@@ -350,9 +350,24 @@
       { id: 'glasses', name: '墨镜', icon: '🕶️', price: 30 },
       { id: 'bow', name: '蝴蝶结', icon: '🎀', price: 15 },
       { id: 'flower', name: '小花', icon: '🌸', price: 15 },
+      // v3.23 装扮扩容：金币多了要有地方花（80~200 档 + 1000/2000 里程碑）
+      { id: 'wings', name: '天使翅膀', icon: '🧚', price: 80 },
+      { id: 'cape', name: '超人披风', icon: '🦸', price: 120 },
+      { id: 'guitar', name: '小吉他', icon: '🎸', price: 150 },
+      { id: 'medal', name: '金牌', icon: '🏅', price: 200 },
       { id: 'halo', name: '天使光环', icon: '😇', price: 0, mile: 100 },
       { id: 'rocket', name: '小火箭', icon: '🚀', price: 0, mile: 300 },
-      { id: 'rainbow', name: '彩虹', icon: '🌈', price: 0, mile: 600 }
+      { id: 'rainbow', name: '彩虹', icon: '🌈', price: 0, mile: 600 },
+      { id: 'unicorn', name: '独角兽', icon: '🦄', price: 0, mile: 1000 },
+      { id: 'dragon', name: '小神龙', icon: '🐲', price: 0, mile: 2000 }
+    ],
+    // v3.23 小屋背景（200 金币一档，宠物页可视化装饰）
+    BGS: [
+      { id: 'home', name: '温馨小窝', icon: '🏠', price: 0 },
+      { id: 'space', name: '星空', icon: '🌌', price: 200 },
+      { id: 'forest', name: '森林', icon: '🌲', price: 200 },
+      { id: 'sea', name: '海底', icon: '🐠', price: 200 },
+      { id: 'candy', name: '糖果城', icon: '🍭', price: 300 }
     ],
     buyDeco(stu, id) {
       const d = this.DECOS.find(x => x.id === id);
@@ -368,6 +383,46 @@
       return { ok: true, msg: '🛍 买到了【' + d.name + '】' + d.icon + '，已经戴上啦！' };
     },
     equipDeco(stu, id) { stu.pet.wearing = (stu.pet.wearing === id) ? null : id; },
+    /* v3.23 小屋背景：购买/穿戴 */
+    buyBg(stu, id) {
+      const b = this.BGS.find(x => x.id === id);
+      if (!b) return { ok: false, msg: '没有这个背景' };
+      if (stu.pet.bgs.indexOf(id) >= 0) return { ok: false, msg: '已经有这个背景啦' };
+      if (!b.price) { stu.pet.bgs.push(id); stu.pet.bg = id; return { ok: true, msg: '搬进了【' + b.name + '】' + b.icon + '！' }; }
+      if ((stu.coins || 0) < b.price) return { ok: false, msg: '金币不够（还差 ' + (b.price - stu.coins) + ' 🪙），去答题赚吧！' };
+      stu.coins -= b.price; stu.pet.bgs.push(id); stu.pet.bg = id;
+      return { ok: true, msg: '🏠 搬进了【' + b.name + '】' + b.icon + '！' };
+    },
+    equipBg(stu, id) { stu.pet.bg = (stu.pet.bg === id) ? 'home' : id; },
+    /* v3.23 盲盒机：50 金币随机开一件未拥有的付费装扮；全拥有则退 10 金币 */
+    gacha(stu) {
+      const cost = 50;
+      if ((stu.coins || 0) < cost) return { ok: false, msg: '金币不够（还差 ' + (cost - stu.coins) + ' 🪙）' };
+      const pool = this.DECOS.filter(d => !d.mile && stu.pet.decos.indexOf(d.id) < 0);
+      stu.coins -= cost;
+      if (!pool.length) {
+        stu.coins += 10;
+        return { ok: true, msg: '装扮全都集齐啦！退回 10 🪙，去换个背景吧～', refund: true };
+      }
+      const d = pool[Math.floor(Math.random() * pool.length)];
+      stu.pet.decos.push(d.id); stu.pet.wearing = d.id;
+      return { ok: true, msg: '🥚 盲盒开出了【' + d.name + '】' + d.icon + '，已经戴上啦！', got: d };
+    },
+    /* v3.23 每日计算：当日完成状态 + 连击天数（跨天断签清零）。
+       注意存独立字段 dailyCalc——stu.daily 是每日任务状态，别撞名（踩过坑） */
+    dailyState(stu) {
+      const today = new Date().toISOString().slice(0, 10);
+      const d = stu.dailyCalc || {};
+      return { today, done: d.date === today, streak: (d.date === today ? d.streak : 0) };
+    },
+    markDaily(stu) {
+      const today = new Date().toISOString().slice(0, 10);
+      const yest = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+      const d = stu.dailyCalc || {};
+      if (d.date === today) return d.streak;   // 今天已完成，幂等
+      stu.dailyCalc = { date: today, streak: (d.date === yest) ? d.streak + 1 : 1 };
+      return stu.dailyCalc.streak;
+    },
     namePet(stu, name) {
       name = (name || '').trim().slice(0, 6);
       if (!name) return { ok: false, msg: '名字不能为空' };

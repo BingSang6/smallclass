@@ -249,3 +249,11 @@ body {
 .deco-name { font-size:12px; margin:2px 0 6px; color:#555; }
 .pet-name-row { display:flex; gap:8px; margin-top:10px; }
 .pet-name-row input { flex:1; padding:8px 10px; border-radius:10px; border:1px solid #d8cfc0; font-size:15px; }
+
+/* v3.23 小屋背景场景（宠物身后大 emoji 淡显） */
+.pet-big { position: relative; }
+.pet-scene { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 110px; opacity: .28; pointer-events: none; }
+/* v3.23 每日计算卡片 */
+.daily-calc-card { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); border: 3px solid #a5d6a7; }
+.daily-calc-card.done { opacity: .65; }

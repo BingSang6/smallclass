@@ -9,7 +9,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/icon-180.png">
 <title>口算闯关 · 小课堂</title>
-<link rel="stylesheet" href="css/style.css?v=3220">
+<link rel="stylesheet" href="css/style.css?v=3230">
 </head>
 <body>
   <div id="app">
@@ -45,6 +45,7 @@
         <div class="task-row" id="task-row"></div>
       </div>
       <button class="btn review-card hidden" id="btn-review">🌅 今日复习</button>
+      <button class="btn daily-calc-card" id="btn-daily-calc">🧮 每日计算 20 题 <span class="sub" id="daily-calc-sub"></span></button>
       <button class="btn mixed-card" id="btn-mixed">🔀 混合挑战 · 四科 10 题</button>
       <button class="btn pet-card" id="btn-pet">
         <span class="pet-emoji" id="pet-emoji">🥚</span>
@@ -69,6 +70,11 @@
       <p class="sub" id="pet-msg"></p>
       <h3 style="margin-top:16px">🎨 装扮商店</h3>
       <div class="deco-grid" id="deco-grid"></div>
+      <h3 style="margin-top:16px">🥚 盲盒机</h3>
+      <p class="sub">50 🪙 随机开一件没买过的装扮！</p>
+      <button class="btn primary" id="btn-gacha">🥚 开盲盒（50 🪙）</button>
+      <h3 style="margin-top:16px">🏠 小屋背景</h3>
+      <div class="deco-grid" id="bg-grid"></div>
       <div class="pet-name-row">
         <input id="inp-pet-name" maxlength="6" placeholder="给宠物起个名字">
         <button class="btn small" id="btn-pet-name">起名 ✏️</button>
@@ -213,20 +219,20 @@
       </div>
     </div>
 
-    <div id="ver-badge" style="position:fixed;right:8px;bottom:8px;font-size:11px;color:#b0a99f;z-index:50;pointer-events:none">v3.22</div>
+    <div id="ver-badge" style="position:fixed;right:8px;bottom:8px;font-size:11px;color:#b0a99f;z-index:50;pointer-events:none">v3.23</div>
   </div>
-<script src="js/storage.js?v=3220"></script>
-<script src="js/tts.js?v=3220"></script>
-<script src="js/quiz.js?v=3220"></script>
-<script src="js/app.js?v=3220"></script>
-<script src="js/sw-register.js?v=3220"></script>
+<script src="js/storage.js?v=3230"></script>
+<script src="js/tts.js?v=3230"></script>
+<script src="js/quiz.js?v=3230"></script>
+<script src="js/app.js?v=3230"></script>
+<script src="js/sw-register.js?v=3230"></script>
 <script>
 // 静默自愈（v3.22）：版本错配（新 HTML+旧缓存 JS）或 JS 没加载成功时，
 // 自动带 ?r= 绕过旧缓存重试（每 5s 一轮、最多 10 轮），网络一通立即自动完成。
 // 不再弹任何提示条——家长反馈提示本身比问题更烦人。
 // 注意：绝不引导「清除网站数据」——那会连 localStorage 里的学习进度一起清掉！
 (function () {
-  var VER = 'v3.22';
+  var VER = 'v3.23';
   var MAX = 10;
   function healed() {
     var hub = document.getElementById('screen-hub');
